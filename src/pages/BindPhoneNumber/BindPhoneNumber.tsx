@@ -17,13 +17,12 @@ const phonePattern = /^1[3456789]\d{9}$/
 
 let timer: any
 
-function Logion(props: any) {
-  const navigation: any = useNavigation()
+function BindPhoneNumber(props: any) {
+  const navigation = useNavigation()
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')
   const [disabled, setDisabled] = useState(false)
-  const [hasRegister, setHasRegister] = useState(true)
   let [countDown, setCountDown] = useState(60)
 
   navigation.setOptions({
@@ -74,8 +73,6 @@ function Logion(props: any) {
     apiSendVerCode({ userTel: telNum }).then((res: any) => {
       console.log('发送验证码', res)
 
-      setHasRegister(res)
-
       Portal.remove(loading)
 
       Toast.success('验证码已发送')
@@ -91,7 +88,6 @@ function Logion(props: any) {
         }
       }, 1000)
     }).catch((err: any) => {
-      // Toast.fail('发送失败，请稍后再试')
       console.log('发送验证码', err)
     })
   }
@@ -114,7 +110,7 @@ function Logion(props: any) {
       return
     }
 
-    if (!hasRegister && !invCode) {
+    if (!invCode) {
       Toast.fail('请输入邀请码')
       return
     }
@@ -132,7 +128,7 @@ function Logion(props: any) {
         props.dispatch(toggleLoginState(true))
         props.dispatch(setToke(res))
 
-        Toast.success('登录成功')
+        Toast.success('已绑定账号')
 
         apiGetUserData().then((res: any) => {
           props.dispatch(setUserInfo(res))
@@ -149,43 +145,6 @@ function Logion(props: any) {
     })
   }
 
-  /**
-   * 微信登录
-   */
-  const loginWithWeChat = () => {
-    navigation.push('BindPhoneNumber')
-    // WeChat.isWXAppInstalled().then(res => {
-    //   if (res) {
-    //     WeChat.sendAuthRequest(
-    //       'snsapi_userinfo',
-    //       '云闪播微信登录'
-    //     ).then((res: any) => {
-    //       console.log(res)
-    //       if (res.errCode === 0) {
-    //         weChatLogin(res.code)
-    //       } else {
-    //         Toast.fail('未获得微信授权')
-    //       }
-    //     }).catch((err: any) => {
-    //       console.log(err)
-    //     })
-    //   } else {
-    //     Toast.fail('请先到应用商店下载安装微信')
-    //   }
-    // })
-  }
-
-  /**
-   * 处理微信登录逻辑
-   */
-  const weChatLogin = (code: string) => {
-    apiGetToken({ code }).then((res: any) => {
-      console.log(res, '======')
-    }).catch((err: any) => {
-      console.log(err)
-    })
-  }
-
   return (
     <ImageBackground
       style={styles.container}
@@ -198,7 +157,6 @@ function Logion(props: any) {
 
       <Form
         countDown={countDown}
-        hasRegister={hasRegister}
         disabledSendBtn={disabled}
         sendMsg={sendMsg}
         changeTelNum={(value: string) => changeTelNum(value)}
@@ -207,19 +165,14 @@ function Logion(props: any) {
       />
 
       <TouchableOpacity style={styles.loginBtnContainer} onPress={toLogin}>
-        <Text style={styles.btnText}>登录/注册</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.weChatContent} onPress={loginWithWeChat}>
-        <Image source={require('../../assets/login-image/wechat.png')} style={styles.wechatIcon} />
-        <Text style={styles.text}>微信登录</Text>
+        <Text style={styles.btnText}>绑定账号</Text>
       </TouchableOpacity>
 
     </ImageBackground>
   )
 }
 
-export default connect()(Logion)
+export default connect()(BindPhoneNumber)
 
 const styles = StyleSheet.create({
   container: {

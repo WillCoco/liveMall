@@ -91,6 +91,7 @@ import MaskProvider from './src/components/Mask/Provider';
 import RealName from './src/pages/RealName/RealName'
 import PayWebView from './src/pages/PayWebView/PayWebView'
 import AudienceEndScreen from './src/pages/Live/AudienceEndScreen'
+import BindPhoneNumber from './src/pages/BindPhoneNumber/BindPhoneNumber'
 
 // 所有协议
 import AnchorEntryAgreement from './src/pages/Agreements/AnchorEntryAgreement'
@@ -252,6 +253,7 @@ export default function App(props: { skipLoadingScreen: any; }) {
                     <Stack.Screen name='UserAgreement' component={UserAgreement} />
                     <Stack.Screen name='LivePlatformStandard' component={LivePlatformStandard} />
                     <Stack.Screen name='AnchorEntryAgreement' component={AnchorEntryAgreement} />
+                    <Stack.Screen name='BindPhoneNumber' component={BindPhoneNumber} />
                   </Stack.Navigator>
                 </NavigationContainer>
               </View>

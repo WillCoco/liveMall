@@ -47,6 +47,12 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>NSMicrophoneUsageDescription</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>weixinULAPI</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -77,7 +83,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow championApp to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow championApp to access your device&apos;s accelerometer</string>
+	<string>Allow championApp to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give championApp periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -101,13 +107,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>weixin</string>
-		<string>wechat</string>
-		<string>weixinULAPI</string>
-	</array>
 </dict>
 </plist>

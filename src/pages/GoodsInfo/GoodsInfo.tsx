@@ -121,7 +121,10 @@ function GoodsInfo(props: Props) {
     }).catch((err: any) => {
       console.log('商品详情', err)
       Portal.remove(loading)
-      setNetWorkErr(true)
+      setTimeout(() => {
+        navigation.goBack()
+      }, 1000);
+      // setNetWorkErr(true)
     })
   }
 
@@ -138,7 +141,7 @@ function GoodsInfo(props: Props) {
         navigation.push('Login')
         return
       }
-      setNetWorkErr(true)
+      // setNetWorkErr(true)
     })
   }
 
@@ -353,7 +356,7 @@ function GoodsInfo(props: Props) {
     setShowPosterCard(true)
   }
 
-  if (netWorkErr) return <NetWorkErr reload={getGoodsInfo} />
+  // if (netWorkErr) return <NetWorkErr reload={getGoodsInfo} />
 
   if (soldOut) {
     return (

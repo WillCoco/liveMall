@@ -109,7 +109,7 @@ function Header(props: Props) {
                     return (
                       <Text
                         key={`user-${index}`}
-                        style={[styles.userLevel, item === '1' && styles.userLevelBgc]}
+                        style={[styles.userLevel, +item >= 1 && styles.userLevelBgc]}
                       >{
                           item === '1'
                             ? '云闪播会员'

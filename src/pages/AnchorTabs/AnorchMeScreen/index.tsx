@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {T4, SmallText, PrimaryText} from 'react-native-normalization-text';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import withPage from '../../../components/HOCs/withPage';
 import NavBar from '../../../components/NavBar';
 import images from '../../../assets/images';
@@ -37,8 +37,9 @@ const ToolCell = (props: {
 
 const AnorchMeScreen = () =>  {
   const {navigate, reset} = useNavigation();
-  const userId = useSelector(state => state?.userData?.userInfo?.userId)
-  const anchorInfo = useSelector(state => state?.anchorData?.anchorInfo) || {};
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId) || '';
+  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {};
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
   const dataList = [
@@ -59,12 +60,14 @@ const AnorchMeScreen = () =>  {
    * 获取主播详情
    */
   React.useEffect(() => {
-    apiAnchorHomePage({userId})
+    if (isFocused) {
+      apiAnchorHomePage({userId})
       .then((res: any) => {
         dispatch(setAnchorInfo(res))
       })
       .catch(console.warn)
-  }, []);
+    }
+  }, [isFocused]);
 
   /**
    * tab的返回到 我的 

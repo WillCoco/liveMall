@@ -168,7 +168,15 @@ export const apiWorkUpload = (data: any) => uploadWorkMedia(`${HOST_JAVA}/find/u
 export const apiQueryOrderPayStatus = (data: any) => get1(`${HOST_JAVA}/order/queryOrderPayStatus`, data)
 // 检查更新
 export const apiCheckUpdate = (data: { ver: string, appType: number }) => get1(`${HOST_JAVA}/suppliers/versionCheck`, data)
-
+// 微信登录
+export const apiWeChatLogin = (data: { code: string }) => post1(`${HOST_JAVA}/user/appWecharLogin`, data)
+// 微信注册
+export const apiWeChatRegister = (data: {
+  userTel: string,
+  openId: string,
+  inviteCode: string,
+  code: string
+}) => post1(`${HOST_JAVA}/user/appWecharRegister`, data)
 
 /*
  * 主播相关接口 ==========================================================================================

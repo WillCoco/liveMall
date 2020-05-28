@@ -30,17 +30,6 @@ const PublishScreen = (props: any) =>  {
   const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {}
   const userId = useSelector((state: any) => state?.userData?.userInfo?.userId)
 
-/**
- * 获取主播详情
- */
-  React.useEffect(() => {
-    apiAnchorHomePage({userId})
-      .then((res: any) => {
-        dispatch(setAnchorInfo(res))
-      })
-      .catch(console.warn)
-  }, []);
-
   /**
    * tab的返回到 我的
    */
@@ -99,6 +88,11 @@ const PublishScreen = (props: any) =>  {
   useFocusEffect(
     React.useCallback(() => {
       checkIsLiveNow();
+      apiAnchorHomePage({userId})
+      .then((res: any) => {
+        dispatch(setAnchorInfo(res))
+      })
+      .catch(console.warn)
     }, [])
   );
 

@@ -32,6 +32,16 @@
 				<string>championLive</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>weixin</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx2044e26389662025</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
@@ -67,7 +77,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Allow championApp to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow championApp to access your device's accelerometer</string>
+	<string>Allow championApp to access your device&apos;s accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Give championApp periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -93,5 +103,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>weixinULAPI</string>
+	</array>
 </dict>
 </plist>

@@ -153,13 +153,22 @@ function Logion(props: any) {
    * 微信登录
    */
   const loginWithWeChat = () => {
-    // WeChat.sendAuthRequest({
-    //   scope: 'snsapi_userinfo'
-    // }).then((res: any) => {
-    //   console.log(res)
-    // }).catch((err: any) => {
-    //   console.log(err)
-    // })
+    WeChat.isWXAppInstalled().then(res => {
+      if (res) {
+        WeChat.sendAuthRequest(
+          'snsapi_userinfo',
+          'wechat_sdk_demo_test'
+        ).then((res: any) => {
+          console.log(res)
+        }).catch((err: any) => {
+          console.log(err)
+        })
+      } else {
+        Toast.fail('请先到应用商店下载安装微信')
+      }
+    })
+
+
   }
 
   return (

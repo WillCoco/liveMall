@@ -8,8 +8,9 @@
 #import <React/RCTBridgeDelegate.h>
 #import <UMReactNativeAdapter/UMModuleRegistryAdapter.h>
 #import <UIKit/UIKit.h>
+#import "WXApi.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, WXApiDelegate>
 
 @property (nonatomic, strong) UMModuleRegistryAdapter *moduleRegistryAdapter;
 @property (nonatomic, strong) UIWindow *window;

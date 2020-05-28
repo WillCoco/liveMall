@@ -1,6 +1,7 @@
 package com.championapp;
 
 import com.championapp.generated.BasePackageList;
+import com.theweflex.react.WeChatPackage;
 
 import android.app.Application;
 
@@ -35,7 +36,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       List<ReactPackage> packages = new PackageList(this).getPackages();
 //      packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
-//      packages.add(new WeChatPackage());
+      packages.add(new WeChatPackage());
 //      packages.add(new PiliPackage());
 //      return packages;
 //    }

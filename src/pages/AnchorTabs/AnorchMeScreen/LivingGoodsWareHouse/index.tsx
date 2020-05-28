@@ -13,7 +13,7 @@ import { Toast, portal } from '@ant-design/react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
 // import Toast from 'react-native-tiny-toast';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import withPage from '../../../../components/HOCs/withPage';
 import PagingList from '../../../../components/PagingList';
 import {vw} from '../../../../utils/metric';
@@ -97,14 +97,17 @@ const LivingGoodsWareHouse = (props: any) =>  {
    */
   const canRemove = checkedList && checkedList.length > 0;
 
-  React.useEffect(() => {
-
-  }, [])
+  /**
+   * 添加商品返回后刷新
+   */
+  useFocusEffect(React.useCallback(() => {
+    onRefresh(true)
+  }, []))
 
   /**
    * 刷新
    */
-  const onRefresh = async () => {
+  const onRefresh = async (backFresh: boolean = false) => {
     const warehouseGoods: any = await dispatch(getWareHouseGoods({
       pageNo: INIT_PAGE_NO,
       pageSize: PAGE_SIZE,
@@ -112,7 +115,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
     })) || emptyList;
 
     console.log(warehouseGoods, 'warehouseGoods')
-
+    backFresh && setDataList(dataFormat(warehouseGoods, dataList))
     return Promise.resolve({result: dataFormat(warehouseGoods, dataList)});
   }
 
@@ -202,7 +205,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       }));
       portal.remove(t);
       if(Bool) {
-          Toast.success('删除成功');
+          Toast.success('删除成功', 1, undefined, false);
           // 过滤除删除的组货
           const newDataList = dataList.filter(o => o.goodsId !== goodsId);
           setDataList(newDataList)
@@ -223,7 +226,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       }));
       portal.remove(t);
       if(Bool) {
-          Toast.success('删除成功');
+          Toast.success('删除成功', 1, undefined, false);
 
           // 过滤除删除的组货数组
           const diffDataList = dataList.filter( o => !goodsIdArr.find(i => i === o.goodsId));
@@ -279,7 +282,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       }));
       portal.remove(t);
       if(Bool) {
-          Toast.success('添加成功');
+          Toast.success('添加成功', 1, undefined, false);
 
           //  添加店铺
           dataList.forEach(item => {

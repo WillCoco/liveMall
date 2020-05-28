@@ -10,6 +10,10 @@ WeChat.registerApp('wx2044e26389662025', 'https://www.championlive.com/apple-app
 }).catch(err => {
   console.log('微信插件注册失败', err)
 })
+// 错误捕获
+global.ErrorUtils.setGlobalHandler(function (err) {
+  console.log('Just ignore', err);
+});
 
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 

@@ -11,7 +11,7 @@ import Form from './Form/Form'
 import { Colors } from '../../constants/Theme'
 import pxToDp from '../../utils/px2dp'
 
-import { apiSendVerCode, apiLogin, apiGetUserData, apiGetToken } from '../../service/api'
+import { apiSendVerCode, apiLogin, apiGetUserData, apiWeChatLogin } from '../../service/api'
 
 const phonePattern = /^1[3456789]\d{9}$/
 
@@ -153,7 +153,7 @@ function Logion(props: any) {
    * 微信登录
    */
   const loginWithWeChat = () => {
-    navigation.push('BindPhoneNumber')
+    // navigation.push('BindPhoneNumber')
     // WeChat.isWXAppInstalled().then(res => {
     //   if (res) {
     //     WeChat.sendAuthRequest(
@@ -162,11 +162,10 @@ function Logion(props: any) {
     //     ).then((res: any) => {
     //       console.log(res)
     //       if (res.errCode === 0) {
-    //         weChatLogin(res.code)
-    //       } else {
-    //         Toast.fail('未获得微信授权')
+    //         // weChatLogin(res.code)
     //       }
     //     }).catch((err: any) => {
+    //       Toast.fail('未获得微信授权')
     //       console.log(err)
     //     })
     //   } else {
@@ -179,7 +178,7 @@ function Logion(props: any) {
    * 处理微信登录逻辑
    */
   const weChatLogin = (code: string) => {
-    apiGetToken({ code }).then((res: any) => {
+    apiWeChatLogin({ code }).then((res: any) => {
       console.log(res, '======')
     }).catch((err: any) => {
       console.log(err)

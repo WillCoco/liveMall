@@ -172,6 +172,8 @@ const DEFAULT_OPTIONS: any = {
 
 };
 
+console.log(DEFAULT_OPTIONS, 'DEFAULT_OPTIONSDEFAULT_OPTIONSDEFAULT_OPTIONS')
+
 const INITIAL_STATE: InitStateTypes = {
   liveConfig: {
     cover: undefined,

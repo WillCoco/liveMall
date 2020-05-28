@@ -4,7 +4,8 @@
 import * as React from 'react';
 import {
   StyleSheet,
-  View
+  View,
+  Keyboard
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
@@ -162,6 +163,8 @@ const BottomBlock = (props: any) : any =>  {
    * 退出提交
    */
   React.useEffect(() => {
+
+    
     return () => {
       if (likeSumRef.current) {
         submitLike(likeSumRef.current)
@@ -169,10 +172,29 @@ const BottomBlock = (props: any) : any =>  {
     }
   }, [])
 
+  const view: any = React.useRef()
+
+  
+  
+  React.useEffect(() => {
+    console.log(view, 'ccsda');
+    const keyboardListener = Keyboard.addListener('keyboardDidHide', () => {
+      // fetch('fixdrawbug')
+      // .catch(console.warn)
+      console.log(view, 'vvvvvvvvvvvvvvv')
+      
+      // view.current.setNativeProps({opacity: 0.5, backgroundColor: 'blue'})
+    });
+    return () => {
+      keyboardListener.remove();
+    }
+  }, []);
 
   // 观众
   return (
-    <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
+    <View style={StyleSheet.flatten([styles.wrapper, props.style])}
+      ref={c => view.current = c}
+    >
       <LiveMsg
         msgList={roomMessages}
         msgAdapter={(msg: RoomMessageType): any => {
@@ -208,7 +230,8 @@ const styles = StyleSheet.create({
     // bottom: 0,
     width: '100%',
     padding: pad,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    // backgroundColor: 'red'
   },
 });
 

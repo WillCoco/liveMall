@@ -4,6 +4,11 @@ import App from './App';
 import { enableScreens } from 'react-native-screens';
 enableScreens();
 
+// 错误捕获
+global.ErrorUtils.setGlobalHandler(function (err) {
+  console.log('Just ignore', err);
+});
+
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

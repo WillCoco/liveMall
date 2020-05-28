@@ -36,7 +36,6 @@ import { EMPTY_OBJ } from '../../constants/freeze';
 import share, { ShareType } from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
-import useFixDraw from '../../hooks/useFixDraw';
 
 interface LiveWindowProps {
   style?: StyleProp<any>,
@@ -317,8 +316,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
       .catch((err) => { err && console.log(err); });
   }
 
-  // 期望修复气泡显示
-  useFixDraw();
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>

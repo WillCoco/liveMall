@@ -11,6 +11,7 @@ import {
   StyleProp,
   LayoutAnimation,
   Keyboard,
+  KeyboardAvoidingView
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -35,7 +36,7 @@ import { sendRoomMessage } from '../../actions/im';
 import share from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
-import useFixDraw from '../../hooks/useFixDraw';
+import useKeyboard from '../../hooks/useKeyboard';
 import Modal from 'react-native-modal';
 import { PrimaryText } from 'react-native-normalization-text';
 
@@ -83,7 +84,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
   const smallPic = useSelector((state: any) => state?.live?.livingInfo?.smallPic);
 
   // 修复底部工具不见
-  useFixDraw();
+  const {isShow, keyboardHeight} = useKeyboard();
+  console.log(isShow, 'isShowisShowisShow')
 
   /**
    * 播放器状态
@@ -243,15 +245,11 @@ const LiveWindow = (props: LiveWindowProps): any => {
     }
   }
 
-  const [show, setS] = React.useState(false);
-  
-
   // 直播结束
   if (isLiveOver) {
     replace('AudienceLivingEnd');
   }
 
-  console.log( pullUrl, 'pullUrlpullUrlpullUrlpullUrl');
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
@@ -260,7 +258,6 @@ const LiveWindow = (props: LiveWindowProps): any => {
         resizeMode="cover"
         style={styles.imgBg}
       /> */}
-      <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
         <LivePuller
           ref={v => {
             if (v) {
@@ -271,12 +268,20 @@ const LiveWindow = (props: LiveWindowProps): any => {
           onStatus={onPlayerStatus}
           style={styles.video}
         />
-      </View>
-      <View style={styles.livingBottomBlock}>
+      {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
+        {
+          isShow ? (
+            <LivingBottomBlock.Audience 
+              onPressShopBag={() => shopCardAnim(true)}
+              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
+            />
+          ) : null
+        }
         <LivingBottomBlock.Audience 
           onPressShopBag={() => shopCardAnim(true)}
+          style={StyleSheet.flatten([styles.livingBottomBlock])}
         />
-      </View>
+      {/* </KeyboardAvoidingView> */}
       {!!noticeBubbleText ? <NoticeBubble text={noticeBubbleText} /> : null}
       <LiveIntro
         showFollowButton
@@ -297,7 +302,6 @@ const LiveWindow = (props: LiveWindowProps): any => {
         visible={!!shopCardVisible}
         onPressClose={() => shopCardAnim(false)}
       />
-      {show && <Modal><PrimaryText>123</PrimaryText></Modal>}
     </View>
   );
 };
@@ -305,14 +309,17 @@ const LiveWindow = (props: LiveWindowProps): any => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    minHeight: vh(100),
+    minWidth: vw(100)
   },
   livingBottomBlock: {
-    flex: 1,
+    // flex: 1,
     position: "absolute",
     left: 0,
     bottom: 0,
     right: 0,
-    justifyContent: 'flex-end'
+    // top: 0,
+    justifyContent: 'flex-end',
   },
   scrollerWrapper: {},
   contentWrapper: {
@@ -331,8 +338,11 @@ const styles = StyleSheet.create({
   },
   video: {
     flex: 1,
-    minHeight: vh(100),
-    minWidth: vw(100),
+    position: 'absolute',
+    height: vh(100),
+    width: vw(100)
+    // minHeight: vh(100),
+    // minWidth: vw(100),
   },
 });
 

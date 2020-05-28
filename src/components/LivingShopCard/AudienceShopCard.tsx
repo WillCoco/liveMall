@@ -160,7 +160,7 @@ const AudienceShopCard = (props: {
                       dataAdapter={brandGoodAdapter}
                       key={`anchorShopCard_${index}`}
                       onPressBuy={onPressBuy}
-                      index={index}
+                      index={index + 1}
                       style={{borderBottomWidth: 1, borderColor: Colors.divider}}
                     />
                   )

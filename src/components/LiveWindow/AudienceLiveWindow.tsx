@@ -36,6 +36,8 @@ import share from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
 import useFixDraw from '../../hooks/useFixDraw';
+import Modal from 'react-native-modal';
+import { PrimaryText } from 'react-native-normalization-text';
 
 
 interface LiveWindowProps {
@@ -241,6 +243,9 @@ const LiveWindow = (props: LiveWindowProps): any => {
     }
   }
 
+  const [show, setS] = React.useState(false);
+  
+
   // 直播结束
   if (isLiveOver) {
     replace('AudienceLivingEnd');
@@ -292,6 +297,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
         visible={!!shopCardVisible}
         onPressClose={() => shopCardAnim(false)}
       />
+      {show && <Modal><PrimaryText>123</PrimaryText></Modal>}
     </View>
   );
 };

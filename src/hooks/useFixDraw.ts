@@ -3,12 +3,17 @@
  */
 import React from 'react';
 import {Keyboard} from 'react-native';
+import Modal from 'react-native-modal';
 
 export default function useFixDraw() {
   React.useEffect(() => {
     const keyboardListener = Keyboard.addListener('keyboardDidHide', () => {
-      fetch('fixdrawbug')
-      .catch(console.log)
+      // fetch('fixdrawbug')
+      // .catch(console.warn)
+      
+      
+      console.warn('')
+      
     });
 
     return () => {

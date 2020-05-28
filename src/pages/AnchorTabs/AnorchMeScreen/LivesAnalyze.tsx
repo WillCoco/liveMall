@@ -105,6 +105,8 @@ const LivesAnalyze = (props) =>  {
             anchorId,
             dateScope: time
         }).catch(err => console.log(err, 'error'));
+
+        console.log(result, 'result')
         if(isSucceed(result)) {
             setEchartDate(result?.data || [])
         }

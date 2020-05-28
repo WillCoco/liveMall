@@ -21,6 +21,7 @@ import images from '../../../assets/images';
 import {pad} from '../../../constants/Layout';
 import {Colors} from '../../../constants/Theme';
 import { getAdvanceList, updateLivingInfo } from '../../../actions/live';
+import { clearLiveRoom } from '../../../actions/im';
 import pxToDp from '../../../utils/px2dp';
 import {EMPTY_OBJ} from '../../../constants/freeze';
 import { MediaType } from '../../../liveTypes';
@@ -180,7 +181,7 @@ const AnchorTrailers = () =>  {
               onSharePress={() => onSharePress(item)}
               onRemindPress={() => onRemindPress(item.remind, index)}
               onPress={() => {
-                dispatch(updateLivingInfo());
+                dispatch(clearLiveRoom());
 
                 navigate('LivingRoomScreen', {
                   mediaType: MediaType.teaser,

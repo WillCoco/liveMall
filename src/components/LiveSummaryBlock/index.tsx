@@ -21,6 +21,7 @@ import images from '../../assets/images';
 import defaultImages from '../../assets/default-image';
 import {MediaType} from '../../liveTypes';
 import { updateLivingInfo } from '../../actions/live';
+import { clearLiveRoom } from '../../actions/im';
 
 export type msgList = any[] | undefined;
 export type onMsgListResponse = (v: boolean) => any;
@@ -98,7 +99,7 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
     <TouchableOpacity
       style={StyleSheet.flatten([styles.wrapper, props.style])}
       onPress={() => {
-        dispatch(updateLivingInfo());
+        dispatch(clearLiveRoom());
         navigate('LivingRoomScreen', {
           liveId: props.liveInfo?.liveId,
           groupID: props.liveInfo?.groupId || `live${props.liveInfo?.liveId}`,

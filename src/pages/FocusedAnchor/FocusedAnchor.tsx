@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 import images from '../../assets/images'
 import { isSucceed } from '../../utils/fetchTools'
 import { EMPTY_ARR } from '../../constants/freeze'
-import { updateLivingInfo } from '../../actions/live';
+import { clearLiveRoom } from '../../actions/im';
 
 function FocusedAnchor(props: any) {
   const navigation = useNavigation()
@@ -73,7 +73,7 @@ function FocusedAnchor(props: any) {
    * 点击进入
   */
  const onPress = (item: any) => {
-    dispatch(updateLivingInfo());
+    dispatch(clearLiveRoom());
 
     navigation.navigate('LivingRoomScreen', {
       liveId: item?.liveId,

@@ -42,6 +42,7 @@ import {Toast, Portal} from '@ant-design/react-native';
 import {EMPTY_ARR, EMPTY_OBJ} from '../../../constants/freeze';
 import {isSucceed} from '../../../utils/fetchTools';
 import { updateLivingInfo } from '../../../actions/live';
+import { clearLiveRoom } from '../../../actions/im';
 
 const RecordsCard = (props: {
   smallPic: any;
@@ -297,7 +298,8 @@ const AnchorRecords = (props) => {
               moneyNum={item.moneyNum}
               startTime={item.startTime}
               onPress={() => {
-                dispatch(updateLivingInfo());
+                dispatch(clearLiveRoom());
+                
                 navigate('LivingRoomScreen', {
                   liveId: item?.liveId,
                   groupID: item?.groupId || `live${item?.liveId}`,

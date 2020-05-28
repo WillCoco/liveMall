@@ -61,7 +61,7 @@ const BottomBlock = (props: any) : any =>  {
   //   return liveId
   // }, [])
 
-  console.log(liveId, 333344)
+  // console.log(liveId, 333344)
 
   // 发送消息
   const sendMessage = (text: string) => {
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     // bottom: 0,
     width: '100%',
     padding: pad,
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-end'
   },
 });
 

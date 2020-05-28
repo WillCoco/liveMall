@@ -28,6 +28,8 @@ const LivingRoomScreen = (props: any) : any =>  {
     activateKeepAwake();
     // 清空消息
     dispatch(updateRoomMessage([]));
+
+    dispatch(clearLiveRoom('AUDIENCE'));
     return () => {
       deactivateKeepAwake();
     }
@@ -38,7 +40,6 @@ const LivingRoomScreen = (props: any) : any =>  {
   const {
     mediaType,
   } : LiveWindowParams = (route.params || EMPTY_OBJ) as LiveWindowParams;
-
 
   // 直播
   if (mediaType === MediaType.living) {

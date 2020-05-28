@@ -35,6 +35,7 @@ import { sendRoomMessage } from '../../actions/im';
 import share from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
+import useFixDraw from '../../hooks/useFixDraw';
 
 
 interface LiveWindowProps {
@@ -74,9 +75,13 @@ const LiveWindow = (props: LiveWindowProps): any => {
 
   // 拉流
   const pullUrl = useSelector((state: any) => state?.live?.livingInfo?.pullUrl) || '';
+  const livingInfo = useSelector((state: any) => state?.live?.livingInfo) || '';
 
   // 底图
   const smallPic = useSelector((state: any) => state?.live?.livingInfo?.smallPic);
+
+  // 修复底部工具不见
+  useFixDraw();
 
   /**
    * 播放器状态
@@ -190,18 +195,12 @@ const LiveWindow = (props: LiveWindowProps): any => {
     // 请求观看人数
     poller.current.start();
 
-    const keyboardListener = Keyboard.addListener('keyboardDidHide', () => {
-      // set
-    });
-
     return () => {
       console.log(player.current, 'player.current.stop')
       player.current && player.current.stop();
 
       // 请求观看人数
       poller.current.stop();
-
-      keyboardListener.remove();
     }
   }, []);
   

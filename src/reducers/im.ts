@@ -39,7 +39,7 @@ interface InitStateTypes {
   roomMemberNum: number,
   roomMessages: Array<RoomMessageType>,
   orderMessages: Array<RoomMessageType>,
-  followMessages: Array<RoomMessageType>,
+  // followMessages: Array<RoomMessageType>,
 }
 
 const INITIAL_STATE: InitStateTypes = {
@@ -49,8 +49,8 @@ const INITIAL_STATE: InitStateTypes = {
   room: undefined, // 所在房间的信息(im group + 观看等数据)
   roomMemberNum: 0, // 从room中抽出来的成员数量字段, 减少room依赖过度更新
   roomMessages: [], // 房间消息
-  orderMessages: [], // 购买消息
-  followMessages: [], // 关注消息
+  orderMessages: [], // 购买消息、关注消息
+  // followMessages: [], // 关注消息
 }
 
 export default function homeData(state = INITIAL_STATE, action: any) {
@@ -67,8 +67,8 @@ export default function homeData(state = INITIAL_STATE, action: any) {
       return {...state, roomMessages: action.payload.roomMessages};
     case imActionTypes.UPDATE_ORDER_MESSAGES:
       return {...state, orderMessages: action.payload.orderMessages};
-    case imActionTypes.UPDATE_FOLLOW_MESSAGES:
-      return {...state, followMessages: action.payload.followMessages};
+    // case imActionTypes.UPDATE_FOLLOW_MESSAGES:
+      // return {...state, followMessages: action.payload.followMessages};
     case imActionTypes.UPDATE_ROOM_MEMBER_NUM:
       return {...state, roomMemberNum: action.payload.roomMemberNum};
     default:

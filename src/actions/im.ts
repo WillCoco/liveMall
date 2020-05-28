@@ -15,7 +15,7 @@ import { Attention } from '../liveTypes';
 import * as api from '../service/api';
 import { isSucceed } from '../utils/fetchTools';
 
-const {tim, TIM, getUserSig: getUserSigLocal} = timModlue;
+const {tim, TIM,/*  getUserSig: getUserSigLocal */} = timModlue;
 
 // console.log(userSig, 'userss2')
 // console.log(store, 'store')
@@ -813,7 +813,12 @@ export function clearLiveRoom(role?: 'ANCHOR' | 'AUDIENCE') {
     dispatch(updateRoom());
     // 清空成员数量
     dispatch(updateRoomMemberNum(0));
+    // 清除滚动消息
+    dispatch(updateScrollMessage([]));
 
+    // 清除livinginfo信息
+    dispatch(updateLivingInfo());
+    
     if (role === 'ANCHOR') {
 
     } else if (role === 'AUDIENCE') {

@@ -70,6 +70,11 @@ const AudienceShopCard = (props: {
    * 直播商品
    */
   const onPressBuy = (good: any) => {
+    // todo 请求接口
+
+    // todo 请求是否下架
+
+    // 
     navigate('GoodsInfo', {
       id: good?.goodsId,
       shareUserId: anchorId,

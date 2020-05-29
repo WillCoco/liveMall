@@ -63,13 +63,13 @@ export enum CameraType {
 
 const INIT_STREAMING_CONFIG: any = {
     rtmpURL: '',
-    camera: CameraType.front,
+    camera: CameraType.back,
     started: true, // 推流
     faceBeautyEnable: true, // 内置美颜 为true才能设置美白磨皮红润
     faceBeautySetting: {
-        beautyLevel: 0, //磨皮程度
-        whiten: 0, //美白程度
-        redden: 0, //红润程度
+        beautyLevel: 1, //磨皮程度
+        whiten: 1, //美白程度
+        redden: 1, //红润程度
     },
     // previewMirrorEnable:true, // 镜像
     muted: false,
@@ -154,7 +154,7 @@ const INIT_STREAMING_CONFIG: any = {
         // borderBottomWidth: 1,
     },
 }
-const DEFAULT_OPTIONS: any = {
+const DEFAULT_OPTIONS: any = INIT_STREAMING_CONFIG || {
   // outputUrl: "rtmp://pili-publish.qnsdk.com/sdk-live/111",
   // outputUrl: "rtmp://77154.livepush.myqcloud.com/live/test003?txSecret=e6aaf45458ce4f0626c0dafca4b6bf5a&txTime=5EB581FF",
   // outputUrl: "rtmp.youzfx.cn",

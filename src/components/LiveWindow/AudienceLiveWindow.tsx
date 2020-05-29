@@ -249,6 +249,16 @@ const LiveWindow = (props: LiveWindowProps): any => {
   if (isLiveOver) {
     replace('AudienceLivingEnd');
   }
+  
+  /**
+   * input
+   */
+  const [textInput, setTextInput] = React.useState();
+
+  // 直播结束
+  if (isLiveOver) {
+    replace('AudienceLivingEnd');
+  }
 
 
   return (
@@ -271,13 +281,17 @@ const LiveWindow = (props: LiveWindowProps): any => {
       {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
         {
           isShow ? (
-            <LivingBottomBlock.Audience 
+            <LivingBottomBlock.Audience
+              textValue={textInput}
+              setTextValue={setTextInput}
               onPressShopBag={() => shopCardAnim(true)}
               style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
             />
           ) : null
         }
-        <LivingBottomBlock.Audience 
+        <LivingBottomBlock.Audience
+          textValue={textInput}
+          setTextValue={setTextInput}
           onPressShopBag={() => shopCardAnim(true)}
           style={StyleSheet.flatten([styles.livingBottomBlock])}
         />

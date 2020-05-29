@@ -174,22 +174,6 @@ const BottomBlock = (props: any) : any =>  {
 
   const view: any = React.useRef()
 
-  
-  
-  React.useEffect(() => {
-    console.log(view, 'ccsda');
-    const keyboardListener = Keyboard.addListener('keyboardDidHide', () => {
-      // fetch('fixdrawbug')
-      // .catch(console.warn)
-      console.log(view, 'vvvvvvvvvvvvvvv')
-      
-      // view.current.setNativeProps({opacity: 0.5, backgroundColor: 'blue'})
-    });
-    return () => {
-      keyboardListener.remove();
-    }
-  }, []);
-
   // 观众
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}
@@ -215,6 +199,8 @@ const BottomBlock = (props: any) : any =>  {
         onSubmitEditing={sendMessage}
         onPressLike={onPressLike}
         onPressForward={onPressForward}
+        value={props.textValue}
+        setValue={props.setTextValue}
         style={{marginTop: 28}}
       />
     </View>

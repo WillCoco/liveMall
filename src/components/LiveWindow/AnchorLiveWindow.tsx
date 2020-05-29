@@ -209,6 +209,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   const noticeBubbleText = room?.notification;
 
   const onPressBubble = () => {
+    console.log(room?.groupID)
     if (room?.groupID) {
       // 显示输入框
       maskDispatch({

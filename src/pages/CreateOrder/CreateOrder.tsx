@@ -284,7 +284,7 @@ function CreateOrder(props: Props) {
         item.orderGoodsReqs.push({
           goodsNum: _item.goods_num,  // 商品数量
           skuId: ~~_item.sku_id,  // 规格 id
-          shareUserId: route.params.shareUserId
+          shareUserId: route.params.shareUserId || route.params.liveId
         })
 
         cartIds.push(_item.cart_id)

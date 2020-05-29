@@ -12,8 +12,7 @@ import {
 } from '../../service/api'
 
 import pxToDp from '../../utils/px2dp'
-// import Toast from 'react-native-tiny-toast'
-import { Portal, Toast } from '@ant-design/react-native'
+import { Toast } from '../../components/Toast'
 import { Colors } from '../../constants/Theme'
 import checkIsBottom from '../../utils/checkIsBottom'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
@@ -105,7 +104,7 @@ export default function OrderList() {
 
     apiGetOrderList(params).then((res: any) => {
       setNetWorkErr(false)
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       console.log('获取订单列表', res)
 
@@ -119,7 +118,7 @@ export default function OrderList() {
     }).catch((err: any) => {
       console.log('获取订单列表')
       setNetWorkErr(true)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 
@@ -133,7 +132,7 @@ export default function OrderList() {
       pageSize,
       pageNo: pageNoRef.current
     }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
       setNetWorkErr(false)
       console.log('售后订单列表', res)
       res.records.forEach((item: any) => {
@@ -158,7 +157,7 @@ export default function OrderList() {
     }).catch((err: any) => {
       console.log('售后订单列表')
       setNetWorkErr(true)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 
@@ -207,7 +206,7 @@ export default function OrderList() {
   const toPay = (id: number) => {
     let loading = Toast.loading('')
     apiPayOrder({ id, payType: 2 }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       console.log('去支付', res)
 
@@ -227,7 +226,7 @@ export default function OrderList() {
       navigation.push('PayWebView', params)
     }).catch((err: any) => {
       console.log(err.message)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 

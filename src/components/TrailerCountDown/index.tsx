@@ -13,7 +13,7 @@ import { PrimaryText, SmallText, scale } from 'react-native-normalization-text';
 import { Colors } from '../../constants/Theme';
 import { radio, pad } from '../../constants/Layout';
 import Icontv from '../../components/Iconfont/Icontv';
-import { Toast } from '@ant-design/react-native';
+import { Toast } from '../../components/Toast';
 
 const Trailer = (props: {
   deadline: number,

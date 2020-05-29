@@ -22,7 +22,7 @@ import {Colors} from '../../../constants/Theme';
 import { isIOS, isAndroid } from '../../../constants/DeviceInfo';
 import {releaseTeaser} from '../../../actions/live';
 import * as api from '../../../service/api';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import { vh } from '../../../utils/metric';
 import moment from 'moment';
 // alert(moment(['2015', '5', '4']))

@@ -28,7 +28,6 @@ import TrailerCountDown from '../TrailerCountDown';
 import { EMPTY_OBJ } from '../../constants/freeze';
 import { updateLivingInfo } from '../../actions/live';
 import { apiEnterLive, apiAttentionAnchor } from '../../service/api';
-import { Toast } from "@ant-design/react-native";
 import { isSucceed } from '../../utils/fetchTools';
 import { Colors } from '../../constants/Theme';
 import Poller from '../../utils/poller';

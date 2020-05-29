@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, ScrollView } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { apiBrandInfo, apiBrandGoodsList, apiAttentionBrand } from '../../service/api'
-import { Portal, Toast } from '@ant-design/react-native'
+import { Toast } from '../../components/Toast'
 
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
@@ -57,14 +57,14 @@ function BrandShop(props: { isLogin: boolean }) {
     apiBrandInfo({
       brand_id: brandId
     }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
       setNetWorkErr(false)
       console.log('店铺详情', res)
       setBrandInfo(res)
       setIsLoaded(true)
     }).catch((err: any) => {
       console.log('店铺详情', err)
-      Portal.remove(loading)
+      Toast.remove(loading)
       setNetWorkErr(true)
     })
   }

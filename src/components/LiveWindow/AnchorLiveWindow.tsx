@@ -26,7 +26,7 @@ import withPage from '../../components/HOCs/withPage';
 import {pad} from '../../constants/Layout';
 import { joinGroup, dismissGroup, updateGroupProfile, sendRoomMessage, } from '../../actions/im';
 import { anchorToLive, closeLive, updatecamera, updateFaceSetting, faceBeautyParams } from '../../actions/live';
-import Toast from 'react-native-tiny-toast';
+import { Toast } from '../../components/Toast';
 import { MessageType } from '../../reducers/im';
 import LivingFaceCard from '../../components/LivingFaceCard';
 

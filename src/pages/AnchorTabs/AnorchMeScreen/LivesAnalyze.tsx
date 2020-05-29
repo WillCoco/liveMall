@@ -21,9 +21,9 @@ import dayjs from 'dayjs';
 import {PrimaryText,scale} from 'react-native-normalization-text';
 import {useNavigation} from '@react-navigation/native';
 import { connect } from 'react-redux';
-import { Toast, Portal } from '@ant-design/react-native';
 
 import withPage from '../../../components/HOCs/withPage';
+import { Toast } from '../../../components/Toast';
 import { pad } from '../../../constants/Layout';
 import images from '../../../assets/images'
 import NavBar from '../../../components/NavBar';
@@ -127,12 +127,12 @@ const LivesAnalyze = (props) =>  {
             pageSize: 10,
         }
         apiGetLiveDataList(params).then(res => {
-            Portal.remove(t)
+            Toast.remove(t)
             setTime(params.dateScope);
             const {records = []} = res;
             setLiveInfoList(records)
         }).catch(err => {
-            Portal.remove(t)
+            Toast.remove(t)
             Toast.fail('获取数据失败');
             console.log(err, 'error')
         });

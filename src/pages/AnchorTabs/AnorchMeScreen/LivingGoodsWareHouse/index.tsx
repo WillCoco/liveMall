@@ -9,10 +9,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import { Toast, portal } from '@ant-design/react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
-// import Toast from 'react-native-tiny-toast';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import withPage from '../../../../components/HOCs/withPage';
 import PagingList from '../../../../components/PagingList';
@@ -22,6 +20,7 @@ import {pad, radio} from '../../../../constants/Layout';
 import NavBar from '../../../../components/NavBar';
 import WarehouseRow from './WarehouseRow';
 import CheckBox from '../../../../components/CheckBox';
+import {Toast} from '../../../../components/Toast';
 import {
     AddGoodsTargetType,
     addGoods2WareHouse,
@@ -203,7 +202,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       const Bool: boolean = await dispatch(delWareHouseGoods({
           goodsIdList: [goodsId]
       }));
-      portal.remove(t);
+      Toast.remove(t);
       if(Bool) {
           Toast.success('删除成功', 1, undefined, false);
           // 过滤除删除的组货
@@ -224,7 +223,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       const Bool: boolean = await dispatch(delWareHouseGoods({
           goodsIdList: [...goodsIdArr]
       }));
-      portal.remove(t);
+      Toast.remove(t);
       if(Bool) {
           Toast.success('删除成功', 1, undefined, false);
 
@@ -280,7 +279,7 @@ const LivingGoodsWareHouse = (props: any) =>  {
       const Bool = await dispatch(addGroupHouseGoods({
           goodsIdList: [...goodsIdArr]
       }));
-      portal.remove(t);
+      Toast.remove(t);
       if(Bool) {
           Toast.success('添加成功', 1, undefined, false);
 

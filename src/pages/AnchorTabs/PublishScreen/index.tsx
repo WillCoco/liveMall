@@ -21,7 +21,7 @@ import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
 import { isSucceed } from '../../../utils/fetchTools';
-import { Toast } from '@ant-design/react-native';
+import {shortNum} from '../../../utils/numeric';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);
@@ -133,8 +133,8 @@ const PublishScreen = (props: any) =>  {
       />
       <NavBar leftTheme="light" title="" style={styles.navWrapper} onLeftPress={onBackPress} />
       <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={anchorInfo.logo && {uri: anchorInfo.logo} || images.userAvatar}/>
-      <T1 style={styles.nameText}>{anchorInfo.name || '主播昵称'}</T1>
-      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount || 0}粉丝</SmallText>
+      <T1 style={styles.nameText}>{anchorInfo?.name || '主播昵称'}</T1>
+      <SmallText style={styles.followText}>{shortNum(anchorInfo?.favouriteAmount) || 0}粉丝</SmallText>
       <View style={styles.entranceWrapper}>
         <TouchableOpacity
           style={styles.entranceImgWrapper}

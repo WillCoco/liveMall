@@ -25,8 +25,7 @@ import PagingList from '../../../../components/PagingList';
 import CheckBox from '../../../../components/CheckBox';
 import {startLive, updateLiveConfig} from '../../../../actions/live';
 import {getWareHouseGoods, AddGoodsTargetType, goodsCheckedFormat} from '../../../../actions/shop';
-// import Toast from 'react-native-tiny-toast';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../../components/Toast';
 import {brandGoodAdapter} from '../../../../utils/dataAdapters';
 import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../../../actions/shop';
 import * as api from '../../../../service/api';
@@ -231,7 +230,7 @@ const LiveGoodsManage = (props: any) =>  {
 
     console.log(r, '创建直播');
 
-    Portal.remove(loading);
+    Toast.remove(loading);
 
     if (r) {
       // 重置开播参数
@@ -272,14 +271,14 @@ const LiveGoodsManage = (props: any) =>  {
 
     api.apiAnewAddLiveGoods({goodsIdList: goodsIdList, liveId})
       .then((r: any) => {
-        Portal.remove(loading);
+        Toast.remove(loading);
         if (isSucceed(r)) {
           Toast.show('提交成功')
           goBack();
         }
       })
       .catch((err: any) => {
-        Portal.remove(loading);
+        Toast.remove(loading);
         console.log('apiAnewAddLiveGoods err:', err)
       })
     

@@ -20,14 +20,14 @@ import {setAnchorInfo} from '../../../actions/anchor';
 import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
-import { isSucceed } from '../../../utils/fetchTools';
-import { Toast } from '@ant-design/react-native';
+import { shortNum } from '../../../utils/numeric';
+import { EMPTY_OBJ } from '../../../constants/freeze';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);
   const {navigate, reset} = useNavigation();
   const dispatch = useDispatch();
-  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {}
+  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || EMPTY_OBJ;
   const userId = useSelector((state: any) => state?.userData?.userInfo?.userId)
 
   /**
@@ -134,7 +134,7 @@ const PublishScreen = (props: any) =>  {
       <NavBar leftTheme="light" title="" style={styles.navWrapper} onLeftPress={onBackPress} />
       <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={anchorInfo.logo && {uri: anchorInfo.logo} || images.userAvatar}/>
       <T1 style={styles.nameText}>{anchorInfo.name || '主播昵称'}</T1>
-      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount || 0}粉丝</SmallText>
+      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount ? shortNum(anchorInfo.favouriteAmount) : 0}粉丝</SmallText>
       <View style={styles.entranceWrapper}>
         <TouchableOpacity
           style={styles.entranceImgWrapper}

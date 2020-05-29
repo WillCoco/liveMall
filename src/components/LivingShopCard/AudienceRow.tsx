@@ -41,7 +41,6 @@ interface AudienceRowProps {
 const AudienceRow = (props: AudienceRowProps) =>  {
   const data = (props.dataAdapter ? props.dataAdapter(props.data) : props.data) || {};
 
-  console.log(data, '11233123123123123123')
   return (
     <TouchableWithoutFeedback>
       <View style={StyleSheet.flatten([styles.style, props.style])}>
@@ -71,7 +70,7 @@ const AudienceRow = (props: AudienceRowProps) =>  {
 
 AudienceRow.defaultProps = {
   data: {
-    title: '标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题',
+    title: '标题',
   },
 };
 

@@ -55,12 +55,15 @@ const AudienceShopCard = (props: {
    */
   const liveId = useSelector((state: any) => state?.live?.livingInfo?.liveId);
 
-  /**
-   * 主播id
-   */
-  const anchorId = route.params?.anchorId;
-
-  console.log(anchorId, 'anchorIdanchorIdanchorId')
+  // /**
+  //  * 主播id
+  //  */
+  // const anchorId = route.params?.anchorId;
+  
+  // /**
+  //  * 主播userid
+  //  */
+  // const anchorUserId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
   /**
    * 数量
@@ -87,7 +90,7 @@ const AudienceShopCard = (props: {
     // 跳转
     navigate('GoodsInfo', {
       id: good?.goodsId,
-      shareUserId: anchorId,
+      shareUserId: liveId,
       onOrderCompleted: (info: any) => {
         const safeInfo = info || {};
         requestAnimationFrame(() => {
@@ -100,16 +103,11 @@ const AudienceShopCard = (props: {
             quantity = 1;
           }
 
-          console.log(safeInfo, 'inffooooooo')
           dispatch(sendRoomMessage({text: `下单了${quantity}件`, type: MessageType.order}))
         })
       }
     });
   }
-
-  
-
-  console.log(liveId, 'liveIdliveIdliveId')
 
   /**
    * 直播商品
@@ -158,40 +156,40 @@ const AudienceShopCard = (props: {
   }
 
   return (
-        <View style={StyleSheet.flatten([styles.style])}>
-          <TouchableWithoutFeedback onPress={props.onPressClose}>
-            <View style={{flex: 1}} />
-          </TouchableWithoutFeedback>
-            <View style={styles.contentStyle}>
-              <T4 style={styles.title}>共{goodsQuantity}件商品</T4>
-              <PagingList
-                size={PAGE_SIZE}
-                renderItem={({item, index}) => {
-                  console.log(item, 'itemssss')
-                  const safeItem = item || EMPTY_OBJ;
-                  return (
-                    <AudienceRow
-                      data={item}
-                      dataAdapter={brandGoodAdapter}
-                      key={`anchorShopCard_${index}`}
-                      onPressBuy={onPressBuy}
-                      index={index + 1}
-                      style={{borderBottomWidth: 1, borderColor: Colors.divider}}
-                    />
-                  )
-                }}
-                getItemLayout={(data: any, index: number) => (
-                  {length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index}
-                )}
-                onRefresh={onRefresh}
-                onEndReached={onEndReached}
-                keyExtractor={(item: any, index: number) => 'index' + index + item}
-                initialNumToRender={PAGE_SIZE}
-                numColumns={1}
-                contentContainerStyle={styles.contentContainerStyle}
-              />
-            </View>
-      </View>
+    <View style={StyleSheet.flatten([styles.style])}>
+      <TouchableWithoutFeedback onPress={props.onPressClose}>
+        <View style={{flex: 1}} />
+      </TouchableWithoutFeedback>
+        <View style={styles.contentStyle}>
+          <T4 style={styles.title}>共{goodsQuantity}件商品</T4>
+          <PagingList
+            size={PAGE_SIZE}
+            renderItem={({item, index}) => {
+              console.log(item, 'itemssss')
+              const safeItem = item || EMPTY_OBJ;
+              return (
+                <AudienceRow
+                  data={item}
+                  dataAdapter={brandGoodAdapter}
+                  key={`anchorShopCard_${index}`}
+                  onPressBuy={onPressBuy}
+                  index={index + 1}
+                  style={{borderBottomWidth: 1, borderColor: Colors.divider}}
+                />
+              )
+            }}
+            getItemLayout={(data: any, index: number) => (
+              {length: ROW_HEIGHT, offset: ROW_HEIGHT * index, index}
+            )}
+            onRefresh={onRefresh}
+            onEndReached={onEndReached}
+            keyExtractor={(item: any, index: number) => 'index' + index + item}
+            initialNumToRender={PAGE_SIZE}
+            numColumns={1}
+            contentContainerStyle={styles.contentContainerStyle}
+          />
+        </View>
+    </View>
   )
 };
 

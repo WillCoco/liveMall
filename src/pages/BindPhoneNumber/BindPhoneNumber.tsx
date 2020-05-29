@@ -1,30 +1,31 @@
 import React, { useState } from 'react'
 import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
-import {Toast} from '../../components/Toast'
-import * as WeChat from 'react-native-wechat-lib'
+import { Portal, Toast } from '@ant-design/react-native'
 
 import Form from './Form/Form'
 
 import { Colors } from '../../constants/Theme'
 import pxToDp from '../../utils/px2dp'
 
-import { apiSendVerCode, apiLogin, apiGetUserData, apiWeChatLogin } from '../../service/api'
+import { apiSendVerCode, apiWeChatRegister, apiGetUserData } from '../../service/api'
 
 const phonePattern = /^1[3456789]\d{9}$/
 
 let timer: any
 
-function Logion(props: any) {
-  const navigation: any = useNavigation()
+function BindPhoneNumber(props: any) {
+  const navigation = useNavigation()
+  const route: any = useRoute()
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')
   const [disabled, setDisabled] = useState(false)
-  const [hasRegister, setHasRegister] = useState(true)
   let [countDown, setCountDown] = useState(60)
+
+  console.log(route.params)
 
   navigation.setOptions({
     headerTitle: '',
@@ -74,9 +75,7 @@ function Logion(props: any) {
     apiSendVerCode({ userTel: telNum }).then((res: any) => {
       console.log('发送验证码', res)
 
-      setHasRegister(res)
-
-      Toast.remove(loading)
+      Portal.remove(loading)
 
       Toast.success('验证码已发送')
 
@@ -91,7 +90,6 @@ function Logion(props: any) {
         }
       }, 1000)
     }).catch((err: any) => {
-      // Toast.fail('发送失败，请稍后再试')
       console.log('发送验证码', err)
     })
   }
@@ -114,7 +112,7 @@ function Logion(props: any) {
       return
     }
 
-    if (!hasRegister && !invCode) {
+    if (!invCode) {
       Toast.fail('请输入邀请码')
       return
     }
@@ -122,17 +120,18 @@ function Logion(props: any) {
     const params = {
       userTel: telNum,
       code: verCode,
-      inviteCode: invCode
+      inviteCode: invCode,
+      unionId: route.params
     }
 
-    apiLogin(params).then((res: any) => {
-      console.log('注册&登录', res)
+    apiWeChatRegister(params).then((res: any) => {
+      console.log('绑定手机号', res)
 
       if (res) {
         props.dispatch(toggleLoginState(true))
         props.dispatch(setToke(res))
 
-        Toast.success('登录成功')
+        Toast.success('绑定成功')
 
         apiGetUserData().then((res: any) => {
           props.dispatch(setUserInfo(res))
@@ -141,64 +140,11 @@ function Logion(props: any) {
         })
 
         setTimeout(() => {
-          navigation.goBack()
+          navigation.navigate('首页')
         }, 1500)
       }
     }).catch((err: any) => {
       console.log('注册登录', err)
-    })
-  }
-
-  /**
-   * 微信登录
-   */
-  const loginWithWeChat = () => {
-    WeChat.isWXAppInstalled().then(res => {
-      if (res) {
-        WeChat.sendAuthRequest(
-          'snsapi_userinfo',
-          '云闪播微信登录'
-        ).then((res: any) => {
-          console.log(res)
-          if (res.errCode === 0) {
-            weChatLogin(res.code)
-          }
-        }).catch((err: any) => {
-          Toast.fail('未获得微信授权')
-          console.log(err)
-        })
-      } else {
-        Toast.fail('请先到应用商店下载安装微信')
-      }
-    })
-  }
-
-  /**
-   * 处理微信登录逻辑
-   */
-  const weChatLogin = (code: string) => {
-    apiWeChatLogin({ code }).then((res: any) => {
-      console.log(res, '======')
-      if (res.isRegister) {
-        props.dispatch(toggleLoginState(true))
-        props.dispatch(setToke(res.authentication))
-
-        Toast.success('登录成功')
-
-        apiGetUserData().then((res: any) => {
-          props.dispatch(setUserInfo(res))
-        }).catch((err: any) => {
-          console.log(err)
-        })
-
-        setTimeout(() => {
-          navigation.goBack()
-        }, 1500)
-      } else {
-        navigation.push('BindPhoneNumber', res.unionId)
-      }
-    }).catch((err: any) => {
-      console.log(err)
     })
   }
 
@@ -214,7 +160,6 @@ function Logion(props: any) {
 
       <Form
         countDown={countDown}
-        hasRegister={hasRegister}
         disabledSendBtn={disabled}
         sendMsg={sendMsg}
         changeTelNum={(value: string) => changeTelNum(value)}
@@ -223,19 +168,14 @@ function Logion(props: any) {
       />
 
       <TouchableOpacity style={styles.loginBtnContainer} onPress={toLogin}>
-        <Text style={styles.btnText}>登录/注册</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.weChatContent} onPress={loginWithWeChat}>
-        <Image source={require('../../assets/login-image/wechat.png')} style={styles.wechatIcon} />
-        <Text style={styles.text}>微信登录</Text>
+        <Text style={styles.btnText}>绑定账号</Text>
       </TouchableOpacity>
 
     </ImageBackground>
   )
 }
 
-export default connect()(Logion)
+export default connect()(BindPhoneNumber)
 
 const styles = StyleSheet.create({
   container: {

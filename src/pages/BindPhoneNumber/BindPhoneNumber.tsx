@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
 import { Portal, Toast } from '@ant-design/react-native'
-import * as WeChat from 'react-native-wechat-lib'
 
 import Form from './Form/Form'
 
 import { Colors } from '../../constants/Theme'
 import pxToDp from '../../utils/px2dp'
 
-import { apiSendVerCode, apiLogin, apiGetUserData, apiGetToken } from '../../service/api'
+import { apiSendVerCode, apiWeChatRegister, apiGetUserData } from '../../service/api'
 
 const phonePattern = /^1[3456789]\d{9}$/
 
@@ -19,11 +18,14 @@ let timer: any
 
 function BindPhoneNumber(props: any) {
   const navigation = useNavigation()
+  const route: any = useRoute()
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')
   const [disabled, setDisabled] = useState(false)
   let [countDown, setCountDown] = useState(60)
+
+  console.log(route.params)
 
   navigation.setOptions({
     headerTitle: '',
@@ -118,17 +120,18 @@ function BindPhoneNumber(props: any) {
     const params = {
       userTel: telNum,
       code: verCode,
-      inviteCode: invCode
+      inviteCode: invCode,
+      unionId: route.params
     }
 
-    apiLogin(params).then((res: any) => {
-      console.log('注册&登录', res)
+    apiWeChatRegister(params).then((res: any) => {
+      console.log('绑定手机号', res)
 
       if (res) {
         props.dispatch(toggleLoginState(true))
         props.dispatch(setToke(res))
 
-        Toast.success('已绑定账号')
+        Toast.success('绑定成功')
 
         apiGetUserData().then((res: any) => {
           props.dispatch(setUserInfo(res))
@@ -137,7 +140,7 @@ function BindPhoneNumber(props: any) {
         })
 
         setTimeout(() => {
-          navigation.goBack()
+          navigation.navigate('首页')
         }, 1500)
       }
     }).catch((err: any) => {

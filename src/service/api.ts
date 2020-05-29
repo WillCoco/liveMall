@@ -8,6 +8,7 @@ import { UpdateParams } from './fetch/fetchOrigin';
 
 const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.quanpinlive.com'
 const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.quanpinlive.com'
+// 192.168.8.122:2333
 
 export const SANDPAY_PRE = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8&signType=01' // 杉德支付前缀
 
@@ -173,7 +174,7 @@ export const apiWeChatLogin = (data: { code: string }) => post1(`${HOST_JAVA}/us
 // 微信注册
 export const apiWeChatRegister = (data: {
   userTel: string,
-  openId: string,
+  unionId: string,
   inviteCode: string,
   code: string
 }) => post1(`${HOST_JAVA}/user/appWecharRegister`, data)

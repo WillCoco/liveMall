@@ -42,7 +42,6 @@ export default function Form(props: Props) {
             returnKeyType={!props.hasRegister ? 'done' : 'next'}
           />
         </View>
-
         <Text style={[styles.sendMeg, disabled && styles.disabledStyle]} onPress={props.sendMsg}>{disabled ? `${countDown}秒重发` : '发送验证码'}</Text>
       </View>
       {
@@ -59,7 +58,6 @@ export default function Form(props: Props) {
           </View>
         </View>
       }
-
     </View>
   )
 }

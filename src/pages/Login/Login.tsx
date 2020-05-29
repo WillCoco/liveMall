@@ -153,7 +153,6 @@ function Logion(props: any) {
    * 微信登录
    */
   const loginWithWeChat = () => {
-    // navigation.push('BindPhoneNumber')
     WeChat.isWXAppInstalled().then(res => {
       if (res) {
         WeChat.sendAuthRequest(
@@ -180,6 +179,24 @@ function Logion(props: any) {
   const weChatLogin = (code: string) => {
     apiWeChatLogin({ code }).then((res: any) => {
       console.log(res, '======')
+      if (res.isRegister) {
+        props.dispatch(toggleLoginState(true))
+        props.dispatch(setToke(res.authentication))
+
+        Toast.success('登录成功')
+
+        apiGetUserData().then((res: any) => {
+          props.dispatch(setUserInfo(res))
+        }).catch((err: any) => {
+          console.log(err)
+        })
+
+        setTimeout(() => {
+          navigation.goBack()
+        }, 1500)
+      } else {
+        navigation.push('BindPhoneNumber', res.unionId)
+      }
     }).catch((err: any) => {
       console.log(err)
     })

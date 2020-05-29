@@ -29,11 +29,12 @@ import Empty from '../Empty/index';
 import { Colors } from '../../constants/Theme';
 import { EMPTY_ARR, EMPTY_OBJ } from '../../constants/freeze';
 import PagingList from '../PagingList';
-import {apiSelLiveGoods} from '../../service/api';
+import {apiSelLiveGoods, apiUpdBrowseNum, isSaleGoods} from '../../service/api';
 import { isSucceed } from '../../utils/fetchTools';
 import { brandGoodAdapter } from '../../utils/dataAdapters';
 import { sendRoomMessage } from '../../actions/im';
 import { MessageType } from '../../reducers/im';
+import { Toast } from '@ant-design/react-native';
 
 const PAGE_SIZE = 14;
 const INIT_PAGE_NO = 1;
@@ -69,12 +70,21 @@ const AudienceShopCard = (props: {
   /**
    * 直播商品
    */
-  const onPressBuy = (good: any) => {
+  const onPressBuy = async (good: any) => {
     // todo 请求接口
+    apiUpdBrowseNum({goodsId: good.goodsId, liveId})
+      .catch((err: any) => console.log(`apiUpdBrowseNum error:`, err));
 
     // todo 请求是否下架
+    const isSaleRes = await isSaleGoods(({goodsId: good.goodsId}))
+      .catch((err: any) => console.log(`isSaleGoods error:`, err));
 
-    // 
+    if (isSucceed(isSaleRes) && !isSaleRes?.data?.isSale) {
+      Toast.show('该商品已下架');
+      return;
+    }
+
+    // 跳转
     navigate('GoodsInfo', {
       id: good?.goodsId,
       shareUserId: anchorId,

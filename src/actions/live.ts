@@ -176,6 +176,10 @@ export const releaseTeaser = (params: ReleaseTeaserParams) => {
 export const isWorkLiveNow = () => {
   return async function(dispatch: Dispatch, getState: any): Promise<any> {
     const anchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
+    if (!anchorId) {
+      console.log('请求isWorkLiveNow时,anchorId:', anchorId)
+      return;
+    }
 
     return api.apiIsWorkLiveNow({anchorId})
     .then((r: any) => {

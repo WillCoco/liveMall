@@ -89,9 +89,9 @@ const RecordsCard = (props: {
               alignItems: 'center',
             }}>
             <SmallText color="grey" style={styles.listItem} numberOfLines={2}>
-              {props.watchNum || 0}次观看 丨 {props.liveGoodsNum}件商品 | 卖出
-              {props.goodsNum}件 | 销售额 {props.moneyNum} | 增粉{' '}
-              {props.addFavourite}
+              {props.watchNum || 0}次观看 丨 {props.liveGoodsNum || 0}件商品 | 卖出
+              {props.goodsNum || 0}件 | 销售额 {props.moneyNum || 0} | 增粉{' '}
+              {props.addFavourite || 0}
             </SmallText>
           </View>
           <SmallText color="grey" style={styles.liveTime}>
@@ -299,6 +299,7 @@ const AnchorRecords = (props) => {
               startTime={item.startTime}
               onPress={() => {
                 dispatch(clearLiveRoom());
+                dispatch(updateLivingInfo(item));
                 
                 navigate('LivingRoomScreen', {
                   liveId: item?.liveId,

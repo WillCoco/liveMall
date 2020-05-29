@@ -17,8 +17,9 @@ import {vw} from '../../utils/metric'
 import {Colors} from '../../constants/Theme';
 import {pad} from '../../constants/Layout';
 import images from '../../assets/images';
-import {useSelector} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {shortNum} from '../../utils/numeric';
+// import {useSelector} from 'react-redux';
+// import { useNavigation } from '@react-navigation/native';
 
 export type msgList = any[] | undefined;
 export type onMsgListResponse = (v: boolean) => any;
@@ -112,7 +113,7 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
           }])}
           resizeMode="contain"
         />
-        <TinyText style={styles.likeQty}>{likeQuantity}</TinyText>
+        <TinyText style={styles.likeQty}>{shortNum(likeQuantity)}</TinyText>
       </TouchableOpacity>
     </View>
   )

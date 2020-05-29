@@ -85,38 +85,38 @@ const PublishScreen = (props: any) =>  {
     }
   }
 
+  /**
+   * 拉取主播数据并查看是否存在直播
+   */
   useFocusEffect(
     React.useCallback(() => {
-      checkIsLiveNow();
       apiAnchorHomePage({userId})
       .then((res: any) => {
-        dispatch(setAnchorInfo(res))
+        dispatch(setAnchorInfo(res));
+        checkIsLiveNow();
       })
       .catch(console.warn)
     }, [])
-  );
-
-  React.useEffect(() => {
-
-  }, [])
+  ), [anchorInfo];
 
   /**
    * 处理android返回
    */
   useFocusEffect(
-      React.useCallback(() => {
-          const onBackPressAndroid = () => {
-              if(allowBack) {
-                  onBackPress()
-              }
-              return true
-          }
+    React.useCallback(() => {
+      const onBackPressAndroid = () => {
+        if(allowBack) {
+            onBackPress()
+        }
+        return true
+      }
 
-          BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
+      BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
 
-          return () =>
-            BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
-      }, [])
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
+      }
+    }, [])
   );
 
   return (

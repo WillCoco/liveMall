@@ -235,6 +235,10 @@ export const apiIsWorkLiveNow = (data: any) => get2(`${HOST_JAVA}/anchor/isWorkL
 export const apiDelAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delAnchorBrandGoods`, data)
 // 获取imUserSig
 export const apiGetUserSig = (data: any) => get2(`${HOST_JAVA}/anchor/getUserSig`, data)
+// 更新直播间浏览量
+export const apiUpdBrowseNum = (data: any) => get2(`${HOST_JAVA}/anchor/updBrowseNum`, data)
+// 查询商品是否在售
+export const isSaleGoods = (data: any) => get2(`${HOST_JAVA}/anchor/isSaleGoods`, data)
 
 
 /**

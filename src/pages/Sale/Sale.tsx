@@ -101,7 +101,7 @@ export default function Sale() {
         { time: '14:00', ongoing: false, state: '即将开始' },
         { time: '20:00', ongoing: false, state: '即将开始' }
       ])
-    } else if (curHours >= 14 && curHours <= 20) {
+    } else if (curHours >= 14 && curHours < 20) {
       timeQuantum = await '14:00'
 
       setTimeList([

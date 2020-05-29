@@ -154,24 +154,24 @@ function Logion(props: any) {
    */
   const loginWithWeChat = () => {
     // navigation.push('BindPhoneNumber')
-    // WeChat.isWXAppInstalled().then(res => {
-    //   if (res) {
-    //     WeChat.sendAuthRequest(
-    //       'snsapi_userinfo',
-    //       '云闪播微信登录'
-    //     ).then((res: any) => {
-    //       console.log(res)
-    //       if (res.errCode === 0) {
-    //         // weChatLogin(res.code)
-    //       }
-    //     }).catch((err: any) => {
-    //       Toast.fail('未获得微信授权')
-    //       console.log(err)
-    //     })
-    //   } else {
-    //     Toast.fail('请先到应用商店下载安装微信')
-    //   }
-    // })
+    WeChat.isWXAppInstalled().then(res => {
+      if (res) {
+        WeChat.sendAuthRequest(
+          'snsapi_userinfo',
+          '云闪播微信登录'
+        ).then((res: any) => {
+          console.log(res)
+          if (res.errCode === 0) {
+            weChatLogin(res.code)
+          }
+        }).catch((err: any) => {
+          Toast.fail('未获得微信授权')
+          console.log(err)
+        })
+      } else {
+        Toast.fail('请先到应用商店下载安装微信')
+      }
+    })
   }
 
   /**

@@ -255,12 +255,13 @@ function CreateOrder(props: Props) {
   const submitOrder = () => {
     const addressInfo = Object.keys(props.choosedAddress).length ? props.choosedAddress : defaultAddress
 
-    console.log(addressInfo)
-
     if (!addressInfo || !addressInfo.address_id) {
-      Toast.show('请选择收货地址', {
-        position: 0
-      })
+      AntToast.fail('请选择收货地址')
+      return
+    }
+
+    if (orderTotalPrice < 0) {
+      AntToast.fail('价格计算有误，请重新确认')
       return
     }
 
@@ -289,8 +290,8 @@ function CreateOrder(props: Props) {
         cartIds.push(_item.cart_id)
       })
 
-      if (item.chooseCoupon && item.chooseCoupon.id > 0) {
-        userCouponsId = item.chooseCoupon.id
+      if (item.shop_info.choosedCoupon && item.shop_info.choosedCoupon.id > 0) {
+        userCouponsId = item.shop_info.choosedCoupon.id
       }
 
       shopReqs[index] = {

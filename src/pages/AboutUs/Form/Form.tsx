@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
-import { Toast } from '@ant-design/react-native'
+import { Toast } from '../../../components/Toast'
 
 interface Props {
   version: string;

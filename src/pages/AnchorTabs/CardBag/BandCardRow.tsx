@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText, T3, scale, T1} from 'react-native-normalization-text';
-import Toast from 'react-native-tiny-toast';
 import {useNavigation} from '@react-navigation/native';
 import withPage from '../../../components/HOCs/withPage';
 import PagingList from '../../../components/PagingList';

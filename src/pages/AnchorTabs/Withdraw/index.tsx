@@ -31,7 +31,7 @@ import pxToDp from '../../../utils/px2dp';
 import images from '../../../assets/images';
 import {updateCurBankCards} from '../../../actions/asset';
 import { apiSendVerCode } from '../../../service/api';
-import { Toast, Portal } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 
 
 const Withdraw = (props: any) =>  {
@@ -84,7 +84,7 @@ const Withdraw = (props: any) =>  {
     apiSendVerCode({ userTel: 17681610221 }).then((res: any) => {
       console.log('发送验证码', res)
 
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       Toast.success('验证码已发送')
 

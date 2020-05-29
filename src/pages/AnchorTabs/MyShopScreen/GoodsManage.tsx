@@ -21,7 +21,7 @@ import { vw, vh } from '../../../utils/metric';
 import Empty from '../../../components/Empty/';
 import PagingList from '../../../components/PagingList';
 import {getShopGoods} from '../../../actions/shop';
-import { Toast } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 
 const ROW_HEIGHT = 168;
 

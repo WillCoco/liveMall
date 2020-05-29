@@ -32,16 +32,21 @@ interface LiveToolBarProps {
   onPressShopBag: (v?: any) => any,
   onPressForward: (v?: any) => any,
   onPressLike: (v?: any) => any,
+  value?: string,
+  setValue?: (v: string) => any,
 }
 
 const LiveToolBar = (props: LiveToolBarProps) : any =>  {
   const [value, setValue] = React.useState('');
   const [animValue, setAnimValue] = React.useState(new Animated.Value(0));
 
+  const valueInput = props.value || value;
+  const setValueInput = props.setValue || setValue;
+
   const onSubmitEditing = () => {
-    if (value) {
-      props.onSubmitEditing(value);
-      setValue('');
+    if (valueInput) {
+      props.onSubmitEditing(valueInput);
+      setValueInput('');
     }
   }
 
@@ -78,8 +83,8 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
         />
       </TouchableOpacity>
       <TextInput
-        value={value}
-        onChangeText={setValue}
+        value={valueInput}
+        onChangeText={setValueInput}
         placeholder={props.inputPlaceholder}
         placeholderTextColor="#fff"
         style={StyleSheet.flatten([styles.input, props.inputStyle])}

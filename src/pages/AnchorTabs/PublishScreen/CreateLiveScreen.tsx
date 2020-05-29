@@ -6,7 +6,7 @@ import {
   StyleSheet,
   LayoutAnimation
 } from 'react-native';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText,scale} from 'react-native-normalization-text';
 import {useNavigation} from '@react-navigation/native';
@@ -81,7 +81,7 @@ const CreateLiveScreen = (props: any) =>  {
 
     console.log(result, 'resultresultresult')
 
-    Portal.remove(loading);
+    Toast.remove(loading);
 
     const cover = result?.data;
 
@@ -161,12 +161,12 @@ const CreateLiveScreen = (props: any) =>  {
             《云闪播主播入驻协议》
           </SmallText>
         </SmallText>
-          <LivingFaceCard
-              visible={!!faceCardVisible}
-              setVisible={setFaceCardVisible}
-              onPressClose={() => faceCardAnim(false)}
-              onAfterChangeSetting={onAfterChangeSetting}
-          />
+        <LivingFaceCard
+            visible={!!faceCardVisible}
+            setVisible={setFaceCardVisible}
+            onPressClose={() => faceCardAnim(false)}
+            onAfterChangeSetting={onAfterChangeSetting}
+        />
       </View>
     </View>
   )

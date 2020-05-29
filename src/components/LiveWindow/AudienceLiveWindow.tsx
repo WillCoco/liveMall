@@ -28,7 +28,7 @@ import { vw, vh } from "../../utils/metric";
 import { apiEnterLive, apiAttentionAnchor } from '../../service/api';
 import { updateLivingInfo } from '../../actions/live';
 import withPage from '../../components/HOCs/withPage';
-import { Toast } from "@ant-design/react-native";
+import { Toast } from "../../components/Toast";
 import { isSucceed } from '../../utils/fetchTools';
 import { EMPTY_OBJ } from '../../constants/freeze';
 import { MessageType } from "../../reducers/im";
@@ -249,6 +249,16 @@ const LiveWindow = (props: LiveWindowProps): any => {
   if (isLiveOver) {
     replace('AudienceLivingEnd');
   }
+  
+  /**
+   * input
+   */
+  const [textInput, setTextInput] = React.useState();
+
+  // 直播结束
+  if (isLiveOver) {
+    replace('AudienceLivingEnd');
+  }
 
 
   return (
@@ -271,13 +281,17 @@ const LiveWindow = (props: LiveWindowProps): any => {
       {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
         {
           isShow ? (
-            <LivingBottomBlock.Audience 
+            <LivingBottomBlock.Audience
+              textValue={textInput}
+              setTextValue={setTextInput}
               onPressShopBag={() => shopCardAnim(true)}
               style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
             />
           ) : null
         }
-        <LivingBottomBlock.Audience 
+        <LivingBottomBlock.Audience
+          textValue={textInput}
+          setTextValue={setTextInput}
           onPressShopBag={() => shopCardAnim(true)}
           style={StyleSheet.flatten([styles.livingBottomBlock])}
         />

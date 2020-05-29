@@ -17,7 +17,7 @@ import {pad} from '../../../constants/Layout';
 import {Colors} from '../../../constants/Theme';
 import {brandGoodAdapter} from '../../../utils/dataAdapters';
 import images from '../../../assets/images/index';
-import { Toast, Portal } from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import {delWareHouseGoods2} from '../../../actions/shop';
 // import Toast from 'react-native-tiny-toast';
 

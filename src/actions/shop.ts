@@ -5,7 +5,6 @@ import shopActionType from '../constants/Shop';
 import {Dispatch} from 'redux';
 import {sleep} from '../utils/tools';
 import * as api from '../service/api';
-import Toast from 'react-native-tiny-toast';
 import calcStrLength from '../utils/calcStrLength';
 import {safeStringify} from '../utils/saftyFn';
 import { EMPTY_OBJ } from '../constants/freeze';

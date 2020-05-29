@@ -24,7 +24,7 @@ import {apiBindingBankCard} from '../../../service/api';
 import {updateBankCards, updateCurBankCards} from '../../../actions/asset';
 import {apiGetUserBankCards} from '../../../service/api';
 import Mask from '../../../components/Mask';
-import {Portal, Toast} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 
 const ROW_HEIGHT = 120;
 
@@ -58,7 +58,7 @@ const AddBankCard = (props: any) =>  {
 
     apiBindingBankCard(params).then((res: any) => {
       console.log(res, 'bind');
-      Portal.remove(t);
+      Toast.remove(t);
 
       setCardNum('');
       Toast.show('绑定成功');
@@ -73,7 +73,7 @@ const AddBankCard = (props: any) =>  {
       
     }).catch((err: any) => {
       console.log(err, 'apiBindingBankCard');
-      Portal.remove(t);
+      Toast.remove(t);
     })
   };
 

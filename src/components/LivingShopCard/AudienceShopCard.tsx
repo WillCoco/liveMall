@@ -70,6 +70,11 @@ const AudienceShopCard = (props: {
    * 直播商品
    */
   const onPressBuy = (good: any) => {
+    // todo 请求接口
+
+    // todo 请求是否下架
+
+    // 
     navigate('GoodsInfo', {
       id: good?.goodsId,
       shareUserId: anchorId,
@@ -160,7 +165,7 @@ const AudienceShopCard = (props: {
                       dataAdapter={brandGoodAdapter}
                       key={`anchorShopCard_${index}`}
                       onPressBuy={onPressBuy}
-                      index={index}
+                      index={index + 1}
                       style={{borderBottomWidth: 1, borderColor: Colors.divider}}
                     />
                   )

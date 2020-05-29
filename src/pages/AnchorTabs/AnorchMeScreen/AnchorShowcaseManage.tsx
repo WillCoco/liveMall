@@ -24,7 +24,7 @@ import { vw, vh } from '../../../utils/metric';
 import Empty from '../../../components/Empty';
 import PagingList from '../../../components/PagingList';
 import { AddGoodsTargetType, getWareHouseGoods, addGoods2ShowCase, delGroupHouseGoods } from '../../../actions/shop';
-import { Toast, Portal } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 
 const INIT_PAGE_NO = 1;
 const PAGE_SIZE = 10;
@@ -143,7 +143,7 @@ const AnchorShowcaseManage = () =>  {
         const Bool = await dispatch(delGroupHouseGoods({
             goodsIdList: [...removeList]
         }));
-        portal.remove(t);
+        Toast.remove(t);
         if(Bool){
             Toast.success('删除成功');
             setRemoveList([])

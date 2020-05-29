@@ -21,6 +21,7 @@ import {Colors} from '../../../constants/Theme';
 import {useDispatch, useSelector} from 'react-redux';
 import {apiAnchorHomePage} from '../../../service/api';
 import {setAnchorInfo} from '../../../actions/anchor';
+import { shortNum } from '../../../utils/numeric';
 
 const ToolCell = (props: {
   text: string,
@@ -109,7 +110,7 @@ const AnorchMeScreen = () =>  {
       </View>
       <View style={styles.blockWrapper}>
         <T4 style={styles.nickText}>{anchorInfo?.name || '主播昵称'}</T4>
-        <SmallText style={styles.followText}>{anchorInfo?.favouriteAmount || 0}粉丝</SmallText>
+        <SmallText style={styles.followText}>{shortNum(anchorInfo?.favouriteAmount) || 0}粉丝</SmallText>
         {
           dataList.map((row, index) => {
             return (

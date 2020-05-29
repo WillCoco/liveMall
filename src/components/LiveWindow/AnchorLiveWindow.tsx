@@ -26,7 +26,7 @@ import withPage from '../../components/HOCs/withPage';
 import {pad} from '../../constants/Layout';
 import { joinGroup, dismissGroup, updateGroupProfile, sendRoomMessage, } from '../../actions/im';
 import { anchorToLive, closeLive, updatecamera, updateFaceSetting, faceBeautyParams } from '../../actions/live';
-import Toast from 'react-native-tiny-toast';
+import { Toast } from '../../components/Toast';
 import { MessageType } from '../../reducers/im';
 import LivingFaceCard from '../../components/LivingFaceCard';
 
@@ -209,6 +209,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   const noticeBubbleText = room?.notification;
 
   const onPressBubble = () => {
+    console.log(room?.groupID)
     if (room?.groupID) {
       // 显示输入框
       maskDispatch({

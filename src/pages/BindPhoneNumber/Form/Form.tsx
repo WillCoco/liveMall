@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, Image, PixelRatio, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Dimensions, Image, PixelRatio, TextInput, Platform } from 'react-native'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 
@@ -24,7 +24,7 @@ export default function Form(props: Props) {
             placeholder='请输入手机号'
             style={styles.input}
             onChangeText={value => props.changeTelNum(value)} maxLength={11}
-            keyboardType='phone-pad'
+            keyboardType={Platform.OS === 'ios' ? 'default' : 'phone-pad'}
             returnKeyType='next'
           />
         </View>
@@ -37,7 +37,7 @@ export default function Form(props: Props) {
             style={styles.input}
             onChangeText={value => props.changeVerCode(value)}
             maxLength={6}
-            keyboardType='number-pad'
+            keyboardType={Platform.OS === 'ios' ? 'default' : 'number-pad'}
             returnKeyType='next'
           />
         </View>

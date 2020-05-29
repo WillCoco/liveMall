@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
 import * as ImagePicker from 'expo-image-picker'
 import { Ionicons } from '@expo/vector-icons'
-import { Portal, Toast } from '@ant-design/react-native'
+import { Toast } from '../../../components/Toast'
 import { apiWorkUpload } from '../../../service/api'
 import { setMediaList } from '../../../actions/works'
 
@@ -62,7 +62,7 @@ function ImgPicker(props: Props) {
       fileType: pageType === 'video' ? 'VIDEO' : 'PICTURE',
       file: getImageInfo(imgUri),
     }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
       console.log(res)
       if (res.code === 200) {
         let imgFullPath = res.data.worksUrl
@@ -74,7 +74,7 @@ function ImgPicker(props: Props) {
         Toast.fail(res.data)
       }
     }).catch((err: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
       console.log(err)
     })
   }

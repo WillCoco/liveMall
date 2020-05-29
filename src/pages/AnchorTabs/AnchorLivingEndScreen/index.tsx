@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Icon, Divider, ListItem} from 'react-native-elements';
-import {PrimaryText, SmallText, T4, TinyText} from 'react-native-normalization-text';
+import {PrimaryText, SmallText, T4, TinyText, scale} from 'react-native-normalization-text';
 import {useDispatch, useSelector} from 'react-redux';
 import { useNavigation, CommonActions, useRoute } from '@react-navigation/native'
 import withPage from '../../../components/HOCs/withPage';
@@ -88,7 +88,7 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                 dataList.map(item => {
                   return (
                     <View style={styles.dataItem} key={item.title}>
-                      <Text>{endData && endData[item.key] || 0}</Text>
+                      <Text style={{color: '#222', fontWeight: 'bold'}}>{endData && endData[item.key] || 0}</Text>
                       <Text style={{color: Colors.darkGrey}}>{item.title}</Text>
                     </View>
                   )
@@ -108,11 +108,12 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                   <ListItem
                     leftAvatar={{ source: {uri: endData?.bestSellGoodsRes?.originalImg || ''}, rounded: false}}
                     title={endData?.bestSellGoodsRes?.goodsName}
+                    titleStyle={styles.itemTitle}
                     subtitle={endData?.bestSellGoodsRes?.goodsSku}
                     subtitleStyle={{color: Colors.darkGrey, paddingVertical: pad}}
                     rightTitle={
                       <PrimaryText style={styles.fontYellow}>
-                        {endData?.bestSellGoodsRes?.totalNum}<TinyText style={styles.fontYellow}> 元</TinyText>
+                        {endData?.bestSellGoodsRes?.totalNum || 0}<TinyText style={styles.fontYellow}> 元</TinyText>
                       </PrimaryText>
                     }
                   />
@@ -131,10 +132,11 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                 <ListItem
                   leftAvatar={{ source: {uri: endData?.bestBrowseGoodsRes?.originalImg}, rounded: false}}
                   title={endData?.bestBrowseGoodsRes?.goodsName}
-                  rightTitle={endData?.bestBrowseGoodsRes?.totalNum}
+                  titleStyle={styles.itemTitle}
+                  rightTitle={endData?.bestBrowseGoodsRes?.totalNum || 0}
                   rightTitleStyle={{color: Colors.yellowColor}}
                   rightSubtitle={'最高观看人数'}
-                  rightSubtitleStyle={{fontSize: 12, width: 90}}
+                  rightSubtitleStyle={{fontSize: scale(12), width: scale(90), textAlign: 'right'}}
                 />
               </View>
             }
@@ -164,11 +166,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   title: {
-    width: 150,
-    height: 28,
+    width: scale(150),
+    height: scale(28),
     alignSelf: 'center',
     marginTop: pad
   },
+
   dataWrapper: {
     width: '100%',
     backgroundColor: Colors.whiteColor,
@@ -187,14 +190,19 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: Colors.divider
   },
+  itemTitle: {
+    fontSize: scale(12),
+    color: '#222',
+    fontWeight: 'bold'
+  },
   subTitleLine: {
     flexDirection: 'row',
     paddingVertical: pad,
   },
   subIcon: {
-    width: 14,
-    height: 16,
-    marginRight: 5,
+    width: scale(14),
+    height: scale(16),
+    marginRight: scale(5),
   },
   subTitle: {
     color: Colors.basicColor,

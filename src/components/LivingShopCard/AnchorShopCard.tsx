@@ -31,7 +31,7 @@ import { isSucceed, } from '../../utils/fetchTools';
 import { EMPTY_ARR } from '../../constants/freeze';
 import {apiSelLiveGoods} from '../../service/api';
 import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../actions/shop';
-import { Toast, Portal } from '@ant-design/react-native';
+import { Toast } from '../../components/Toast';
 
 const ROW_HEIGHT = 120;
 const PAGE_SIZE = 14;

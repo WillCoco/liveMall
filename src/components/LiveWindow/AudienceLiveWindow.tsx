@@ -28,7 +28,7 @@ import { vw, vh } from "../../utils/metric";
 import { apiEnterLive, apiAttentionAnchor } from '../../service/api';
 import { updateLivingInfo } from '../../actions/live';
 import withPage from '../../components/HOCs/withPage';
-import { Toast } from "@ant-design/react-native";
+import { Toast } from "../../components/Toast";
 import { isSucceed } from '../../utils/fetchTools';
 import { EMPTY_OBJ } from '../../constants/freeze';
 import { MessageType } from "../../reducers/im";

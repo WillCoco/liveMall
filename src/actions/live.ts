@@ -4,7 +4,6 @@ import {LiveConfig,CameraType} from '../reducers/live';
 import * as api from '../service/api';
 import {isSucceed} from '../utils/fetchTools';
 import {EMPTY_OBJ, EMPTY_ARR} from '../constants/freeze';
-import Toast from 'react-native-tiny-toast';
 import {getUniqueId} from 'react-native-device-info';
 
 /**

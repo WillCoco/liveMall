@@ -6,7 +6,7 @@ import {
   Dispatch,
 } from 'redux';
 import {RoomType, MessageType, RoomMessageType} from '../reducers/im';
-import Toast from 'react-native-tiny-toast';
+import {Toast} from '../components/Toast'
 import {store} from '../store';
 import {safeParse} from '../utils/saftyFn';
 import {updateLivingStatus, updateLivingInfo} from './live';

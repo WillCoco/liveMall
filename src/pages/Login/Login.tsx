@@ -3,7 +3,7 @@ import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'reac
 import { useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
-import { Portal, Toast } from '@ant-design/react-native'
+import {Toast} from '../../components/Toast'
 import * as WeChat from 'react-native-wechat-lib'
 
 import Form from './Form/Form'
@@ -76,7 +76,7 @@ function Logion(props: any) {
 
       setHasRegister(res)
 
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       Toast.success('验证码已发送')
 

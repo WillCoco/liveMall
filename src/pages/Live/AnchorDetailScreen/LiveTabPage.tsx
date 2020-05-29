@@ -21,12 +21,13 @@ import Iconbacklight from '../../../components/Iconfont/Iconbacklight';
 import {vw} from '../../../utils/metric';
 import CountDown from '../../../components/CountDown';
 import moment from 'moment'
-import { Toast } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 import PagingList from '../../../components/PagingList';
 import {apiAnchorParticular} from '../../../service/api';
 import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
 import { clearLiveRoom } from '../../../actions/im';
+import { shortNum } from '../../../utils/numeric';
 
 const Row = (props: {
   title: string,
@@ -187,7 +188,7 @@ const LiveTabPage = (props: {
           key={`_${index}`}
           title={item.liveTitle}
           typeText="直播中"
-          subText={item.watchNum + '观看'}
+          subText={shortNum(item.watchNum) + '观看'}
           showDivider
           onPress={() => toLiveingRoom(item)}
         />
@@ -196,7 +197,7 @@ const LiveTabPage = (props: {
       notRecordCount ++
       return <Row
         key={`item_${index}`}
-        title={item?.liveTitle }
+        title={item?.liveTitle}
         typeText='预告'
         countDown={true}
         time={item?.liveTime}
@@ -212,8 +213,8 @@ const LiveTabPage = (props: {
               img={item?.smallPic}
               title={item?.liveTitle}
               time={(new Date(item?.liveTime)).toLocaleString()}
-              viewTimes={item?.watchNum}
-              goodsQuantity={item?.liveProductnum}
+              viewTimes={shortNum(item?.watchNum) || 0}
+              goodsQuantity={item?.liveProductnum || 0}
               key={`item_${index}`}
               onPress={() => toLiveingRoom(item)}
             />
@@ -225,8 +226,8 @@ const LiveTabPage = (props: {
             img={item?.smallPic}
             title={item?.liveTitle}
             time={(new Date(item?.liveTime)).toLocaleString()}
-            viewTimes={item?.watchNum}
-            goodsQuantity={item?.liveProductnum}
+            viewTimes={shortNum(item?.watchNum) || 0}
+            goodsQuantity={item?.liveProductnum || 0}
             key={`item_${index}`}
             onPress={() => toLiveingRoom(item)}
           />

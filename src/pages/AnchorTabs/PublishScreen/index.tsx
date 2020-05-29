@@ -22,6 +22,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
 import { shortNum } from '../../../utils/numeric';
 import { EMPTY_OBJ } from '../../../constants/freeze';
+import { isSucceed } from '../../../utils/fetchTools';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);

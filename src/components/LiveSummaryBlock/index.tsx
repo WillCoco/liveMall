@@ -22,6 +22,7 @@ import defaultImages from '../../assets/default-image';
 import {MediaType} from '../../liveTypes';
 import { updateLivingInfo } from '../../actions/live';
 import { clearLiveRoom } from '../../actions/im';
+import { shortNum } from '../../utils/numeric';
 
 export type msgList = any[] | undefined;
 export type onMsgListResponse = (v: boolean) => any;
@@ -120,7 +121,7 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
       />
       <View style={styles.liveTitleWrapper}>
         {liveTypeEle}
-        <TinyText color="white">{props.liveInfo?.viewsNum || '0'}</TinyText>
+        <TinyText color="white">{shortNum(props.liveInfo?.viewsNum) || '0'}</TinyText>
       </View>
       <View style={styles.titleWrapper}>
         <PrimaryText
@@ -153,7 +154,7 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
             numberOfLines={1}
             ellipsizeMode="tail"
             style={styles.hotText}>
-              {props.liveInfo?.likeSum || 0}
+              {shortNum(props.liveInfo?.likeSum) || 0}
           </SmallText>
         </View>
       </View>

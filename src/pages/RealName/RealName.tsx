@@ -15,7 +15,7 @@ import pxToDp from '../../utils/px2dp'
 import { useNavigation } from '@react-navigation/native'
 import Mask from '../../components/Mask'
 import {apiRealName, apiGetUserData} from '../../service/api'
-import {Portal, Toast} from '@ant-design/react-native'
+import {Toast} from '../../components/Toast'
 import { setUserInfo } from '../../actions/user'
 import { useDispatch } from 'react-redux'
 
@@ -70,7 +70,7 @@ const RealName = props => {
     const loading = Toast.loading('认证中')
     apiRealName(params)
       .then((res: any) => {
-        Portal.remove(loading)
+        Toast.remove(loading)
         if (res?.success) {
           Toast.info('实名认证通过')
           /**
@@ -90,7 +90,7 @@ const RealName = props => {
       })
       .catch((err: any) => {
         console.log(err, 'realname')
-        Portal.remove(loading)
+        Toast.remove(loading)
       })
   }
 

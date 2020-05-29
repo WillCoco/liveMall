@@ -9,7 +9,7 @@ import {
   StyleProp,
   ImageSourcePropType
 } from 'react-native';
-import {Toast} from '@ant-design/react-native'
+import { Toast } from '../../components/Toast'
 import { useSelector, useDispatch } from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {PrimaryText, SmallText} from 'react-native-normalization-text';

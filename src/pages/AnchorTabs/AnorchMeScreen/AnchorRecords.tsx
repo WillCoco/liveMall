@@ -38,7 +38,7 @@ import PagingList from '../../../components/PagingList';
 import share, {ShareType} from '../../../utils/share';
 import usePermissions from '../../../hooks/usePermissions';
 import RNFS from 'react-native-fs';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import {EMPTY_ARR, EMPTY_OBJ} from '../../../constants/freeze';
 import {isSucceed} from '../../../utils/fetchTools';
 import { updateLivingInfo } from '../../../actions/live';
@@ -229,7 +229,7 @@ const AnchorRecords = (props) => {
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       const t = Toast.loading('已在后台下载...');
       if (!url) {
-        Portal.remove(t);
+        Toast.remove(t);
         Toast.fail('视频不存在');
         return;
       }
@@ -254,17 +254,17 @@ const AnchorRecords = (props) => {
         if (res && res.statusCode === 200) {
           CameraRoll.saveToCameraRoll(downloadDest)
             .then(function (result) {
-              Portal.remove(t);
+              Toast.remove(t);
               Toast.success('视频已保存至相册');
             })
             .catch(function (error) {
               console.log(error, 'errorerrorerrorerror');
-              Portal.remove(t);
+              Toast.remove(t);
               Toast.fail('视频保存失败');
             });
           return;
         }
-        Portal.remove(t);
+        Toast.remove(t);
         Toast.show('获取视频资源失败');
       });
     }

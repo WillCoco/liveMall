@@ -14,7 +14,7 @@ import asset from './asset'
 
 import anchorData from './anchor'
 
-export default combineReducers({
+export default {
   publicData,
   homeData,
   userData,
@@ -26,4 +26,4 @@ export default combineReducers({
   shop,
   asset,
   anchorData,
-})
+}

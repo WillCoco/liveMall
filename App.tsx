@@ -98,6 +98,7 @@ import LivePlatformStandard from './src/pages/Agreements/LivePlatformStandard'
 import UserAgreement from './src/pages/Agreements/UserAgreement'
 import PrivacyPolicy from './src/pages/Agreements/PrivacyPolicy'
 import LiveGoodsPickerScreen from './src/pages/AnchorTabs/PublishScreen/LiveGoodsPickerScreen';
+import ErrorPage from './src/pages/ErrorPage';
 
 const { StatusBarManager } = NativeModules
 const { store, persistor } = configStore()
@@ -252,6 +253,7 @@ export default function App(props: { skipLoadingScreen: any; }) {
                     <Stack.Screen name='UserAgreement' component={UserAgreement} />
                     <Stack.Screen name='LivePlatformStandard' component={LivePlatformStandard} />
                     <Stack.Screen name='AnchorEntryAgreement' component={AnchorEntryAgreement} />
+                    <Stack.Screen name='ErrorPage' component={ErrorPage} options={{ headerShown: false }} />
                   </Stack.Navigator>
                 </NavigationContainer>
               </View>

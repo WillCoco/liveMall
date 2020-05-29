@@ -161,12 +161,12 @@ const CreateLiveScreen = (props: any) =>  {
             《云闪播主播入驻协议》
           </SmallText>
         </SmallText>
-          <LivingFaceCard
-              visible={!!faceCardVisible}
-              setVisible={setFaceCardVisible}
-              onPressClose={() => faceCardAnim(false)}
-              onAfterChangeSetting={onAfterChangeSetting}
-          />
+        <LivingFaceCard
+            visible={!!faceCardVisible}
+            setVisible={setFaceCardVisible}
+            onPressClose={() => faceCardAnim(false)}
+            onAfterChangeSetting={onAfterChangeSetting}
+        />
       </View>
     </View>
   )

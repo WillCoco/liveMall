@@ -353,6 +353,10 @@ const styles = StyleSheet.create({
   video: {
     flex: 1,
     position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
     height: vh(100),
     width: vw(100)
     // minHeight: vh(100),

@@ -193,7 +193,6 @@ export default function live(state = INITIAL_STATE, action: any) {
       if (!action.payload.liveConfig) {
         return {...state, liveConfig: {cover: undefined, title: ''}};
       }
-      console.log(action.payload.liveConfig, '???pp')
       return {...state, liveConfig: {...state.liveConfig, ...action.payload.liveConfig}};
     case liveActionTypes.UPDATE_PUSHER_CONFIG:
       return {...state, pusherConfig: {...state.pusherConfig, ...action.payload.pusherConfig}};

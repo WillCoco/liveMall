@@ -20,14 +20,15 @@ import {setAnchorInfo} from '../../../actions/anchor';
 import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
+import { shortNum } from '../../../utils/numeric';
+import { EMPTY_OBJ } from '../../../constants/freeze';
 import { isSucceed } from '../../../utils/fetchTools';
-import {shortNum} from '../../../utils/numeric';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);
   const {navigate, reset} = useNavigation();
   const dispatch = useDispatch();
-  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {}
+  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || EMPTY_OBJ;
   const userId = useSelector((state: any) => state?.userData?.userInfo?.userId)
 
   /**
@@ -85,38 +86,38 @@ const PublishScreen = (props: any) =>  {
     }
   }
 
+  /**
+   * 拉取主播数据并查看是否存在直播
+   */
   useFocusEffect(
     React.useCallback(() => {
-      checkIsLiveNow();
       apiAnchorHomePage({userId})
       .then((res: any) => {
-        dispatch(setAnchorInfo(res))
+        dispatch(setAnchorInfo(res));
+        checkIsLiveNow();
       })
       .catch(console.warn)
     }, [])
-  );
-
-  React.useEffect(() => {
-
-  }, [])
+  ), [anchorInfo];
 
   /**
    * 处理android返回
    */
   useFocusEffect(
-      React.useCallback(() => {
-          const onBackPressAndroid = () => {
-              if(allowBack) {
-                  onBackPress()
-              }
-              return true
-          }
+    React.useCallback(() => {
+      const onBackPressAndroid = () => {
+        if(allowBack) {
+            onBackPress()
+        }
+        return true
+      }
 
-          BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
+      BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
 
-          return () =>
-            BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
-      }, [])
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
+      }
+    }, [])
   );
 
   return (
@@ -133,8 +134,8 @@ const PublishScreen = (props: any) =>  {
       />
       <NavBar leftTheme="light" title="" style={styles.navWrapper} onLeftPress={onBackPress} />
       <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={anchorInfo.logo && {uri: anchorInfo.logo} || images.userAvatar}/>
-      <T1 style={styles.nameText}>{anchorInfo?.name || '主播昵称'}</T1>
-      <SmallText style={styles.followText}>{shortNum(anchorInfo?.favouriteAmount) || 0}粉丝</SmallText>
+      <T1 style={styles.nameText}>{anchorInfo.name || '主播昵称'}</T1>
+      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount ? shortNum(anchorInfo.favouriteAmount) : 0}粉丝</SmallText>
       <View style={styles.entranceWrapper}>
         <TouchableOpacity
           style={styles.entranceImgWrapper}

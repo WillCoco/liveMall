@@ -182,6 +182,7 @@ const AnchorTrailers = () =>  {
               onRemindPress={() => onRemindPress(item.remind, index)}
               onPress={() => {
                 dispatch(clearLiveRoom());
+                dispatch(updateLivingInfo(item));
 
                 navigate('LivingRoomScreen', {
                   mediaType: MediaType.teaser,

@@ -5,6 +5,8 @@
 import Toast from "react-native-tiny-toast";
 import configStore from "../../store";
 import { toggleLoginState, setToke, setUserInfo } from "../../actions/user";
+import { clearLoginStatus } from '../../actions/user';
+import { AnyAction } from "redux";
 const { store } = configStore();
 
 /**
@@ -31,9 +33,11 @@ export const authInvalidHandler = (promise: Promise<any>) => {
   return promise.then((result: any) => {
     if (result && result.code === '203' || result.code === '204') {
       Toast.show("用户信息过期，请重新登录", { position: 0 });
-      store.dispatch(toggleLoginState(false));
-      store.dispatch(setToke(""));
-      store.dispatch(setUserInfo({}));
+
+      store.dispatch(clearLoginStatus() as any)
+      // store.dispatch(toggleLoginState(false));
+      // store.dispatch(setToke(""));
+      // store.dispatch(setUserInfo({}));
       return Promise.reject(result);
     }
     return Promise.resolve(result);

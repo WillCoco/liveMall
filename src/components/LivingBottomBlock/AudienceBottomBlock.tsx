@@ -163,8 +163,6 @@ const BottomBlock = (props: any) : any =>  {
    * 退出提交
    */
   React.useEffect(() => {
-
-    
     return () => {
       if (likeSumRef.current) {
         submitLike(likeSumRef.current)
@@ -172,7 +170,9 @@ const BottomBlock = (props: any) : any =>  {
     }
   }, [])
 
-  const view: any = React.useRef()
+  const view: any = React.useRef();
+
+
 
   // 观众
   return (
@@ -195,6 +195,7 @@ const BottomBlock = (props: any) : any =>  {
       />
       <AudienceLiveToolBar
         likeQuantity={(likeQuantity + likeSum) || 0}
+        goodsQuantity={0} // todo
         onPressShopBag={props.onPressShopBag}
         onSubmitEditing={sendMessage}
         onPressLike={onPressLike}

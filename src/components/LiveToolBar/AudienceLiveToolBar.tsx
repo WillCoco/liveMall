@@ -29,6 +29,7 @@ interface LiveToolBarProps {
   inputPlaceholder?: string,
   inputStyle?: StyleProp<any>,
   likeQuantity?: number,
+  goodsQuantity: number,
   onSubmitEditing: (v: string) => any,
   onPressShopBag: (v?: any) => any,
   onPressForward: (v?: any) => any,
@@ -52,6 +53,7 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
   }
 
   const likeQuantity = props.likeQuantity || 0;
+  const goodsQuantity = props.goodsQuantity || '';
 
 
   const onPressLike = (v: any) => {
@@ -76,12 +78,13 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-      <TouchableOpacity onPress={props.onPressShopBag}>
+      <TouchableOpacity onPress={props.onPressShopBag} style={styles.bagWrapper}>
         <Image
           source={images.anchorShoppingIcon}
           style={styles.shopBagImg}
           resizeMode="contain"
         />
+        <PrimaryText color="white" style={styles.goodQuantity}>{goodsQuantity}</PrimaryText>
       </TouchableOpacity>
       <TextInput
         value={valueInput}
@@ -131,6 +134,9 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     paddingRight: 4,
   },
+  bagWrapper: {
+    alignItems: 'center'
+  },
   input: {
     height: scale(35),
     width: vw(50),
@@ -161,6 +167,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: scale(7),
     overflow: 'hidden'
+  },
+  goodQuantity: {
+    position: 'absolute',
+    bottom: scale(4)
   }
 })
 export default LiveToolBar;

@@ -17,7 +17,8 @@ import {pad} from '../../../constants/Layout';
 import {Colors} from '../../../constants/Theme';
 import {brandGoodAdapter} from '../../../utils/dataAdapters';
 import images from '../../../assets/images/index';
-import { Toast, portal } from '@ant-design/react-native';
+import { Toast, Portal } from '@ant-design/react-native';
+import {delWareHouseGoods2} from '../../../actions/shop';
 // import Toast from 'react-native-tiny-toast';
 
 const PAGE_SIZE = 14;
@@ -77,16 +78,53 @@ const BrandGoods = () =>  {
     return Promise.resolve({result});
   };
 
+  /**
+   * 添加商品
+   */
   const onPressAdd = async (good: any) => {
-    const t = Toast.loading('加载中')
+    // const t = Toast.loading('加载中')
     const addedList = await onPicked(brandGoods, good);
 
     console.log(Toast, 'addedListaddedList')
-    portal.remove(t);
+    // Portal.remove(t);
 
     if (!!addedList) {
-      Toast.success('添加成功');
+      Toast.success('添加成功', 1, undefined, false);
       setBrandGoods(addedList);
+    }
+  }
+
+  /**
+   * 平台商品取消添加到预组货
+   */
+  const delGoods = async (brandGoods: Array<any>, data: any) => {
+    const goodNeed2Del = Array.isArray(data) ? data : [data];
+    const goodIdsNeed2Del = goodNeed2Del.map((d: any) => d.goodsId);
+    // console.log(goodIdsNeed2Del, 'goodsIdListgoodsIdListgoodsIdList')
+    if (goodIdsNeed2Del && goodIdsNeed2Del.length > 0) {
+      const deledList = await dispatch(delWareHouseGoods2({
+        brandGoods,
+        goodIdsNeed2Del
+      }));
+
+      // 返回添加完后的
+      return deledList;
+    }
+  }
+
+  /**
+   * 取消添加商品
+   */
+  const onPressDel = async(good: any) => {
+    // const t = Toast.loading('加载中')
+    const deledList = await delGoods(brandGoods, good);
+
+    console.log(Toast, 'deledListaddedList')
+    // Portal.remove(t);
+
+    if (!!deledList) {
+      Toast.success('取消成功', 1, undefined, false);
+      setBrandGoods(deledList);
     }
   }
 
@@ -104,15 +142,14 @@ const BrandGoods = () =>  {
         size={PAGE_SIZE}
         // initListData={warehouseGoods}
         renderItem={({item, index}) => {
-          console.log(item, 'itemssss')
           return (
             <BrandGoodRow
               data={item}
               dataAdapter={(item: any) => {
-                console.log(item, '2222222')
                 return brandGoodAdapter(item);
               }}
-              onPress={onPressAdd}
+              onPressAdd={onPressAdd}
+              onPressDel={onPressDel}
               style={{paddingHorizontal: pad}}
             />
           )

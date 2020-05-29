@@ -40,7 +40,8 @@ interface BrandGoodRowProps {
   },
   imgStyle: StyleProp<any>,
   style: StyleProp<any>,
-  onPress: (d: any) => any,
+  onPressAdd: (d: any) => any,
+  onPressDel: (d: any) => any,
   disabled?: boolean,
   isAdded: boolean, // 是否已经添加
   actionText: string,
@@ -54,7 +55,8 @@ const BrandGoodRow = (props: BrandGoodRowProps) =>  {
    * 点击添加
    */
   const onPress= () => {
-    props.onPress && props.onPress(props.data);
+    // props.onPress && props.onPress(props.data);
+    !data.isAdded ? props.onPressAdd && props.onPressAdd(data) : props.onPressDel && props.onPressDel(data);
   }
 
   return (
@@ -69,8 +71,7 @@ const BrandGoodRow = (props: BrandGoodRowProps) =>  {
       </View>
       <ButtonRadius
         size={24}
-        disabled={data.isAdded}
-        text={!data.isAdded ? props.actionText : '已添加'}
+        text={!data.isAdded ? props.actionText : '取消添加'}
         onPress={onPress}
         style={StyleSheet.flatten([styles.button, {backgroundColor: !data.isAdded ? Colors.basicColor : Colors.lightGrey}])}
       />

@@ -37,6 +37,7 @@ const livePersistConfig = {
   storage: AsyncStorage,
   version: localStorageVersion,
   whitelist: ['pusherConfig'],
+  timeout: null,
   migrate: (state: any) => {
     return Promise.resolve(state);
   },
@@ -47,6 +48,7 @@ const userDataPersistConfig = {
   storage: AsyncStorage,
   version: localStorageVersion,
   whitelist: ['isLogin', 'token', 'userInfo'],
+  timeout: null,
   migrate: (state: any) => {
     return Promise.resolve(state);
   },

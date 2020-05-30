@@ -19,7 +19,6 @@ import Poller from '../../utils/poller';
 import { isSucceed } from '../../utils/fetchTools';
 import { Attention } from '../../liveTypes';
 import share from '../../utils/share';
-import { shareUrlPerfix } from '../../constants/Urls';
 import { ShareType } from '../../utils/share';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../constants/freeze';
 

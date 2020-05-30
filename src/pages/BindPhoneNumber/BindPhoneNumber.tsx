@@ -19,6 +19,9 @@ let timer: any
 function BindPhoneNumber(props: any) {
   const navigation = useNavigation()
   const route: any = useRoute()
+
+  const { unionId, userTel } = route.params
+
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')
@@ -98,7 +101,7 @@ function BindPhoneNumber(props: any) {
    * 登录操作
    */
   const toLogin = () => {
-    if (!phonePattern.test(telNum)) {
+    if (!userTel && !phonePattern.test(telNum)) {
       Toast.fail('请输入正确的手机号')
       return
     }
@@ -118,10 +121,10 @@ function BindPhoneNumber(props: any) {
     }
 
     const params = {
-      userTel: telNum,
+      userTel: userTel || telNum,
       code: verCode,
       inviteCode: invCode,
-      unionId: route.params
+      unionId
     }
 
     apiWeChatRegister(params).then((res: any) => {
@@ -162,6 +165,7 @@ function BindPhoneNumber(props: any) {
         countDown={countDown}
         disabledSendBtn={disabled}
         sendMsg={sendMsg}
+        userTel={userTel}
         changeTelNum={(value: string) => changeTelNum(value)}
         changeVerCode={(value: string) => changeVerCode(value)}
         changeInvCode={(value: string) => changeInvCode(value)}

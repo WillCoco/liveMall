@@ -13,6 +13,7 @@ import {updateLivingStatus, updateLivingInfo} from './live';
 import {clearLoginStatus} from './user';
 import { Attention } from '../liveTypes';
 import * as api from '../service/api';
+import retry from '../service/fetch/retry';
 import { isSucceed } from '../utils/fetchTools';
 
 const {tim, TIM,/*  getUserSig: getUserSigLocal */} = timModlue;
@@ -220,10 +221,18 @@ export function login() {
       return;
     }
 
-    tim.login({userID: userId, userSig})
+    // 重试
+    const loginWithRetry = retry(tim.login, {
+      getShouldRetry: (r: any) => {
+        return r?.data?.actionStatus !== 'OK'
+      }
+    })
+
+    loginWithRetry({userID: userId, userSig})
       .then(function(imResponse: any) {
         if (imResponse?.actionStatus === 'OK') {
           dispatch(updateUserStatus({isOnLine: true})); // tinyID
+          return;
         }
         dispatch(updateUserStatus({isOnLine: false})); // tinyID
         console.log(imResponse.data, 'loginIm'); // 登录成功

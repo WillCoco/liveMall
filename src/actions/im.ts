@@ -225,17 +225,20 @@ export function login() {
     const loginWithRetry = retry(tim.login, {
       getShouldRetry: (r: any) => {
         return r?.data?.actionStatus !== 'OK'
-      }
+      },
     })
 
     loginWithRetry({userID: userId, userSig})
       .then(function(imResponse: any) {
-        if (imResponse?.actionStatus === 'OK') {
+        console.log(imResponse?.data?.actionStatus, 'loginIm'); // 登录成功
+        if (imResponse?.data?.actionStatus === 'OK') {
           dispatch(updateUserStatus({isOnLine: true})); // tinyID
+          console.log(imResponse?.data?.actionStatus, 'loginIm1111'); // 登录成功
           return;
         }
         dispatch(updateUserStatus({isOnLine: false})); // tinyID
-        console.log(imResponse.data, 'loginIm'); // 登录成功
+        console.log(imResponse?.data?.actionStatus, 'loginIm222'); // 登录成功
+        Toast.show('IM连接失败');
       })
       .catch(function(imError: any) {
         console.warn('login error:', imError); // 登录失败的相关信息

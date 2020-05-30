@@ -298,7 +298,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
 
   // 滑块
   const onAfterChangeSetting = (value: number, type:string) => {
-      dispatch(updateFaceSetting({type, value}))
+    dispatch(updateFaceSetting({type, value}))
   };
 
   /**

@@ -24,18 +24,22 @@ const share = (params: any, options: any) => {
 
   console.log(shareUrl, 'shareUrlshareUrlshareUrlshareUrlshareUrl')
 
-  const url = `
-    邀请您加入云闪播，主播团队带货，正品大牌折上折！
-    购物更划算！
-    --------------
-    下载链接：${sharePrefix}${shareUrl}
-    --------------
-    ${params.inviteCode ? `注册填写邀请口令：${params.inviteCode}` : ''}`;
+  const message = `
+邀请您加入云闪播，主播团队带货，正品大牌折上折！
+购物更划算！
+--------------
+下载链接：
+--------------
+${params.inviteCode ? `注册填写邀请口令：${params.inviteCode}` : ''}
+${params.liveId ? '--------------' : ''}
+${params.liveId ? `直播间ID：${params.liveId}` : ''}
+`
 
   const opts = Platform.select({
     default: {
       title: options.title || '分享',
-      url,
+      url: downloadUrl,
+      message,
       failOnCancel: options.failOnCancel,
     },
   });

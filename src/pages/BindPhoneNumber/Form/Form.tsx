@@ -4,6 +4,7 @@ import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 
 interface Props {
+  userTel: string,
   countDown: number;
   disabledSendBtn: boolean;
   sendMsg(): void;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export default function Form(props: Props) {
-  const { disabledSendBtn: disabled, countDown } = props
+  const { disabledSendBtn: disabled, countDown, userTel } = props
 
   return (
     <View style={styles.container}>
@@ -21,7 +22,8 @@ export default function Form(props: Props) {
         <View style={styles.formItemOption}>
           <Image source={require('../../../assets/login-image/icon_tel.png')} style={styles.telIcon} />
           <TextInput
-            placeholder='请输入手机号'
+            editable={userTel ? false : true}
+            placeholder={userTel ? userTel : '请输入手机号'}
             style={styles.input}
             onChangeText={value => props.changeTelNum(value)} maxLength={11}
             keyboardType={Platform.OS === 'ios' ? 'default' : 'phone-pad'}

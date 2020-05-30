@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
 import {Toast} from '../../components/Toast'
@@ -19,6 +19,8 @@ let timer: any
 
 function Logion(props: any) {
   const navigation: any = useNavigation()
+  const route = useRoute()
+
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')

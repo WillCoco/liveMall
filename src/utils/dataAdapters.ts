@@ -25,3 +25,18 @@ export const brandGoodAdapter = (good: any) => {
     storeCount: good.storeCount, // 总库存
   }
 }
+
+
+/**
+ * 主播信息
+ */
+export const anchorInfoAdapter = (info: any) => {
+  if (!info) {
+    return EMPTY_OBJ;
+  }
+
+  console.log(info, 'infoinfoinfo')
+  return {
+    ...info,
+  }
+}

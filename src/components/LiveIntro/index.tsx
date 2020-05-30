@@ -113,13 +113,15 @@ const LiveIntro = (props: LiveMsgProps) =>  {
       .catch((error: any) => console.log(`apiAttentionAnchor: ${error}`))
   }
 
+  const hasAvatar = (livingInfo?.logo && livingInfo?.logo !== '0')
+
   return (
     <TouchableOpacity
       style={StyleSheet.flatten([styles.wrapper, props.style, {top: props.safeTop + pad}])}
       onPress={onPress}
     >
       <Avatar
-        source={livingInfo.anchorLogo ? {uri: livingInfo.anchorLogo} : defaultImages.userAvatarSmall}
+        source={hasAvatar ? {uri: livingInfo.anchorLogo} : defaultImages.userAvatarSmall}
         size={40}
         style={{marginRight: 4}}
       />

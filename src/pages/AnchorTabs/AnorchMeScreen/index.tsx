@@ -82,6 +82,8 @@ const AnorchMeScreen = () =>  {
     // navigate('我的')
   }
 
+  const hasAvatar = (anchorInfo?.logo && anchorInfo?.logo !== '0')
+
   return (
     <ScrollView style={styles.style}>
       <NavBar 
@@ -105,7 +107,7 @@ const AnorchMeScreen = () =>  {
       />
       <View style={styles.headerWrapper}>
         <Image style={styles.imgBg} source={images.anchorMeBg} resizeMode='stretch' />
-        <Avatar size={60} style={styles.avatar} source={anchorInfo?.logo && {uri: anchorInfo.logo} || images.userAvatar} />
+        <Avatar size={60} style={styles.avatar} source={hasAvatar && {uri: anchorInfo.logo} || images.userAvatar} />
         <SmallText color="white" style={styles.idText}>直播ID: {anchorInfo?.anchorId}</SmallText>
       </View>
       <View style={styles.blockWrapper}>

@@ -6661,9 +6661,10 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.npm.taobao.org/through/download/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
-tim-js-sdk@^2.6.2:
-  version "2.6.5"
-  resolved "https://registry.npm.taobao.org/tim-js-sdk/download/tim-js-sdk-2.6.5.tgz#b823626e6ab1dadfb2f76028b36cadb2b22319dc"
+tim-js-sdk@2.6.2:
+  version "2.6.2"
+  resolved "https://registry.npm.taobao.org/tim-js-sdk/download/tim-js-sdk-2.6.2.tgz?cache=0&sync_timestamp=1590561661950&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftim-js-sdk%2Fdownload%2Ftim-js-sdk-2.6.2.tgz#550615b8eb7505162d3871b73acbba1480aae3d7"
+  integrity sha1-VQYVuOt1BRYtOHG3Osu6FICq49c=
 
 time-stamp@^1.0.0:
   version "1.1.0"

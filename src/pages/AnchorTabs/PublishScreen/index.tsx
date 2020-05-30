@@ -107,7 +107,7 @@ const PublishScreen = (props: any) =>  {
     React.useCallback(() => {
       const onBackPressAndroid = () => {
         if(allowBack) {
-            onBackPress()
+          onBackPress()
         }
         return true
       }
@@ -119,6 +119,8 @@ const PublishScreen = (props: any) =>  {
       }
     }, [])
   );
+
+  const hasAvatar = (anchorInfo?.logo && anchorInfo?.logo !== '0')
 
   return (
     <View style={styles.style}>
@@ -133,7 +135,7 @@ const PublishScreen = (props: any) =>  {
         }}
       />
       <NavBar leftTheme="light" title="" style={styles.navWrapper} onLeftPress={onBackPress} />
-      <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={anchorInfo.logo && {uri: anchorInfo.logo} || images.userAvatar}/>
+      <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={hasAvatar ? {uri: anchorInfo.logo} : images.userAvatar}/>
       <T1 style={styles.nameText}>{anchorInfo.name || '主播昵称'}</T1>
       <SmallText style={styles.followText}>{anchorInfo.favouriteAmount ? shortNum(anchorInfo.favouriteAmount) : 0}粉丝</SmallText>
       <View style={styles.entranceWrapper}>

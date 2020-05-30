@@ -81,9 +81,9 @@ const RealName = props => {
             dispatch(setUserInfo(res))
           }).catch((err: any) => {
             console.log('获取用户信息', err)
-            if (err.code === '203' || err.code === '204') {
-              navigate('Login')
-            }
+            // if (err.code === '203' || err.code === '204') {
+            //   navigate('Login')
+            // }
           })
           goBack()
         }

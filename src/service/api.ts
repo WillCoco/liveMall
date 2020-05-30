@@ -3,12 +3,11 @@
 import { get1, post1, get2, post2, liveUpload, uploadWorkMedia } from './fetch/index'
 import { UpdateParams } from './fetch/fetchOrigin';
 
-// const HOST_PHP = __DEV__ ? 'https://php.quanpinrtmp.com' : ''
-// const HOST_JAVA = __DEV__ ? 'https://java.quanpinrtmp.com' : ''
+const HOST_PHP = 'https://mobile.quanpinlive.com'
+const HOST_JAVA = 'https://app.quanpinlive.com'
 
-const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.quanpinlive.com'
-const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.quanpinlive.com'
-// 192.168.8.122:2333
+// const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.yunshanbo.cn'
+// const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.yunshanbo.cn'
 
 export const SANDPAY_PRE = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8&signType=01' // 杉德支付前缀
 

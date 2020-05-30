@@ -137,10 +137,10 @@ function GoodsInfo(props: Props) {
       setNetWorkErr(false)
       setCouponList(JSON.parse(JSON.stringify(res)))
     }).catch((err: any) => {
-      if (err.code === '203' || err.code === '204') {
-        navigation.push('Login')
-        return
-      }
+      // if (err.code === '203' || err.code === '204') {
+      //   navigation.push('Login')
+      //   return
+      // }
       // setNetWorkErr(true)
     })
   }

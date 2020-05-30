@@ -32,6 +32,7 @@ import {isSucceed} from '../../../utils/fetchTools';
 import {Toast} from '../../../components/Toast';
 import { updateLivingInfo } from '../../../actions/live';
 import images from '../../../assets/images';
+import defaultImages from '../../../assets/default-image';
 import { shortNum } from '../../../utils/numeric';
 
 const AnchorDetail = (props: any) =>  {
@@ -90,6 +91,8 @@ const AnchorDetail = (props: any) =>  {
       .catch(console.warn);
   }, []);
 
+  const hasAvatar = anchorDetail?.anchorLogo && anchorDetail.anchorLogo !== '0';
+
   return (
     <View
       style={StyleSheet.flatten([styles.wrapper, {marginBottom: props.safeBottom}])}
@@ -101,7 +104,7 @@ const AnchorDetail = (props: any) =>  {
             isLiving={anchorDetail?.liveStatus === 2}
             onPress={() => {}}
             style={{marginTop: 36}}
-            source={anchorDetail?.anchorLogo}
+            source={hasAvatar ? anchorDetail?.anchorLogo : defaultImages.userAvatarSmall}
           />
           <T3 style={styles.nickName}>{anchorDetail?.anchorName || '主播'}</T3>
           <View style={styles.row}>

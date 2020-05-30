@@ -78,9 +78,9 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
       getOrderCount()  // 获取订单数量
     }).catch((err: any) => {
       console.log('获取用户信息', err)
-      if (err.code === '203' || err.code === '204') {
-        navigation.push('Login')
-      }
+      // if (err.code === '203' || err.code === '204') {
+      //   navigation.push('Login')
+      // }
       // setNetWorkErr(true)
     })
   }

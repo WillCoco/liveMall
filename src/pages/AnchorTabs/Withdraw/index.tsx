@@ -33,7 +33,6 @@ import {updateCurBankCards} from '../../../actions/asset';
 import { apiSendVerCode } from '../../../service/api';
 import { Toast } from '../../../components/Toast';
 
-
 const Withdraw = (props: any) =>  {
   const {navigate, goBack, replace} = useNavigation();
   const route = useRoute();
@@ -79,7 +78,7 @@ const Withdraw = (props: any) =>  {
    */
   const getCode = () => {
 
-    const loading = Toast.loading('')
+    const loading = Toast.loading('', true)
 
     apiSendVerCode({ userTel: 17681610221 }).then((res: any) => {
       console.log('发送验证码', res)
@@ -117,6 +116,7 @@ const Withdraw = (props: any) =>  {
       "userBankCardId": curBankCard.id
     };
 
+    const t = Toast.loading('提现中', true)
     apiWithdraw(params)
       .then( (res: any) => {
         if (res?.message?.indexOf('手机验证码不正确')) {
@@ -134,10 +134,14 @@ const Withdraw = (props: any) =>  {
             }});
           return;
         }
+        Toast.remove(t)
         Toast.show('提现成功')
         goBack();
       })
-      .catch(console.warn)
+      .catch((err: any) => {
+        console.log(err, '提现申请');
+        Toast.remove(t)
+      })
   };
 
   return (
@@ -175,13 +179,13 @@ const Withdraw = (props: any) =>  {
           placeholder={`可提现金额¥${accountMoney / 100}`}
           value={withdrawNum}
           onChangeText={setWithdrawNum}
-          keyboardType='numeric'
+          // keyboardType='numeric'
         />
         <FormRow 
           title={'验证码'}
           value={verifyCode}
           onChangeText={setVerifyCode}
-          keyboardType='numeric'
+          // keyboardType='numeric'
           rightTitle={
             showCountDown
             && <CountDown
@@ -214,7 +218,6 @@ const styles = StyleSheet.create({
   style: {
     flex: 1,
     backgroundColor: Colors.bgColor,
-    borderWidth: 2,
   },
   nav: {
     backgroundColor: Colors.basicColor,

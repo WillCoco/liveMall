@@ -62,8 +62,6 @@ const BeAnchor = (props: any) =>  {
         url: payURL,
         orderSn: res.data.orderSn,
         payType: res.data.payType,
-        nextBtnText: '重试',
-        nextRoute: 'BeAnchor',
       }
 
       console.log('成为主播', params)

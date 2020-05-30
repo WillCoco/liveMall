@@ -241,8 +241,8 @@ const CreateTraserScreen = (props: {
     Toast.remove(loading);
 
     if (isSucceed) {
-      Toast.show('发布成功');
       goBack();
+      Toast.show('发布成功');
     }
   }
 

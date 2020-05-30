@@ -216,13 +216,13 @@ const CreateTraserScreen = (props: {
     // console.log(coverResult,  'videoResultvideoResult');
 
     if (!coverResult) {
-      Portal.remove(loading);
+      Toast.remove(loading);
       Toast.show(coverMessage || '上传封面失败')
       return;
     }
 
     if (video && !videoResult) {
-      Portal.remove(loading);
+      Toast.remove(loading);
       Toast.show(videoMessage || '上传视频失败')
       return;
     }
@@ -238,7 +238,7 @@ const CreateTraserScreen = (props: {
       bigPic: coverResult,
       liveTime: liveTimeStamp.current,
     }));
-    Portal.remove(loading);
+    Toast.remove(loading);
 
     if (isSucceed) {
       Toast.show('发布成功');

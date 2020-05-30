@@ -303,12 +303,15 @@ function CreateOrder(props: Props) {
       }
     })
 
-    let params = {
+    let params: any = {
       cartIds,
-      liveId: route.params.liveId || '',
       payType: 2,  //  支付方式
       shopReqs,
       userAddressId: addressInfo.address_id
+    }
+
+    if (route.params.liveId) {
+      params[`liveId`] = route.params.liveId
     }
 
     apiCreateOrder(params).then((res: any) => {

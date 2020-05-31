@@ -131,6 +131,7 @@ const INIT_STREAMING_CONFIG: any = {
                 : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
             focusMode: consts.cameraFocusModes.continuousVideo,
             videoOrientation: consts.cameraVideoOrientations.portrait,
+            camera: CameraType.back,
         },
         microphoneSteamingSetting: {
             sampleRate: consts.microphoneSampleRates.r44100,
@@ -154,7 +155,7 @@ const INIT_STREAMING_CONFIG: any = {
         // borderBottomWidth: 1,
     },
 }
-const DEFAULT_OPTIONS: any = INIT_STREAMING_CONFIG || {
+const DEFAULT_OPTIONS: any = INIT_STREAMING_CONFIG /* || {
   // outputUrl: "rtmp://pili-publish.qnsdk.com/sdk-live/111",
   // outputUrl: "rtmp://77154.livepush.myqcloud.com/live/test003?txSecret=e6aaf45458ce4f0626c0dafca4b6bf5a&txTime=5EB581FF",
   // outputUrl: "rtmp.youzfx.cn",
@@ -168,9 +169,9 @@ const DEFAULT_OPTIONS: any = INIT_STREAMING_CONFIG || {
         ...INIT_STREAMING_CONFIG.profile,
         video: INIT_STREAMING_CONFIG.profile.videoStreamingSetting,
         audio: INIT_STREAMING_CONFIG.profile.audioStreamingSetting,
-    },
+    }, 
 
-};
+// };*/
 
 console.log(DEFAULT_OPTIONS, 'DEFAULT_OPTIONSDEFAULT_OPTIONSDEFAULT_OPTIONS')
 

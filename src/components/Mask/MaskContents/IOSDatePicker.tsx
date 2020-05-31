@@ -58,6 +58,7 @@ const IOSDatePicker = (props: {
         display="default"
         onChange={onDeteChange}
         style={StyleSheet.flatten([styles.picker,])}
+        locale="zh_CN"
       />
       <View style={styles.btnsWrapper}>
         <PrimaryText

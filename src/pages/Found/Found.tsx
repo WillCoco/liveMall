@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import {
   View,
   Image,
+  Dimensions,
   ScrollView,
   StyleSheet,
   RefreshControl,
@@ -22,6 +23,10 @@ import WorkCard from '../../components/WorkCard/WorkCard'
 import LoadMore from '../../components/LoadMore/LoadMore'
 
 const pageSize = 20
+const deviceHeight = Dimensions.get('window').height
+const deviceWidthDp = Dimensions.get('window').width
+
+let wrapperOffsetY = 0
 
 function Found(props: { isLogin: boolean }) {
   const { isLogin } = props
@@ -66,6 +71,8 @@ function Found(props: { isLogin: boolean }) {
         item.imageHeight = item.worksMoreInfo.imageHeight
       })
 
+      // waterFall(res.worksInfoList)
+
       let tempList = [...workList, ...waterFall(res.worksInfoList).items]
       let maxH = waterFall(tempList).maxHeight
 
@@ -78,6 +85,17 @@ function Found(props: { isLogin: boolean }) {
       // setNetWorkErr(true)
     })
   }
+
+  // const waterFall = (worksList: any) => {
+  //   worksList.forEach((item: any) => {
+  //     item.imageWidth = item.worksMoreInfo.imageWidth
+  //     item.imageHeight = item.worksMoreInfo.imageHeight
+  //   })
+
+
+
+  //   console.log(worksList)
+  // }
 
   /**
    * 下拉刷新
@@ -97,6 +115,15 @@ function Found(props: { isLogin: boolean }) {
     }
   }
 
+  /**
+   * 瀑布流容器信息
+   */
+  const waterFallLayout = (e: any) => {
+    const { layout } = e.nativeEvent
+    const { y } = layout
+    console.log()
+  }
+
   return (
     <>
       <ScrollView
@@ -108,6 +135,7 @@ function Found(props: { isLogin: boolean }) {
             onRefresh={onPullDownRefresh}
           />
         }
+        style={{ height: deviceHeight }}
       >
         <View style={{ height: maxHeight }}>
           {
@@ -118,6 +146,10 @@ function Found(props: { isLogin: boolean }) {
             })
           }
         </View>
+        {/* <View style={styles.waterFallContainer} onLayout={(e) => waterFallLayout(e)}>
+
+        </View> */}
+
         <LoadMore hasMore={hasMoreRef.current} />
       </ScrollView>
 
@@ -188,5 +220,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     padding: pxToDp(10)
+  },
+  waterFallContainer: {
+
   }
 })

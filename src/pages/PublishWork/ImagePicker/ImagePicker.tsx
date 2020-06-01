@@ -14,7 +14,8 @@ interface Props {
   pageType: string;
   mediaList: Array<any>;
   fullPathImageList: Array<any>;
-  setFullPathImageList([]: Array<any>): void
+  setGifUrl(url: string): void;
+  setFullPathImageList([]: Array<any>): void;
 }
 
 function ImgPicker(props: Props) {
@@ -67,9 +68,18 @@ function ImgPicker(props: Props) {
       if (res.code === 200) {
         let imgFullPath = res.data.worksUrl
         let imgPath = imgFullPath.substr(0, imgFullPath.lastIndexOf('&', imgFullPath.lastIndexOf('&') - 1))
+        let gifFullPath = pageType === 'video' ? res.data.worksGifUrl : ''
+        let gifPath = pageType === 'video'
+          ? gifFullPath.substr(0, gifFullPath.lastIndexOf('&', gifFullPath.lastIndexOf('&') - 1))
+          : ''
 
-        props.dispatch(setMediaList([...mediaList, ...[imgPath]]))
+        props.dispatch(setMediaList(
+          pageType === 'video'
+            ? [...mediaList, ...[gifPath]]
+            : [...mediaList, ...[imgPath]]
+        ))
         props.setFullPathImageList([...fullPathImageList, ...[res.data.worksUrl]])
+        pageType === 'video' && props.setGifUrl(res.data.worksGifUrl)
       } else {
         Toast.fail(res.data)
       }

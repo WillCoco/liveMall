@@ -26,6 +26,7 @@ function PublishWork(props: Props) {
   const navigation: any = useNavigation()
 
   const [title, setTitle] = useState('')
+  const [gifUrl, setGifUrl] = useState('')
   const [content, setContent] = useState('')
   const [netWorkErr, setNetWorkErr] = useState(false)
   const [fullPathImageList, setFullPathImageList]: Array<any> = useState([])
@@ -81,12 +82,16 @@ function PublishWork(props: Props) {
       }
     })
 
-    const params = {
+    const params: any = {
       content,
       filesUrl: fullPathImageList,
       findGoodsInfoList,
       title,
       worksType: pageType === 'video' ? 'VIDEO' : 'PICTURE'
+    }
+
+    if (pageType === 'video') {
+      params[`worksGifUrl`] = gifUrl
     }
 
     apiPublishWorks(params).then((res: any) => {
@@ -119,6 +124,7 @@ function PublishWork(props: Props) {
       <ImagePicker
         pageType={pageType}
         fullPathImageList={fullPathImageList}
+        setGifUrl={(url) => setGifUrl(url)}
         setFullPathImageList={(list: Array<any>) => setFullPathImageList(list) }
       />
       <GoodsList

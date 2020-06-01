@@ -77,7 +77,7 @@ export default function Belt() {
   return (
     <>
       <Image
-        resizeMode='contain'
+        resizeMode='cover'
         style={styles.headerImg}
         source={require('../../assets/belt-image/belt_bgi.png')}
       />

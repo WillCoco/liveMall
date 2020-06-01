@@ -36,7 +36,8 @@ export default function Result() {
   })
 
   useEffect(() => {
-    queryOrderStauts()
+    // queryOrderStauts()
+    console.log(route)
   }, [])
 
   /**
@@ -61,6 +62,17 @@ export default function Result() {
     })
   }
 
+  /**
+   * 返回
+   */
+  const goBack = () => {
+    if (route.params.key) {
+      navigation.navigate({name: 'LiveRoomScreen', key: route.params.key })
+    } else {
+      navigation.navigate(nextRoute || '首页')
+    }
+  }
+
   if (!completed) return <></>
 
   return (
@@ -70,8 +82,8 @@ export default function Result() {
         <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text>
         {paySuccess && <Text style={styles.price}>¥{formatSinglePrice(orderPrice)}</Text>}
       </View>
-      <TouchableOpacity style={styles.completeBtn} onPress={() => navigation.navigate(nextRoute || '首页')}>
-        <Text style={styles.text}>{nextBtnText || '继续购物'}</Text>
+      <TouchableOpacity style={styles.completeBtn} onPress={goBack}>
+        <Text style={styles.text}>{route.params.key ? '返回直播间' : nextBtnText || '继续购物'}</Text>
       </TouchableOpacity>
     </View>
   )

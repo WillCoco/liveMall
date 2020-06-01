@@ -10,6 +10,7 @@ import {
   Platform,
   ImageBackground,
   Image,
+  ScrollView
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
@@ -145,7 +146,7 @@ const Withdraw = (props: any) =>  {
   };
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="提现"
@@ -179,13 +180,13 @@ const Withdraw = (props: any) =>  {
           placeholder={`可提现金额¥${accountMoney / 100}`}
           value={withdrawNum}
           onChangeText={setWithdrawNum}
-          // keyboardType='numeric'
+          keyboardType='numeric'
         />
         <FormRow 
           title={'验证码'}
           value={verifyCode}
           onChangeText={setVerifyCode}
-          // keyboardType='numeric'
+          keyboardType='numeric'
           rightTitle={
             showCountDown
             && <CountDown
@@ -207,7 +208,7 @@ const Withdraw = (props: any) =>  {
         style={styles.button}
         onPress={onSumbit}
       />
-    </View>
+    </ScrollView>
   )
 };
 

@@ -22,7 +22,7 @@ import {vw} from '../../../utils/metric';
 import {pad} from '../../../constants/Layout';
 import {updateLivingStatus} from '../../../actions/live';
 
-  const dataList = [
+const dataList = [
   {title: '直播时长', key: 'liveDuration',},
   {title: '获得点赞数', key: 'liveSum',},
   {title: '观众总数', key: 'watchSum',},

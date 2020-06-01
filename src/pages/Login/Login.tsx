@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity } from 'react-native'
+import { Text, Image, ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
+import { PrimaryText } from 'react-native-normalization-text';
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
 import {Toast} from '../../components/Toast'
@@ -10,8 +11,10 @@ import Form from './Form/Form'
 
 import { Colors } from '../../constants/Theme'
 import pxToDp from '../../utils/px2dp'
+import {pad} from '../../constants/Layout'
 
 import { apiSendVerCode, apiLogin, apiGetUserData, apiWeChatLogin } from '../../service/api'
+import CheckBox from '../../components/CheckBox'
 
 const phonePattern = /^1[3456789]\d{9}$/
 
@@ -27,6 +30,7 @@ function Logion(props: any) {
   const [disabled, setDisabled] = useState(false)
   const [hasRegister, setHasRegister] = useState(true)
   let [countDown, setCountDown] = useState(60)
+  const [agree, setAgree] = useState(true)
 
   navigation.setOptions({
     headerTitle: '',
@@ -102,6 +106,11 @@ function Logion(props: any) {
    * 登录操作
    */
   const toLogin = () => {
+    if (!agree) {
+      Toast.fail('请阅读并同意云闪播用户协议与隐私政策')
+      return
+    }
+
     if (!phonePattern.test(telNum)) {
       Toast.fail('请输入正确的手机号')
       return
@@ -224,6 +233,17 @@ function Logion(props: any) {
         changeInvCode={(value: string) => changeInvCode(value)}
       />
 
+      <View style={styles.agreementBox}>
+        <CheckBox 
+          isChecked={agree}
+          onPress={() => setAgree(c => !c)}
+          style={{paddingHorizontal: pad}}
+        />
+        <PrimaryText>已阅读并同意</PrimaryText>
+        <PrimaryText style={styles.link} onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>云闪播用户协议与隐私政策</PrimaryText>
+      </View>
+      
+
       <TouchableOpacity style={styles.loginBtnContainer} onPress={toLogin}>
         <Text style={styles.btnText}>登录/注册</Text>
       </TouchableOpacity>
@@ -261,7 +281,7 @@ const styles = StyleSheet.create({
     borderRadius: pxToDp(45),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: pxToDp(90)
+    marginTop: pxToDp(60)
   },
   btnText: {
     fontSize: pxToDp(28),
@@ -279,6 +299,13 @@ const styles = StyleSheet.create({
     fontSize: pxToDp(30),
     color: Colors.darkBlack,
     marginTop: pxToDp(10)
+  },
+  agreementBox: {
+    marginVertical: pad,
+    flexDirection: 'row'
+  },
+  link: {
+    color: Colors.blueColor
   }
 })
 

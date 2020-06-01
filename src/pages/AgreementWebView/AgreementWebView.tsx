@@ -15,7 +15,7 @@ import { AGREEMENT_ADD } from '../../service/api'
 // 云闪播用户隐私政策协议 path: 'privacyPolicy',
 // 平台违禁类目管理规则path: 'prohibitedCategoryRules',
 // 云闪播供货框架协议path: 'supplyFramework',
-// 云闪播用户协议 path: 'userAgreement',
+// 云闪播用户协议与隐私政策 path: 'userAgreement',
 
 function AgreementWebView() {
   const route: any = useRoute()
@@ -23,6 +23,8 @@ function AgreementWebView() {
 
   const agreementUrl = AGREEMENT_ADD + route?.params?.url
   const title = route?.params?.title 
+
+  console.log(agreementUrl, '用户协议路径');
 
   navigation.setOptions({
     headerTitle: title || '协议',

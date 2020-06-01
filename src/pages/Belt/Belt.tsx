@@ -101,6 +101,6 @@ export default function Belt() {
 const styles = StyleSheet.create({
   headerImg: {
     width: '100%',
-    height: pxToDp(460)
+    height: pxToDp(480)
   }
 })

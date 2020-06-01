@@ -83,7 +83,7 @@ const LiveIntro = (props: LiveMsgProps) =>  {
   /**
    * 是否显示关注按钮
    */
-  const showFollowButton = props.showFollowButton && (livingInfo.anchorId !== myAnchorId && myAnchorId && livingInfo.anchorId);
+  const showFollowButton = props.showFollowButton/*  && (livingInfo.anchorId !== myAnchorId && myAnchorId && livingInfo.anchorId); */
 
   /**
    * 取消/关注 

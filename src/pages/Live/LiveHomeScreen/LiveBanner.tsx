@@ -17,7 +17,7 @@ import Swiper from 'react-native-swiper';
 import images from '../../../assets/images';
 import defaultImages from '../../../assets/default-image';
 import {apiUserLiveBanner} from '../../../service/api';
-import {clearLiveRoom} from '../../../actions/im';
+import {updateLivingInfo} from '../../../actions/live';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import { MediaType } from '../../../liveTypes';
 import { EMPTY_OBJ } from '../../../constants/freeze';
@@ -69,7 +69,7 @@ const LiveBanner = (props: LiveBannerProps) : React.ReactElement =>  {
                   const {liveId, groupId, anchorId, liveStatus} = banner || EMPTY_OBJ;
                   if (liveId && groupId && anchorId && liveStatus) {
                     // 在直播跳直播
-                    dispatch(clearLiveRoom());
+                    dispatch(updateLivingInfo());
                     navigate('LivingRoomScreen', {
                       liveId,
                       groupID: groupId,

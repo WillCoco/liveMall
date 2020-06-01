@@ -36,8 +36,7 @@ export default function Result() {
   })
 
   useEffect(() => {
-    // queryOrderStauts()
-    console.log(route)
+    queryOrderStauts()
   }, [])
 
   /**

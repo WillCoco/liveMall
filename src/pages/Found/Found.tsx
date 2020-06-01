@@ -71,8 +71,6 @@ function Found(props: { isLogin: boolean }) {
         item.imageHeight = item.worksMoreInfo.imageHeight
       })
 
-      // waterFall(res.worksInfoList)
-
       let tempList = [...workList, ...waterFall(res.worksInfoList).items]
       let maxH = waterFall(tempList).maxHeight
 
@@ -85,18 +83,6 @@ function Found(props: { isLogin: boolean }) {
       // setNetWorkErr(true)
     })
   }
-
-  // const waterFall = (worksList: any) => {
-  //   worksList.forEach((item: any) => {
-  //     item.imageWidth = item.worksMoreInfo.imageWidth
-  //     item.imageHeight = item.worksMoreInfo.imageHeight
-  //   })
-
-
-
-  //   console.log(worksList)
-  // }
-
   /**
    * 下拉刷新
    */
@@ -113,15 +99,6 @@ function Found(props: { isLogin: boolean }) {
       pageNoRef.current += 1
       getFoundList(false)
     }
-  }
-
-  /**
-   * 瀑布流容器信息
-   */
-  const waterFallLayout = (e: any) => {
-    const { layout } = e.nativeEvent
-    const { y } = layout
-    console.log()
   }
 
   return (
@@ -146,9 +123,6 @@ function Found(props: { isLogin: boolean }) {
             })
           }
         </View>
-        {/* <View style={styles.waterFallContainer} onLayout={(e) => waterFallLayout(e)}>
-
-        </View> */}
 
         <LoadMore hasMore={hasMoreRef.current} />
       </ScrollView>

@@ -91,6 +91,7 @@ const AudienceShopCard = (props: {
     navigate('GoodsInfo', {
       id: good?.goodsId,
       shareUserId: liveId,
+      key: route.key,
       onOrderCompleted: (info: any) => {
         const safeInfo = info || {};
         requestAnimationFrame(() => {

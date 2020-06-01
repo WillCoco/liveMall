@@ -27,6 +27,7 @@ import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 import ActionSheet from '../../components/ActionSheet/ActionSheet'
 
 interface GoodsInfoParams {
+  key: string,
   id: string | number,
   shareUserId: string | number,
   onOrderCompleted: (orderInfo: any) => any
@@ -65,7 +66,7 @@ function GoodsInfo(props: Props) {
   const [posterPath, setPosterPath] = useState('')
   const [posterType, setPosterType] = useState(0)
 
-  const { id: goodsId, shareUserId, onOrderCompleted }: GoodsInfoParams = route.params as GoodsInfoParams;
+  const { id: goodsId, shareUserId, key, onOrderCompleted }: GoodsInfoParams = route.params as GoodsInfoParams;
 
   navigation.setOptions({
     headerTitle: '',
@@ -309,7 +310,12 @@ function GoodsInfo(props: Props) {
         goods_id: curSkuInfo.goods_id
       }]
     }]
-    navigation.push('CreateOrder', { tempOrderList, shareUserId, onOrderCompleted })
+    navigation.push('CreateOrder', {
+      key,
+      shareUserId,
+      tempOrderList,
+      onOrderCompleted
+    })
   }
 
   /**

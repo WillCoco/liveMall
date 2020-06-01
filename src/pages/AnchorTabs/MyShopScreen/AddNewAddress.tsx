@@ -184,13 +184,15 @@ function AddNewAddress(props) {
             <PrimaryText style={[styles.formItemTitle, { alignSelf: 'baseline', paddingTop: pxToDp(30) }]}>详细地址</PrimaryText>
             <TextInput
               multiline
-              textAlignVertical="top"
+              blurOnSubmit
               maxLength={40}
+              textAlignVertical="top"
               style={[styles.input, {paddingTop: pxToDp(30)}]}
               placeholder='如道路、门牌号、小区、楼栋号、单元室等'
               defaultValue={addrDetail}
               onChangeText={(text) => setAddrDetail(text)}
               returnKeyType='done'
+              returnKeyLabel="完成"
             />
           </View>
           <TouchableOpacity onPress={removeAddress} style={styles.delBtn}>

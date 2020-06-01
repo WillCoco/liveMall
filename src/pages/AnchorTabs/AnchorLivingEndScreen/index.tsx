@@ -21,7 +21,7 @@ import {Colors} from '../../../constants/Theme';
 import {vw} from '../../../utils/metric';
 import {pad} from '../../../constants/Layout';
 import {updateLivingStatus} from '../../../actions/live';
-import formatSinglePrice from '../../../utils/formatSinglePrice';
+import formatSinglePrice from '../../../utils/formatGoodsPrice';
 
 const dataList = [
   {title: '直播时长', key: 'liveDuration',},

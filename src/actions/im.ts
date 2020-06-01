@@ -238,9 +238,10 @@ export function login() {
         }
         dispatch(updateUserStatus({isOnLine: false})); // tinyID
         console.log(imResponse?.data?.actionStatus, 'loginIm222'); // 登录成功
-        Toast.show('IM连接失败');
+        Toast.show('IM登录失败');
       })
       .catch(function(imError: any) {
+        Toast.show('IM登录失败');
         console.warn('login error:', imError); // 登录失败的相关信息
       });
   }

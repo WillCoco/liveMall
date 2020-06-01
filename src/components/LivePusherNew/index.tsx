@@ -102,6 +102,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any) : any => 
                 {...pusherConfig}
                 onStateChange={onStateChange}
                 onStreamInfoChange={onStreamInfoChange}
+                // onSwitchCameraResult={onSwitchCameraResult}
             />
         ) : null}
         {/* {(status && status !== 2) ? <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText> : null} */}

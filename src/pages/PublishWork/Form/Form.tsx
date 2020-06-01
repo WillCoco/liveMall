@@ -35,7 +35,7 @@ export default function Form(props: Props) {
           multiline
           style={styles.textareaInput}
           onChangeText={(text) => props.inputContent(text)}
-          returnKeyType='done'
+          returnKeyType='next'
         />
       </View>
     </View>

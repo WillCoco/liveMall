@@ -33,9 +33,11 @@ export default function Form(props: Props) {
         <TextInput
           placeholder='添加文字心得'
           multiline
+          blurOnSubmit
           style={styles.textareaInput}
           onChangeText={(text) => props.inputContent(text)}
-          returnKeyType='next'
+          returnKeyType='done'
+          returnKeyLabel="完成"
         />
       </View>
     </View>

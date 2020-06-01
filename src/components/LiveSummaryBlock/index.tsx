@@ -32,6 +32,8 @@ interface LiveSummaryBlockProps {
   liveInfo?: any,
 }
 
+let timer: any = null; // 防止路由重复跳转
+
 const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
 
   const {navigate} = useNavigation();
@@ -101,12 +103,17 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
       style={StyleSheet.flatten([styles.wrapper, props.style])}
       onPress={() => {
         dispatch(clearLiveRoom());
-        navigate('LivingRoomScreen', {
-          liveId: props.liveInfo?.liveId,
-          groupID: props.liveInfo?.groupId || `live${props.liveInfo?.liveId}`,
-          anchorId: props.liveInfo?.anchorId,
-          mediaType: type
-        })}
+        if (timer) return
+        timer = setTimeout(() => {
+          navigate('LivingRoomScreen', {
+            liveId: props.liveInfo?.liveId,
+            groupID: props.liveInfo?.groupId || `live${props.liveInfo?.liveId}`,
+            anchorId: props.liveInfo?.anchorId,
+            mediaType: type
+          })
+          timer = null
+          }, 500)
+        }
       }
     >
       <Image

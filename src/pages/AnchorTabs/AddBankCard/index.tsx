@@ -25,6 +25,7 @@ import {updateBankCards, updateCurBankCards} from '../../../actions/asset';
 import {apiGetUserBankCards} from '../../../service/api';
 import Mask from '../../../components/Mask';
 import {Toast} from '../../../components/Toast';
+import pxToDp from '../../../utils/px2dp'
 
 const ROW_HEIGHT = 120;
 
@@ -54,7 +55,7 @@ const AddBankCard = (props: any) =>  {
       bankAccountNo: cardNum,
     }
 
-    const t = Toast.loading('添加中');
+    const t = Toast.loading('添加中', true);
 
     apiBindingBankCard(params).then((res: any) => {
       console.log(res, 'bind');
@@ -70,7 +71,6 @@ const AddBankCard = (props: any) =>  {
           console.log(err);
         })
       goBack();
-      
     }).catch((err: any) => {
       console.log(err, 'apiBindingBankCard');
       Toast.remove(t);
@@ -113,7 +113,7 @@ const AddBankCard = (props: any) =>  {
       </View>
       <ButtonRadius
         text="提交"
-        style={StyleSheet.flatten([styles.button, {marginBottom: props.safeBottom}])}
+        style={StyleSheet.flatten([styles.button, {marginBottom: props.safeBottom || pxToDp(40)}])}
         onPress={onSumbit}
       />
     </View>

@@ -29,7 +29,7 @@ class CustomToast {
     return Toast.fail(content, duration, onClose, mask)
   }
 
-  static loading = (content?: string, mask?: boolean = false, duration?: number = 1, onClose?: () => void | undefined, ) => {
+  static loading = (content?: string, mask?: boolean = false, duration?: number = 10, onClose?: () => void | undefined, ) => {
     return Toast.loading(content, duration, onClose, mask)
   }
 

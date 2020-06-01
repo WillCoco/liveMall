@@ -5274,8 +5274,10 @@ pify@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/pify/download/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
 
-"pili-streaming-react-native@file:../../pili-streaming-react-native":
+"pili-streaming-react-native@file:../pili-streaming-react-native":
   version "2.0.0"
+  dependencies:
+    pili-streaming-react-native "file:../../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-356f7122-f3a9-4ced-8935-699442adee50-1590977622879/node_modules/pili-streaming-react-native"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"

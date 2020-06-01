@@ -11,8 +11,6 @@ export default function PayWebview() {
 
   const { orderSn, payType, nextBtnText, nextRoute } = route.params
 
-  const appState = AppState.currentState
-
   navigation.setOptions({
     headerTitle: '支付' || route?.params?.title,
     headerStyle: {
@@ -33,9 +31,6 @@ export default function PayWebview() {
   }, [])
 
   const handleAppStateChange = (nextAppState: any) => {
-    console.log('appCurrentState', appState)
-    console.log('nextAppState', nextAppState, route.name, hasLeaveRef.current)
-
     if (nextAppState === 'background') {
       hasLeaveRef.current = true
       console.log('后台')
@@ -47,6 +42,7 @@ export default function PayWebview() {
           payType,
           nextBtnText,
           nextRoute,
+          key: route.params.key && route.params.key || ''
         }
 
         navigation.push('Result', params)
@@ -58,7 +54,6 @@ export default function PayWebview() {
     <WebView
       style={{ opacity: 0.99 }}
       source={{ uri: route?.params?.url }}
-      // source={{ uri: 'https://baidu.com' }}
     />
   )
 }

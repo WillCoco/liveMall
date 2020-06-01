@@ -63,7 +63,7 @@ const AudienceShopCard = (props: {
   // /**
   //  * 主播userid
   //  */
-  // const anchorUserId = useSelector((state: any) => state?.userData?.userInfo?.userId);
+  const anchorUserId = useSelector((state: any) => state?.live?.livingInfo?.userId);
 
   /**
    * 数量
@@ -90,7 +90,9 @@ const AudienceShopCard = (props: {
     // 跳转
     navigate('GoodsInfo', {
       id: good?.goodsId,
-      shareUserId: liveId,
+      shareUserId: anchorUserId,
+      liveId,
+      key: route.key,
       onOrderCompleted: (info: any) => {
         const safeInfo = info || {};
         requestAnimationFrame(() => {

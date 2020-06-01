@@ -113,7 +113,7 @@ const LiveIntro = (props: LiveMsgProps) =>  {
       .catch((error: any) => console.log(`apiAttentionAnchor: ${error}`))
   }
 
-  const hasAvatar = (livingInfo?.logo && livingInfo?.logo !== '0')
+  const hasAvatar = (livingInfo?.anchorLogo && livingInfo?.anchorLogo !== '0')
 
   return (
     <TouchableOpacity

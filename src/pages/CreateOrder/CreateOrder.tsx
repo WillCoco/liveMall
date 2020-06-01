@@ -331,7 +331,8 @@ function CreateOrder(props: Props) {
       const payParams = {
         url: payURL,
         orderSn: res.data.orderSn,
-        payType: res.data.payType
+        payType: res.data.payType,
+        key: route.params.key && route.params.key || ''
       }
 
       console.log('创建订单路由参数', payParams)

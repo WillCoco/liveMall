@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
   View,
-  Text,
   Image,
-  FlatList,
   ScrollView,
   StyleSheet,
   RefreshControl,
@@ -22,7 +20,6 @@ import checkIsBottom from '../../utils/checkIsBottom'
 
 import WorkCard from '../../components/WorkCard/WorkCard'
 import LoadMore from '../../components/LoadMore/LoadMore'
-import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 
 const pageSize = 20
 
@@ -39,7 +36,6 @@ function Found(props: { isLogin: boolean }) {
   const [loading, setLoading] = useState(false)
   const [showMask, setShowMask] = useState(false)
   const [workList, setWorkList]: Array<any> = useState([])
-  const [netWorkErr, setNetWorkErr] = useState(false)
 
   useEffect(() => {
     getFoundList(false)
@@ -62,7 +58,6 @@ function Found(props: { isLogin: boolean }) {
 
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
-      setNetWorkErr(false)
       setLoading(false)
       if (!res.worksInfoList) return
 
@@ -101,7 +96,6 @@ function Found(props: { isLogin: boolean }) {
       getFoundList(false)
     }
   }
-  // if (netWorkErr) return <NetWorkErr reload={() => getFoundList(false)} />
 
   return (
     <>

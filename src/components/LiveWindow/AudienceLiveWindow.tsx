@@ -39,6 +39,7 @@ import { getLiveViewNum } from '../../actions/live';
 import useKeyboard from '../../hooks/useKeyboard';
 import Modal from 'react-native-modal';
 import { PrimaryText } from 'react-native-normalization-text';
+import { isAndroid } from '../../constants/DeviceInfo';
 
 
 interface LiveWindowProps {
@@ -286,7 +287,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
         />
       {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
         {
-          isShow ? (
+          (isShow && isAndroid()) ? (
             <LivingBottomBlock.Audience
               textValue={textInput}
               setTextValue={setTextInput}

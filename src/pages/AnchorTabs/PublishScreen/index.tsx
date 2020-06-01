@@ -29,7 +29,10 @@ const PublishScreen = (props: any) =>  {
   const {navigate, reset} = useNavigation();
   const dispatch = useDispatch();
   const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || EMPTY_OBJ;
-  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId)
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
+
+  // 操作空闲
+  const isIdle = React.useRef(true);
 
   /**
    * tab的返回到 我的
@@ -77,6 +80,10 @@ const PublishScreen = (props: any) =>  {
             },
             onPressRight: () => {
               // 继续去直播
+              if (!isIdle) {
+                return true;
+              }
+              isIdle.current = false;
               const r2 = dispatch(anchorToLive({liveId}));
               navigate('AnorchLivingRoomScreen', {groupID: groupId, liveId});
               return true;

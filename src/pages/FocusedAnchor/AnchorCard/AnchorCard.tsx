@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   anchorImg: {
     width: pxToDp(150),
     height: pxToDp(150),
-    backgroundColor: '#0f0',
     borderRadius: pxToDp(10)
   },
   anchorInfo: {
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
     height: pxToDp(54),
     width: pxToDp(54),
     borderRadius: pxToDp(27),
-    backgroundColor: '#0f0'
   },
   watchCount: {
     fontSize: pxToDp(34),

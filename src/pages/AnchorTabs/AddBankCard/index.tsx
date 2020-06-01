@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {Input} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
@@ -87,7 +88,7 @@ const AddBankCard = (props: any) =>  {
   }
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="添加银行卡"
@@ -116,7 +117,7 @@ const AddBankCard = (props: any) =>  {
         style={StyleSheet.flatten([styles.button, {marginBottom: props.safeBottom || pxToDp(40)}])}
         onPress={onSumbit}
       />
-    </View>
+    </ScrollView>
   )
 };
 
@@ -126,7 +127,7 @@ AddBankCard.defaultProps = {
 const styles = StyleSheet.create({
   style: {
     flex: 1,
-    backgroundColor: Colors.bgColor
+    backgroundColor: Colors.bgColor,
   },
   nav: {
     backgroundColor: Colors.basicColor,

@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     minWidth: vw(100)
   },
   livingBottomBlock: {
-    // flex: 1,
+    flex: 1,
     position: "absolute",
     left: 0,
     bottom: 0,

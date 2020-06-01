@@ -5274,10 +5274,8 @@ pify@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npm.taobao.org/pify/download/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
 
-"pili-streaming-react-native@file:../pili-streaming-react-native":
+"pili-streaming-react-native@file:../../pili-streaming-react-native":
   version "2.0.0"
-  dependencies:
-    pili-streaming-react-native "file:../../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-356f7122-f3a9-4ced-8935-699442adee50-1590977622879/node_modules/pili-streaming-react-native"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"
@@ -5608,6 +5606,13 @@ react-native-root-siblings@3.2.3:
   dependencies:
     prop-types "^15.6.2"
     static-container "^1.0.0"
+
+react-native-rtmpview@^1.0.27:
+  version "1.0.27"
+  resolved "https://registry.npm.taobao.org/react-native-rtmpview/download/react-native-rtmpview-1.0.27.tgz#41dfa11f2056730ccfa99053d64fc77109870200"
+  integrity sha1-Qd+hHyBWcwzPqZBT1k/HcQmHAgA=
+  dependencies:
+    prop-types "^15.6.1"
 
 react-native-safe-area-context@^0.7.3:
   version "0.7.3"

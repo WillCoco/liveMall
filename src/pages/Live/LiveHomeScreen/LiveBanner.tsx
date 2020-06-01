@@ -70,6 +70,7 @@ const LiveBanner = (props: LiveBannerProps) : React.ReactElement =>  {
                   if (liveId && groupId && anchorId && liveStatus) {
                     // 在直播跳直播
                     dispatch(clearLiveRoom());
+                    
                     navigate('LivingRoomScreen', {
                       liveId,
                       groupID: groupId,

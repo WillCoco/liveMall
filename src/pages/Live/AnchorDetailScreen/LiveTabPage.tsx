@@ -26,7 +26,7 @@ import PagingList from '../../../components/PagingList';
 import {apiAnchorParticular} from '../../../service/api';
 import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
-import { clearLiveRoom } from '../../../actions/im';
+import { updateLivingInfo } from '../../../actions/live';
 import { shortNum } from '../../../utils/numeric';
 
 const Row = (props: {
@@ -162,7 +162,7 @@ const LiveTabPage = (props: {
 
 
   const toLiveingRoom = (item: any) => {
-    dispatch(clearLiveRoom());
+    dispatch(updateLivingInfo());
 
     navigate('LivingRoomScreen', {
       liveId: item?.liveId,

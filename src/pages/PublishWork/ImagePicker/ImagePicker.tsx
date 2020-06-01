@@ -59,12 +59,14 @@ function ImgPicker(props: Props) {
   const upLoadImage = (imgUri: string) => {
     const loading = Toast.loading('')
 
-    apiWorkUpload({
+    const params = {
       fileType: pageType === 'video' ? 'VIDEO' : 'PICTURE',
       file: getImageInfo(imgUri),
-    }).then((res: any) => {
+    }
+
+    apiWorkUpload(params).then((res: any) => {
       Toast.remove(loading)
-      console.log(res)
+      console.log('success', res)
       if (res.code === 200) {
         let imgFullPath = res.data.worksUrl
         let imgPath = imgFullPath.substr(0, imgFullPath.lastIndexOf('&', imgFullPath.lastIndexOf('&') - 1))
@@ -85,7 +87,7 @@ function ImgPicker(props: Props) {
       }
     }).catch((err: any) => {
       Toast.remove(loading)
-      console.log(err)
+      console.log('error', err)
     })
   }
 
@@ -93,7 +95,11 @@ function ImgPicker(props: Props) {
     const nameArr = uri.split('/');
     const name = nameArr[nameArr.length - 1];
     const typeArr = name.split('.');
-    const type = `image/${typeArr[typeArr.length - 1]}`;
+
+    const type =
+      pageType === 'video'
+        ? `video/${typeArr[typeArr.length - 1]}`
+        : `image/${typeArr[typeArr.length - 1]}`;
 
     return {
       uri,

@@ -181,7 +181,7 @@ const AnchorTrailers = () =>  {
               onSharePress={() => onSharePress(item)}
               onRemindPress={() => onRemindPress(item.remind, index)}
               onPress={() => {
-                dispatch(clearLiveRoom());
+                dispatch(updateLivingInfo());
                 dispatch(updateLivingInfo(item));
 
                 navigate('LivingRoomScreen', {

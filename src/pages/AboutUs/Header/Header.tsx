@@ -15,7 +15,7 @@ export default function Header(props: { currentVersion: string }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: pxToDp(460),
+    height: pxToDp(480),
     alignItems: 'center',
     justifyContent: 'flex-end'
   },

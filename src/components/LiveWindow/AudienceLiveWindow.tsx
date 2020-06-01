@@ -357,8 +357,8 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: vh(100),
-    width: vw(100)
+    // height: vh(100),
+    // width: vw(100)
     // minHeight: vh(100),
     // minWidth: vw(100),
   },

@@ -119,9 +119,13 @@ const LiveWindow = (props: LiveWindowProps): any => {
   const closeLive = () => {
     // player.current?.stop(); // 停止播放器实例
     // 我不是这场直播的主播
-    if (myAnchorId !== anchorId) {
-      dispatch(quitGroup(groupID)); // 退im群
+    if (myAnchorId === anchorId) {
+      goBack();
+      return
     }
+    console.log(groupID, 'groupID')
+
+    // dispatch(quitGroup(groupID)); // 退im群
 
     player.current && player.current.stop()
     goBack();
@@ -260,14 +264,15 @@ const LiveWindow = (props: LiveWindowProps): any => {
     replace('AudienceLivingEnd');
   }
 
+  console.log(livingInfo,'smallPic');
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-      {/* <Image
-        source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-        resizeMode="cover"
-        style={styles.imgBg}
-      /> */}
+        {/* <Image
+          source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+          resizeMode="cover"
+          style={styles.imgBg}
+        /> */}
         <LivePuller
           ref={v => {
             if (v) {
@@ -277,6 +282,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
           inputUrl={pullUrl}
           onStatus={onPlayerStatus}
           style={styles.video}
+          cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
         />
       {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
         {

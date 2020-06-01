@@ -1,5 +1,5 @@
 /**
- * 主播端直播结束
+ * 主播端直播结束 直播已结束
  */
 import * as React from 'react';
 import {
@@ -21,8 +21,9 @@ import {Colors} from '../../../constants/Theme';
 import {vw} from '../../../utils/metric';
 import {pad} from '../../../constants/Layout';
 import {updateLivingStatus} from '../../../actions/live';
+import formatSinglePrice from '../../../utils/formatSinglePrice';
 
-  const dataList = [
+const dataList = [
   {title: '直播时长', key: 'liveDuration',},
   {title: '获得点赞数', key: 'liveSum',},
   {title: '观众总数', key: 'watchSum',},
@@ -88,7 +89,13 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                 dataList.map(item => {
                   return (
                     <View style={styles.dataItem} key={item.title}>
-                      <Text style={{color: '#222', fontWeight: 'bold'}}>{endData && endData[item.key] || 0}</Text>
+                      <Text style={{color: '#222', fontWeight: 'bold'}}>
+                        {
+                          item.key === 'moneySum'
+                          && formatSinglePrice(endData && endData[item.key] || 0)
+                          || endData && endData[item.key] || 0
+                        }
+                      </Text>
                       <Text style={{color: Colors.darkGrey}}>{item.title}</Text>
                     </View>
                   )
@@ -113,7 +120,7 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                     subtitleStyle={{color: Colors.darkGrey, paddingVertical: pad}}
                     rightTitle={
                       <PrimaryText style={styles.fontYellow}>
-                        {endData?.bestSellGoodsRes?.totalNum || 0}<TinyText style={styles.fontYellow}> 元</TinyText>
+                        {formatSinglePrice(endData?.bestSellGoodsRes?.totalNum || 0)}<TinyText style={styles.fontYellow}> 元</TinyText>
                       </PrimaryText>
                     }
                   />
@@ -133,7 +140,7 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                   leftAvatar={{ source: {uri: endData?.bestBrowseGoodsRes?.originalImg}, rounded: false}}
                   title={endData?.bestBrowseGoodsRes?.goodsName}
                   titleStyle={styles.itemTitle}
-                  rightTitle={endData?.bestBrowseGoodsRes?.totalNum || 0}
+                  rightTitle={formatSinglePrice(endData?.bestBrowseGoodsRes?.totalNum || 0)}
                   rightTitleStyle={{color: Colors.yellowColor}}
                   rightSubtitle={'最高观看人数'}
                   rightSubtitleStyle={{fontSize: scale(12), width: scale(90), textAlign: 'right'}}

@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  ScrollView,
 } from 'react-native'
 import NavBar from '../../components/NavBar'
 import FormRow from '../../components/FormRow'
@@ -95,7 +96,7 @@ const RealName = props => {
   }
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="实名认证"
@@ -114,18 +115,20 @@ const RealName = props => {
         value={idNumber}
         placeholder={'请输入身份证号码'}
         onChangeText={setIdNumber}
+        keyB
         bottomDivider
+        keyboardType='numeric'
         maxLength={18}
       />
       <PrimaryText style={styles.tip}>继续表示同意
-        <PrimaryText style={{color: Colors.blueColor}} onPress={() => navigate('PrivacyPolicy')}>云闪播用户隐私政策协议</PrimaryText>
+        <PrimaryText style={{color: Colors.blueColor}} onPress={() => navigate('AgreementWebView', {url: 'privacyPolicy', title: '云闪播用户隐私政策协议'})}>云闪播用户隐私政策协议</PrimaryText>
       </PrimaryText>
       <ButtonRadius
         text="开始认证"
         style={styles.button}
         onPress={beforeSubmit}
       />
-    </View>
+    </ScrollView>
   )
 }
 

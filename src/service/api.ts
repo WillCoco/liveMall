@@ -11,6 +11,7 @@ const HOST_JAVA = 'https://app.quanpinlive.com'
 // const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.yunshanbo.cn'
 
 export const SANDPAY_PRE = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8&signType=01' // 杉德支付前缀
+export const AGREEMENT_ADD = __DEV__ ? 'https://static.yunshanbo.cn/merchantEntry/#/agreement/' : '' // 协议页面路径，正式链接待更换
 
 /**
  * PHP 接口 ==================================================================

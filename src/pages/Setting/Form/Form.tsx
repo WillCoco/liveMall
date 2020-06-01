@@ -47,12 +47,12 @@ export default function Form() {
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={inviteFriends}>
+      {/* <TouchableWithoutFeedback onPress={inviteFriends}>
         <View style={styles.formItem}>
           <Text style={styles.title}>邀请好友</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
       <TouchableWithoutFeedback onPress={goRealname}>
         <View style={[styles.formItem, { borderBottomWidth: 0 }]}>

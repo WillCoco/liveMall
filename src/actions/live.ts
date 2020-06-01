@@ -77,7 +77,16 @@ export const updatecamera = () => {
     const {camera} = pusherConfig || {};
     const cameraDir = camera === CameraType.front ? CameraType.back : CameraType.front;
 
-    dispatch(updatePusherConfig({...pusherConfig, camera: cameraDir}));
+    // 更改profile.cameraStreamingSetting
+    let profile = {...(pusherConfig?.profile || {})};
+    const cameraStreamingSetting = profile.cameraStreamingSetting || {};
+    profile.cameraStreamingSetting = {...cameraStreamingSetting, camera: cameraDir}
+
+    dispatch(updatePusherConfig({
+      ...pusherConfig,
+      profile,
+      camera: cameraDir
+    }));
   }
 }
 

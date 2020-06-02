@@ -298,7 +298,7 @@ const AnchorRecords = (props) => {
               moneyNum={item.moneyNum}
               startTime={item.startTime}
               onPress={() => {
-                dispatch(updateLivingInfo());
+                dispatch(clearLiveRoom());
                 dispatch(updateLivingInfo(item));
                 
                 navigate('LivingRoomScreen', {

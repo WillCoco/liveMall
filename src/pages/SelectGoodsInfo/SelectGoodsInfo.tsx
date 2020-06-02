@@ -51,7 +51,7 @@ export default function SelectGoodsInfo() {
 
   const toGoodsInfo = () => {
     const id = goodsInfo.goods_id
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   if (netWorkErr) return <NetWorkErr reload={getSelectedInfo} />
@@ -84,8 +84,10 @@ export default function SelectGoodsInfo() {
         <View style={styles.footerLeft}>
           <Ionicons
             size={20}
-            name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
-            color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
+            // name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
+            // color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
+            name={'ios-heart'}
+            color={Colors.basicColor}
           />
           <Text style={styles.likesCount}>{goodsInfo?.people_like || 0}人喜欢</Text>
         </View>

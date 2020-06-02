@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   },
   originalPrice: {
     fontSize: pxToDp(24),
-    color: Colors.whiteColor
+    color: Colors.whiteColor,
+    textDecorationLine: 'line-through',
   },
   saleSlogan: {
     width: pxToDp(140),

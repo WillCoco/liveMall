@@ -4,6 +4,7 @@ import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { MediaType } from '../../../liveTypes';
+import images from '../../../assets/images';
 
 export default function AnchorCard(props: any) {
 
@@ -32,7 +33,7 @@ export default function AnchorCard(props: any) {
         <View style={styles.anchorInfo}>
           <Text style={styles.watchCount}>{item?.viewsNum || 0}人观看</Text>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={{ uri: item?.anchorLogo }} style={styles.avatar} />
+            <Image source={(item?.anchorLogo && item.anchorLogo !== '0') && { uri: item?.anchorLogo } || images.userAvatar} style={styles.avatar} />
             <Text style={styles.name}>{item?.anchorName || '主播'}</Text>
           </View>
         </View>

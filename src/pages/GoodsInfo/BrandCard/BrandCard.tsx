@@ -11,7 +11,7 @@ export default function BrandCard(props: { goodsInfo: any }) {
 
   const toBrandShop = () => {
     const { supplier_id: id } = goodsInfo
-    navigation.push('BrandShop', { id })
+    navigation.navigate('BrandShop', { id })
   }
 
   return (

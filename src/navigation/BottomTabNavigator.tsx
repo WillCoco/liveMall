@@ -126,13 +126,13 @@ function getTabItemComponent(routeName: String, navigation: string[]) {
       return <SearchBar
         hasSearchKey={false}
         isPlaceHolder={true}
-        toSearchPage={() => navigation.push('LiveSearchScreen')}
+        toSearchPage={() => navigation.navigate('LiveSearchScreen')}
       />
     case '发现':
       return <SearchBar
         hasSearchKey={false}
         isPlaceHolder={true}
-        toSearchPage={() => navigation.push('FoundSearch')}
+        toSearchPage={() => navigation.navigate('FoundSearch')}
       />
     case '购物车':
       return <Text style={styles.navBarTitleText}>购物车</Text>

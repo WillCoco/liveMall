@@ -17,7 +17,7 @@ export default function GoodsCardRow(props: Props) {
 
   const toGoodsInfo = () => {
     const { goods_id: id } = goodsInfo
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   return (

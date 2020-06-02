@@ -18,7 +18,7 @@ export default function GoodsCard(props: Props) {
 
   const toGoodsInfo = () => {
     const { goods_id: id } = goodsInfo
-    navigation.push('SelectGoodsInfo', { id })
+    navigation.navigate('SelectGoodsInfo', { id })
   }
 
   const changeLikeGoods = () => {

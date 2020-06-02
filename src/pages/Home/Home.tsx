@@ -156,7 +156,7 @@ function Home(props: HomeProps) {
    * 前往精选话题详情
    */
   const toSelectedGoods = () => {
-    navigation.push('SelectGoods')
+    navigation.navigate('SelectGoods')
   }
 
   /**
@@ -200,35 +200,35 @@ function Home(props: HomeProps) {
    * 前往品牌店铺
    */
   const toBrandShop = (id: number) => {
-    navigation.push('BrandShop', { id })
+    navigation.navigate('BrandShop', { id })
   }
 
   /**
    * 前往秒杀页
    */
   const toSeckillPage = () => {
-    navigation.push('Sale', { type: 'seckill' })
+    navigation.navigate('Sale', { type: 'seckill' })
   }
 
   /**
    * 前往商品详情
    */
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   /**
    * 前往活动页面
    */
   const toActivityWebView = (url: string) => {
-    navigation.push('ActivityWebView', { url })
+    navigation.navigate('ActivityWebView', { url })
   }
 
   /**
    * 前往精选好物详情
    */
   const toSelectedGoodsInfo = (id: number) => {
-    navigation.push('SelectGoodsInfo', { id })
+    navigation.navigate('SelectGoodsInfo', { id })
   }
 
   /**
@@ -249,7 +249,7 @@ function Home(props: HomeProps) {
         <SearchBar
           hasSearchKey={true}
           isPlaceHolder={true}
-          toSearchPage={() => navigation.push('HomeSearch')}
+          toSearchPage={() => navigation.navigate('HomeSearch')}
         />
       </View>
       <ScrollableTabView

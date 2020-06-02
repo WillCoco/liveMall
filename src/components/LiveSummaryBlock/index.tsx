@@ -105,8 +105,6 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
         dispatch(clearLiveRoom());
         if (timer) return
         timer = setTimeout(() => {
-          dispatch(updateLivingInfo());
-          
           navigate('LivingRoomScreen', {
             liveId: props.liveInfo?.liveId,
             groupID: props.liveInfo?.groupId || `live${props.liveInfo?.liveId}`,

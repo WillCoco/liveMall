@@ -111,7 +111,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   /**
    * 直播结束
    */
-  const isAnchorLiveOver = useSelector((state: any) => state?.live?.isAnchorLiveOver);
+  // const isAnchorLiveOver = useSelector((state: any) => state?.live?.isAnchorLiveOver);
   
 
   /**

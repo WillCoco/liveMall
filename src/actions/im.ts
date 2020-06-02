@@ -158,7 +158,6 @@ function handleSysMsg(message: any) {
 
       // 主播被下线, 冻结账号
       if (msgData?.type === '1') {
-        // store.dispatch(updateAnchorLivingStatus(true));
 
         const myAnchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
 
@@ -167,7 +166,7 @@ function handleSysMsg(message: any) {
         // 我是本场主播
         if (myAnchorId === livingAnchorId) {
           // 清除登录状态、退出登录
-          dispatch(clearLoginStatus());
+          dispatch(clearLoginStatus()); // 这里退出
           dispatch(clearLiveRoom('ANCHOR'));
           dispatch(updateLivingInfo());
         }
@@ -833,9 +832,10 @@ export function clearLiveRoom(role?: 'ANCHOR' | 'AUDIENCE') {
     dispatch(updateLivingInfo());
     
     if (role === 'ANCHOR') {
-
+      
     } else if (role === 'AUDIENCE') {
-
+      // 清除结束字段
+      dispatch(updateLivingStatus(false));
     } else {
 
     }

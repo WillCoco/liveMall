@@ -51,7 +51,7 @@ export default function SelectGoodsInfo() {
 
   const toGoodsInfo = () => {
     const id = goodsInfo.goods_id
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   if (netWorkErr) return <NetWorkErr reload={getSelectedInfo} />

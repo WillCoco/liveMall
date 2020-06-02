@@ -23,7 +23,7 @@ export default function OrderItem(props: Props) {
    * 进入品牌店铺
    */
   const toBrandShop = () => {
-    navigation.push('BrandShop', { id: orderInfo.brandId })
+    navigation.navigate('BrandShop', { id: orderInfo.brandId })
   }
 
   /**
@@ -32,10 +32,10 @@ export default function OrderItem(props: Props) {
   const toOrderDetail = () => {
     if (orderInfo.refundType) {  // 售后订单
       if (orderInfo.processType === 9) {  // 售后完成订单
-        navigation.push('GoodsInfo', { id: orderInfo.goodsId })
+        navigation.navigate('GoodsInfo', { id: orderInfo.goodsId })
         return
       }
-      navigation.push('AfterSaleDetail', { id: orderInfo.id })
+      navigation.navigate('AfterSaleDetail', { id: orderInfo.id })
       return
     }
 
@@ -43,7 +43,7 @@ export default function OrderItem(props: Props) {
       return
     }
 
-    navigation.push('OrderDetail', { id: orderInfo.id })    
+    navigation.navigate('OrderDetail', { id: orderInfo.id })    
   }
 
   /**
@@ -54,7 +54,7 @@ export default function OrderItem(props: Props) {
       shippingCode: orderInfo.deliveryComCode,
       invoiceNo: orderInfo.deliveryNo
     }
-    navigation.push('ExpressInfo', params)
+    navigation.navigate('ExpressInfo', params)
   }
 
   /**
@@ -62,7 +62,7 @@ export default function OrderItem(props: Props) {
    */
   const refund = (item: any) => {
     orderInfo.goodsInfo = item
-    navigation.push('ApplyForAfterSales', orderInfo)
+    navigation.navigate('ApplyForAfterSales', orderInfo)
   }
 
   /**
@@ -70,14 +70,14 @@ export default function OrderItem(props: Props) {
    */ 
   const buyAgain = () => {
     const goodsId = orderInfo.goodsList[0].goodsId
-    navigation.push('GoodsInfo', { id: goodsId })
+    navigation.navigate('GoodsInfo', { id: goodsId })
   }
 
   /**
    * 售后详情
    */
   const toAfterSaleDetail = () => {
-    navigation.push('AfterSaleDetail', { id: orderInfo.id })
+    navigation.navigate('AfterSaleDetail', { id: orderInfo.id })
   }
 
   return (

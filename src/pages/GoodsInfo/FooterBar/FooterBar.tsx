@@ -25,7 +25,7 @@ export default function FooterBar(props: Props) {
       Toast.fail('未开通客服功能')
       return
     }
-    navigation.push('Service', servicePath)
+    navigation.navigate('Service', servicePath)
   }
 
   return (
@@ -41,7 +41,7 @@ export default function FooterBar(props: Props) {
         <Text style={{ color: Colors.lightBlack }}>{goodsInfo.is_collect ? '已收藏' : '收藏'}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('GoodsCart')}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('GoodsCart')}>
         <Image source={require('../../../assets/goods-image/icon_cart.png')} style={styles.icon} />
         <Text style={{ color: Colors.lightBlack }}>购物车</Text>
       </TouchableOpacity>

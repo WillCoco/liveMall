@@ -13,7 +13,7 @@ export default function GoodsList(props: { list: Array<any>, hasMore: boolean })
   const { list, hasMore } = props
 
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   return (

@@ -130,7 +130,7 @@ function Found(props: { isLogin: boolean }) {
       <View style={styles.addContainer}>
         {
           showMask && <TouchableWithoutFeedback
-            onPress={() => navigation.push('PublishWork', { type: 'video' })}
+            onPress={() => navigation.navigate('PublishWork', { type: 'video' })}
           >
             <Image source={require('../../assets/works-image/video.png')} style={styles.mediaIcon} />
           </TouchableWithoutFeedback>
@@ -138,7 +138,7 @@ function Found(props: { isLogin: boolean }) {
 
         {
           showMask && <TouchableWithoutFeedback
-            onPress={() => navigation.push('PublishWork', { type: 'photo' })}
+            onPress={() => navigation.navigate('PublishWork', { type: 'photo' })}
           >
             <Image source={require('../../assets/works-image/photo.png')} style={styles.mediaIcon} />
           </TouchableWithoutFeedback>

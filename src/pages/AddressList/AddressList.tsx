@@ -53,14 +53,14 @@ function AddressList(props: Props) {
    * 添加新地址
    */
   const createNewAddress = () => {
-    navigation.push('CreateOrEditAddr', { type: 'create' })
+    navigation.navigate('CreateOrEditAddr', { type: 'create' })
   }
 
   /**
    * 编辑地址
    */
   const editAddress = (item: any) => {
-    navigation.push('CreateOrEditAddr', { type: 'edit', addressInfo: item })
+    navigation.navigate('CreateOrEditAddr', { type: 'edit', addressInfo: item })
   }
 
   /**

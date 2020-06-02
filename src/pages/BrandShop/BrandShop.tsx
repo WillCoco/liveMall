@@ -122,7 +122,7 @@ function BrandShop(props: { isLogin: boolean }) {
         console.log('关注/取消关注店铺', err)
       })
     } else {
-      navigation.push('Login')
+      navigation.navigate('Login')
     }
   }
 

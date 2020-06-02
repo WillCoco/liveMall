@@ -223,7 +223,7 @@ export default function OrderList() {
         payType: res.data.payType
       }
 
-      navigation.push('PayWebView', params)
+      navigation.navigate('PayWebView', params)
     }).catch((err: any) => {
       console.log(err.message)
       Toast.remove(loading)

@@ -12,7 +12,7 @@ export default function Form() {
 
   const contactService = () => {
     const servicePath = 'https://ykf-webchat.7moor.com/wapchat.html?accessId=14326e70-91bc-11ea-9aa1-076c2541e149&fromUrl=&urlTitle='
-    navigation.push('Service', servicePath)
+    navigation.navigate('Service', servicePath)
   }
 
   const inviteFriends = () => {
@@ -21,12 +21,12 @@ export default function Form() {
 
   const goRealname = () => {
     if (realname) return
-    navigation.push('RealName')
+    navigation.navigate('RealName')
   }
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => navigation.push('AddressList')}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('AddressList')}>
         <View style={styles.formItem}>
           <Text style={styles.title}>我的收货地址</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
@@ -40,7 +40,7 @@ export default function Form() {
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => navigation.push('AboutUs')}>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('AboutUs')}>
         <View style={styles.formItem}>
           <Text style={styles.title}>关于我们</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />

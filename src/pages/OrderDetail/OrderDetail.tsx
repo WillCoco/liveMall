@@ -86,7 +86,7 @@ export default function OrderDetail() {
 
       const payURL = sandpaySerializeURL(res.data)
 
-      navigation.push('PayWebView', { url: payURL })
+      navigation.navigate('PayWebView', { url: payURL })
     }).catch((err: any) => {
       console.log(err.message)
       Toast.remove(loading)
@@ -152,7 +152,7 @@ export default function OrderDetail() {
    */
   const buyAgain = () => {
     const id = orderDetail.goodsList[0].goodsId
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   if (netWorkErr) return <NetWorkErr reload={getOrderDetail} />

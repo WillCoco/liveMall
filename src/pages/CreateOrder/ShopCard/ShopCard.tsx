@@ -20,7 +20,7 @@ export default function ShopCard(props: Props) {
   const { shop_info, selectedGoods } = props.shopInfo
 
   const toBrandShop = () => {
-    navigation.push('BrandShop', { id: shop_info.brand_id })
+    navigation.navigate('BrandShop', { id: shop_info.brand_id })
   }
 
   return (

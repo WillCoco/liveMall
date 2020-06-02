@@ -19,7 +19,7 @@ export default function GoodsCard(props: Props) {
   }
 
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
     props.hiddenGoods()
   }
 

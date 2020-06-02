@@ -164,13 +164,12 @@ const LiveTabPage = (props: {
 
 
   const toLiveingRoom = (item: any) => {
-    dispatch(clearLiveRoom());
 
     // 如果主播查看自己直播间 则返回
-
-    if (item?.anchor === selfAnchorId) {
+    if (item?.anchorId === selfAnchorId) {
       goBack()
     } else {
+      dispatch(clearLiveRoom());
       navigate('LivingRoomScreen', {
         liveId: item?.liveId,
         groupID: item?.groupId || `live${item?.liveId}`,

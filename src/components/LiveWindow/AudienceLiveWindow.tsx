@@ -40,6 +40,7 @@ import useKeyboard from '../../hooks/useKeyboard';
 import Modal from 'react-native-modal';
 import { PrimaryText } from 'react-native-normalization-text';
 import { isAndroid } from '../../constants/DeviceInfo';
+import window from '../../constants/Layout';
 
 
 interface LiveWindowProps {
@@ -266,9 +267,10 @@ const LiveWindow = (props: LiveWindowProps): any => {
   }
 
   console.log(livingInfo,'smallPic');
+  const h = window.window.height + props.safeTop;
 
   return (
-    <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
+    <View style={StyleSheet.flatten([styles.wrapper, {minHeight: h}, props.style])}>
         {/* <Image
           source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
           resizeMode="cover"
@@ -292,7 +294,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
               textValue={textInput}
               setTextValue={setTextInput}
               onPressShopBag={() => shopCardAnim(true)}
-              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
+              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight + props.safeTop}])}
             />
           ) : null
         }
@@ -331,7 +333,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     minHeight: vh(100),
-    minWidth: vw(100)
+    minWidth: vw(100),
   },
   livingBottomBlock: {
     flex: 1,

@@ -51,11 +51,11 @@ function GoodsCard(props: Props) {
               <Text style={styles.sharePrice}>¥{formatGoodsPrice(goodsInfo.MyDiscounts || goodsInfo.rebate || 0)}</Text>
             </View>
           </View>
-          <View style={styles.goodsPrice}>
+          <Text style={styles.goodsPrice}>
             <Text style={styles.rmbIcon}>¥</Text>
-            <Text style={styles.salePrice}>{formatGoodsPrice(goodsInfo.shop_price || goodsInfo.shopPrice)}</Text>
+            <Text style={styles.salePrice}>{formatGoodsPrice(goodsInfo.shop_price || goodsInfo.shopPrice)}  </Text>
             <Text style={styles.originalPrice}>¥{formatGoodsPrice(goodsInfo.market_price || goodsInfo.marketPrice)}</Text>
-          </View>
+          </Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     color: Colors.basicColor
   },
   goodsPrice: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'baseline'
   },
   rmbIcon: {
     fontSize: pxToDp(24),
@@ -143,13 +144,11 @@ const styles = StyleSheet.create({
   salePrice: {
     fontSize: pxToDp(34),
     color: Colors.basicColor,
-    marginRight: pxToDp(16),
-    lineHeight: pxToDp(33)
+    marginRight: pxToDp(16)
   },
   originalPrice: {
     fontSize: pxToDp(24),
     color: Colors.lightGrey,
-    textDecorationLine: 'line-through',
-    lineHeight: pxToDp(33)
+    textDecorationLine: 'line-through'
   }
 })

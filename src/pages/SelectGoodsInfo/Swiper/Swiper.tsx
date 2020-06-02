@@ -11,6 +11,7 @@ export default function BrandSwiper(props: { swiperList: Array<any> }) {
   return (
     <View style={styles.swiperContainer}>
       <Swiper
+        autoplay
         activeDotColor={Colors.whiteColor}
       >
         {

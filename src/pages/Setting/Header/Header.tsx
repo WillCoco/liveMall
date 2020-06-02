@@ -137,7 +137,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    height: pxToDp(460),
+    height: pxToDp(480),
   },
   content: {
     width: pxToDp(200),

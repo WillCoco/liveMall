@@ -66,7 +66,7 @@ export default function Form(props: Props) {
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议'})}>
         <View style={styles.formItem}>
-          <Text style={styles.title}>云闪播用户协议</Text>
+          <Text style={styles.title}>云闪播用户协议与隐私政策</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
         </View>
       </TouchableWithoutFeedback>

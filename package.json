@@ -12,7 +12,8 @@
     "postinstall": "yarn textManager --update",
     "bundleAndroid": "react-native bundle --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.jsbundle --platform android --assets-dest ./android/app/src/main/res/ --dev false",
     "jetify": "npx jetify",
-    "release": "cd android && ./gradlew assembleRelease"
+    "release": "cd android && ./gradlew assembleRelease",
+    "reverse": "adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
     "@ant-design/react-native": "^3.3.0",

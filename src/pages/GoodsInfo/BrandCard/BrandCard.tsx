@@ -21,7 +21,7 @@ export default function BrandCard(props: { goodsInfo: any }) {
           <Image source={{ uri: goodsInfo.shop_logo }} style={styles.logo} />
           <View>
             <Text style={styles.brandName}>{goodsInfo.shop_name}</Text>
-            <Text style={styles.slogan}>该商品100%正品，假一赔十</Text>
+            {!!goodsInfo.desc && <Text style={styles.slogan}>{goodsInfo.desc}</Text>}
           </View>
         </View>
         <Ionicons

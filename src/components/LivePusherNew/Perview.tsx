@@ -54,19 +54,6 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const pusherConfig = useSelector((state: any) => state?.live?.pusherConfig);
 
   /**
-   * 直播间信息
-   */
-  const pushUrl = useSelector((state: any) => state?.live?.livingInfo?.pushUrl);
-
-  const cover = useSelector((state: any) => {
-    const smallPic = state?.live?.livingInfo?.smallPic;
-    if (smallPic) {
-        return {uri: smallPic}
-    }
-    return defaultImages.livingBg;
-  });
-
-  /**
    * 播放器状态
    */
   const [status, setStatus]: [number | undefined, any] = React.useState();
@@ -74,13 +61,10 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   /**
    * 加载推流的条件
    */
-  const showPusher = !!(isPermissionGranted && pushUrl && !props.resume);
-
-  const showLoading = status !== 2 && !props.resume;
+  const showPusher = !!(isPermissionGranted);
 
   console.log(isPermissionGranted, 'b01_isPermissionGranted');
   console.log(pusherConfig, 'b01_pusherConfig');
-  console.log(pushUrl, 'b01_pushUrl');
   console.log(showPusher, 'b01_showPusher');
   console.log(props.resume, 'b01_props.resume');
 
@@ -101,25 +85,9 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
           {...pusherConfig}
           onStateChange={onStateChange}
           onStreamInfoChange={onStreamInfoChange}
+          started={false}
           // onSwitchCameraResult={onSwitchCameraResult}
         />
-      ) : null}
-      {/* {showLoading ? (
-        <Image
-            source={cover}
-            resizeMode="cover"
-            style={styles.imgBg}
-        />
-      ) : null} */}
-      {showLoading ? (
-        <PrimaryText color="white" style={styles.loading}>
-          连接中
-        </PrimaryText>
-      ) : null}
-      {props.resume ? (
-        <PrimaryText color="white" style={styles.loading}>
-          恢复中
-        </PrimaryText>
       ) : null}
     </View>
   );
@@ -128,7 +96,6 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#333',
   },
   scrollerWrapper: {},
   contentWrapper: {

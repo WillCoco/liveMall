@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { View, ScrollView, Dimensions, StyleSheet, Platform, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
+import { View, ScrollView, Dimensions, StyleSheet, Platform, Text, ImageBackground, TouchableOpacity } from 'react-native'
 import { useRoute, useNavigation } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { apiGoodInfo, apiGetUnclaimedCoupons, apiAddCart, apiGoodsIsLike } from '../../service/api'
@@ -386,7 +386,11 @@ function GoodsInfo(props: Props) {
   if (isLoadingComplete) {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <ScrollView
+          bounces={false}
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+        >
           {/* 轮播图 */}
           <Swiper swiperList={swiperList} />
           {

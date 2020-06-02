@@ -24,9 +24,6 @@ import LoadMore from '../../components/LoadMore/LoadMore'
 
 const pageSize = 20
 const deviceHeight = Dimensions.get('window').height
-const deviceWidthDp = Dimensions.get('window').width
-
-let wrapperOffsetY = 0
 
 function Found(props: { isLogin: boolean }) {
   const { isLogin } = props
@@ -80,7 +77,6 @@ function Found(props: { isLogin: boolean }) {
       setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
     }).catch((err: any) => {
       console.log('发现数据', err)
-      // setNetWorkErr(true)
     })
   }
   /**
@@ -194,8 +190,5 @@ const styles = StyleSheet.create({
   },
   flatList: {
     padding: pxToDp(10)
-  },
-  waterFallContainer: {
-
   }
 })

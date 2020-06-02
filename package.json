@@ -42,7 +42,7 @@
     "expo-updates": "~0.1.0",
     "moment": "^2.24.0",
     "native-echarts": "git+http://47.114.76.40/frontend/react-native-echarts.git",
-    "pili-streaming-react-native": "file:/Users/apple/pili-streaming-react-native",
+    "pili-streaming-react-native": "file:./pili-streaming-react-native",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.5",

@@ -128,6 +128,7 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
   return (
     <>
       <ScrollView
+        bounces={false}
         style={styles.container}
         showsVerticalScrollIndicator={false}
         onMomentumScrollEnd={(e) => onReachBottom(e)}

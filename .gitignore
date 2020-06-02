@@ -68,3 +68,8 @@ buck-out/
 android/app/release/
 
 android/*.hprof
+
+
+pili-streaming-react-native/
+
+

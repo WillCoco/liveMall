@@ -150,6 +150,7 @@ function BrandShop(props: { isLogin: boolean }) {
 
   return (
     <ScrollView
+      bounces={false}
       onScroll={(e) => scrollPage(e)}
       scrollEventThrottle={200}
       showsVerticalScrollIndicator={false}

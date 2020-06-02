@@ -77,6 +77,16 @@ export default function ShopCard(props: Props) {
           </View>
         </View>
 
+        <View style={styles.orderInfoItem}>
+          <Text style={styles.label}>会员返现</Text>
+          <View style={styles.value}>
+            <Text style={styles.valueText}>{shop_info.discountDesc || ''}</Text>
+            <View style={styles.memo}>
+              <Text style={[styles.memoText, { color: Colors.basicColor }]}>+{formatSinglePrice(shop_info.saleDiscount || 0)}</Text>
+            </View>
+          </View>
+        </View>
+
         {
           shop_info.discountDesc && <View style={styles.orderInfoItem}>
             <Text style={styles.label}>金牌会员优惠</Text>

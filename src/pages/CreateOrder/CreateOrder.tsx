@@ -337,7 +337,7 @@ function CreateOrder(props: Props) {
 
       console.log('创建订单路由参数', payParams)
 
-      navigation.push('PayWebView', payParams)
+      navigation.navigate('PayWebView', payParams)
     }).catch((err: any) => {
       console.log('提交订单', err)
       Portal.remove(loading)

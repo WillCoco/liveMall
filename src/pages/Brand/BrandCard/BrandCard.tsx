@@ -18,19 +18,19 @@ function BrandCard(props: Props) {
   const { brandInfo, isLogin } = props
 
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   const toBrandShop = () => {
     const { brand_id: id } = brandInfo
-    navigation.push('BrandShop', { id })
+    navigation.navigate('BrandShop', { id })
   }
 
   /**
    * 关注、取消关注
    */
   const focusBrandShop = () => {
-    if (!isLogin) navigation.push('Login')
+    if (!isLogin) navigation.navigate('Login')
 
     props.focusBrandShop(brandInfo)
   }

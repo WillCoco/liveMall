@@ -13,19 +13,19 @@ export default function ToolBar(props: { showShareBar(): any }) {
 
   const toLive = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
     if (userRole.indexOf('2') > -1) { // 是主播，前往直播首页
-      navigation.push('AnchorTabs')
+      navigation.navigate('AnchorTabs')
     } else { // 不是主播，去开通
-      navigation.push('BeAnchor')
+      navigation.navigate('BeAnchor')
     }
   }
 
   const toShare = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 

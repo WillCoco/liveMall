@@ -14,11 +14,11 @@ function Account(props: { userInfo?: {} | any; isLogin?: boolean }) {
 
   const toAccountInfo = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
-    navigation.push('AssetManage')
+    navigation.navigate('AssetManage')
   }
 
   return (

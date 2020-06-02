@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   },
   originalPrice: {
     fontSize: pxToDp(24),
-    color: Colors.whiteColor
+    color: Colors.whiteColor,
+    textDecorationLine: 'line-through',
   },
   saleSlogan: {
     width: pxToDp(140),
@@ -83,14 +84,14 @@ const styles = StyleSheet.create({
   hasSold: {
     height: pxToDp(24),
     lineHeight: pxToDp(24),
-    backgroundColor: Colors.whiteColor,
+    backgroundColor: Colors.basicColor,
     borderRadius: pxToDp(12),
     overflow: 'hidden',
     paddingLeft: pxToDp(13),
     paddingRight: pxToDp(13),
     marginTop: pxToDp(13),
     fontSize: pxToDp(20),
-    color: Colors.basicColor,
+    color: Colors.whiteColor,
     textAlign: 'center'
   },
   seckillText: {

@@ -16,7 +16,7 @@ export default function GoodsList(props: Props) {
   const navigation: any = useNavigation()
 
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   return (

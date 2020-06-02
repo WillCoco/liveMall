@@ -96,7 +96,7 @@ export default function Classify() {
           iconColor={Colors.darkGrey}
           searchKeyStyle={{ color: Colors.darkGrey }}
           searchBarStyle={{ backgroundColor: Colors.bgColor }}
-          toSearchPage={() => navigation.push('HomeSearch')}
+          toSearchPage={() => navigation.navigate('HomeSearch')}
         />
       </View>
       <View style={styles.content}>

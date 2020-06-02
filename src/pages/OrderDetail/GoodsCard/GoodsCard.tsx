@@ -14,7 +14,7 @@ export default function GoodsCard(props: { detail: any }) {
    * 进入品牌店铺
    */
   const toBrandShop = () => {
-    navigation.push('BrandShop', { id: orderInfo.id })
+    navigation.navigate('BrandShop', { id: orderInfo.id })
   }
 
   /**
@@ -22,14 +22,14 @@ export default function GoodsCard(props: { detail: any }) {
    */
   const refund = (item: any) => {
     orderInfo.goodsInfo = item
-    navigation.push('ApplyForAfterSales', orderInfo)
+    navigation.navigate('ApplyForAfterSales', orderInfo)
   }
 
   /**
    * 进入商品详情
    */
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   return (

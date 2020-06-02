@@ -214,8 +214,9 @@ export default function Sale() {
 
   return (
     <ScrollView
-      onScroll={(e) => scrollPage(e)}
+      bounces={false}
       scrollEventThrottle={200}
+      onScroll={(e) => scrollPage(e)}
       showsVerticalScrollIndicator={false}
       onMomentumScrollEnd={(e) => onReachBottom(e)}
     >

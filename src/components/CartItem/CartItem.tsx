@@ -19,11 +19,11 @@ export default function CartItem(props: Props) {
   const { cartInfo } = props
 
   const toBrandShop = (id: number) => {
-    navigation.push('BrandShop', { id })
+    navigation.navigate('BrandShop', { id })
   }
 
   const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
+    navigation.navigate('GoodsInfo', { id })
   }
 
   return (

@@ -141,7 +141,7 @@ function GoodsInfo(props: Props) {
       setCouponList(JSON.parse(JSON.stringify(res)))
     }).catch((err: any) => {
       // if (err.code === '203' || err.code === '204') {
-      //   navigation.push('Login')
+      //   navigation.navigate('Login')
       //   return
       // }
       // setNetWorkErr(true)
@@ -232,7 +232,7 @@ function GoodsInfo(props: Props) {
         })
       }
     } else {
-      navigation.push('Login')
+      navigation.navigate('Login')
     }
   }
 
@@ -258,7 +258,7 @@ function GoodsInfo(props: Props) {
   const nextAction = () => {
     if (!isLogin) {
       setShowGoodsSku(false)
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
@@ -312,7 +312,7 @@ function GoodsInfo(props: Props) {
         goods_id: curSkuInfo.goods_id
       }]
     }]
-    navigation.push('CreateOrder', {
+    navigation.navigate('CreateOrder', {
       key,
       liveId,
       shareUserId,
@@ -326,7 +326,7 @@ function GoodsInfo(props: Props) {
    */
   const toggleStarGoods = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
@@ -349,7 +349,7 @@ function GoodsInfo(props: Props) {
    */
   const toShare = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
@@ -386,7 +386,11 @@ function GoodsInfo(props: Props) {
   if (isLoadingComplete) {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <ScrollView
+          bounces={false}
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+        >
           {/* 轮播图 */}
           <Swiper swiperList={swiperList} />
           {

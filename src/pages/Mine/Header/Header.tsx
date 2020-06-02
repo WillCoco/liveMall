@@ -32,16 +32,17 @@ interface Props {
 
 function Header(props: Props) {
   const navigation: any = useNavigation()
+  const {navigate} = useNavigation()
   const { userInfo, isLogin } = props.userData
   const { statusBarHeight } = props.publicData
 
   const toLogin = () => {
-    navigation.push('Login')
+    navigation.navigate('Login')
   }
 
   const toCollectGoods = () => {
     if (isLogin) {
-      navigation.push('CollectGoods')
+      navigation.navigate('CollectGoods')
     } else {
       toLogin()
     }
@@ -49,7 +50,7 @@ function Header(props: Props) {
 
   const toMyFocusBrand = () => {
     if (isLogin) {
-      navigation.push('Brand', { type: 'focus' })
+      navigation.navigate('Brand', { type: 'focus' })
     } else {
       toLogin()
     }
@@ -57,7 +58,7 @@ function Header(props: Props) {
 
   const toLikeContent = () => {
     if (isLogin) {
-      navigation.push('LikeContent', { type: 'focus' })
+      navigation.navigate('LikeContent', { type: 'focus' })
     } else {
       toLogin()
     }
@@ -65,7 +66,7 @@ function Header(props: Props) {
 
   const toCoupon = () => {
     if (isLogin) {
-      navigation.push('Coupon')
+      navigation.navigate('Coupon')
     } else {
       toLogin()
     }
@@ -73,7 +74,7 @@ function Header(props: Props) {
 
   const toSetting = () => {
     if (isLogin) {
-      navigation.push('Setting')
+      navigation.navigate('Setting')
     } else {
       toLogin()
     }
@@ -99,7 +100,7 @@ function Header(props: Props) {
 
       {/* 个人信息 */}
       <TouchableWithoutFeedback onPress={() => {
-        if (!isLogin) navigation.push('Login')
+        if (!isLogin) navigate('Login')
       }}>
         <View style={styles.userInfo}>
           {

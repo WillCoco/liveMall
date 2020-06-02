@@ -149,11 +149,11 @@ const BeAgent = (props: any) => {
   }
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView contentContainerStyle={{flex: 1}}>
       <ImageBackground 
         source={images.agentBg} 
         style={styles.style}
-        resizeMode='cover'
+        // resizeMode='cover'
       >
         <ImageBackground 
           source={images.agentBgTop} 
@@ -168,7 +168,7 @@ const BeAgent = (props: any) => {
               () => <AntDesign name="left" size={20} color={Colors.lightBrown} onPress={goBack}/>
             }
           />
-          <Image source={images.agent} style={{width: 127, height: 22}}/>
+          <Image source={images.agent} style={{width: pxToDp(254), height: pxToDp(44)}}/>
           <PrimaryText style={styles.agentText}>
             经纪人是指通过与平台签订劳务合同，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
           </PrimaryText>
@@ -262,7 +262,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    borderWidth: 2,
   },
   nav: {
     backgroundColor: 'transparent',

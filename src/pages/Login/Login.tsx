@@ -206,7 +206,7 @@ function Logion(props: any) {
           navigation.goBack()
         }, 1500)
       } else {
-        navigation.push('BindPhoneNumber', res.unionId)
+        navigation.navigate('BindPhoneNumber', res.unionId)
       }
     }).catch((err: any) => {
       console.log(err)
@@ -240,7 +240,7 @@ function Logion(props: any) {
           style={{paddingHorizontal: pad}}
         />
         <PrimaryText>已阅读并同意</PrimaryText>
-        <PrimaryText style={styles.link} onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>《云闪播用户协议与隐私政策》</PrimaryText>
+        <PrimaryText style={styles.link} onPress={() => navigation.navigate('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>《云闪播用户协议与隐私政策》</PrimaryText>
       </View>
       
 

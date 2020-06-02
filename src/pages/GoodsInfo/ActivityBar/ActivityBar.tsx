@@ -26,9 +26,9 @@ export default function ActivityBar(props: {
       <View style={styles.saleInfo}>
         <Image source={saleText} style={styles.saleText} />
         <View style={{ marginLeft: pxToDp(24) }}>
-          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+          <Text style={{ flexDirection: 'row', alignItems: 'baseline' }}>
             <Text style={styles.rmbIcon}>¥</Text><Text style={styles.salePrice}>{formatSinglePrice(goodsInfo.shop_price)}</Text>
-          </View>
+          </Text>
           <Text style={styles.originalPrice}>¥{formatSinglePrice(goodsInfo.market_price)}</Text>
         </View>
       </View>

@@ -9,7 +9,7 @@ export default function BrandSwiper(props: { swiperList: Array<any> }) {
 
   return (
     <View style={styles.swiperContainer}>
-      <Swiper>
+      <Swiper autoplay>
         {
           swiperList && swiperList.map((item: any, index: number) => {
             return (

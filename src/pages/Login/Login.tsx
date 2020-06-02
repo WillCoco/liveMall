@@ -240,7 +240,7 @@ function Logion(props: any) {
           style={{paddingHorizontal: pad}}
         />
         <PrimaryText>已阅读并同意</PrimaryText>
-        <PrimaryText style={styles.link} onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>云闪播用户协议与隐私政策</PrimaryText>
+        <PrimaryText style={styles.link} onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>《云闪播用户协议与隐私政策》</PrimaryText>
       </View>
       
 
@@ -302,7 +302,8 @@ const styles = StyleSheet.create({
   },
   agreementBox: {
     marginVertical: pad,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   link: {
     color: Colors.blueColor

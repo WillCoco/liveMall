@@ -69,9 +69,6 @@ function GoodsInfo(props: Props) {
 
   const { id: goodsId, shareUserId, liveId, key, onOrderCompleted }: GoodsInfoParams = route.params as GoodsInfoParams;
 
-
-  console.log(route.params)
-
   navigation.setOptions({
     headerTitle: '',
     headerStyle: {

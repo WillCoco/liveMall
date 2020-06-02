@@ -26,7 +26,7 @@ import PagingList from '../../../components/PagingList';
 import {apiAnchorParticular} from '../../../service/api';
 import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
-import { updateLivingInfo } from '../../../actions/live';
+import { clearLiveRoom } from '../../../actions/im';
 import { shortNum } from '../../../utils/numeric';
 import { useSelector } from 'react-redux';
 
@@ -164,7 +164,7 @@ const LiveTabPage = (props: {
 
 
   const toLiveingRoom = (item: any) => {
-    dispatch(updateLivingInfo());
+    dispatch(clearLiveRoom());
 
     // 如果主播查看自己直播间 则返回
 

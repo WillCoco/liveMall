@@ -128,7 +128,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
 
     dispatch(quitGroup(groupID)); // 退im群
 
-    player.current && player.current.stop()
+    // player.current && player.current.stop()
     goBack();
   };
 
@@ -206,7 +206,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
 
     return () => {
       console.log(player.current, 'player.current.stop')
-      player.current && player.current.stop();
+      // player.current && player.current.stop();
 
       // 请求观看人数
       poller.current.stop();
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     minWidth: vw(100)
   },
   livingBottomBlock: {
-    // flex: 1,
+    flex: 1,
     position: "absolute",
     left: 0,
     bottom: 0,

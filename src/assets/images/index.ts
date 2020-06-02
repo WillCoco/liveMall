@@ -403,6 +403,10 @@ const images : {
   // 主播详情背景图
   get anchorDetail() {
     return require('./anchorDetailBg.png')
+  },
+  // loading
+  get loadingBlock() {
+    return require('./loadingBlock.gif')
   }
 }
 

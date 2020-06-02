@@ -333,6 +333,7 @@ function FoundInfo(props: { userData: { userInfo?: any; isLogin?: boolean } }) {
       <Header opacity={navOpacity} />
 
       <ScrollView
+        bounces={false}
         onScroll={(e) => scrollPage(e)}
         scrollEventThrottle={200}
         style={styles.container}

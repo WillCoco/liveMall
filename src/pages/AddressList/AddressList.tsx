@@ -75,7 +75,7 @@ function AddressList(props: Props) {
 
   return (
     <>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} bounces={false}>
         {
           addressList && addressList.map((item: any, index: number) => {
             return (

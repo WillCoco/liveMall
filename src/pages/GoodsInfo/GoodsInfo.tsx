@@ -386,7 +386,11 @@ function GoodsInfo(props: Props) {
   if (isLoadingComplete) {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
+        <ScrollView
+          bounces={false}
+          style={styles.container}
+          showsVerticalScrollIndicator={false}
+        >
           {/* 轮播图 */}
           <Swiper swiperList={swiperList} />
           {

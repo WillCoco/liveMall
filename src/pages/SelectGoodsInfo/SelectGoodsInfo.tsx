@@ -58,7 +58,7 @@ export default function SelectGoodsInfo() {
 
   return (
     <View style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container} bounces={false}>
         {/* 轮播题 */}
         <Swiper swiperList={swiperList} />
         {/* 商品信息 */}

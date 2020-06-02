@@ -83,7 +83,7 @@ export default function AfterSaleDetail() {
   if (netWorkErr) return <NetWorkErr reload={getOrderInfo} />
 
   return (
-    <ScrollView>
+    <ScrollView bounces={false}>
       {/* 店铺商品信息 */}
       <ShopCard orderInfo={orderInfo} />
       {/* 订单附加信息 */}

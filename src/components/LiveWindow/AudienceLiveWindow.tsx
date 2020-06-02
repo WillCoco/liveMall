@@ -66,6 +66,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
     anchorId,
   } : LiveWindowParams = (route.params || EMPTY_OBJ) as LiveWindowParams;
 
+  console.log(groupID, 'groupIDgroupIDgroupIDgroupID')
+
   // 房间信息
   const room = useSelector((state: any) => state?.im?.room);
 
@@ -121,11 +123,13 @@ const LiveWindow = (props: LiveWindowProps): any => {
   const closeLive = () => {
     // player.current?.stop(); // 停止播放器实例
     // 我不是这场直播的主播
+    console.log(myAnchorId, 'myAnchorId')
+    console.log(anchorId, 'myAnchorId_anchorId')
     if (myAnchorId === anchorId) {
       goBack();
       return
     }
-    console.log(groupID, 'groupID')
+    console.log(groupID, 'groupID1111')
 
     dispatch(quitGroup(groupID)); // 退im群
 

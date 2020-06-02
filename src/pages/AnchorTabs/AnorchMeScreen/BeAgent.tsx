@@ -130,9 +130,9 @@ const BeAgent = (props: any) => {
    */
   const renderAgentRequireRow = (item: any ) => {
     return (
-      <View style={{flexDirection: 'column', marginTop: pad * 2}} key={item.title}>
+      <View style={{flexDirection: 'column'}} key={item.title}>
         <View style={styles.requireRow}>
-          <Text style={{color: Colors.brownColor}}>{item.title}</Text>
+          <Text style={{color: Colors.brownColor, fontWeight: 'bold'}}>{item.title}</Text>
           { item.needButton && <ButtonOutLine
             text='去缴费'
             style={styles.toPayButton}
@@ -153,12 +153,12 @@ const BeAgent = (props: any) => {
       <ImageBackground 
         source={images.agentBg} 
         style={styles.style}
-        // resizeMode='cover'
+        // resizeMode='stretch'
       >
         <ImageBackground 
           source={images.agentBgTop} 
           style={styles.topCard}
-          resizeMode='cover'
+          resizeMode='stretch'
         >
           <NavBar 
             title={'成为经纪人'}
@@ -168,7 +168,7 @@ const BeAgent = (props: any) => {
               () => <AntDesign name="left" size={20} color={Colors.lightBrown} onPress={goBack}/>
             }
           />
-          <Image source={images.agent} style={{width: pxToDp(254), height: pxToDp(44)}}/>
+          <Image source={images.agent} style={styles.agentTitle}/>
           <PrimaryText style={styles.agentText}>
             经纪人是指通过与平台签订劳务合同，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
           </PrimaryText>
@@ -216,12 +216,12 @@ const BeAgent = (props: any) => {
             }
             <TinyText style={styles.beAgentTip}>
               {
-                agentRequire?.currentLevel === 2 ? '达成任一条件达成即可成为经纪人' : '达成所有条件升级经纪人'
+                agentRequire?.currentLevel === 2 ? '任意一条件达成即可成为经纪人' : '达成所有条件升级经纪人'
               }
             </TinyText>
           </View>
         </ImageBackground>
-        <View style={styles.checkLine}>
+        {/* <View style={styles.checkLine}>
           <TouchableOpacity onPress={() => setAgree(!agree)}>
             <Image 
               style={styles.checkIcon} 
@@ -232,8 +232,8 @@ const BeAgent = (props: any) => {
             升级即表示观看且同意
             <Text style={{color: '#34C0FF'}} onPress={() => navigate('BeAgentAgreement')}>《经纪人劳务电子合同》</Text>
           </Text>
-        </View>
-        <TouchableOpacity>
+        </View> */}
+        {/* <TouchableOpacity>
           <LinearGradient
             colors={[Colors.lightBrown, '#FFCA98']}
             start={[0, 0]}
@@ -245,7 +245,7 @@ const BeAgent = (props: any) => {
               }
             </T4>
           </LinearGradient>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ImageBackground>
     </ScrollView>
   )
@@ -267,8 +267,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     borderBottomWidth: 0,
   },
+  agentTitle: {
+    width: pxToDp(254), 
+    height: pxToDp(44),
+    marginTop: pad,
+  },
   topCard: {
-    height: pxToDp(520),
+    height: pxToDp(600),
     width: vw(100),
     flexDirection: 'column',
     alignItems: 'center',
@@ -306,11 +311,12 @@ const styles = StyleSheet.create({
   angetTitle: {
     width: pxToDp(608),
     height: pxToDp(44),
-    marginVertical: pad * 2
+    marginTop: pad * 3,
+    marginBottom: pad * 2,
   },
   agentRules: {
     width: vw(100) - pad * 2,
-    height: pxToDp(640),
+    height: pxToDp(400),
   },
   colorLightBrown: {
     color: Colors.lightBrown
@@ -331,13 +337,13 @@ const styles = StyleSheet.create({
   },
   tabWrapper: {
     flex: 1,
-    paddingBottom: pad,
+    paddingTop: pad,
     paddingHorizontal: pad / 2,
   },
   requireRow: {
     flexDirection: 'row', 
     alignItems: 'center', 
-    marginVertical: pad * 2,
+    marginVertical: pad,
   },
   tabUnderLine: {
     width: pxToDp(70),  

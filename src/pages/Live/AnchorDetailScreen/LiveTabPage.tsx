@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useRoute, useNavigationState } from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import LiveRecord from './LiveRecord';
 import {Colors} from '../../../constants/Theme';
@@ -116,9 +116,12 @@ const LiveTabPage = (props: {
   userId: string | number,
   anchorId: string | number
 }) =>  {
-  const {navigate, goBack} = useNavigation();
+  const navigation = useNavigation();
+  const {navigate, goBack} = navigation;
   const dispatch = useDispatch();
-  const selfAnchorId = useSelector((state: any) => state?.anchorData?.anchorInfo?.anchorId) || ''
+  const selfAnchorId = useSelector((state: any) => state?.anchorData?.anchorInfo?.anchorId) || '';
+
+  const routes = useNavigationState(state => state.routes);
 
   /**
    * 下拉刷新
@@ -162,13 +165,20 @@ const LiveTabPage = (props: {
     return Promise.resolve({result: EMPTY_ARR})
   };
 
-
   const toLiveingRoom = (item: any) => {
+    const lastRouteName = routes[routes.length - 2].name;
 
-    // 如果主播查看自己直播间 则返回
     if (item?.anchorId === selfAnchorId) {
-      goBack()
+      // 如果主播查看自己直播间 则返回
+      goBack();
+    } else if (lastRouteName === 'AnorchLivingRoomScreen') {
+      // 如果从主播直播进入
+      goBack();
+    } else if (lastRouteName === 'LivingRoomScreen') {
+      // 如果从观看直播进入
+      goBack();
     } else {
+      // 从其他详情页面
       dispatch(clearLiveRoom());
       navigate('LivingRoomScreen', {
         liveId: item?.liveId,

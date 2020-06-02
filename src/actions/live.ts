@@ -4,7 +4,6 @@ import {LiveConfig,CameraType} from '../reducers/live';
 import * as api from '../service/api';
 import {isSucceed} from '../utils/fetchTools';
 import {EMPTY_OBJ, EMPTY_ARR} from '../constants/freeze';
-import Toast from 'react-native-tiny-toast';
 import {getUniqueId} from 'react-native-device-info';
 
 /**
@@ -78,7 +77,16 @@ export const updatecamera = () => {
     const {camera} = pusherConfig || {};
     const cameraDir = camera === CameraType.front ? CameraType.back : CameraType.front;
 
-    dispatch(updatePusherConfig({...pusherConfig, camera: cameraDir}));
+    // 更改profile.cameraStreamingSetting
+    let profile = {...(pusherConfig?.profile || {})};
+    const cameraStreamingSetting = profile.cameraStreamingSetting || {};
+    profile.cameraStreamingSetting = {...cameraStreamingSetting, camera: cameraDir}
+
+    dispatch(updatePusherConfig({
+      ...pusherConfig,
+      profile,
+      camera: cameraDir
+    }));
   }
 }
 
@@ -176,6 +184,10 @@ export const releaseTeaser = (params: ReleaseTeaserParams) => {
 export const isWorkLiveNow = () => {
   return async function(dispatch: Dispatch, getState: any): Promise<any> {
     const anchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
+    if (!anchorId) {
+      console.log('请求isWorkLiveNow时,anchorId:', anchorId)
+      return;
+    }
 
     return api.apiIsWorkLiveNow({anchorId})
     .then((r: any) => {

@@ -75,6 +75,7 @@ export default function Footer(props: Props) {
             onChangeText={(text) => setInputValue(text)}
             onSubmitEditing={submit}
             onBlur={props.inputBlur}
+            returnKeyType='done'
           />
           : <TouchableOpacity
             style={[styles.input, { justifyContent: 'center', alignItems: 'center' }]}

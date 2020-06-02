@@ -1,5 +1,5 @@
 /**
- * 主播端直播结束
+ * 主播端直播结束 直播已结束
  */
 import * as React from 'react';
 import {
@@ -12,7 +12,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {Icon, Divider, ListItem} from 'react-native-elements';
-import {PrimaryText, SmallText, T4, TinyText} from 'react-native-normalization-text';
+import {PrimaryText, SmallText, T4, TinyText, scale} from 'react-native-normalization-text';
 import {useDispatch, useSelector} from 'react-redux';
 import { useNavigation, CommonActions, useRoute } from '@react-navigation/native'
 import withPage from '../../../components/HOCs/withPage';
@@ -21,8 +21,9 @@ import {Colors} from '../../../constants/Theme';
 import {vw} from '../../../utils/metric';
 import {pad} from '../../../constants/Layout';
 import {updateLivingStatus} from '../../../actions/live';
+import formatSinglePrice from '../../../utils/formatGoodsPrice';
 
-  const dataList = [
+const dataList = [
   {title: '直播时长', key: 'liveDuration',},
   {title: '获得点赞数', key: 'liveSum',},
   {title: '观众总数', key: 'watchSum',},
@@ -69,8 +70,8 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
   }
 
   return (
-    <ScrollView>
-      <ImageBackground source={images.liveEndBg} style={StyleSheet.flatten([styles.wrapper, ])}>
+    <View style={{flex: 1}}>
+      <ImageBackground source={images.liveEndBg} style={styles.wrapper}>
         <View style={{paddingTop: props.safeTop}}>
           <TouchableOpacity style={styles.close} onPress={onPressClose} >
             <Icon name="close" color={Colors.whiteColor}/>
@@ -88,19 +89,25 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                 dataList.map(item => {
                   return (
                     <View style={styles.dataItem} key={item.title}>
-                      <Text>{endData[item.key] || 0}</Text>
+                      <Text style={{color: '#222', fontWeight: 'bold'}}>
+                        {
+                          item.key === 'moneySum'
+                          && formatSinglePrice(endData && endData[item.key] || 0)
+                          || endData && endData[item.key] || 0
+                        }
+                      </Text>
                       <Text style={{color: Colors.darkGrey}}>{item.title}</Text>
                     </View>
                   )
                 })
               }
             </View>
-            <View style={styles.divider}></View>
             {
-              Object.keys(endData?.bestSellGoodsRes).length
+              endData?.bestSellGoodsRes?.goodsId
                && 
               (
                 <View>
+                  <View style={styles.divider}></View>
                   <View style={styles.subTitleLine}>
                     <Image source={images.liveEndGoods} style={styles.subIcon} />
                     <T4 style={styles.subTitle}>本场销量最佳商品</T4>
@@ -108,11 +115,12 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                   <ListItem
                     leftAvatar={{ source: {uri: endData?.bestSellGoodsRes?.originalImg || ''}, rounded: false}}
                     title={endData?.bestSellGoodsRes?.goodsName}
+                    titleStyle={styles.itemTitle}
                     subtitle={endData?.bestSellGoodsRes?.goodsSku}
                     subtitleStyle={{color: Colors.darkGrey, paddingVertical: pad}}
                     rightTitle={
                       <PrimaryText style={styles.fontYellow}>
-                        {endData?.bestSellGoodsRes?.totalNum}<TinyText style={styles.fontYellow}> 元</TinyText>
+                        {formatSinglePrice(endData?.bestSellGoodsRes?.totalNum || 0)}<TinyText style={styles.fontYellow}> 元</TinyText>
                       </PrimaryText>
                     }
                   />
@@ -120,7 +128,7 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
               )
             }
             {
-              Object.keys(endData?.bestBrowseGoodsRes).length
+              endData && Object.keys(endData?.bestBrowseGoodsRes).length
                && 
               <View>
                 <View style={styles.divider}></View>
@@ -131,17 +139,18 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
                 <ListItem
                   leftAvatar={{ source: {uri: endData?.bestBrowseGoodsRes?.originalImg}, rounded: false}}
                   title={endData?.bestBrowseGoodsRes?.goodsName}
-                  rightTitle={endData?.bestBrowseGoodsRes?.totalNum}
+                  titleStyle={styles.itemTitle}
+                  rightTitle={formatSinglePrice(endData?.bestBrowseGoodsRes?.totalNum || 0)}
                   rightTitleStyle={{color: Colors.yellowColor}}
                   rightSubtitle={'最高观看人数'}
-                  rightSubtitleStyle={{fontSize: 12}}
+                  rightSubtitleStyle={{fontSize: scale(12), width: scale(90), textAlign: 'right'}}
                 />
               </View>
             }
           </View>
       </View>
       </ImageBackground>
-    </ScrollView>
+    </View>
   )
 };
 
@@ -156,6 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     padding: pad * 1.5,
+    backgroundColor: 'rgba(0,0,0,0.1)',
   },
   close: {
     width: '100%',
@@ -163,11 +173,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   title: {
-    width: 150,
-    height: 28,
+    width: scale(150),
+    height: scale(28),
     alignSelf: 'center',
     marginTop: pad
   },
+
   dataWrapper: {
     width: '100%',
     backgroundColor: Colors.whiteColor,
@@ -186,14 +197,19 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: Colors.divider
   },
+  itemTitle: {
+    fontSize: scale(12),
+    color: '#222',
+    fontWeight: 'bold'
+  },
   subTitleLine: {
     flexDirection: 'row',
     paddingVertical: pad,
   },
   subIcon: {
-    width: 14,
-    height: 16,
-    marginRight: 5,
+    width: scale(14),
+    height: scale(16),
+    marginRight: scale(5),
   },
   subTitle: {
     color: Colors.basicColor,

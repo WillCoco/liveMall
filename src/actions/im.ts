@@ -6,16 +6,17 @@ import {
   Dispatch,
 } from 'redux';
 import {RoomType, MessageType, RoomMessageType} from '../reducers/im';
-import Toast from 'react-native-tiny-toast';
+import {Toast} from '../components/Toast'
 import {store} from '../store';
 import {safeParse} from '../utils/saftyFn';
 import {updateLivingStatus, updateLivingInfo} from './live';
 import {clearLoginStatus} from './user';
 import { Attention } from '../liveTypes';
 import * as api from '../service/api';
+import retry from '../service/fetch/retry';
 import { isSucceed } from '../utils/fetchTools';
 
-const {tim, TIM, getUserSig: getUserSigLocal} = timModlue;
+const {tim, TIM,/*  getUserSig: getUserSigLocal */} = timModlue;
 
 // console.log(userSig, 'userss2')
 // console.log(store, 'store')
@@ -157,7 +158,6 @@ function handleSysMsg(message: any) {
 
       // 主播被下线, 冻结账号
       if (msgData?.type === '1') {
-        // store.dispatch(updateAnchorLivingStatus(true));
 
         const myAnchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
 
@@ -166,7 +166,7 @@ function handleSysMsg(message: any) {
         // 我是本场主播
         if (myAnchorId === livingAnchorId) {
           // 清除登录状态、退出登录
-          dispatch(clearLoginStatus());
+          dispatch(clearLoginStatus()); // 这里退出
           dispatch(clearLiveRoom('ANCHOR'));
           dispatch(updateLivingInfo());
         }
@@ -220,15 +220,27 @@ export function login() {
       return;
     }
 
-    tim.login({userID: userId, userSig})
+    // 重试
+    const loginWithRetry = retry(tim.login, {
+      getShouldRetry: (r: any) => {
+        return r?.data?.actionStatus !== 'OK'
+      },
+    })
+
+    loginWithRetry({userID: userId, userSig})
       .then(function(imResponse: any) {
-        if (imResponse?.actionStatus === 'OK') {
+        console.log(imResponse?.data?.actionStatus, 'loginIm'); // 登录成功
+        if (imResponse?.data?.actionStatus === 'OK') {
           dispatch(updateUserStatus({isOnLine: true})); // tinyID
+          console.log(imResponse?.data?.actionStatus, 'loginIm1111'); // 登录成功
+          return;
         }
         dispatch(updateUserStatus({isOnLine: false})); // tinyID
-        console.log(imResponse.data, 'loginIm'); // 登录成功
+        console.log(imResponse?.data?.actionStatus, 'loginIm222'); // 登录成功
+        Toast.show('IM登录失败');
       })
       .catch(function(imError: any) {
+        Toast.show('IM登录失败');
         console.warn('login error:', imError); // 登录失败的相关信息
       });
   }
@@ -813,11 +825,17 @@ export function clearLiveRoom(role?: 'ANCHOR' | 'AUDIENCE') {
     dispatch(updateRoom());
     // 清空成员数量
     dispatch(updateRoomMemberNum(0));
+    // 清除滚动消息
+    dispatch(updateScrollMessage([]));
 
+    // 清除livinginfo信息
+    dispatch(updateLivingInfo());
+    
     if (role === 'ANCHOR') {
-
+      
     } else if (role === 'AUDIENCE') {
-
+      // 清除结束字段
+      dispatch(updateLivingStatus(false));
     } else {
 
     }

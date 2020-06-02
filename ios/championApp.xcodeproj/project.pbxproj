@@ -12,17 +12,32 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		28246F306503B5251AFB3E4E /* libPods-championApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D92C6FF14568E04F90940407 /* libPods-championApp-tvOSTests.a */; };
+		182C9251248113F80019517F /* IQTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C922D248113F80019517F /* IQTextView.m */; };
+		182C9252248113F80019517F /* IQToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9231248113F80019517F /* IQToolbar.m */; };
+		182C9253248113F80019517F /* IQTitleBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9233248113F80019517F /* IQTitleBarButtonItem.m */; };
+		182C9254248113F80019517F /* IQBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9234248113F80019517F /* IQBarButtonItem.m */; };
+		182C9255248113F80019517F /* IQUIView+IQKeyboardToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9235248113F80019517F /* IQUIView+IQKeyboardToolbar.m */; };
+		182C9256248113F80019517F /* IQPreviousNextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9236248113F80019517F /* IQPreviousNextView.m */; };
+		182C9257248113F80019517F /* IQKeyboardManager.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 182C923E248113F80019517F /* IQKeyboardManager.bundle */; };
+		182C9258248113F80019517F /* IQKeyboardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9242248113F80019517F /* IQKeyboardManager.m */; };
+		182C9259248113F80019517F /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9244248113F80019517F /* IQNSArray+Sort.m */; };
+		182C925A248113F80019517F /* IQUIWindow+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9245248113F80019517F /* IQUIWindow+Hierarchy.m */; };
+		182C925B248113F80019517F /* IQUITextFieldView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9247248113F80019517F /* IQUITextFieldView+Additions.m */; };
+		182C925C248113F80019517F /* IQUIScrollView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9248248113F80019517F /* IQUIScrollView+Additions.m */; };
+		182C925D248113F80019517F /* IQUIView+Hierarchy.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9249248113F80019517F /* IQUIView+Hierarchy.m */; };
+		182C925E248113F80019517F /* IQUIViewController+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C924E248113F80019517F /* IQUIViewController+Additions.m */; };
+		182C925F248113F80019517F /* IQKeyboardReturnKeyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 182C9250248113F80019517F /* IQKeyboardReturnKeyHandler.m */; };
+		2144F830B88EB49B0CDE01F5 /* libPods-championAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC353A31395AA5E0AE609F44 /* libPods-championAppTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* championAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* championAppTests.m */; };
-		3CB7933EE7BE5B3EBE116FBB /* libPods-championAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33E1E3E8206A61976483E1BB /* libPods-championAppTests.a */; };
 		41971A310E0D42AD869E563D /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2810073BC9C84241A800F638 /* antfill.ttf */; };
+		6974EB7371536D02C7A7A771 /* libPods-championApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F1A767CFDC4CEBA3463CFF3 /* libPods-championApp.a */; };
+		8E1F5EBCF0666C4EA727DED5 /* libPods-championApp-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 022B455F0B8D32C4D5958521 /* libPods-championApp-tvOSTests.a */; };
+		92B20DCC6C529F7B18C99A09 /* libPods-championApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7124D0E3E714ECD34695F7E9 /* libPods-championApp-tvOS.a */; };
 		AD785771A4D2417882CA99DC /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 52756B9F5F9C401683BC3C04 /* antoutline.ttf */; };
-		CB373859F78BACBECABBC9A1 /* libPods-championApp-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECDD4BC6E12513FD1F994B57 /* libPods-championApp-tvOS.a */; };
 		E549128350C54D8E8F775784 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9C355FDBD544ABF9BC79EDD /* SplashScreen.storyboard */; };
-		FD08ABBF9728709F31608256 /* libPods-championApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 701F95CD75B3650C19EE6FCE /* libPods-championApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,31 +62,63 @@
 		00E356EE1AD99517003FC87E /* championAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = championAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* championAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = championAppTests.m; sourceTree = "<group>"; };
+		022B455F0B8D32C4D5958521 /* libPods-championApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		042CDF7E247B76C400E99574 /* championApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = championApp.entitlements; path = championApp/championApp.entitlements; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* championApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = championApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* 云闪播.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "云闪播.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = championApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = championApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = championApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = championApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = championApp/main.m; sourceTree = "<group>"; };
-		193B71850897C1E6F760E9A6 /* Pods-championApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp.debug.xcconfig"; path = "Target Support Files/Pods-championApp/Pods-championApp.debug.xcconfig"; sourceTree = "<group>"; };
-		23FEDF67B0E1E443CF62462F /* Pods-championApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-championApp-tvOS/Pods-championApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		182C922D248113F80019517F /* IQTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTextView.m; sourceTree = "<group>"; };
+		182C922E248113F80019517F /* IQTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTextView.h; sourceTree = "<group>"; };
+		182C9230248113F80019517F /* IQUIView+IQKeyboardToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+IQKeyboardToolbar.h"; sourceTree = "<group>"; };
+		182C9231248113F80019517F /* IQToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQToolbar.m; sourceTree = "<group>"; };
+		182C9232248113F80019517F /* IQPreviousNextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQPreviousNextView.h; sourceTree = "<group>"; };
+		182C9233248113F80019517F /* IQTitleBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQTitleBarButtonItem.m; sourceTree = "<group>"; };
+		182C9234248113F80019517F /* IQBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQBarButtonItem.m; sourceTree = "<group>"; };
+		182C9235248113F80019517F /* IQUIView+IQKeyboardToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+IQKeyboardToolbar.m"; sourceTree = "<group>"; };
+		182C9236248113F80019517F /* IQPreviousNextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQPreviousNextView.m; sourceTree = "<group>"; };
+		182C9237248113F80019517F /* IQToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQToolbar.h; sourceTree = "<group>"; };
+		182C9238248113F80019517F /* IQBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQBarButtonItem.h; sourceTree = "<group>"; };
+		182C9239248113F80019517F /* IQTitleBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQTitleBarButtonItem.h; sourceTree = "<group>"; };
+		182C923B248113F80019517F /* IQKeyboardManagerConstantsInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstantsInternal.h; sourceTree = "<group>"; };
+		182C923C248113F80019517F /* IQKeyboardManagerConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManagerConstants.h; sourceTree = "<group>"; };
+		182C923E248113F80019517F /* IQKeyboardManager.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IQKeyboardManager.bundle; sourceTree = "<group>"; };
+		182C923F248113F80019517F /* IQKeyboardReturnKeyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardReturnKeyHandler.h; sourceTree = "<group>"; };
+		182C9240248113F80019517F /* IQKeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IQKeyboardManager.h; sourceTree = "<group>"; };
+		182C9241248113F80019517F /* KeyboardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardManager.h; sourceTree = "<group>"; };
+		182C9242248113F80019517F /* IQKeyboardManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardManager.m; sourceTree = "<group>"; };
+		182C9244248113F80019517F /* IQNSArray+Sort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQNSArray+Sort.m"; sourceTree = "<group>"; };
+		182C9245248113F80019517F /* IQUIWindow+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIWindow+Hierarchy.m"; sourceTree = "<group>"; };
+		182C9246248113F80019517F /* IQUIViewController+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIViewController+Additions.h"; sourceTree = "<group>"; };
+		182C9247248113F80019517F /* IQUITextFieldView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUITextFieldView+Additions.m"; sourceTree = "<group>"; };
+		182C9248248113F80019517F /* IQUIScrollView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIScrollView+Additions.m"; sourceTree = "<group>"; };
+		182C9249248113F80019517F /* IQUIView+Hierarchy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIView+Hierarchy.m"; sourceTree = "<group>"; };
+		182C924A248113F80019517F /* IQUIWindow+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIWindow+Hierarchy.h"; sourceTree = "<group>"; };
+		182C924B248113F80019517F /* IQNSArray+Sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQNSArray+Sort.h"; sourceTree = "<group>"; };
+		182C924C248113F80019517F /* IQUIScrollView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIScrollView+Additions.h"; sourceTree = "<group>"; };
+		182C924D248113F80019517F /* IQUITextFieldView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUITextFieldView+Additions.h"; sourceTree = "<group>"; };
+		182C924E248113F80019517F /* IQUIViewController+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IQUIViewController+Additions.m"; sourceTree = "<group>"; };
+		182C924F248113F80019517F /* IQUIView+Hierarchy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IQUIView+Hierarchy.h"; sourceTree = "<group>"; };
+		182C9250248113F80019517F /* IQKeyboardReturnKeyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IQKeyboardReturnKeyHandler.m; sourceTree = "<group>"; };
 		2810073BC9C84241A800F638 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
+		2ADC6E5A48387519FD239089 /* Pods-championApp-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-championApp-tvOS/Pods-championApp-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* championApp-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "championApp-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* championApp-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "championApp-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		33E1E3E8206A61976483E1BB /* libPods-championAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45C041878F52394B8ADBD617 /* Pods-championApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp.debug.xcconfig"; path = "Target Support Files/Pods-championApp/Pods-championApp.debug.xcconfig"; sourceTree = "<group>"; };
+		4655891D43117EFF32DF964E /* Pods-championApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-championApp-tvOSTests/Pods-championApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		4A7D371317337A4B22DD7851 /* Pods-championAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championAppTests.debug.xcconfig"; path = "Target Support Files/Pods-championAppTests/Pods-championAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		52756B9F5F9C401683BC3C04 /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
-		527D468F05E6539E3B8D0C78 /* Pods-championApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-championApp-tvOS/Pods-championApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		5A4939702BEB2792C6A2E923 /* Pods-championAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championAppTests.debug.xcconfig"; path = "Target Support Files/Pods-championAppTests/Pods-championAppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6F92D7E31F8AEAD025181735 /* Pods-championApp-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-championApp-tvOSTests/Pods-championApp-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
-		701F95CD75B3650C19EE6FCE /* libPods-championApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A703E07999A01966613DB77B /* Pods-championApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp.release.xcconfig"; path = "Target Support Files/Pods-championApp/Pods-championApp.release.xcconfig"; sourceTree = "<group>"; };
+		5F1A767CFDC4CEBA3463CFF3 /* libPods-championApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B63B5E4474D17B6A9867C6 /* Pods-championApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-championApp-tvOSTests/Pods-championApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		7124D0E3E714ECD34695F7E9 /* libPods-championApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC77D19C17641044A6F49CEC /* Pods-championApp-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOS.release.xcconfig"; path = "Target Support Files/Pods-championApp-tvOS/Pods-championApp-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		AE8E17E5105B839C58AD8D9C /* Pods-championApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp.release.xcconfig"; path = "Target Support Files/Pods-championApp/Pods-championApp.release.xcconfig"; sourceTree = "<group>"; };
 		B9C355FDBD544ABF9BC79EDD /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = championApp/SplashScreen.storyboard; sourceTree = "<group>"; };
-		C1957083B990DB46A2CF98B1 /* Pods-championApp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championApp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-championApp-tvOSTests/Pods-championApp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		D92C6FF14568E04F90940407 /* libPods-championApp-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D9F05CAFEAD482D21EDC9B1A /* Pods-championAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championAppTests.release.xcconfig"; path = "Target Support Files/Pods-championAppTests/Pods-championAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		ECDD4BC6E12513FD1F994B57 /* libPods-championApp-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championApp-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB021C7FC80B5E04DBC6B166 /* Pods-championAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-championAppTests.release.xcconfig"; path = "Target Support Files/Pods-championAppTests/Pods-championAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		DC353A31395AA5E0AE609F44 /* libPods-championAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-championAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -81,7 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3CB7933EE7BE5B3EBE116FBB /* libPods-championAppTests.a in Frameworks */,
+				2144F830B88EB49B0CDE01F5 /* libPods-championAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,7 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FD08ABBF9728709F31608256 /* libPods-championApp.a in Frameworks */,
+				6974EB7371536D02C7A7A771 /* libPods-championApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CB373859F78BACBECABBC9A1 /* libPods-championApp-tvOS.a in Frameworks */,
+				92B20DCC6C529F7B18C99A09 /* libPods-championApp-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28246F306503B5251AFB3E4E /* libPods-championApp-tvOSTests.a in Frameworks */,
+				8E1F5EBCF0666C4EA727DED5 /* libPods-championApp-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,15 +192,94 @@
 			name = championApp;
 			sourceTree = "<group>";
 		};
+		182C922B248113F80019517F /* IQKeyboardManager */ = {
+			isa = PBXGroup;
+			children = (
+				182C922C248113F80019517F /* IQTextView */,
+				182C922F248113F80019517F /* IQToolbar */,
+				182C923A248113F80019517F /* Constants */,
+				182C923D248113F80019517F /* Resources */,
+				182C923F248113F80019517F /* IQKeyboardReturnKeyHandler.h */,
+				182C9240248113F80019517F /* IQKeyboardManager.h */,
+				182C9241248113F80019517F /* KeyboardManager.h */,
+				182C9242248113F80019517F /* IQKeyboardManager.m */,
+				182C9243248113F80019517F /* Categories */,
+				182C9250248113F80019517F /* IQKeyboardReturnKeyHandler.m */,
+			);
+			path = IQKeyboardManager;
+			sourceTree = "<group>";
+		};
+		182C922C248113F80019517F /* IQTextView */ = {
+			isa = PBXGroup;
+			children = (
+				182C922D248113F80019517F /* IQTextView.m */,
+				182C922E248113F80019517F /* IQTextView.h */,
+			);
+			path = IQTextView;
+			sourceTree = "<group>";
+		};
+		182C922F248113F80019517F /* IQToolbar */ = {
+			isa = PBXGroup;
+			children = (
+				182C9230248113F80019517F /* IQUIView+IQKeyboardToolbar.h */,
+				182C9231248113F80019517F /* IQToolbar.m */,
+				182C9232248113F80019517F /* IQPreviousNextView.h */,
+				182C9233248113F80019517F /* IQTitleBarButtonItem.m */,
+				182C9234248113F80019517F /* IQBarButtonItem.m */,
+				182C9235248113F80019517F /* IQUIView+IQKeyboardToolbar.m */,
+				182C9236248113F80019517F /* IQPreviousNextView.m */,
+				182C9237248113F80019517F /* IQToolbar.h */,
+				182C9238248113F80019517F /* IQBarButtonItem.h */,
+				182C9239248113F80019517F /* IQTitleBarButtonItem.h */,
+			);
+			path = IQToolbar;
+			sourceTree = "<group>";
+		};
+		182C923A248113F80019517F /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				182C923B248113F80019517F /* IQKeyboardManagerConstantsInternal.h */,
+				182C923C248113F80019517F /* IQKeyboardManagerConstants.h */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		182C923D248113F80019517F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				182C923E248113F80019517F /* IQKeyboardManager.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		182C9243248113F80019517F /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				182C9244248113F80019517F /* IQNSArray+Sort.m */,
+				182C9245248113F80019517F /* IQUIWindow+Hierarchy.m */,
+				182C9246248113F80019517F /* IQUIViewController+Additions.h */,
+				182C9247248113F80019517F /* IQUITextFieldView+Additions.m */,
+				182C9248248113F80019517F /* IQUIScrollView+Additions.m */,
+				182C9249248113F80019517F /* IQUIView+Hierarchy.m */,
+				182C924A248113F80019517F /* IQUIWindow+Hierarchy.h */,
+				182C924B248113F80019517F /* IQNSArray+Sort.h */,
+				182C924C248113F80019517F /* IQUIScrollView+Additions.h */,
+				182C924D248113F80019517F /* IQUITextFieldView+Additions.h */,
+				182C924E248113F80019517F /* IQUIViewController+Additions.m */,
+				182C924F248113F80019517F /* IQUIView+Hierarchy.h */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				701F95CD75B3650C19EE6FCE /* libPods-championApp.a */,
-				ECDD4BC6E12513FD1F994B57 /* libPods-championApp-tvOS.a */,
-				D92C6FF14568E04F90940407 /* libPods-championApp-tvOSTests.a */,
-				33E1E3E8206A61976483E1BB /* libPods-championAppTests.a */,
+				5F1A767CFDC4CEBA3463CFF3 /* libPods-championApp.a */,
+				7124D0E3E714ECD34695F7E9 /* libPods-championApp-tvOS.a */,
+				022B455F0B8D32C4D5958521 /* libPods-championApp-tvOSTests.a */,
+				DC353A31395AA5E0AE609F44 /* libPods-championAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,14 +287,14 @@
 		3ED9E3AE969A62FF42FE8774 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				193B71850897C1E6F760E9A6 /* Pods-championApp.debug.xcconfig */,
-				A703E07999A01966613DB77B /* Pods-championApp.release.xcconfig */,
-				23FEDF67B0E1E443CF62462F /* Pods-championApp-tvOS.debug.xcconfig */,
-				527D468F05E6539E3B8D0C78 /* Pods-championApp-tvOS.release.xcconfig */,
-				6F92D7E31F8AEAD025181735 /* Pods-championApp-tvOSTests.debug.xcconfig */,
-				C1957083B990DB46A2CF98B1 /* Pods-championApp-tvOSTests.release.xcconfig */,
-				5A4939702BEB2792C6A2E923 /* Pods-championAppTests.debug.xcconfig */,
-				D9F05CAFEAD482D21EDC9B1A /* Pods-championAppTests.release.xcconfig */,
+				45C041878F52394B8ADBD617 /* Pods-championApp.debug.xcconfig */,
+				AE8E17E5105B839C58AD8D9C /* Pods-championApp.release.xcconfig */,
+				2ADC6E5A48387519FD239089 /* Pods-championApp-tvOS.debug.xcconfig */,
+				AC77D19C17641044A6F49CEC /* Pods-championApp-tvOS.release.xcconfig */,
+				4655891D43117EFF32DF964E /* Pods-championApp-tvOSTests.debug.xcconfig */,
+				61B63B5E4474D17B6A9867C6 /* Pods-championApp-tvOSTests.release.xcconfig */,
+				4A7D371317337A4B22DD7851 /* Pods-championAppTests.debug.xcconfig */,
+				CB021C7FC80B5E04DBC6B166 /* Pods-championAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -192,6 +318,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				182C922B248113F80019517F /* IQKeyboardManager */,
 				13B07FAE1A68108700A75B9A /* championApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* championAppTests */,
@@ -208,7 +335,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* championApp.app */,
+				13B07F961A680F5B00A75B9A /* 云闪播.app */,
 				00E356EE1AD99517003FC87E /* championAppTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* championApp-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* championApp-tvOSTests.xctest */,
@@ -223,7 +350,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "championAppTests" */;
 			buildPhases = (
-				40DA1555376B9AC1A32D5196 /* [CP] Check Pods Manifest.lock */,
+				BA433B4FD86BD6718AACF394 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
@@ -242,12 +369,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "championApp" */;
 			buildPhases = (
-				16BCD4F8FC64A5AFA06B3054 /* [CP] Check Pods Manifest.lock */,
+				48E0D27F1BC983CE0970E91E /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				C1D82AAFD6DF4CBF10C7942B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -255,20 +383,20 @@
 			);
 			name = championApp;
 			productName = championApp;
-			productReference = 13B07F961A680F5B00A75B9A /* championApp.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* 云闪播.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* championApp-tvOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "championApp-tvOS" */;
 			buildPhases = (
-				C59ACB5F7C573A80E7FFE8BF /* [CP] Check Pods Manifest.lock */,
+				36125AFEF5BA7B5A98719AA4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
 				2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */,
-				DD029BE0B44336343C469F9A /* [CP] Embed Pods Frameworks */,
+				F561E8A223B8BB9A8762BC84 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -283,7 +411,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "championApp-tvOSTests" */;
 			buildPhases = (
-				8B3A47741D80235B47FAF713 /* [CP] Check Pods Manifest.lock */,
+				0DFDFA6222ABBB27E3452781 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
 				2D02E48D1E0B4A5D006451C7 /* Frameworks */,
 				2D02E48E1E0B4A5D006451C7 /* Resources */,
@@ -309,6 +437,7 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 66T4PACQC5;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
@@ -363,6 +492,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				41971A310E0D42AD869E563D /* antfill.ttf in Resources */,
+				182C9257248113F80019517F /* IQKeyboardManager.bundle in Resources */,
 				AD785771A4D2417882CA99DC /* antoutline.ttf in Resources */,
 				E549128350C54D8E8F775784 /* SplashScreen.storyboard in Resources */,
 			);
@@ -398,67 +528,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=/Users/apple/n/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "export NODE_BINARY=/usr/local/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		16BCD4F8FC64A5AFA06B3054 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-championApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Bundle React Native Code And Images";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
-		};
-		40DA1555376B9AC1A32D5196 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-championAppTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8B3A47741D80235B47FAF713 /* [CP] Check Pods Manifest.lock */ = {
+		0DFDFA6222ABBB27E3452781 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -480,7 +552,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59ACB5F7C573A80E7FFE8BF /* [CP] Check Pods Manifest.lock */ = {
+		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native Code And Images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		36125AFEF5BA7B5A98719AA4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -502,7 +588,71 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		DD029BE0B44336343C469F9A /* [CP] Embed Pods Frameworks */ = {
+		48E0D27F1BC983CE0970E91E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-championApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA433B4FD86BD6718AACF394 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-championAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1D82AAFD6DF4CBF10C7942B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-championApp/Pods-championApp-frameworks.sh",
+				"${PODS_ROOT}/PLMediaStreamingKit/Pod/Library/PLMediaStreamingKit.framework",
+				"${PODS_ROOT}/PLMediaStreamingKit/Pod/Library/HappyDNS.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PLMediaStreamingKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-championApp/Pods-championApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F561E8A223B8BB9A8762BC84 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -577,7 +727,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				182C9259248113F80019517F /* IQNSArray+Sort.m in Sources */,
+				182C9253248113F80019517F /* IQTitleBarButtonItem.m in Sources */,
+				182C925E248113F80019517F /* IQUIViewController+Additions.m in Sources */,
+				182C9254248113F80019517F /* IQBarButtonItem.m in Sources */,
+				182C9252248113F80019517F /* IQToolbar.m in Sources */,
+				182C9251248113F80019517F /* IQTextView.m in Sources */,
+				182C925C248113F80019517F /* IQUIScrollView+Additions.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				182C9255248113F80019517F /* IQUIView+IQKeyboardToolbar.m in Sources */,
+				182C9258248113F80019517F /* IQKeyboardManager.m in Sources */,
+				182C9256248113F80019517F /* IQPreviousNextView.m in Sources */,
+				182C925B248113F80019517F /* IQUITextFieldView+Additions.m in Sources */,
+				182C925A248113F80019517F /* IQUIWindow+Hierarchy.m in Sources */,
+				182C925D248113F80019517F /* IQUIView+Hierarchy.m in Sources */,
+				182C925F248113F80019517F /* IQKeyboardReturnKeyHandler.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,9 +793,10 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A4939702BEB2792C6A2E923 /* Pods-championAppTests.debug.xcconfig */;
+			baseConfigurationReference = 4A7D371317337A4B22DD7851 /* Pods-championAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 66T4PACQC5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -652,10 +817,11 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D9F05CAFEAD482D21EDC9B1A /* Pods-championAppTests.release.xcconfig */;
+			baseConfigurationReference = CB021C7FC80B5E04DBC6B166 /* Pods-championAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 66T4PACQC5;
 				INFOPLIST_FILE = championAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -672,11 +838,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 193B71850897C1E6F760E9A6 /* Pods-championApp.debug.xcconfig */;
+			baseConfigurationReference = 45C041878F52394B8ADBD617 /* Pods-championApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = championApp/championApp.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 66T4PACQC5;
 				INFOPLIST_FILE = championApp/Info.plist;
@@ -687,7 +853,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.championapp;
-				PRODUCT_NAME = championApp;
+				PRODUCT_NAME = "云闪播";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -695,11 +861,11 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A703E07999A01966613DB77B /* Pods-championApp.release.xcconfig */;
+			baseConfigurationReference = AE8E17E5105B839C58AD8D9C /* Pods-championApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = championApp/championApp.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 66T4PACQC5;
 				INFOPLIST_FILE = championApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -709,7 +875,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.championapp;
-				PRODUCT_NAME = championApp;
+				PRODUCT_NAME = "云闪播";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -717,7 +883,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23FEDF67B0E1E443CF62462F /* Pods-championApp-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 2ADC6E5A48387519FD239089 /* Pods-championApp-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -745,7 +911,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 527D468F05E6539E3B8D0C78 /* Pods-championApp-tvOS.release.xcconfig */;
+			baseConfigurationReference = AC77D19C17641044A6F49CEC /* Pods-championApp-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -773,7 +939,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F92D7E31F8AEAD025181735 /* Pods-championApp-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 4655891D43117EFF32DF964E /* Pods-championApp-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -800,7 +966,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C1957083B990DB46A2CF98B1 /* Pods-championApp-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 61B63B5E4474D17B6A9867C6 /* Pods-championApp-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -911,6 +1077,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "DISABLE_PUSH_NOTIFICATIONS=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

@@ -27,7 +27,9 @@ import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 import ActionSheet from '../../components/ActionSheet/ActionSheet'
 
 interface GoodsInfoParams {
+  key: string,
   id: string | number,
+  liveId: string | number,
   shareUserId: string | number,
   onOrderCompleted: (orderInfo: any) => any
 }
@@ -65,7 +67,7 @@ function GoodsInfo(props: Props) {
   const [posterPath, setPosterPath] = useState('')
   const [posterType, setPosterType] = useState(0)
 
-  const { id: goodsId, shareUserId, onOrderCompleted }: GoodsInfoParams = route.params as GoodsInfoParams;
+  const { id: goodsId, shareUserId, liveId, key, onOrderCompleted }: GoodsInfoParams = route.params as GoodsInfoParams;
 
   navigation.setOptions({
     headerTitle: '',
@@ -82,6 +84,7 @@ function GoodsInfo(props: Props) {
   useEffect(() => {
     getGoodsInfo()
   }, [])
+
   /**
    * 加载商品详情
    */
@@ -121,7 +124,10 @@ function GoodsInfo(props: Props) {
     }).catch((err: any) => {
       console.log('商品详情', err)
       Portal.remove(loading)
-      setNetWorkErr(true)
+      setTimeout(() => {
+        navigation.goBack()
+      }, 1000);
+      // setNetWorkErr(true)
     })
   }
 
@@ -134,11 +140,11 @@ function GoodsInfo(props: Props) {
       setNetWorkErr(false)
       setCouponList(JSON.parse(JSON.stringify(res)))
     }).catch((err: any) => {
-      if (err.code === '203' || err.code === '204') {
-        navigation.push('Login')
-        return
-      }
-      setNetWorkErr(true)
+      // if (err.code === '203' || err.code === '204') {
+      //   navigation.push('Login')
+      //   return
+      // }
+      // setNetWorkErr(true)
     })
   }
 
@@ -306,7 +312,13 @@ function GoodsInfo(props: Props) {
         goods_id: curSkuInfo.goods_id
       }]
     }]
-    navigation.push('CreateOrder', { tempOrderList, shareUserId, onOrderCompleted })
+    navigation.push('CreateOrder', {
+      key,
+      liveId,
+      shareUserId,
+      tempOrderList,
+      onOrderCompleted
+    })
   }
 
   /**
@@ -353,7 +365,7 @@ function GoodsInfo(props: Props) {
     setShowPosterCard(true)
   }
 
-  if (netWorkErr) return <NetWorkErr reload={getGoodsInfo} />
+  // if (netWorkErr) return <NetWorkErr reload={getGoodsInfo} />
 
   if (soldOut) {
     return (

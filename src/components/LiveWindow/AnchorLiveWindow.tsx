@@ -26,7 +26,7 @@ import withPage from '../../components/HOCs/withPage';
 import {pad} from '../../constants/Layout';
 import { joinGroup, dismissGroup, updateGroupProfile, sendRoomMessage, } from '../../actions/im';
 import { anchorToLive, closeLive, updatecamera, updateFaceSetting, faceBeautyParams } from '../../actions/live';
-import Toast from 'react-native-tiny-toast';
+import { Toast } from '../../components/Toast';
 import { MessageType } from '../../reducers/im';
 import LivingFaceCard from '../../components/LivingFaceCard';
 
@@ -111,7 +111,8 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   /**
    * 直播结束
    */
-  const isAnchorLiveOver = useSelector((state: any) => state?.live?.isAnchorLiveOver);
+  // const isAnchorLiveOver = useSelector((state: any) => state?.live?.isAnchorLiveOver);
+  
 
   /**
    * 轮询器
@@ -208,6 +209,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   const noticeBubbleText = room?.notification;
 
   const onPressBubble = () => {
+    console.log(room?.groupID)
     if (room?.groupID) {
       // 显示输入框
       maskDispatch({
@@ -296,7 +298,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
 
   // 滑块
   const onAfterChangeSetting = (value: number, type:string) => {
-      dispatch(updateFaceSetting({type, value}))
+    dispatch(updateFaceSetting({type, value}))
   };
 
   /**
@@ -314,6 +316,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
       .then((res) => { console.log(res) })
       .catch((err) => { err && console.log(err); });
   }
+
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>

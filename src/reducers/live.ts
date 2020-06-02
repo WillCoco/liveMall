@@ -62,98 +62,100 @@ export enum CameraType {
 }
 
 const INIT_STREAMING_CONFIG: any = {
-    rtmpURL: '',
-    camera: CameraType.front,
-    started: true, // 推流
-    faceBeautyEnable: true, // 内置美颜 为true才能设置美白磨皮红润
-    faceBeautySetting: {
-        beautyLevel: 0, //磨皮程度
-        whiten: 0, //美白程度
-        redden: 0, //红润程度
+  rtmpURL: '',
+  camera: CameraType.front,
+  started: true, // 推流
+  faceBeautyEnable: true, // 内置美颜 为true才能设置美白磨皮红润
+  faceBeautySetting: {
+      beautyLevel: 1, //磨皮程度
+      whiten: 1, //美白程度
+      redden: 1, //红润程度
+  },
+  // previewMirrorEnable:true, // 镜像
+  muted: false,
+  zoom: 1,
+  focus: false,
+  watermarkSetting: {
+      src: null, // or `''`？
+      alpha: 122,
+      position: {
+          x: 0,
+          y: 0,
+      },
+      size: {
+          width: 50,
+          height: 50,
+      },
+  },
+  pictureStreamingFile: null,
+  pictureStreamingEnable: false,
+  torchEnable: false,
+  previewMirrorEnable: false,
+  encodingMirrorEnable: false,
+  audioMixFile: {
+    filePath: null, // or `''`？
+    loop: true,
+  },
+  playMixAudio: false,
+  audioMixVolume: {
+    micVolume: 0.5,
+    musicVolume: 0.5,
+  },
+  playbackEnable: false,
+  profile: {
+    videoStreamingSetting: {
+      fps: 24,
+      bps: 1000 * 1024,
+      maxFrameInterval: 60,
+      encodeOrientation: consts.videoEncodeOrientations.portrait,
+      h264Profile: isAndroid
+          ? consts.videoH264Profiles_android.baseline
+          : consts.videoH264Profiles_iOS.baseline31,
+      // customVideoEncodeSize: {// 根据窗口设置镜头远近
+      //     width: window.window.width,
+      //     height: window.window.height,
+      // },
     },
-    // previewMirrorEnable:true, // 镜像
-    muted: false,
-    zoom: 1,
-    focus: false,
-    watermarkSetting: {
-        src: null, // or `''`？
-        alpha: 122,
-        position: {
-            x: 0,
-            y: 0,
-        },
-        size: {
-            width: 50,
-            height: 50,
-        },
+    audioStreamingSetting: {
+      rate: 44100,
+      bitrate: 96 * 1024,
     },
-    pictureStreamingFile: null,
-    pictureStreamingEnable: false,
-    torchEnable: false,
-    previewMirrorEnable: false,
-    encodingMirrorEnable: false,
-    audioMixFile: {
-        filePath: null, // or `''`？
-        loop: true,
+    encodingSize: consts.videoEncodings.e480,
+    avCodecType: isAndroid
+      ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
+      : consts.avCodecTypes_iOS.PLH264EncoderType_AVFoundation,
+    cameraStreamingSetting: {
+      resolution: isAndroid
+        // ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
+        ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
+        : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
+      focusMode: consts.cameraFocusModes.continuousVideo,
+      videoOrientation: consts.cameraVideoOrientations.portrait,
+      camera: CameraType.front,
     },
-    playMixAudio: false,
-    audioMixVolume: {
-        micVolume: 0.5,
-        musicVolume: 0.5,
+    microphoneSteamingSetting: {
+      sampleRate: consts.microphoneSampleRates.r44100,
+      channel: consts.microphoneChannels.mono,
+      isAecEnable: false,
     },
-    playbackEnable: false,
-    profile: {
-        videoStreamingSetting: {
-            fps: 30,
-            bps: 1000 * 1024,
-            maxFrameInterval: 60,
-            encodeOrientation: consts.videoEncodeOrientations.portrait,
-            h264Profile: isAndroid
-                ? consts.videoH264Profiles_android.baseline
-                : consts.videoH264Profiles_iOS.baseline31,
-            customVideoEncodeSize: {// 根据窗口设置镜头远近
-                width: window.window.width,
-                height: window.window.height,
-            },
-        },
-        audioStreamingSetting: {
-            rate: 44100,
-            bitrate: 96 * 1024,
-        },
-        encodingSize: consts.videoEncodings.e480,
-        avCodecType: isAndroid
-            ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
-            : consts.avCodecTypes_iOS.PLH264EncoderType_AVFoundation,
-        cameraStreamingSetting: {
-            resolution: isAndroid
-                ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
-                : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
-            focusMode: consts.cameraFocusModes.continuousVideo,
-            videoOrientation: consts.cameraVideoOrientations.portrait,
-        },
-        microphoneSteamingSetting: {
-            sampleRate: consts.microphoneSampleRates.r44100,
-            channel: consts.microphoneChannels.mono,
-            isAecEnable: false,
-        },
-        quicEnable: false,
-        bitrateAdjustMode: consts.bitrateAdjustModes.auto,
-        adaptiveBitrateRange: {
-            minBitrate: 1024,
-            maxBitrate: 1024 * 1024,
-        },
-        encoderRCMode: consts.encoderRCModes.bitratePriority,
-        streamInfoUpdateInterval: 5,
+    quicEnable: false,
+    bitrateAdjustMode: consts.bitrateAdjustModes.auto,
+    adaptiveBitrateRange: {
+      minBitrate: 1024,
+      maxBitrate: 1024 * 1024,
     },
-    style: {
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'transparent',
-        // borderBottomColor: '#333',
-        // borderBottomWidth: 1,
-    },
+    encoderRCMode: consts.encoderRCModes.bitratePriority,
+    streamInfoUpdateInterval: 5,
+  },
+  style: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'transparent',
+    // borderBottomColor: '#333',
+    // borderBottomWidth: 1,
+  },
 }
-const DEFAULT_OPTIONS: any = {
+const DEFAULT_OPTIONS: any = /* INIT_STREAMING_CONFIG ||  */{
   // outputUrl: "rtmp://pili-publish.qnsdk.com/sdk-live/111",
   // outputUrl: "rtmp://77154.livepush.myqcloud.com/live/test003?txSecret=e6aaf45458ce4f0626c0dafca4b6bf5a&txTime=5EB581FF",
   // outputUrl: "rtmp.youzfx.cn",
@@ -170,6 +172,8 @@ const DEFAULT_OPTIONS: any = {
     },
 
 };
+
+console.log(DEFAULT_OPTIONS, 'DEFAULT_OPTIONSDEFAULT_OPTIONSDEFAULT_OPTIONS')
 
 const INITIAL_STATE: InitStateTypes = {
   liveConfig: {
@@ -190,7 +194,6 @@ export default function live(state = INITIAL_STATE, action: any) {
       if (!action.payload.liveConfig) {
         return {...state, liveConfig: {cover: undefined, title: ''}};
       }
-      console.log(action.payload.liveConfig, '???pp')
       return {...state, liveConfig: {...state.liveConfig, ...action.payload.liveConfig}};
     case liveActionTypes.UPDATE_PUSHER_CONFIG:
       return {...state, pusherConfig: {...state.pusherConfig, ...action.payload.pusherConfig}};

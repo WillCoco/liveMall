@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText, T4} from 'react-native-normalization-text';
-import Toast from 'react-native-tiny-toast';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import withPage from '../../../components/HOCs/withPage';
 import { vw, vh } from '../../../utils/metric';

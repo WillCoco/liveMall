@@ -114,7 +114,11 @@ export default function ShopCard(props: Props) {
         <View style={styles.orderInfoItem}>
           <Text style={styles.label}>订单备注</Text>
           <View style={styles.value}>
-            <TextInput placeholder='请输入备注信息' onChangeText={(text) => props.inputMemo(text, shop_info.shop_id)} />
+            <TextInput
+              placeholder='请输入备注信息'
+              onChangeText={(text) => props.inputMemo(text, shop_info.shop_id)}
+              returnKeyType='done'
+            />
           </View>
         </View>
       </View>

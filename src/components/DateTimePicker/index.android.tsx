@@ -116,7 +116,7 @@ const ImagePickerBox = (props: ImagePickerBoxProps) =>  {
             value={new Date()}
             mode={datePickerMode}
             is24Hour={true}
-            display="default"
+            display="spinner"
             onChange={onDeteChange}
           />
         )

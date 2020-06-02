@@ -112,6 +112,7 @@ function Header(props: { dispatch?: any; userInfo?: any }) {
                 style={styles.input}
                 defaultValue={userInfo.nickName}
                 onChangeText={(text) => setNickName(text)}
+                returnKeyType='done'
               />
           }
 
@@ -136,7 +137,7 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    height: pxToDp(460),
+    height: pxToDp(480),
   },
   content: {
     width: pxToDp(200),

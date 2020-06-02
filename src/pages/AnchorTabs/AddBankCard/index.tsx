@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  ScrollView,
 } from 'react-native';
 import {Input} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
@@ -24,7 +25,8 @@ import {apiBindingBankCard} from '../../../service/api';
 import {updateBankCards, updateCurBankCards} from '../../../actions/asset';
 import {apiGetUserBankCards} from '../../../service/api';
 import Mask from '../../../components/Mask';
-import {Portal, Toast} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
+import pxToDp from '../../../utils/px2dp'
 
 const ROW_HEIGHT = 120;
 
@@ -54,11 +56,11 @@ const AddBankCard = (props: any) =>  {
       bankAccountNo: cardNum,
     }
 
-    const t = Toast.loading('添加中');
+    const t = Toast.loading('添加中', true);
 
     apiBindingBankCard(params).then((res: any) => {
       console.log(res, 'bind');
-      Portal.remove(t);
+      Toast.remove(t);
 
       setCardNum('');
       Toast.show('绑定成功');
@@ -70,10 +72,9 @@ const AddBankCard = (props: any) =>  {
           console.log(err);
         })
       goBack();
-      
     }).catch((err: any) => {
       console.log(err, 'apiBindingBankCard');
-      Portal.remove(t);
+      Toast.remove(t);
     })
   };
 
@@ -87,7 +88,7 @@ const AddBankCard = (props: any) =>  {
   }
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="添加银行卡"
@@ -113,10 +114,10 @@ const AddBankCard = (props: any) =>  {
       </View>
       <ButtonRadius
         text="提交"
-        style={StyleSheet.flatten([styles.button, {marginBottom: props.safeBottom}])}
+        style={StyleSheet.flatten([styles.button, {marginBottom: props.safeBottom || pxToDp(40)}])}
         onPress={onSumbit}
       />
-    </View>
+    </ScrollView>
   )
 };
 
@@ -126,7 +127,7 @@ AddBankCard.defaultProps = {
 const styles = StyleSheet.create({
   style: {
     flex: 1,
-    backgroundColor: Colors.bgColor
+    backgroundColor: Colors.bgColor,
   },
   nav: {
     backgroundColor: Colors.basicColor,

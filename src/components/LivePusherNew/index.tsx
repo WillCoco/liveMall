@@ -18,7 +18,6 @@ import {vw, vh} from '../../utils/metric';
 // import { isAndroid, safeTop } from '../../constants/DeviceInfo';
 // import {updateStarted} from '../../actions/live';
 import usePermissions from '../../hooks/usePermissions';
-// import Toast from 'react-native-tiny-toast';
 import {consts, Streaming} from 'pili-streaming-react-native';
 
 interface LivePusherProps {
@@ -103,6 +102,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any) : any => 
                 {...pusherConfig}
                 onStateChange={onStateChange}
                 onStreamInfoChange={onStreamInfoChange}
+                // onSwitchCameraResult={onSwitchCameraResult}
             />
         ) : null}
         {/* {(status && status !== 2) ? <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText> : null} */}

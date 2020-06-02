@@ -16,7 +16,7 @@ import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
-import { Toast } from '@ant-design/react-native'
+import { Toast } from '../../../components/Toast'
 
 interface Props {
   version: string;
@@ -64,21 +64,21 @@ export default function Form(props: Props) {
 
   return (
     <View style={styles.container}>
-      <TouchableWithoutFeedback onPress={() => navigation.push('UserAgreement')}>
+      <TouchableWithoutFeedback onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议'})}>
         <View style={styles.formItem}>
-          <Text style={styles.title}>云闪播用户协议</Text>
+          <Text style={styles.title}>云闪播用户协议与隐私政策</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => navigation.push('LivePlatformStandard')}>
+      <TouchableWithoutFeedback onPress={() => navigation.push('AgreementWebView', {url: 'livePlatformStandard', title: '云闪播直播平台管理规范'})}>
         <View style={styles.formItem}>
           <Text style={styles.title}>云闪播直播平台管理规范</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={() => navigation.push('AnchorEntryAgreement')}>
+      <TouchableWithoutFeedback onPress={() => navigation.push('AgreementWebView', {url: 'anchorEntry', title: '云闪播主播入驻服务协议'})}>
         <View style={styles.formItem}>
           <Text style={styles.title}>云闪播主播入驻服务协议</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />

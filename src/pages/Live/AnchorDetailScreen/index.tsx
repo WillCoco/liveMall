@@ -29,9 +29,11 @@ import {useDispatch} from 'react-redux';
 import {apiAttentionAnchor} from '../../../service/api';
 import { Attention, AttentionParams } from '../../../liveTypes';
 import {isSucceed} from '../../../utils/fetchTools';
-import {Toast} from '@ant-design/react-native'
+import {Toast} from '../../../components/Toast';
 import { updateLivingInfo } from '../../../actions/live';
 import images from '../../../assets/images';
+import defaultImages from '../../../assets/default-image';
+import { shortNum } from '../../../utils/numeric';
 
 const AnchorDetail = (props: any) =>  {
   const bgUrl = 'https://goss.veer.com/creative/vcg/veer/800water/veer-302989341.jpg';
@@ -89,6 +91,8 @@ const AnchorDetail = (props: any) =>  {
       .catch(console.warn);
   }, []);
 
+  const hasAvatar = anchorDetail?.anchorLogo && anchorDetail.anchorLogo !== '0';
+
   return (
     <View
       style={StyleSheet.flatten([styles.wrapper, {marginBottom: props.safeBottom}])}
@@ -100,11 +104,11 @@ const AnchorDetail = (props: any) =>  {
             isLiving={anchorDetail?.liveStatus === 2}
             onPress={() => {}}
             style={{marginTop: 36}}
-            source={anchorDetail?.anchorLogo}
+            source={hasAvatar ? anchorDetail?.anchorLogo : defaultImages.userAvatarSmall}
           />
           <T3 style={styles.nickName}>{anchorDetail?.anchorName || '主播'}</T3>
           <View style={styles.row}>
-            <PrimaryText style={styles.anchorInfo}>粉丝: {anchorDetail?.fansNum || 0}</PrimaryText>
+            <PrimaryText style={styles.anchorInfo}>粉丝: {shortNum(anchorDetail?.fansNum) || 0}</PrimaryText>
             <View style={styles.strip} />
             <PrimaryText style={styles.anchorInfo}>直播: {anchorDetail?.liveNum || 0}</PrimaryText>
           </View>

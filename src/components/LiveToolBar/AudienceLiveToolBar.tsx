@@ -17,8 +17,9 @@ import {vw} from '../../utils/metric'
 import {Colors} from '../../constants/Theme';
 import {pad} from '../../constants/Layout';
 import images from '../../assets/images';
-import {useSelector} from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import {shortNum} from '../../utils/numeric';
+// import {useSelector} from 'react-redux';
+// import { useNavigation } from '@react-navigation/native';
 
 export type msgList = any[] | undefined;
 export type onMsgListResponse = (v: boolean) => any;
@@ -28,24 +29,31 @@ interface LiveToolBarProps {
   inputPlaceholder?: string,
   inputStyle?: StyleProp<any>,
   likeQuantity?: number,
+  goodsQuantity: number,
   onSubmitEditing: (v: string) => any,
   onPressShopBag: (v?: any) => any,
   onPressForward: (v?: any) => any,
   onPressLike: (v?: any) => any,
+  value?: string,
+  setValue?: (v: string) => any,
 }
 
 const LiveToolBar = (props: LiveToolBarProps) : any =>  {
   const [value, setValue] = React.useState('');
   const [animValue, setAnimValue] = React.useState(new Animated.Value(0));
 
+  const valueInput = props.value || value;
+  const setValueInput = props.setValue || setValue;
+
   const onSubmitEditing = () => {
-    if (value) {
-      props.onSubmitEditing(value);
-      setValue('');
+    if (valueInput) {
+      props.onSubmitEditing(valueInput);
+      setValueInput('');
     }
   }
 
   const likeQuantity = props.likeQuantity || 0;
+  const goodsQuantity = props.goodsQuantity || '';
 
 
   const onPressLike = (v: any) => {
@@ -70,16 +78,17 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-      <TouchableOpacity onPress={props.onPressShopBag}>
+      <TouchableOpacity onPress={props.onPressShopBag} style={styles.bagWrapper}>
         <Image
           source={images.anchorShoppingIcon}
           style={styles.shopBagImg}
           resizeMode="contain"
         />
+        <PrimaryText color="white" style={styles.goodQuantity}>{goodsQuantity}</PrimaryText>
       </TouchableOpacity>
       <TextInput
-        value={value}
-        onChangeText={setValue}
+        value={valueInput}
+        onChangeText={setValueInput}
         placeholder={props.inputPlaceholder}
         placeholderTextColor="#fff"
         style={StyleSheet.flatten([styles.input, props.inputStyle])}
@@ -107,7 +116,7 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
           }])}
           resizeMode="contain"
         />
-        <TinyText style={styles.likeQty}>{likeQuantity}</TinyText>
+        <TinyText style={styles.likeQty}>{shortNum(likeQuantity)}</TinyText>
       </TouchableOpacity>
     </View>
   )
@@ -124,6 +133,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     paddingRight: 4,
+  },
+  bagWrapper: {
+    alignItems: 'center'
   },
   input: {
     height: scale(35),
@@ -155,6 +167,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: scale(7),
     overflow: 'hidden'
+  },
+  goodQuantity: {
+    position: 'absolute',
+    bottom: scale(4)
   }
 })
 export default LiveToolBar;

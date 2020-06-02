@@ -19,6 +19,7 @@ import ButtonOutLine from '../../components/Buttons/ButtonOutLine';
 import defaultImages from '../../assets/default-image';
 import { pad, radio } from '../../constants/Layout';
 import DiscountPrice from '../../components/DiscountPrice';
+import formatGoodsPrice from '../../utils/formatGoodsPrice';
 
 interface GoodManageRowProps {
   data: {
@@ -52,7 +53,7 @@ const GoodManageRow = (props: GoodManageRowProps) =>  {
           <View style={styles.titleWrapper}>
             <PrimaryText style={styles.title} numberOfLines={2}>{data.goodsName}</PrimaryText>
           </View>
-            <DiscountPrice discountPrice={data.shopPrice} price={data.marketPrice} />
+            <DiscountPrice discountPrice={formatGoodsPrice(+data.shopPrice)} price={formatGoodsPrice(+data.marketPrice)} />
 
           {/* 操作 */}
           <View style={StyleSheet.flatten([styles.buttonsWrapper, ])}>

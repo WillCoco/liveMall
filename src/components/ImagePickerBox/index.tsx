@@ -53,10 +53,11 @@ const ImagePickerBox = (props: ImagePickerBoxProps) =>  {
   const pickCover = async () => {
     const r = await pickCameraRoll({mediaTypes: ImagePicker.MediaTypeOptions.Images});
 
-
+    console.log(r, 'picked_img_rrrrrrrrrr');
     const {uri} = r || {};
     if (uri) {
       const info = getImgInfo(uri);
+      console.log(info, 'picked_img_infoooooooo');
       setCoverUri(uri)
       props.onPicked(info);
     }

@@ -23,7 +23,7 @@ import Empty from '../../../components/Empty/';
 import PagingList from '../../../components/PagingList';
 import ImagePickerBox from '../../../components/ImagePickerBox';
 import {getShopGoods} from '../../../actions/shop';
-import { Toast } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 
 const MAX_BANNER_LENGTH = 9;
 

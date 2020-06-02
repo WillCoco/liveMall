@@ -48,7 +48,7 @@ function SearchBar(props: Props) {
         <TextInput
           style={styles.searchKey}
           placeholder={props.hasSearchKey ? props.searchKey : '请输入要搜索的内容'}
-          onChangeText={text => props.inputSearchKey(text)}
+          onChangeText={(text: string) => props.inputSearchKey(text)}
           onSubmitEditing={() => props.toSearch(props.searchKey)}
           clearButtonMode='while-editing'
         />

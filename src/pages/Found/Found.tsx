@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {
   View,
-  Text,
   Image,
-  FlatList,
+  Dimensions,
   ScrollView,
   StyleSheet,
   RefreshControl,
@@ -22,9 +21,12 @@ import checkIsBottom from '../../utils/checkIsBottom'
 
 import WorkCard from '../../components/WorkCard/WorkCard'
 import LoadMore from '../../components/LoadMore/LoadMore'
-import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 
 const pageSize = 20
+const deviceHeight = Dimensions.get('window').height
+const deviceWidthDp = Dimensions.get('window').width
+
+let wrapperOffsetY = 0
 
 function Found(props: { isLogin: boolean }) {
   const { isLogin } = props
@@ -39,7 +41,6 @@ function Found(props: { isLogin: boolean }) {
   const [loading, setLoading] = useState(false)
   const [showMask, setShowMask] = useState(false)
   const [workList, setWorkList]: Array<any> = useState([])
-  const [netWorkErr, setNetWorkErr] = useState(false)
 
   useEffect(() => {
     getFoundList(false)
@@ -62,7 +63,6 @@ function Found(props: { isLogin: boolean }) {
 
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
-      setNetWorkErr(false)
       setLoading(false)
       if (!res.worksInfoList) return
 
@@ -83,7 +83,6 @@ function Found(props: { isLogin: boolean }) {
       // setNetWorkErr(true)
     })
   }
-
   /**
    * 下拉刷新
    */
@@ -101,7 +100,6 @@ function Found(props: { isLogin: boolean }) {
       getFoundList(false)
     }
   }
-  // if (netWorkErr) return <NetWorkErr reload={() => getFoundList(false)} />
 
   return (
     <>
@@ -114,6 +112,7 @@ function Found(props: { isLogin: boolean }) {
             onRefresh={onPullDownRefresh}
           />
         }
+        style={{ height: deviceHeight }}
       >
         <View style={{ height: maxHeight }}>
           {
@@ -124,6 +123,7 @@ function Found(props: { isLogin: boolean }) {
             })
           }
         </View>
+
         <LoadMore hasMore={hasMoreRef.current} />
       </ScrollView>
 
@@ -167,7 +167,7 @@ export default connect(
 const styles = StyleSheet.create({
   addContainer: {
     position: 'absolute',
-    bottom: 100,
+    bottom: 120,
     right: 10,
     zIndex: 999
   },
@@ -194,5 +194,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     padding: pxToDp(10)
+  },
+  waterFallContainer: {
+
   }
 })

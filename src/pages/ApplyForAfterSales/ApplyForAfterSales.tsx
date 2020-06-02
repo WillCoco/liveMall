@@ -19,6 +19,7 @@ export default function ApplyForAfterSales() {
   const [orderInfo]: any = useState(route.params)
   const [reason, setReason] = useState('')
   const [tel, setTel] = useState('')
+  const [isSubmit, setIsSubmit] = useState(false)
   const [imageList, setImageList]: Array<any> = useState([])
   const [typeList, setTypeList] = useState([
     { value: '仅退款', type: 1, active: true },
@@ -38,6 +39,10 @@ export default function ApplyForAfterSales() {
   })
 
   const submit = () => {
+    if (isSubmit) return
+
+    setIsSubmit(true)
+
     const { goodsInfo } = orderInfo
 
     if (!reason) {
@@ -67,6 +72,7 @@ export default function ApplyForAfterSales() {
 
     apiCreateReturnOrder(params).then((res: any) => {
       console.log(res, '申请退款')
+      setIsSubmit(false)
       if (res) {
         Toast.showSuccess('已提交申请')
         setTimeout(() => {
@@ -75,6 +81,9 @@ export default function ApplyForAfterSales() {
       } else {
         Toast.show('申请失败', { position: 0 })
       }
+    }).catch((err: any) => {
+      console.log(err)
+      setIsSubmit(false)
     })
   }
 
@@ -111,6 +120,7 @@ const styles = StyleSheet.create({
   },
   submitBtn: {
     marginTop: pxToDp(30),
+    marginBottom: pxToDp(30),
     width: pxToDp(670),
     height: pxToDp(80),
     borderRadius: pxToDp(40),

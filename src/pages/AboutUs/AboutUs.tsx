@@ -56,7 +56,7 @@ export default function AboutUs() {
 
   return (
     <View>
-      <Header />
+      <Header currentVersion={currentVersion} />
       <Form
         hasNewVer={hasNewVer}
         version={version}

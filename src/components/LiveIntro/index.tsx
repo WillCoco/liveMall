@@ -9,7 +9,7 @@ import {
   StyleProp,
   ImageSourcePropType
 } from 'react-native';
-import {Toast} from '@ant-design/react-native'
+import { Toast } from '../../components/Toast'
 import { useSelector, useDispatch } from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {PrimaryText, SmallText} from 'react-native-normalization-text';
@@ -83,7 +83,7 @@ const LiveIntro = (props: LiveMsgProps) =>  {
   /**
    * 是否显示关注按钮
    */
-  const showFollowButton = props.showFollowButton && (livingInfo.anchorId !== myAnchorId);
+  const showFollowButton = props.showFollowButton/*  && (livingInfo.anchorId !== myAnchorId && myAnchorId && livingInfo.anchorId); */
 
   /**
    * 取消/关注 
@@ -113,13 +113,15 @@ const LiveIntro = (props: LiveMsgProps) =>  {
       .catch((error: any) => console.log(`apiAttentionAnchor: ${error}`))
   }
 
+  const hasAvatar = (livingInfo?.anchorLogo && livingInfo?.anchorLogo !== '0')
+
   return (
     <TouchableOpacity
       style={StyleSheet.flatten([styles.wrapper, props.style, {top: props.safeTop + pad}])}
       onPress={onPress}
     >
       <Avatar
-        source={livingInfo.anchorLogo ? {uri: livingInfo.anchorLogo} : defaultImages.userAvatarSmall}
+        source={hasAvatar ? {uri: livingInfo.anchorLogo} : defaultImages.userAvatarSmall}
         size={40}
         style={{marginRight: 4}}
       />

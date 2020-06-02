@@ -4,6 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 
+import defaultAvatar from '../../assets/mine-image/default_avatar.png'
+
 export default function WorkCard(props: { workInfo: any }) {
   const { workInfo } = props
   const navigation: any = useNavigation()
@@ -49,7 +51,7 @@ export default function WorkCard(props: { workInfo: any }) {
         <Text style={styles.workName} numberOfLines={2}>{workInfo.worksTitle}</Text>
         <View style={styles.anchorInfo}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={{ uri: workInfo.userIcon }} style={styles.anchorAvatar} />
+            <Image source={ workInfo.userIcon ? { uri: workInfo.userIcon } : defaultAvatar } style={styles.anchorAvatar} />
             <Text style={styles.anchorName}>{workInfo.userName}</Text>
           </View>
 

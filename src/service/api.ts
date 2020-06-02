@@ -1,14 +1,20 @@
 
-import { get, post } from './fetch'
+// import { get, post } from './fetch'
 import { get1, post1, get2, post2, liveUpload, uploadWorkMedia } from './fetch/index'
 import { UpdateParams } from './fetch/fetchOrigin';
 
-// const HOST_PHP = __DEV__ ? 'https://php.quanpinrtmp.com' : ''
-// const HOST_JAVA = __DEV__ ? 'https://java.quanpinrtmp.com' : ''
+const HOST_PHP = 'https://mobile.quanpinlive.com'
+// const HOST_JAVA = 'http://212.129.140.50:2333'
+const HOST_JAVA = 'https://app.quanpinlive.com'
+// const HOST_JAVA = 'http://192.168.8.117:2333'
 
-const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.quanpinlive.com'
-const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.quanpinlive.com'
+// 212.129.140.50:2333
 
+// const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.yunshanbo.cn'
+// const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.yunshanbo.cn'
+
+export const SANDPAY_PRE = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8&signType=01' // 杉德支付前缀
+export const AGREEMENT_ADD = __DEV__ ? 'https://static.yunshanbo.cn/merchantEntry/#/agreement/' : '' // 协议页面路径，正式链接待更换
 
 /**
  * PHP 接口 ==================================================================
@@ -167,7 +173,15 @@ export const apiWorkUpload = (data: any) => uploadWorkMedia(`${HOST_JAVA}/find/u
 export const apiQueryOrderPayStatus = (data: any) => get1(`${HOST_JAVA}/order/queryOrderPayStatus`, data)
 // 检查更新
 export const apiCheckUpdate = (data: { ver: string, appType: number }) => get1(`${HOST_JAVA}/suppliers/versionCheck`, data)
-
+// 微信登录
+export const apiWeChatLogin = (data: { code: string }) => post1(`${HOST_JAVA}/user/appWecharLogin`, data)
+// 微信注册
+export const apiWeChatRegister = (data: {
+  userTel: string,
+  unionId: string,
+  inviteCode: string,
+  code: string
+}) => post1(`${HOST_JAVA}/user/appWecharRegister`, data)
 
 /*
  * 主播相关接口 ==========================================================================================
@@ -187,17 +201,17 @@ export const apiAffirmCover = (data: any) => post2(`${HOST_JAVA}/anchor/affirmCo
 // 直播重新组货
 export const apiAnewAddLiveGoods = (data: any) => post2(`${HOST_JAVA}/anchor/anewAddLiveGoods`, data)
 // 新增或修改寄回地址
-export const apiAuReturnedAddress = (data: any) => post(`${HOST_JAVA}/anchor/auReturnedAddress`, data)
+export const apiAuReturnedAddress = (data: any) => post1(`${HOST_JAVA}/anchor/auReturnedAddress`, data)
 // 主播删除预组货商品
 export const apiDelGroupGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delGroupGoods`, data)
 // 删除主播直播回放
-export const apiDelLivePlayback = (data: any) => post(`${HOST_JAVA}/anchor/delLivePlayback`, data)
+export const apiDelLivePlayback = (data: any) => post1(`${HOST_JAVA}/anchor/delLivePlayback`, data)
 // 删除寄回地址
-export const apiDelReturnedAddress = (data: any) => post(`${HOST_JAVA}/anchor/delReturnedAddress`, data)
+export const apiDelReturnedAddress = (data: any) => post1(`${HOST_JAVA}/anchor/delReturnedAddress`, data)
 // 我的预告列表
 export const apiGetAdvanceList = (data: any) => get2(`${HOST_JAVA}/anchor/getAdvanceList`, data)
 // 主播预组货(店铺)添加商品品牌商品列表
-export const apiGetBrandGoodsList = (data: any) => post(`${HOST_JAVA}/anchor/getBrandGoodsList`, data)
+export const apiGetBrandGoodsList = (data: any) => post1(`${HOST_JAVA}/anchor/getBrandGoodsList`, data)
 // 主播添加预组货分类品牌数据
 export const apiGetCatBrandAll = (data: any) => get2(`${HOST_JAVA}/anchor/getCatBrandAll`, data)
 // 主播预组货(店铺)商品列表
@@ -209,7 +223,7 @@ export const apiGetLiveList = (data: any) => get2(`${HOST_JAVA}/anchor/getLiveLi
 // 我的直播列表 一个月
 export const apiGetLiveListAll = (data: any) => get2(`${HOST_JAVA}/anchor/getLiveDataAll`, data)
 // 分页查询寄回地址列表
-export const apiGetReturnAddressList = (data: any) => post(`${HOST_JAVA}/anchor/getReturnAddressList`, data)
+export const apiGetReturnAddressList = (data: any) => post1(`${HOST_JAVA}/anchor/getReturnAddressList`, data)
 // 主播消息通知列表
 export const apiGetUserChatList = (data: any) => get2(`${HOST_JAVA}/anchor/getUserChatList`, data)
 // 主播我的主页信息
@@ -234,13 +248,17 @@ export const apiIsWorkLiveNow = (data: any) => get2(`${HOST_JAVA}/anchor/isWorkL
 export const apiDelAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delAnchorBrandGoods`, data)
 // 获取imUserSig
 export const apiGetUserSig = (data: any) => get2(`${HOST_JAVA}/anchor/getUserSig`, data)
+// 更新直播间浏览量
+export const apiUpdBrowseNum = (data: any) => get2(`${HOST_JAVA}/anchor/updBrowseNum`, data)
+// 查询商品是否在售
+export const isSaleGoods = (data: any) => get2(`${HOST_JAVA}/anchor/isSaleGoods`, data)
 
 
 /**
  * 用户直播相关接口 (观看端) ==============================================================
  */
 // 添加订单的直播间id
-export const apiAddOrderLiveId = (data: any) => get(`${HOST_JAVA}/userLive/addOrderLiveId`, data)
+export const apiAddOrderLiveId = (data: any) => get1(`${HOST_JAVA}/userLive/addOrderLiveId`, data)
 // 主播页详情
 export const apiAnchorParticular = (data: any) => get2(`${HOST_JAVA}/userLive/anchorParticular`, data)
 // 关注/取关主播

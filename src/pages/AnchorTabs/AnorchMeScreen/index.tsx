@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {T4, SmallText, PrimaryText} from 'react-native-normalization-text';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useIsFocused} from '@react-navigation/native';
 import withPage from '../../../components/HOCs/withPage';
 import NavBar from '../../../components/NavBar';
 import images from '../../../assets/images';
@@ -21,6 +21,7 @@ import {Colors} from '../../../constants/Theme';
 import {useDispatch, useSelector} from 'react-redux';
 import {apiAnchorHomePage} from '../../../service/api';
 import {setAnchorInfo} from '../../../actions/anchor';
+import { shortNum } from '../../../utils/numeric';
 
 const ToolCell = (props: {
   text: string,
@@ -37,8 +38,9 @@ const ToolCell = (props: {
 
 const AnorchMeScreen = () =>  {
   const {navigate, reset} = useNavigation();
-  const userId = useSelector(state => state?.userData?.userInfo?.userId)
-  const anchorInfo = useSelector(state => state?.anchorData?.anchorInfo) || {};
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId) || '';
+  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {};
+  const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
   const dataList = [
@@ -59,12 +61,14 @@ const AnorchMeScreen = () =>  {
    * 获取主播详情
    */
   React.useEffect(() => {
-    apiAnchorHomePage({userId})
+    if (isFocused) {
+      apiAnchorHomePage({userId})
       .then((res: any) => {
         dispatch(setAnchorInfo(res))
       })
       .catch(console.warn)
-  }, []);
+    }
+  }, [isFocused]);
 
   /**
    * tab的返回到 我的 
@@ -77,6 +81,8 @@ const AnorchMeScreen = () =>  {
 
     // navigate('我的')
   }
+
+  const hasAvatar = (anchorInfo?.logo && anchorInfo?.logo !== '0')
 
   return (
     <ScrollView style={styles.style}>
@@ -101,12 +107,12 @@ const AnorchMeScreen = () =>  {
       />
       <View style={styles.headerWrapper}>
         <Image style={styles.imgBg} source={images.anchorMeBg} resizeMode='stretch' />
-        <Avatar size={60} style={styles.avatar} source={anchorInfo?.logo && {uri: anchorInfo.logo} || images.userAvatar} />
+        <Avatar size={60} style={styles.avatar} source={hasAvatar && {uri: anchorInfo.logo} || images.userAvatar} />
         <SmallText color="white" style={styles.idText}>直播ID: {anchorInfo?.anchorId}</SmallText>
       </View>
       <View style={styles.blockWrapper}>
         <T4 style={styles.nickText}>{anchorInfo?.name || '主播昵称'}</T4>
-        <SmallText style={styles.followText}>{anchorInfo?.favouriteAmount || 0}粉丝</SmallText>
+        <SmallText style={styles.followText}>{anchorInfo?.favouriteAmount ? shortNum(anchorInfo?.favouriteAmount) : 0}粉丝</SmallText>
         {
           dataList.map((row, index) => {
             return (

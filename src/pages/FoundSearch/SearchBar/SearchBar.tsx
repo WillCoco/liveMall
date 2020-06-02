@@ -24,6 +24,7 @@ export default function SearchBar(props: Props) {
         onChangeText={text => props.inputSearchKey(text)}
         onSubmitEditing={props.toSearch}
         clearButtonMode='while-editing'
+        returnKeyType='done'
       />
     </View>
   )

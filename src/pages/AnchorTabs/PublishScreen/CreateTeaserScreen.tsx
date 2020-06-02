@@ -22,7 +22,7 @@ import {Colors} from '../../../constants/Theme';
 import { isIOS, isAndroid } from '../../../constants/DeviceInfo';
 import {releaseTeaser} from '../../../actions/live';
 import * as api from '../../../service/api';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import { vh } from '../../../utils/metric';
 import moment from 'moment';
 // alert(moment(['2015', '5', '4']))
@@ -216,13 +216,13 @@ const CreateTraserScreen = (props: {
     // console.log(coverResult,  'videoResultvideoResult');
 
     if (!coverResult) {
-      Portal.remove(loading);
+      Toast.remove(loading);
       Toast.show(coverMessage || '上传封面失败')
       return;
     }
 
     if (video && !videoResult) {
-      Portal.remove(loading);
+      Toast.remove(loading);
       Toast.show(videoMessage || '上传视频失败')
       return;
     }
@@ -238,11 +238,11 @@ const CreateTraserScreen = (props: {
       bigPic: coverResult,
       liveTime: liveTimeStamp.current,
     }));
-    Portal.remove(loading);
+    Toast.remove(loading);
 
     if (isSucceed) {
-      Toast.show('发布成功');
       goBack();
+      Toast.show('发布成功');
     }
   }
 

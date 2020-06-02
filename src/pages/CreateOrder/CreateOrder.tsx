@@ -16,6 +16,7 @@ import CouponList from './CouponList/CouponList'
 import AddressBar from './AddressBar/AddressBar'
 import ActionSheet from '../../components/ActionSheet/ActionSheet'
 import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
+import sandpaySerializeURL from '../../utils/sandpaySerializeURL'
 
 interface Props {
   choosedAddress: {}
@@ -254,12 +255,13 @@ function CreateOrder(props: Props) {
   const submitOrder = () => {
     const addressInfo = Object.keys(props.choosedAddress).length ? props.choosedAddress : defaultAddress
 
-    console.log(addressInfo)
-
     if (!addressInfo || !addressInfo.address_id) {
-      Toast.show('请选择收货地址', {
-        position: 0
-      })
+      AntToast.fail('请选择收货地址')
+      return
+    }
+
+    if (orderTotalPrice < 0) {
+      AntToast.fail('价格计算有误，请重新确认')
       return
     }
 
@@ -288,8 +290,8 @@ function CreateOrder(props: Props) {
         cartIds.push(_item.cart_id)
       })
 
-      if (item.chooseCoupon && item.chooseCoupon.id > 0) {
-        userCouponsId = item.chooseCoupon.id
+      if (item.shop_info.choosedCoupon && item.shop_info.choosedCoupon.id > 0) {
+        userCouponsId = item.shop_info.choosedCoupon.id
       }
 
       shopReqs[index] = {
@@ -301,11 +303,15 @@ function CreateOrder(props: Props) {
       }
     })
 
-    let params = {
+    let params: any = {
       cartIds,
       payType: 2,  //  支付方式
       shopReqs,
       userAddressId: addressInfo.address_id
+    }
+
+    if (route.params.liveId) {
+      params[`liveId`] = route.params.liveId
     }
 
     apiCreateOrder(params).then((res: any) => {
@@ -320,21 +326,18 @@ function CreateOrder(props: Props) {
 
       route.params.onOrderCompleted && route.params.onOrderCompleted(params)
 
-      let payURL = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8'
+      const payURL = sandpaySerializeURL(res.data)
 
-      for (let item in res.data) {
-        payURL += '&' + item + '=' + res.data[item]
-      }
-
-      const params = {
+      const payParams = {
         url: payURL,
         orderSn: res.data.orderSn,
-        payType: res.data.payType
+        payType: res.data.payType,
+        key: route.params.key && route.params.key || ''
       }
 
-      console.log('创建订单路由参数', params)
+      console.log('创建订单路由参数', payParams)
 
-      navigation.push('PayWebView', params)
+      navigation.push('PayWebView', payParams)
     }).catch((err: any) => {
       console.log('提交订单', err)
       Portal.remove(loading)

@@ -28,7 +28,6 @@ import TrailerCountDown from '../TrailerCountDown';
 import { EMPTY_OBJ } from '../../constants/freeze';
 import { updateLivingInfo } from '../../actions/live';
 import { apiEnterLive, apiAttentionAnchor } from '../../service/api';
-import { Toast } from "@ant-design/react-native";
 import { isSucceed } from '../../utils/fetchTools';
 import { Colors } from '../../constants/Theme';
 import Poller from '../../utils/poller';
@@ -38,7 +37,7 @@ interface LiveVideoProps {
   style?: StyleProp<any>,
   liveData?: any,
   safeTop: number,
-  liveTime: number,
+  // liveTime: number,
 }
 
 interface LiveWindowParams {
@@ -46,6 +45,7 @@ interface LiveWindowParams {
   groupID: string, // im群组
   mediaType: MediaType, // 媒体类型
   anchorId: string,
+  liveTime: number,
   // mediaSource: string, // 拉流地址、 video
 }
 
@@ -58,6 +58,7 @@ const LiveVideo = (props: LiveVideoProps): any => {
     liveId,
     mediaType,
     anchorId,
+    liveTime
   } : LiveWindowParams = (route.params || EMPTY_OBJ) as LiveWindowParams;
 
   // 用户id
@@ -72,7 +73,7 @@ const LiveVideo = (props: LiveVideoProps): any => {
   // const isAttention = useSelector((state: any) => state?.live?.livingInfo?.isAttention);
 
   // 直播时间
-  const liveTime = useSelector((state: any) => state?.live?.livingInfo?.liveTime);
+  // const liveTime = useSelector((state: any) => state?.live?.livingInfo?.liveTime);
 
   // 预告视频
   const advance = useSelector((state: any) => state?.live?.livingInfo?.advance);

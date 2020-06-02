@@ -148,6 +148,7 @@ function AddNewAddress(props) {
               placeholder='请输入收件人姓名'
               defaultValue={userName}
               onChangeText={(text) => setUserName(text)}
+              returnKeyType='next'
             />
           </View>
 
@@ -160,6 +161,7 @@ function AddNewAddress(props) {
               placeholder='请输入收件人手机号'
               defaultValue={userTel}
               onChangeText={(text) => setUserTel(text)}
+              returnKeyType='next'
             />
           </View>
 
@@ -182,13 +184,15 @@ function AddNewAddress(props) {
             <PrimaryText style={[styles.formItemTitle, { alignSelf: 'baseline', paddingTop: pxToDp(30) }]}>详细地址</PrimaryText>
             <TextInput
               multiline
-              textAlignVertical="top"
+              blurOnSubmit
               maxLength={40}
+              textAlignVertical="top"
               style={[styles.input, {paddingTop: pxToDp(30)}]}
               placeholder='如道路、门牌号、小区、楼栋号、单元室等'
               defaultValue={addrDetail}
               onChangeText={(text) => setAddrDetail(text)}
-              
+              returnKeyType='done'
+              returnKeyLabel="完成"
             />
           </View>
           <TouchableOpacity onPress={removeAddress} style={styles.delBtn}>

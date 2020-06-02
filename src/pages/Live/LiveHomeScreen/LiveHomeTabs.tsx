@@ -25,7 +25,6 @@ import pxToDp from '../../../utils/px2dp';
 import { EMPTY_ARR, EMPTY_OBJ } from '../../../constants/freeze';
 import { isSucceed } from '../../../utils/fetchTools';
 import {useIsFocused} from '@react-navigation/native';
-import { Toast } from '@ant-design/react-native';
 
 interface LiveBannerProps {
   style?: StyleProp<any>,

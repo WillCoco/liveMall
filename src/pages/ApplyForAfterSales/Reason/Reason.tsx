@@ -82,9 +82,12 @@ export default function Reason(props: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>申请原因</Text>
       <TextInput
-        multiline={true}
+        multiline
+        blurOnSubmit
         placeholder='请输入您的申请原因，如有必要，请上传图片'
         onChangeText={(text) => props.inputReason(text)}
+        returnKeyType='done'
+        returnKeyLabel="完成"
       />
       <View style={styles.imagePicker}>
         {

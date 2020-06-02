@@ -11,6 +11,7 @@ import {
   StyleProp,
   LayoutAnimation,
   Keyboard,
+  KeyboardAvoidingView
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +28,7 @@ import { vw, vh } from "../../utils/metric";
 import { apiEnterLive, apiAttentionAnchor } from '../../service/api';
 import { updateLivingInfo } from '../../actions/live';
 import withPage from '../../components/HOCs/withPage';
-import { Toast } from "@ant-design/react-native";
+import { Toast } from "../../components/Toast";
 import { isSucceed } from '../../utils/fetchTools';
 import { EMPTY_OBJ } from '../../constants/freeze';
 import { MessageType } from "../../reducers/im";
@@ -35,6 +36,10 @@ import { sendRoomMessage } from '../../actions/im';
 import share from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
+import useKeyboard from '../../hooks/useKeyboard';
+import Modal from 'react-native-modal';
+import { PrimaryText } from 'react-native-normalization-text';
+import { isAndroid } from '../../constants/DeviceInfo';
 
 
 interface LiveWindowProps {
@@ -74,9 +79,14 @@ const LiveWindow = (props: LiveWindowProps): any => {
 
   // 拉流
   const pullUrl = useSelector((state: any) => state?.live?.livingInfo?.pullUrl) || '';
+  const livingInfo = useSelector((state: any) => state?.live?.livingInfo) || '';
 
   // 底图
   const smallPic = useSelector((state: any) => state?.live?.livingInfo?.smallPic);
+
+  // 修复底部工具不见
+  const {isShow, keyboardHeight} = useKeyboard();
+  console.log(isShow, 'isShowisShowisShow')
 
   /**
    * 播放器状态
@@ -110,9 +120,15 @@ const LiveWindow = (props: LiveWindowProps): any => {
   const closeLive = () => {
     // player.current?.stop(); // 停止播放器实例
     // 我不是这场直播的主播
-    if (myAnchorId !== anchorId) {
-      dispatch(quitGroup(groupID)); // 退im群
+    if (myAnchorId === anchorId) {
+      goBack();
+      return
     }
+    console.log(groupID, 'groupID')
+
+    dispatch(quitGroup(groupID)); // 退im群
+
+    // player.current && player.current.stop()
     goBack();
   };
 
@@ -188,18 +204,12 @@ const LiveWindow = (props: LiveWindowProps): any => {
     // 请求观看人数
     poller.current.start();
 
-    const keyboardListener = Keyboard.addListener('keyboardDidHide', () => {
-      // set
-    });
-
     return () => {
       console.log(player.current, 'player.current.stop')
-      player.current && player.current.stop();
+      // player.current && player.current.stop();
 
       // 请求观看人数
       poller.current.stop();
-
-      keyboardListener.remove();
     }
   }, []);
   
@@ -244,17 +254,26 @@ const LiveWindow = (props: LiveWindowProps): any => {
   if (isLiveOver) {
     replace('AudienceLivingEnd');
   }
+  
+  /**
+   * input
+   */
+  const [textInput, setTextInput] = React.useState();
 
-  console.log( pullUrl, 'pullUrlpullUrlpullUrlpullUrl');
+  // 直播结束
+  if (isLiveOver) {
+    replace('AudienceLivingEnd');
+  }
+
+  console.log(livingInfo,'smallPic');
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-      {/* <Image
-        source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-        resizeMode="cover"
-        style={styles.imgBg}
-      /> */}
-      <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0}}>
+        {/* <Image
+          source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+          resizeMode="cover"
+          style={styles.imgBg}
+        /> */}
         <LivePuller
           ref={v => {
             if (v) {
@@ -264,13 +283,26 @@ const LiveWindow = (props: LiveWindowProps): any => {
           inputUrl={pullUrl}
           onStatus={onPlayerStatus}
           style={styles.video}
+          cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
         />
-      </View>
-      <View style={styles.livingBottomBlock}>
-        <LivingBottomBlock.Audience 
+      {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
+        {
+          (isShow && isAndroid()) ? (
+            <LivingBottomBlock.Audience
+              textValue={textInput}
+              setTextValue={setTextInput}
+              onPressShopBag={() => shopCardAnim(true)}
+              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
+            />
+          ) : null
+        }
+        <LivingBottomBlock.Audience
+          textValue={textInput}
+          setTextValue={setTextInput}
           onPressShopBag={() => shopCardAnim(true)}
+          style={StyleSheet.flatten([styles.livingBottomBlock])}
         />
-      </View>
+      {/* </KeyboardAvoidingView> */}
       {!!noticeBubbleText ? <NoticeBubble text={noticeBubbleText} /> : null}
       <LiveIntro
         showFollowButton
@@ -298,6 +330,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    minHeight: vh(100),
+    minWidth: vw(100)
   },
   livingBottomBlock: {
     flex: 1,
@@ -305,7 +339,8 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    justifyContent: 'flex-end'
+    // top: 0,
+    justifyContent: 'flex-end',
   },
   scrollerWrapper: {},
   contentWrapper: {
@@ -324,8 +359,15 @@ const styles = StyleSheet.create({
   },
   video: {
     flex: 1,
-    minHeight: vh(100),
-    minWidth: vw(100),
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    // height: vh(100),
+    // width: vw(100)
+    // minHeight: vh(100),
+    // minWidth: vw(100),
   },
 });
 

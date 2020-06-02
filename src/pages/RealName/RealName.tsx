@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {
   View,
-  StyleSheet
+  StyleSheet,
+  ScrollView,
 } from 'react-native'
 import NavBar from '../../components/NavBar'
 import FormRow from '../../components/FormRow'
@@ -15,7 +16,7 @@ import pxToDp from '../../utils/px2dp'
 import { useNavigation } from '@react-navigation/native'
 import Mask from '../../components/Mask'
 import {apiRealName, apiGetUserData} from '../../service/api'
-import {Portal, Toast} from '@ant-design/react-native'
+import {Toast} from '../../components/Toast'
 import { setUserInfo } from '../../actions/user'
 import { useDispatch } from 'react-redux'
 
@@ -70,7 +71,7 @@ const RealName = props => {
     const loading = Toast.loading('认证中')
     apiRealName(params)
       .then((res: any) => {
-        Portal.remove(loading)
+        Toast.remove(loading)
         if (res?.success) {
           Toast.info('实名认证通过')
           /**
@@ -81,21 +82,21 @@ const RealName = props => {
             dispatch(setUserInfo(res))
           }).catch((err: any) => {
             console.log('获取用户信息', err)
-            if (err.code === '203' || err.code === '204') {
-              navigate('Login')
-            }
+            // if (err.code === '203' || err.code === '204') {
+            //   navigate('Login')
+            // }
           })
           goBack()
         }
       })
       .catch((err: any) => {
         console.log(err, 'realname')
-        Portal.remove(loading)
+        Toast.remove(loading)
       })
   }
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="实名认证"
@@ -114,18 +115,20 @@ const RealName = props => {
         value={idNumber}
         placeholder={'请输入身份证号码'}
         onChangeText={setIdNumber}
+        keyB
         bottomDivider
+        keyboardType='numeric'
         maxLength={18}
       />
       <PrimaryText style={styles.tip}>继续表示同意
-        <PrimaryText style={{color: Colors.blueColor}} onPress={() => navigate('PrivacyPolicy')}>云闪播用户隐私政策协议</PrimaryText>
+        <PrimaryText style={{color: Colors.blueColor}} onPress={() => navigate('AgreementWebView', {url: 'privacyPolicy', title: '云闪播用户隐私政策协议'})}>云闪播用户隐私政策协议</PrimaryText>
       </PrimaryText>
       <ButtonRadius
         text="开始认证"
         style={styles.button}
         onPress={beforeSubmit}
       />
-    </View>
+    </ScrollView>
   )
 }
 

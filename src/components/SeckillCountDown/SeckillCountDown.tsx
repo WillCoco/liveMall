@@ -26,8 +26,8 @@ export default function SeckillCountDown() {
 
     let seckillCountdown: number
 
-    if (curHour >= 20 && curHour < 10) {  // 20 点之后
-      seckillCountdown = new Date().setHours(23, 59, 59, 999) + 1 - new Date().getTime() + new Date().setHours(8, 0, 0, 0)
+    if (curHour >= 20) {  // 20 点之后
+      seckillCountdown = new Date().setHours(23, 59, 59, 999) + 1 - new Date().getTime() + 10 * 1000 * 60 * 60
     } else if (curHour >= 10 && curHour < 14) {  // 10：00 ～ 14:00
       seckillCountdown = new Date().setHours(14, 0, 0, 0) - new Date().getTime()
     } else {  // 14:00 ～ 20:00

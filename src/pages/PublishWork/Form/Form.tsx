@@ -25,6 +25,7 @@ export default function Form(props: Props) {
           maxLength={20}
           style={styles.titleInput}
           onChangeText={(text) => inputTitle(text)}
+          returnKeyType='next'
         />
         <Text style={styles.textLength}>{~~(textLength / 2)}字</Text>
       </View>
@@ -32,8 +33,11 @@ export default function Form(props: Props) {
         <TextInput
           placeholder='添加文字心得'
           multiline
+          blurOnSubmit
           style={styles.textareaInput}
           onChangeText={(text) => props.inputContent(text)}
+          returnKeyType='done'
+          returnKeyLabel="完成"
         />
       </View>
     </View>

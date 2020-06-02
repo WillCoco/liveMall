@@ -17,7 +17,9 @@ import {Colors} from '../../constants/Theme';
 
 
 
-const RootError = (props) => {
+const RootError = (props: {
+  errorInfo?: string
+}) => {
   const {goBack, navigate, reset} = useNavigation();
 
   const goHome = () => {
@@ -27,6 +29,8 @@ const RootError = (props) => {
     });
   };
   
+  const showInfo = !!__DEV__ && props.errorInfo
+  
   return (
     <View style={styles.wrapper}>
       <ImageBackground source={require('../../assets/default-image/err_network.png')} style={styles.errNetWorkImg} >
@@ -35,6 +39,7 @@ const RootError = (props) => {
       <TouchableOpacity style={styles.reloadBtn} onPress={goHome}>
         <Text style={styles.reloadText}>点击前往首页</Text>
       </TouchableOpacity>
+      {showInfo ? <Text style={styles.text}>{props.errorInfo}</Text> : null}
     </View>
   );
 };

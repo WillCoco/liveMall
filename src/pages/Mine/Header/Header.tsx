@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Image,
+  Clipboard,
   StyleSheet,
   PixelRatio,
   ImageBackground,
@@ -14,6 +15,7 @@ import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
 import pxToDp from '../../../utils/px2dp'
 import formatSinglePrice from '../../../utils/formatGoodsPrice'
+import { Toast } from '@ant-design/react-native'
 
 const defaultAvatar = require('../../../assets/mine-image/default_avatar.png')
 const vipText = require('../../../assets/mine-image/vip_text.png')
@@ -77,6 +79,11 @@ function Header(props: Props) {
     }
   }
 
+  const copyInvCode = () => {
+    Clipboard.setString(userInfo.inviteCode)
+    Toast.success('已复制到剪贴板')
+  }
+
   return (
     <ImageBackground
       resizeMode='stretch'
@@ -109,7 +116,7 @@ function Header(props: Props) {
                     return (
                       <Text
                         key={`user-${index}`}
-                        style={[styles.userLevel, item === '1' && styles.userLevelBgc]}
+                        style={[styles.userLevel, +item >= 1 && styles.userLevelBgc]}
                       >{
                           item === '1'
                             ? '云闪播会员'
@@ -182,7 +189,7 @@ function Header(props: Props) {
               ? <Image source={vipText} style={styles.viptext} resizeMode='contain' />
               : <Text style={[styles.leveltext, styles.vipLevel]}>游客</Text>
             }
-            {isLogin && <Text style={styles.invCode}>邀请码：{userInfo?.inviteCode}</Text>}
+            {isLogin && <Text style={styles.invCode} onPress={copyInvCode}>邀请码：{userInfo?.inviteCode}</Text>}
           </View>
 
         </View>

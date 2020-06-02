@@ -12,8 +12,7 @@ import {
 } from '../../service/api'
 
 import pxToDp from '../../utils/px2dp'
-// import Toast from 'react-native-tiny-toast'
-import { Portal, Toast } from '@ant-design/react-native'
+import { Toast } from '../../components/Toast'
 import { Colors } from '../../constants/Theme'
 import checkIsBottom from '../../utils/checkIsBottom'
 import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab-view'
@@ -21,6 +20,7 @@ import ScrollableTabView, { ScrollableTabBar } from 'react-native-scrollable-tab
 import OrderItem from './OrderItem/OrderItem'
 import LoadMore from '../../components/LoadMore/LoadMore'
 import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
+import sandpaySerializeURL from '../../utils/sandpaySerializeURL'
 
 const pageSize = 20
 const tabList = ['全部', '待付款', '待发货', '待收货', '已完成', '退款/售后']
@@ -104,7 +104,7 @@ export default function OrderList() {
 
     apiGetOrderList(params).then((res: any) => {
       setNetWorkErr(false)
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       console.log('获取订单列表', res)
 
@@ -118,7 +118,7 @@ export default function OrderList() {
     }).catch((err: any) => {
       console.log('获取订单列表')
       setNetWorkErr(true)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 
@@ -132,7 +132,7 @@ export default function OrderList() {
       pageSize,
       pageNo: pageNoRef.current
     }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
       setNetWorkErr(false)
       console.log('售后订单列表', res)
       res.records.forEach((item: any) => {
@@ -157,7 +157,7 @@ export default function OrderList() {
     }).catch((err: any) => {
       console.log('售后订单列表')
       setNetWorkErr(true)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 
@@ -206,7 +206,7 @@ export default function OrderList() {
   const toPay = (id: number) => {
     let loading = Toast.loading('')
     apiPayOrder({ id, payType: 2 }).then((res: any) => {
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       console.log('去支付', res)
 
@@ -215,11 +215,7 @@ export default function OrderList() {
         return
       }
 
-      let payURL = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8'
-
-      for (let item in res.data) {
-        payURL += '&' + item + '=' + res.data[item]
-      }
+      const payURL = sandpaySerializeURL(res.data)
 
       const params = {
         url: payURL,
@@ -230,7 +226,7 @@ export default function OrderList() {
       navigation.push('PayWebView', params)
     }).catch((err: any) => {
       console.log(err.message)
-      Portal.remove(loading)
+      Toast.remove(loading)
     })
   }
 

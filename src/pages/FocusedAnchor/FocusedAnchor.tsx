@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
+import { useDispatch } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 import { Colors } from '../../constants/Theme'
 import { apiMyAttentionList } from '../../service/api'
@@ -11,10 +12,13 @@ import { useSelector } from 'react-redux'
 import images from '../../assets/images'
 import { isSucceed } from '../../utils/fetchTools'
 import { EMPTY_ARR } from '../../constants/freeze'
+import { clearLiveRoom } from '../../actions/im';
 
 function FocusedAnchor(props: any) {
   const navigation = useNavigation()
-  const userId = useSelector(state => state?.userData?.userInfo?.userId)
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
+
+  const dispatch = useDispatch();
 
   navigation.setOptions({
     headerTitle: '关注的主播',
@@ -69,6 +73,8 @@ function FocusedAnchor(props: any) {
    * 点击进入
   */
  const onPress = (item: any) => {
+    dispatch(clearLiveRoom());
+
     navigation.navigate('LivingRoomScreen', {
       liveId: item?.liveId,
       groupID: item?.groupId || `live${item?.liveId}`,

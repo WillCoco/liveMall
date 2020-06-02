@@ -5,7 +5,6 @@ import shopActionType from '../constants/Shop';
 import {Dispatch} from 'redux';
 import {sleep} from '../utils/tools';
 import * as api from '../service/api';
-import Toast from 'react-native-tiny-toast';
 import calcStrLength from '../utils/calcStrLength';
 import {safeStringify} from '../utils/saftyFn';
 import { EMPTY_OBJ } from '../constants/freeze';
@@ -314,11 +313,46 @@ export const getWareHouseGoods = (params: GetGoods2WareHouseParams) => {
 }
 
 /**
- * 删除预组货商品
+ * 添加商品页面中取消添加预组货商品
  */
 interface DelGoods2WareHouseParams {
-    "goodsIdList": Array<number>,
+    brandGoods: Array<any>, // 品牌商品
+    goodIdsNeed2Del: Array<string>,
 }
+export const delWareHouseGoods2 = (params: DelGoods2WareHouseParams) => {
+    return async function(dispatch: Dispatch<any>, getState: any) {
+        const anchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
+
+        const goodsIdList = params.goodIdsNeed2Del || [];
+        return api.apiDelGroupGoods({
+            goodsIdList,
+            anchorId
+        })
+            .then(r => {
+                const isSucceed = r && r.code === 200 && r.success;
+
+                if (isSucceed) {
+
+                    const newPlatformGoods = changeIsExit(
+                        params.brandGoods,
+                        (platformGood) => goodsIdList.indexOf(platformGood.goodsId) !== -1,
+                        false,
+                    );
+                    console.log(newPlatformGoods, 'newPlatformGoods')
+
+                    return Promise.resolve(newPlatformGoods)
+                }
+            })
+            .catch(err => {
+                console.log(`addGoods2ShowCase error: ${err}`)
+                return Promise.resolve(false);
+            })
+    }
+}
+
+/**
+ * 预组货页面上删除商品
+ */
 export const delWareHouseGoods = (params: DelGoods2WareHouseParams) => {
     return async function (dispatch: Dispatch<any>, getState: any): Promise<any> {
         const anchorId = getState()?.anchorData?.anchorInfo?.anchorId;
@@ -332,7 +366,7 @@ export const delWareHouseGoods = (params: DelGoods2WareHouseParams) => {
                 }
             })
             .catch(err => {
-                console.log(`delWareHouseGoods error: ${err}`)
+                // console.log(`delWareHouseGoods error: ${err}`)
                 return Promise.resolve(false);
             })
     }
@@ -357,7 +391,7 @@ export const addGroupHouseGoods = (params: AddGroup2WareHouseParams) => {
                 }
             })
             .catch(err => {
-                console.log(`AddGroupHouseGoods error: ${err}`)
+                // console.log(`AddGroupHouseGoods error: ${err}`)
                 return Promise.resolve(false);
             })
     }
@@ -502,9 +536,9 @@ export const changeIsExit = (list: Array<any>, isMatch: (v: any) => boolean, isA
   console.log(list, 'llisttttt')
   return list.map((good) => {
     const safeGood = good || EMPTY_OBJ;
-    console.log(safeGood, 'safeGood')
-    console.log(list, 'list')
-    console.log(isMatch(safeGood), 'isMatch(safeGood)')
+    // console.log(safeGood, 'safeGood')
+    // console.log(list, 'list')
+    // console.log(isMatch(safeGood), 'isMatch(safeGood)')
     if (isMatch(safeGood)) {
       return {...safeGood, isExist: isAdd ? 1 : 2}
     }

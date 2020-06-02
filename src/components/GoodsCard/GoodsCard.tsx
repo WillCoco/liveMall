@@ -134,8 +134,7 @@ const styles = StyleSheet.create({
     color: Colors.basicColor
   },
   goodsPrice: {
-    flexDirection: 'row',
-    alignItems: 'baseline'
+    flexDirection: 'row'
   },
   rmbIcon: {
     fontSize: pxToDp(24),
@@ -144,11 +143,13 @@ const styles = StyleSheet.create({
   salePrice: {
     fontSize: pxToDp(34),
     color: Colors.basicColor,
-    marginRight: pxToDp(16)
+    marginRight: pxToDp(16),
+    lineHeight: pxToDp(33)
   },
   originalPrice: {
     fontSize: pxToDp(24),
     color: Colors.lightGrey,
-    textDecorationLine: 'line-through'
+    textDecorationLine: 'line-through',
+    lineHeight: pxToDp(33)
   }
 })

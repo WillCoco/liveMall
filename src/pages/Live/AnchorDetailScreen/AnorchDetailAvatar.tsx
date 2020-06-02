@@ -36,7 +36,7 @@ const AnorchDetailAvatar = (props: {
           borderWidth: 2,
           borderColor: '#fff'
         }}
-        source={{uri: props.source}}
+        source={props.source}
       />
       {props.isLiving && <Text style={styles.livingText}>直播中</Text>}
     </TouchableOpacity>

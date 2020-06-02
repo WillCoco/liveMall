@@ -39,7 +39,7 @@ export default function OrderItem(props: Props) {
       return
     }
 
-    if (orderInfo.orderStatus === 1) {  // 待付款
+    if (orderInfo.orderStatus === 1 || 6) {  // 待付款 已取消
       return
     }
 

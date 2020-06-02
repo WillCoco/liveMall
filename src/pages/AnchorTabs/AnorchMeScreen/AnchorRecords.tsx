@@ -25,7 +25,7 @@ import {
 import CameraRoll from '@react-native-community/cameraroll';
 import {PrimaryText, SmallText, T1} from 'react-native-normalization-text';
 import {useNavigation} from '@react-navigation/native';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import withPage from '../../../components/HOCs/withPage';
 import NavBar from '../../../components/NavBar';
 import images from '../../../assets/images';
@@ -38,9 +38,11 @@ import PagingList from '../../../components/PagingList';
 import share, {ShareType} from '../../../utils/share';
 import usePermissions from '../../../hooks/usePermissions';
 import RNFS from 'react-native-fs';
-import {Toast, Portal} from '@ant-design/react-native';
+import {Toast} from '../../../components/Toast';
 import {EMPTY_ARR, EMPTY_OBJ} from '../../../constants/freeze';
 import {isSucceed} from '../../../utils/fetchTools';
+import { updateLivingInfo } from '../../../actions/live';
+import { clearLiveRoom } from '../../../actions/im';
 
 const RecordsCard = (props: {
   smallPic: any;
@@ -87,9 +89,9 @@ const RecordsCard = (props: {
               alignItems: 'center',
             }}>
             <SmallText color="grey" style={styles.listItem} numberOfLines={2}>
-              {props.watchNum || 0}次观看 丨 {props.liveGoodsNum}件商品 | 卖出
-              {props.goodsNum}件 | 销售额 {props.moneyNum} | 增粉{' '}
-              {props.addFavourite}
+              {props.watchNum || 0}次观看 丨 {props.liveGoodsNum || 0}件商品 | 卖出
+              {props.goodsNum || 0}件 | 销售额 {props.moneyNum || 0} | 增粉{' '}
+              {props.addFavourite || 0}
             </SmallText>
           </View>
           <SmallText color="grey" style={styles.liveTime}>
@@ -140,6 +142,7 @@ const RecordsCard = (props: {
 const AnchorRecords = (props) => {
   const {anchorInfo = {}} = props;
   const [liveList, setLiveList] = useState([]);
+  const dispatch = useDispatch();
 
   const {navigate} = useNavigation();
 
@@ -226,7 +229,7 @@ const AnchorRecords = (props) => {
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       const t = Toast.loading('已在后台下载...');
       if (!url) {
-        Portal.remove(t);
+        Toast.remove(t);
         Toast.fail('视频不存在');
         return;
       }
@@ -251,17 +254,17 @@ const AnchorRecords = (props) => {
         if (res && res.statusCode === 200) {
           CameraRoll.saveToCameraRoll(downloadDest)
             .then(function (result) {
-              Portal.remove(t);
+              Toast.remove(t);
               Toast.success('视频已保存至相册');
             })
             .catch(function (error) {
               console.log(error, 'errorerrorerrorerror');
-              Portal.remove(t);
+              Toast.remove(t);
               Toast.fail('视频保存失败');
             });
           return;
         }
-        Portal.remove(t);
+        Toast.remove(t);
         Toast.show('获取视频资源失败');
       });
     }
@@ -295,6 +298,9 @@ const AnchorRecords = (props) => {
               moneyNum={item.moneyNum}
               startTime={item.startTime}
               onPress={() => {
+                dispatch(clearLiveRoom());
+                dispatch(updateLivingInfo(item));
+                
                 navigate('LivingRoomScreen', {
                   liveId: item?.liveId,
                   groupID: item?.groupId || `live${item?.liveId}`,

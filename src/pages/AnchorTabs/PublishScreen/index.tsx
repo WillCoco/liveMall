@@ -20,26 +20,19 @@ import {setAnchorInfo} from '../../../actions/anchor';
 import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
+import { shortNum } from '../../../utils/numeric';
+import { EMPTY_OBJ } from '../../../constants/freeze';
 import { isSucceed } from '../../../utils/fetchTools';
-import { Toast } from '@ant-design/react-native';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);
   const {navigate, reset} = useNavigation();
   const dispatch = useDispatch();
-  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || {}
-  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId)
+  const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || EMPTY_OBJ;
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
-/**
- * 获取主播详情
- */
-  React.useEffect(() => {
-    apiAnchorHomePage({userId})
-      .then((res: any) => {
-        dispatch(setAnchorInfo(res))
-      })
-      .catch(console.warn)
-  }, []);
+  // 操作空闲
+  const isIdle = React.useRef(true);
 
   /**
    * tab的返回到 我的
@@ -77,15 +70,20 @@ const PublishScreen = (props: any) =>  {
             title: '您有直播未正常关闭',
             text: '是否恢复上次直播',
             rightBtnText: '恢复直播',
+            leftBtnText: '关闭',
             onPressLeft: async () => {
               // 关闭直播件
               const type = 1; // 1 保存回放, 2 不保存
               const r1: any = await dispatch(closeLive({liveId, type}));
-              navigate('AnchorLivingEnd', r1?.data);
+              // navigate('AnchorLivingEnd', r1?.data);
               return true;
             },
             onPressRight: () => {
               // 继续去直播
+              if (!isIdle) {
+                return true;
+              }
+              isIdle.current = false;
               const r2 = dispatch(anchorToLive({liveId}));
               navigate('AnorchLivingRoomScreen', {groupID: groupId, liveId});
               return true;
@@ -95,34 +93,41 @@ const PublishScreen = (props: any) =>  {
     }
   }
 
+  /**
+   * 拉取主播数据并查看是否存在直播
+   */
   useFocusEffect(
     React.useCallback(() => {
-      checkIsLiveNow();
+      apiAnchorHomePage({userId})
+      .then((res: any) => {
+        dispatch(setAnchorInfo(res));
+        checkIsLiveNow();
+      })
+      .catch(console.warn)
     }, [])
-  );
-
-  React.useEffect(() => {
-
-  }, [])
+  ), [anchorInfo];
 
   /**
    * 处理android返回
    */
   useFocusEffect(
-      React.useCallback(() => {
-          const onBackPressAndroid = () => {
-              if(allowBack) {
-                  onBackPress()
-              }
-              return true
-          }
+    React.useCallback(() => {
+      const onBackPressAndroid = () => {
+        if(allowBack) {
+          onBackPress()
+        }
+        return true
+      }
 
-          BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
+      BackHandler.addEventListener('hardwareBackPress', onBackPressAndroid);
 
-          return () =>
-            BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
-      }, [])
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', onBackPressAndroid);
+      }
+    }, [])
   );
+
+  const hasAvatar = (anchorInfo?.logo && anchorInfo?.logo !== '0')
 
   return (
     <View style={styles.style}>
@@ -137,9 +142,9 @@ const PublishScreen = (props: any) =>  {
         }}
       />
       <NavBar leftTheme="light" title="" style={styles.navWrapper} onLeftPress={onBackPress} />
-      <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={anchorInfo.logo && {uri: anchorInfo.logo} || images.userAvatar}/>
+      <Avatar size={65} style={{marginTop: props.safeTop + vh(8)}} source={hasAvatar ? {uri: anchorInfo.logo} : images.userAvatar}/>
       <T1 style={styles.nameText}>{anchorInfo.name || '主播昵称'}</T1>
-      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount || 0}粉丝</SmallText>
+      <SmallText style={styles.followText}>{anchorInfo.favouriteAmount ? shortNum(anchorInfo.favouriteAmount) : 0}粉丝</SmallText>
       <View style={styles.entranceWrapper}>
         <TouchableOpacity
           style={styles.entranceImgWrapper}

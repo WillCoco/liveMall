@@ -38,7 +38,8 @@ const LivingEnd = (props: any) : any =>  {
     dispatch(updateLivingStatus());
   }, [])
 
-  const livingBg = livingInfo ? {uri: livingInfo.smallPic} : defaultImages.livingBg
+  const livingBg = livingInfo.smallPic ? {uri: livingInfo.smallPic} : defaultImages.livingBg
+  console.log(livingBg, 'livingInfo')
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Image
@@ -46,6 +47,7 @@ const LivingEnd = (props: any) : any =>  {
         resizeMode="cover"
         style={styles.imgBg}
       />
+      <View style={styles.modal} />
       <H2 color="white" style={{textAlign: 'center', marginTop: vh(20)}}>直播已结束</H2>
       <T1 color="white" style={{textAlign: 'center', marginTop: 8}}><H2 color="theme">{shortNum(livingInfo.watchNum) || 0}</H2>人观看</T1>
       <Avatar
@@ -69,9 +71,18 @@ LivingEnd.defaultProps = {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth: 10
   },
   imgBg: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+  },
+  modal: {
+    backgroundColor: 'rgba(0,0,0,0.2)',
     position: 'absolute',
     top: 0,
     left: 0,

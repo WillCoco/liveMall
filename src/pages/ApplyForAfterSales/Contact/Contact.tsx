@@ -12,6 +12,7 @@ export default function Contact(props: { inputTel: (arg0: string) => void }) {
         keyboardType='phone-pad'
         placeholder='请输入您的联系方式'
         onChangeText={(text) => props.inputTel(text)}
+        returnKeyType='done'
       />
     </View>
   )

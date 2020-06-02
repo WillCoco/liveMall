@@ -11,7 +11,8 @@ export default function Form() {
   const realname = useSelector((state: any) => state?.userData?.userInfo?.identityName)
 
   const contactService = () => {
-    navigation.push('Service')
+    const servicePath = 'https://ykf-webchat.7moor.com/wapchat.html?accessId=14326e70-91bc-11ea-9aa1-076c2541e149&fromUrl=&urlTitle='
+    navigation.push('Service', servicePath)
   }
 
   const inviteFriends = () => {
@@ -46,12 +47,12 @@ export default function Form() {
         </View>
       </TouchableWithoutFeedback>
 
-      <TouchableWithoutFeedback onPress={inviteFriends}>
+      {/* <TouchableWithoutFeedback onPress={inviteFriends}>
         <View style={styles.formItem}>
           <Text style={styles.title}>邀请好友</Text>
           <Ionicons size={20} name='ios-arrow-forward' color={Colors.darkGrey} />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
 
       <TouchableWithoutFeedback onPress={goRealname}>
         <View style={[styles.formItem, { borderBottomWidth: 0 }]}>

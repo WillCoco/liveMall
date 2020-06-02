@@ -32,6 +32,7 @@ function Header(props: Props) {
           clearButtonMode='while-editing'
           onChangeText={(text) => setSearchKey(text)}
           onSubmitEditing={() => props.toSearch(searchKey)}
+          returnKeyType='done'
         />
       </View>
 

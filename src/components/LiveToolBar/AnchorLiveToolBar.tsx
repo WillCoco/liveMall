@@ -47,9 +47,9 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
       <View style={styles.cellsWrapper}>
         <TouchableOpacity style={styles.cell} onPress={props.onPressFace}>
             <Image
-                source={images.filterIcon }
-                style={styles.img}
-                resizeMode="contain"
+              source={images.filterIcon}
+              style={styles.img}
+              resizeMode="contain"
             />
             <SmallText color="white">美颜</SmallText>
         </TouchableOpacity>

@@ -77,7 +77,7 @@ export default function Belt() {
   return (
     <>
       <Image
-        resizeMode='contain'
+        resizeMode='cover'
         style={styles.headerImg}
         source={require('../../assets/belt-image/belt_bgi.png')}
       />
@@ -101,6 +101,6 @@ export default function Belt() {
 const styles = StyleSheet.create({
   headerImg: {
     width: '100%',
-    height: pxToDp(460)
+    height: pxToDp(480)
   }
 })

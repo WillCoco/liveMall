@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import formatSinglePrice from '../../../utils/formatGoodsPrice'
-import { Toast } from '@ant-design/react-native'
+import { Toast } from '../../../components/Toast'
 const starIcon = require('../../../assets/goods-image/icon_star.png')
 const unstarIcon = require('../../../assets/goods-image/icon_unstar.png')
 
@@ -56,7 +56,7 @@ export default function FooterBar(props: Props) {
 
       <TouchableWithoutFeedback onPress={() => props.showGoodsSkuActionSheet('buy')}>
         <View style={styles.buyBtn}>
-          <Text style={styles.addCartText}>{shareUserId ? '立即购买' : `购买省¥${formatSinglePrice(goodsInfo.MyDiscounts)}`}</Text>
+          <Text style={styles.addCartText}>{shareUserId ? '立即购买' : `购买返¥${formatSinglePrice(goodsInfo.MyDiscounts)}`}</Text>
         </View>
       </TouchableWithoutFeedback>
 

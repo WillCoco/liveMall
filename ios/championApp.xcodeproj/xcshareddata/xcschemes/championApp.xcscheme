@@ -29,17 +29,17 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "championApp.app"
+               BuildableName = "&#x4e91;&#x95ea;&#x64ad;.app"
                BlueprintName = "championApp"
                ReferencedContainer = "container:championApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "YES"
+            buildForRunning = "NO"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "championApp.app"
+            BuildableName = "&#x4e91;&#x95ea;&#x64ad;.app"
             BlueprintName = "championApp"
             ReferencedContainer = "container:championApp.xcodeproj">
          </BuildableReference>
@@ -92,11 +92,18 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "championApp.app"
+            BuildableName = "&#x4e91;&#x95ea;&#x64ad;.app"
             BlueprintName = "championApp"
             ReferencedContainer = "container:championApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "Value"
+            value = "disable"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -109,7 +116,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "championApp.app"
+            BuildableName = "&#x4e91;&#x95ea;&#x64ad;.app"
             BlueprintName = "championApp"
             ReferencedContainer = "container:championApp.xcodeproj">
          </BuildableReference>

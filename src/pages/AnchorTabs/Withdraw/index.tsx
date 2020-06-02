@@ -10,6 +10,7 @@ import {
   Platform,
   ImageBackground,
   Image,
+  ScrollView
 } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {useSelector, useDispatch} from 'react-redux';
@@ -31,8 +32,7 @@ import pxToDp from '../../../utils/px2dp';
 import images from '../../../assets/images';
 import {updateCurBankCards} from '../../../actions/asset';
 import { apiSendVerCode } from '../../../service/api';
-import { Toast, Portal } from '@ant-design/react-native';
-
+import { Toast } from '../../../components/Toast';
 
 const Withdraw = (props: any) =>  {
   const {navigate, goBack, replace} = useNavigation();
@@ -79,12 +79,12 @@ const Withdraw = (props: any) =>  {
    */
   const getCode = () => {
 
-    const loading = Toast.loading('')
+    const loading = Toast.loading('', true)
 
     apiSendVerCode({ userTel: 17681610221 }).then((res: any) => {
       console.log('发送验证码', res)
 
-      Portal.remove(loading)
+      Toast.remove(loading)
 
       Toast.success('验证码已发送')
 
@@ -117,6 +117,7 @@ const Withdraw = (props: any) =>  {
       "userBankCardId": curBankCard.id
     };
 
+    const t = Toast.loading('提现中', true)
     apiWithdraw(params)
       .then( (res: any) => {
         if (res?.message?.indexOf('手机验证码不正确')) {
@@ -134,14 +135,18 @@ const Withdraw = (props: any) =>  {
             }});
           return;
         }
+        Toast.remove(t)
         Toast.show('提现成功')
         goBack();
       })
-      .catch(console.warn)
+      .catch((err: any) => {
+        console.log(err, '提现申请');
+        Toast.remove(t)
+      })
   };
 
   return (
-    <View style={styles.style}>
+    <ScrollView contentContainerStyle={styles.style}>
       <NavBar
         leftTheme="light"
         title="提现"
@@ -203,7 +208,7 @@ const Withdraw = (props: any) =>  {
         style={styles.button}
         onPress={onSumbit}
       />
-    </View>
+    </ScrollView>
   )
 };
 
@@ -214,7 +219,6 @@ const styles = StyleSheet.create({
   style: {
     flex: 1,
     backgroundColor: Colors.bgColor,
-    borderWidth: 2,
   },
   nav: {
     backgroundColor: Colors.basicColor,

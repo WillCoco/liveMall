@@ -18,7 +18,6 @@ import {vw, vh} from '../../utils/metric';
 import { isAndroid, safeTop } from '../../constants/DeviceInfo';
 import {updateStarted} from '../../actions/live';
 import usePermissions from '../../hooks/usePermissions';
-import Toast from 'react-native-tiny-toast';
 
 interface LivePusherProps {
   style?: StyleProp<any>,

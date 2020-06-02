@@ -8,21 +8,22 @@ import {
   Image,
   ScrollView,
 } from 'react-native'
+import {PrimaryText} from 'react-native-normalization-text'
+import {useSelector} from 'react-redux'
+import {useNavigation} from '@react-navigation/native'
 import NavBar from '../../../components/NavBar'
 import {Colors} from '../../../constants/Theme'
 import {pad} from '../../../constants/Layout'
 import images from '../../../assets/images'
-import {PrimaryText} from 'react-native-normalization-text'
 import ButtonRadius from '../../../components/Buttons/ButtonRadius'
-import {useSelector} from 'react-redux'
 import withPage from '../../../components/HOCs/withPage'
 import pxToDp from '../../../utils/px2dp'
 import BeAnchorRow from './BeAnchorRow'
 import {apiBuyAnchor} from'../../../service/api'
-import { useNavigation } from '@react-navigation/native'
 import CheckBox from '../../../components/CheckBox'
-import { Toast } from '@ant-design/react-native'
+import {Toast} from '../../../components/Toast'
 import formatGoodsPrice from '../../../utils/formatGoodsPrice'
+import sandpaySerializeURL from '../../../utils/sandpaySerializeURL'
 
 const BeAnchor = (props: any) =>  {
   const {navigate} = useNavigation()
@@ -55,18 +56,12 @@ const BeAnchor = (props: any) =>  {
         return
       }
 
-      let payURL = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8'
-
-      for (let item in res.data) {
-        payURL += '&' + item + '=' + res.data[item]
-      }
+      const payURL = sandpaySerializeURL(res.data)
 
       const params = {
         url: payURL,
         orderSn: res.data.orderSn,
         payType: res.data.payType,
-        nextBtnText: '重试',
-        nextRoute: 'BeAnchor',
       }
 
       console.log('成为主播', params)

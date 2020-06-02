@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 import LiveRecord from './LiveRecord';
 import {Colors} from '../../../constants/Theme';
 import {pad, radio} from '../../../constants/Layout';
@@ -20,11 +21,13 @@ import Iconbacklight from '../../../components/Iconfont/Iconbacklight';
 import {vw} from '../../../utils/metric';
 import CountDown from '../../../components/CountDown';
 import moment from 'moment'
-import { Toast } from '@ant-design/react-native';
+import { Toast } from '../../../components/Toast';
 import PagingList from '../../../components/PagingList';
 import {apiAnchorParticular} from '../../../service/api';
 import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
+import { clearLiveRoom } from '../../../actions/im';
+import { shortNum } from '../../../utils/numeric';
 
 const Row = (props: {
   title: string,
@@ -35,7 +38,6 @@ const Row = (props: {
   time?: number,
   onPress?: (v?: any) => void
 }) => {
-
   const renderCell = (value: number | string, unit: string) => {
     return (
       <View style={styles.cellWrapper}>
@@ -48,6 +50,8 @@ const Row = (props: {
   const onStop = () => {
     Toast.show('开播时间到啦')
   }
+
+  console.log(props?.time, 'ttttttt')
 
   return (
     <TouchableOpacity
@@ -112,6 +116,7 @@ const LiveTabPage = (props: {
   anchorId: string | number
 }) =>  {
   const {navigate} = useNavigation();
+  const dispatch = useDispatch();
 
   /**
    * 下拉刷新
@@ -157,6 +162,8 @@ const LiveTabPage = (props: {
 
 
   const toLiveingRoom = (item: any) => {
+    dispatch(clearLiveRoom());
+
     navigate('LivingRoomScreen', {
       liveId: item?.liveId,
       groupID: item?.groupId || `live${item?.liveId}`,
@@ -181,7 +188,7 @@ const LiveTabPage = (props: {
           key={`_${index}`}
           title={item.liveTitle}
           typeText="直播中"
-          subText={item.watchNum + '观看'}
+          subText={shortNum(item.watchNum) + '观看'}
           showDivider
           onPress={() => toLiveingRoom(item)}
         />
@@ -190,7 +197,7 @@ const LiveTabPage = (props: {
       notRecordCount ++
       return <Row
         key={`item_${index}`}
-        title={item?.liveTitle }
+        title={item?.liveTitle}
         typeText='预告'
         countDown={true}
         time={item?.liveTime}
@@ -206,8 +213,8 @@ const LiveTabPage = (props: {
               img={item?.smallPic}
               title={item?.liveTitle}
               time={(new Date(item?.liveTime)).toLocaleString()}
-              viewTimes={item?.watchNum}
-              goodsQuantity={item?.liveProductnum}
+              viewTimes={shortNum(item?.watchNum) || 0}
+              goodsQuantity={item?.liveProductnum || 0}
               key={`item_${index}`}
               onPress={() => toLiveingRoom(item)}
             />
@@ -219,8 +226,8 @@ const LiveTabPage = (props: {
             img={item?.smallPic}
             title={item?.liveTitle}
             time={(new Date(item?.liveTime)).toLocaleString()}
-            viewTimes={item?.watchNum}
-            goodsQuantity={item?.liveProductnum}
+            viewTimes={shortNum(item?.watchNum) || 0}
+            goodsQuantity={item?.liveProductnum || 0}
             key={`item_${index}`}
             onPress={() => toLiveingRoom(item)}
           />

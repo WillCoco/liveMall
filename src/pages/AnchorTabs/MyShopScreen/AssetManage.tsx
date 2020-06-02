@@ -138,7 +138,7 @@ const AssetManage = (props: any) =>  {
                   imgStyle={{height: 40, width: 40}}
                   textStyle={{color: '#fff', marginTop: 6}}
                 >
-                  <PrimaryText color="white" style={{marginTop: 2}}>¥{formatSinglePrice(assetsInfo[row.key]) || 0.00}</PrimaryText>
+                  <PrimaryText color="white" style={{marginTop: 2}}>¥{formatSinglePrice(assetsInfo[row.key] || 0) }</PrimaryText>
                 </ImageText>
               )
             })
@@ -160,7 +160,7 @@ const AssetManage = (props: any) =>  {
                 key={`income_row_${index}`}
                 text={income.text}
                 img={income.img}
-                quantity={formatSinglePrice(assetsInfo[income.key]) || 0.00}
+                quantity={formatSinglePrice(assetsInfo[income.key] || 0)}
                 style={{borderTopWidth: index !== 0 ? 1 : 0, borderColor: Colors.divider}}
               />
             )

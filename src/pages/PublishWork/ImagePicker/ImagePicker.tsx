@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
 import * as ImagePicker from 'expo-image-picker'
 import { Ionicons } from '@expo/vector-icons'
-import { Portal, Toast } from '@ant-design/react-native'
+import { Toast } from '../../../components/Toast'
 import { apiWorkUpload } from '../../../service/api'
 import { setMediaList } from '../../../actions/works'
 
@@ -14,7 +14,8 @@ interface Props {
   pageType: string;
   mediaList: Array<any>;
   fullPathImageList: Array<any>;
-  setFullPathImageList([]: Array<any>): void
+  setGifUrl(url: string): void;
+  setFullPathImageList([]: Array<any>): void;
 }
 
 function ImgPicker(props: Props) {
@@ -58,24 +59,35 @@ function ImgPicker(props: Props) {
   const upLoadImage = (imgUri: string) => {
     const loading = Toast.loading('')
 
-    apiWorkUpload({
+    const params = {
       fileType: pageType === 'video' ? 'VIDEO' : 'PICTURE',
       file: getImageInfo(imgUri),
-    }).then((res: any) => {
-      Portal.remove(loading)
-      console.log(res)
+    }
+
+    apiWorkUpload(params).then((res: any) => {
+      Toast.remove(loading)
+      console.log('success', res)
       if (res.code === 200) {
         let imgFullPath = res.data.worksUrl
         let imgPath = imgFullPath.substr(0, imgFullPath.lastIndexOf('&', imgFullPath.lastIndexOf('&') - 1))
+        let gifFullPath = pageType === 'video' ? res.data.worksGifUrl : ''
+        let gifPath = pageType === 'video'
+          ? gifFullPath.substr(0, gifFullPath.lastIndexOf('&', gifFullPath.lastIndexOf('&') - 1))
+          : ''
 
-        props.dispatch(setMediaList([...mediaList, ...[imgPath]]))
+        props.dispatch(setMediaList(
+          pageType === 'video'
+            ? [...mediaList, ...[gifPath]]
+            : [...mediaList, ...[imgPath]]
+        ))
         props.setFullPathImageList([...fullPathImageList, ...[res.data.worksUrl]])
+        pageType === 'video' && props.setGifUrl(res.data.worksGifUrl)
       } else {
         Toast.fail(res.data)
       }
     }).catch((err: any) => {
-      Portal.remove(loading)
-      console.log(err)
+      Toast.remove(loading)
+      console.log('error', err)
     })
   }
 
@@ -83,7 +95,11 @@ function ImgPicker(props: Props) {
     const nameArr = uri.split('/');
     const name = nameArr[nameArr.length - 1];
     const typeArr = name.split('.');
-    const type = `image/${typeArr[typeArr.length - 1]}`;
+
+    const type =
+      pageType === 'video'
+        ? `video/${typeArr[typeArr.length - 1]}`
+        : `image/${typeArr[typeArr.length - 1]}`;
 
     return {
       uri,

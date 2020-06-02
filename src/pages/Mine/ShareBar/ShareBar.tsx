@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -12,9 +12,9 @@ import { connect } from 'react-redux'
 import pxToDp from '../../../utils/px2dp'
 import { AntDesign } from '@expo/vector-icons'
 import { Colors } from '../../../constants/Theme'
-import { apiCreatePoster, apiGetUserData } from '../../../service/api'
-import { setUserInfo } from '../../../actions/user'
+import { apiCreatePoster } from '../../../service/api'
 import { Portal, Toast as AntToast } from '@ant-design/react-native'
+import * as WeChat from 'react-native-wechat-lib'
 
 interface Props {
   userId?: number;
@@ -30,30 +30,43 @@ function ShareBar(props: Props) {
    * 立即分享
    */
   const share = async () => {
-    try {
-      const result = await Share.share({
-        message: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
-购物更划算！
---------------
-下载链接：www.quanpinlive.com
---------------
-注册填写邀请口令：${userInfo.inviteCode}`
-      });
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
 
-      if (result.action === Share.sharedAction) {
-        console.log(result)
-        if (result.activityType) {
-          // shared with activity type of result.activityType
+    if (wxIsInstalled) {
+      WeChat.shareText({
+        text: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
+          购物更划算！
+          --------------
+          下载链接：www.quanpinlive.com
+          --------------
+          注册填写邀请口令：${userInfo.inviteCode}`,
+        scene: 0
+      })
+    } else {
+      try {
+        const result = await Share.share({
+          message: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
+            购物更划算！
+            --------------
+            下载链接：www.quanpinlive.com
+            --------------
+            注册填写邀请口令：${userInfo.inviteCode}`
+        });
 
-        } else {
-          // shared
-          props.hideShareBar()
+        if (result.action === Share.sharedAction) {
+          console.log(result)
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+            props.hideShareBar()
+          }
+        } else if (result.action === Share.dismissedAction) {  // iOS Only
+          // dismissed
         }
-      } else if (result.action === Share.dismissedAction) {  // iOS Only
-        // dismissed
+      } catch (error) {
+        alert(error.message);
       }
-    } catch (error) {
-      alert(error.message);
     }
   }
 

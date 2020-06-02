@@ -32,6 +32,7 @@ interface Props {
 
 function Header(props: Props) {
   const navigation: any = useNavigation()
+  const {navigate} = useNavigation()
   const { userInfo, isLogin } = props.userData
   const { statusBarHeight } = props.publicData
 
@@ -99,7 +100,7 @@ function Header(props: Props) {
 
       {/* 个人信息 */}
       <TouchableWithoutFeedback onPress={() => {
-        if (!isLogin) navigation.push('Login')
+        if (!isLogin) navigate('Login')
       }}>
         <View style={styles.userInfo}>
           {

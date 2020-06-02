@@ -28,6 +28,7 @@ import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
 import { updateLivingInfo } from '../../../actions/live';
 import { shortNum } from '../../../utils/numeric';
+import { useSelector } from 'react-redux';
 
 const Row = (props: {
   title: string,
@@ -115,8 +116,9 @@ const LiveTabPage = (props: {
   userId: string | number,
   anchorId: string | number
 }) =>  {
-  const {navigate} = useNavigation();
+  const {navigate, goBack} = useNavigation();
   const dispatch = useDispatch();
+  const selfAnchorId = useSelector((state: any) => state?.anchorData?.anchorInfo?.anchorId) || ''
 
   /**
    * 下拉刷新
@@ -164,12 +166,18 @@ const LiveTabPage = (props: {
   const toLiveingRoom = (item: any) => {
     dispatch(updateLivingInfo());
 
-    navigate('LivingRoomScreen', {
-      liveId: item?.liveId,
-      groupID: item?.groupId || `live${item?.liveId}`,
-      anchorId: item?.anchorId,
-      mediaType: item?.liveStatus
-    })
+    // 如果主播查看自己直播间 则返回
+
+    if (item?.anchor === selfAnchorId) {
+      goBack()
+    } else {
+      navigate('LivingRoomScreen', {
+        liveId: item?.liveId,
+        groupID: item?.groupId || `live${item?.liveId}`,
+        anchorId: item?.anchorId,
+        mediaType: item?.liveStatus
+      })
+    }
   }
 
   /**

@@ -34,7 +34,7 @@ const Avatar = (props: AvatarProps) => {
       ])}
     >
       <Image
-        source={props.source && (typeof props.source === 'string' ? {uri: props.source} : props.source) || props.defaultSource}
+        source={(props.source && props.source !== '0') && (typeof props.source === 'string' ? {uri: props.source} : props.source) || props.defaultSource}
         style={StyleSheet.flatten([
           styles.img,
           sizeStyle,

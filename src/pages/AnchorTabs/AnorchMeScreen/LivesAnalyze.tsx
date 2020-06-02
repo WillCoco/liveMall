@@ -33,6 +33,7 @@ import PagingList from '../../../components/PagingList';
 import ImagePickerBox from '../../../components/DatePicker';
 import Echart from '../../../components/Echart';
 import { isSucceed } from '../../../utils/fetchTools';
+import formatGoodsPrice from '../../../utils/formatGoodsPrice';
 
 const LiveInfoCard = (props: {
     addFavourite: number,
@@ -56,17 +57,17 @@ const LiveInfoCard = (props: {
                         <PrimaryText style={styles.headTitle}>直播时长</PrimaryText>
                     </View>
                     <View>
-                        <PrimaryText style={styles.contentTitle}>{props.addFavourite}</PrimaryText>
+                        <PrimaryText style={styles.contentTitle}>{props.likeSum}</PrimaryText>
                         <PrimaryText style={styles.headTitle}>今日点赞数</PrimaryText>
                     </View>
                     <View>
-                        <PrimaryText style={styles.contentTitle}>{props.likeSum}</PrimaryText>
+                        <PrimaryText style={styles.contentTitle}>{props.watchSum}</PrimaryText>
                         <PrimaryText style={styles.headTitle}>观众总数</PrimaryText>
                     </View>
                 </View>
                 <View style={styles.tableItem}>
                     <View>
-                        <PrimaryText style={styles.contentTitle}>{props.watchSum}</PrimaryText>
+                        <PrimaryText style={styles.contentTitle}>{props.addFavourite}</PrimaryText>
                         <PrimaryText style={styles.headTitle}>新增粉丝</PrimaryText>
                     </View>
                     <View>
@@ -74,7 +75,7 @@ const LiveInfoCard = (props: {
                         <PrimaryText style={styles.headTitle}>下单数量</PrimaryText>
                     </View>
                     <View>
-                        <PrimaryText style={styles.contentTitle}>{props.moneySum}</PrimaryText>
+                        <PrimaryText style={styles.contentTitle}>{formatGoodsPrice(props.moneySum || 0)}</PrimaryText>
                         <PrimaryText style={styles.headTitle}>成交金额</PrimaryText>
                     </View>
                 </View>

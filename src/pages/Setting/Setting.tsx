@@ -45,9 +45,11 @@ function Setting(props: any) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <Header />
-      <Form />
+    <View style={styles.style}>
+      <View>
+        <Header />
+        <Form />
+      </View>
       <TouchableOpacity style={styles.logOut} onPress={logOut}>
         <Text style={styles.logOutText}>退出登录</Text>
       </TouchableOpacity>
@@ -58,11 +60,17 @@ function Setting(props: any) {
 export default connect()(Setting)
 
 const styles = StyleSheet.create({
+  style: {
+    flex: 1,
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
   logOut: {
-    position: 'absolute',
     left: '50%',
-    bottom: pxToDp(100),
     marginLeft: pxToDp(-335),
+    marginTop: pxToDp(200),
+    marginBottom: pxToDp(100),
     width: pxToDp(670),
     height: pxToDp(80),
     justifyContent: 'center',

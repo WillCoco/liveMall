@@ -81,14 +81,16 @@ export default function SelectGoodsInfo() {
         </View>
       </ScrollView>
       <View style={styles.footerActionBar}>
-        <TouchableOpacity style={styles.footerLeft}>
+        <View style={styles.footerLeft}>
           <Ionicons
             size={20}
-            name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
-            color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
+            // name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
+            // color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
+            name={'ios-heart'}
+            color={Colors.basicColor}
           />
           <Text style={styles.likesCount}>{goodsInfo?.people_like || 0}人喜欢</Text>
-        </TouchableOpacity>
+        </View>
         <TouchableOpacity onPress={toGoodsInfo} style={styles.footerRight}>
           <Text style={styles.goodsPrice}>¥{formatSinglePrice(goodsInfo?.shop_price || 0)}去看看</Text>
         </TouchableOpacity>

@@ -15,14 +15,14 @@ import { isSucceed } from '../../utils/fetchTools';
 import { ShareType } from '../../utils/share';
 import share from '../../utils/share';
 import { useNavigation } from '@react-navigation/native';
+import { updateLivingInfo } from '../../actions/live';
+
+const POLLER_INTERVAL = 1000 * 15;
 
 const BottomBlock = (props: any) : any =>  {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
   const isLogin = useSelector((state: any) => state?.userData?.isLogin);
-
-  // 是否有数据未提交
-  const needSubmit = React.useRef(false);
 
   // 本地点击喜欢数量
   const [likeQuantity, setLikeQuantity] = React.useState(0);
@@ -34,12 +34,7 @@ const BottomBlock = (props: any) : any =>  {
 
   // 点击喜欢
   const onPressLike = () => {
-    if (!isLogin) {
-      navigate('Login');
-      return;
-    }
-
-    needSubmit.current = true;
+    // needSubmit.current = true;
     setLikeQuantity(quantity => ++quantity);
   }
 
@@ -59,7 +54,7 @@ const BottomBlock = (props: any) : any =>  {
   
   // 提交喜欢
   const submitLike = React.useCallback((quantity: number) => {
-    if (needSubmit.current && (likeQuantity > 0 || quantity > 0) && (liveId || liveIdRef.current)) {
+    if ((liveId || liveIdRef.current)) {
       // 提交、返回新值
       const params = {
         liveId: liveId || liveIdRef.current,
@@ -68,19 +63,19 @@ const BottomBlock = (props: any) : any =>  {
       apiLiveLike(params)
         .then(res => {
           if (isSucceed(res)) {
-            // setLikeQuantity(0);
+            setLikeQuantity(0);
             likeSumRef.current = 0;
+            if (res?.data) {
+              dispatch(updateLivingInfo({likeSum: res?.data}))
+            }
           }
-          // 重置
-          needSubmit.current = false;
         })
         .catch(error => {
           // 重置
-          needSubmit.current = false;
           console.log(`apiLiveLike: ${error}`)
         })
     }
-  }, [likeQuantity, needSubmit.current]);
+  }, [likeQuantity, liveId]);
   
   // 转发分享
   const onPressForward = () => {
@@ -104,7 +99,7 @@ const BottomBlock = (props: any) : any =>  {
    * 轮询器
    */
   const poller = React.useRef(new Poller({
-    interval: 1000 * 10,
+    interval: POLLER_INTERVAL,
     initExec: false,
     callback: submitLike,
   }));
@@ -119,7 +114,7 @@ const BottomBlock = (props: any) : any =>  {
 
     // 更新poller
     poller.current = new Poller({
-      interval: 1000 * 10,
+      interval: POLLER_INTERVAL,
       initExec: false,
       callback: submitLike,
     });

@@ -21,6 +21,9 @@ import { Attention } from '../../liveTypes';
 import share from '../../utils/share';
 import { ShareType } from '../../utils/share';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../constants/freeze';
+import { updateLivingInfo } from '../../actions/live';
+
+const POLLER_INTERVAL = 1000 * 15;
 
 const BottomBlock = (props: any) : any =>  {
   const dispatch = useDispatch();
@@ -57,12 +60,6 @@ const BottomBlock = (props: any) : any =>  {
     }
   }, [liveId])
 
-  // const liveIdPersist = React.useMemo(() => {
-  //   return liveId
-  // }, [])
-
-  // console.log(liveId, 333344)
-
   // 发送消息
   const sendMessage = (text: string) => {
     dispatch(sendRoomMessage({to: room?.groupID, type: MessageType.roomMessage, text}));
@@ -70,45 +67,39 @@ const BottomBlock = (props: any) : any =>  {
   
   // 喜欢
   const onPressLike = () => {
-    if (!isLogin) {
-      navigate('Login');
-      return;
-    }
-    
-    needSubmit.current = true;
     setLikeQuantity((quantity: number) => ++quantity);
   }
   
   // 提交喜欢
   const submitLike = React.useCallback((quantity: number) => {
-    if (needSubmit.current && (likeQuantity > 0 || quantity > 0) && (liveId || liveIdRef.current)) {
+    if ((liveId || liveIdRef.current)) {
       // 提交、返回新值
       const params = {
         liveId: liveId || liveIdRef.current,
-        likeNum: quantity || likeQuantity
+        likeNum: quantity || likeQuantity || 0
       }
       apiLiveLike(params)
         .then(res => {
+          console.log(res, '提交&查询喜欢')
           if (isSucceed(res)) {
-            // setLikeQuantity(0);
+            setLikeQuantity(0);
             likeSumRef.current = 0;
+            if (res?.data) {
+              dispatch(updateLivingInfo({likeSum: res?.data}))
+            }
           }
-          // 重置
-          needSubmit.current = false;
         })
         .catch(error => {
-          // 重置
-          needSubmit.current = false;
-          console.log(`apiLiveLike: ${error}`)
+          console.log(`apiLiveLike: `, error)
         })
     }
-  }, [likeQuantity, needSubmit.current, liveId]);
+  }, [likeQuantity, liveId]);
 
   /**
    * 轮询器
    */
   const poller = React.useRef(new Poller({
-    interval: 1000 * 10,
+    interval: POLLER_INTERVAL,
     initExec: false,
     callback: submitLike,
   }));
@@ -122,7 +113,7 @@ const BottomBlock = (props: any) : any =>  {
 
     // 更新poller
     poller.current = new Poller({
-      interval: 1000 * 10,
+      interval: POLLER_INTERVAL,
       initExec: false,
       callback: submitLike,
     });

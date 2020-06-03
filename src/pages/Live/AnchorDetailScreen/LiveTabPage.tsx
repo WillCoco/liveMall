@@ -137,6 +137,13 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
+      // 增加精彩回放标题
+      result?.data?.liveList?.records.some((item: any, index: number) => {
+        if(item.liveStatus === '3') {
+          result?.data?.liveList?.records.splice(index, 0, {liveStatus: '4'})
+          return true
+        }
+      })
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
@@ -157,7 +164,6 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
-      // return Promise.resolve({result: EMPTY_ARR})
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
@@ -209,15 +215,12 @@ const LiveTabPage = (props: {
   /**
    * 渲染行
    */
-  let notRecordCount = 0 // 不是回放的数量
-
   const renderRow = (item: any) => {
     let index
     index = item.index
     item = item.item
     console.log(item, '主播详情项目')
-    if (item.liveStatus == 2) {
-      notRecordCount ++
+    if (item.liveStatus === '2') {
       return (
         <Row
           key={`_${index}`}
@@ -228,8 +231,7 @@ const LiveTabPage = (props: {
           onPress={() => goLive(item)}
         />
       )
-    } else if (item.liveStatus == 1) {
-      notRecordCount ++
+    } else if (item.liveStatus === '1') {
       return <Row
         key={`item_${index}`}
         title={item?.liveTitle}
@@ -239,23 +241,7 @@ const LiveTabPage = (props: {
         showDivider
         onPress={() => toLiveingRoom(item)}
       />
-    } else if (item.liveStatus == 3) {
-      if (notRecordCount == index) {
-          (
-          <View>
-            <T4>精彩回放</T4>
-            <LiveRecord
-              img={item?.smallPic}
-              title={item?.liveTitle}
-              time={(new Date(item?.liveTime)).toLocaleString()}
-              viewTimes={shortNum(item?.watchNum) || 0}
-              goodsQuantity={item?.liveProductnum || 0}
-              key={`item_${index}`}
-              onPress={() => toLiveingRoom(item)}
-            />
-          </View>
-        )
-      } else {
+    } else if (item.liveStatus === '3') {
         return (
           <LiveRecord
             img={item?.smallPic}
@@ -267,15 +253,20 @@ const LiveTabPage = (props: {
             onPress={() => toLiveingRoom(item)}
           />
         )
+      } else if (item.liveStatus === '4') {
+        return (
+          <View>
+            <T4>精彩回放</T4>
+          </View>
+        )
       }
     }
-  }
 
 
   return (
     <View style={styles.style}>
       <PagingList
-        data={props?.liveRecords}
+        // data={props?.liveRecords}
         size={PAGE_SIZE}
         renderItem={(item: any) => renderRow(item)}
         onRefresh={onRefresh}

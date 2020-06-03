@@ -40,7 +40,7 @@ export default function Brand() {
   })
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && !brandList.length) {
       getBrandList()
     }
   }, [isFocused])

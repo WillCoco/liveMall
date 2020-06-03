@@ -45,6 +45,7 @@ const Withdraw = (props: any) =>  {
   const [showCountDown, setShowCountDown] = React.useState(false); // 是否显示获取验证码倒计时
   const accountMoney = useSelector((state: any) => state?.asset?.anchorAssetsInfo?.accountMoney) || 0; // 可提现金额
   const userTel = useSelector((state: any) => state?.userData?.userInfo?.userTel) || '' // 手机号
+  console.log(userTel)
 
   React.useEffect(() => {
     apiGetUserBankCards()
@@ -81,7 +82,7 @@ const Withdraw = (props: any) =>  {
 
     const loading = Toast.loading('', true)
 
-    apiSendVerCode({ userTel: 17681610221 }).then((res: any) => {
+    apiSendVerCode({ userTel }).then((res: any) => {
       console.log('发送验证码', res)
 
       Toast.remove(loading)

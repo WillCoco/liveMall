@@ -127,7 +127,6 @@ const LiveTabPage = (props: {
    * 下拉刷新
    */
   const onRefresh = async () => {
-
     const params = {
       anchorId: props?.anchorId,
       userId: props?.userId,
@@ -250,7 +249,7 @@ const LiveTabPage = (props: {
           />
         )
       }
-    } 
+    }
   }
 
 

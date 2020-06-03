@@ -46,5 +46,5 @@ it('重试机制-成功', async () => {
 
   const result1 = await getDataWithRetrySuc();
   
-  console.log(result1, '成功')
+  console.log(result1, '成功');
 });

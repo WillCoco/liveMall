@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@ant-design/react-native": "^3.3.0",
+    "@appandflow/masonry-list": "^0.4.0",
     "@expo/vector-icons": "^10.0.6",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/cameraroll": "1.4.0",

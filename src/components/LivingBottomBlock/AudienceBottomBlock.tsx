@@ -171,27 +171,29 @@ const BottomBlock = (props: any) : any =>  {
 
   const view: any = React.useRef();
 
-
-
   // 观众
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}
       ref={c => view.current = c}
     >
-      <LiveMsg
-        msgList={roomMessages}
-        msgAdapter={(msg: RoomMessageType): any => {
-          const {data} = msg || {};
-          const {userName, text, userId, type, isFollowed} = data || {};
-          return {
-            name: userName,
-            id: userId,
-            text,
-            type,
-            isFollowed, // todo: 和主播是否关注
-          }
-        }}
-      />
+      {
+        props.showLiveMsg ? (
+        <LiveMsg
+          msgList={roomMessages}
+          msgAdapter={(msg: RoomMessageType): any => {
+            const {data} = msg || {};
+            const {userName, text, userId, type, isFollowed} = data || {};
+            return {
+              name: userName,
+              id: userId,
+              text,
+              type,
+              isFollowed, // todo: 和主播是否关注
+            }
+          }}
+        />
+        ) : null
+      }
       <AudienceLiveToolBar
         likeQuantity={(likeQuantity + likeSum) || 0}
         goodsQuantity={0} // todo
@@ -208,6 +210,7 @@ const BottomBlock = (props: any) : any =>  {
 };
 
 BottomBlock.defaultProps = {
+  showLiveMsg: true
 };
 
 const styles = StyleSheet.create({

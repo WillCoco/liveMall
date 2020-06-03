@@ -14,6 +14,7 @@ import {NodePlayerView} from 'react-native-nodemediaclient';
 import {vw, vh} from '../../utils/metric';
 import images from '../../assets/images';
 import { isAndroid, isIOS } from '../../constants/DeviceInfo';
+import Layout from '../../constants/Layout';
 
 interface LiveWindowProps {
   inputUrl: string,
@@ -121,6 +122,8 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    // height: Layout.window.height,
+    minHeight: Layout.window.height,
   },
   scrollerWrapper: {
   },
@@ -143,10 +146,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   loadingBlock: {
     position: 'absolute',

@@ -40,7 +40,7 @@ import useKeyboard from '../../hooks/useKeyboard';
 import Modal from 'react-native-modal';
 import { PrimaryText } from 'react-native-normalization-text';
 import { isAndroid } from '../../constants/DeviceInfo';
-import window from '../../constants/Layout';
+import Layout from '../../constants/Layout';
 
 
 interface LiveWindowProps {
@@ -271,44 +271,44 @@ const LiveWindow = (props: LiveWindowProps): any => {
   }
 
   console.log(livingInfo,'smallPic');
-  const h = window.window.height;
+  const minHeight = isAndroid() ? {minHeight: Layout.window.height} : {};
 
   return (
-    <View style={StyleSheet.flatten([styles.wrapper, {minHeight: h}, props.style])}>
-        {/* <Image
-          source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-          resizeMode="cover"
-          style={styles.imgBg}
-        /> */}
-        <LivePuller
-          ref={v => {
-            if (v) {
-              player.current = v;
-            }
-          }}
-          inputUrl={pullUrl}
-          onStatus={onPlayerStatus}
-          style={styles.video}
-          cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-        />
-      {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
-        {
-          (isShow && isAndroid()) ? (
-            <LivingBottomBlock.Audience
-              textValue={textInput}
-              setTextValue={setTextInput}
-              onPressShopBag={() => shopCardAnim(true)}
-              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight + props.safeTop}])}
-            />
-          ) : null
-        }
-        <LivingBottomBlock.Audience
-          textValue={textInput}
-          setTextValue={setTextInput}
-          onPressShopBag={() => shopCardAnim(true)}
-          style={StyleSheet.flatten([styles.livingBottomBlock])}
-        />
-      {/* </KeyboardAvoidingView> */}
+    <View style={StyleSheet.flatten([styles.wrapper, minHeight, props.style])}>
+      {/* <Image
+        source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+        resizeMode="cover"
+        style={styles.imgBg}
+      /> */}
+      <LivePuller
+        ref={v => {
+          if (v) {
+            player.current = v;
+          }
+        }}
+        inputUrl={pullUrl}
+        onStatus={onPlayerStatus}
+        style={styles.video}
+        cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+        safeTop={props.safeTop}
+      />
+      {
+        (isShow && isAndroid()) ? (
+          <LivingBottomBlock.Audience
+            textValue={textInput}
+            setTextValue={setTextInput}
+            onPressShopBag={() => shopCardAnim(true)}
+            style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
+          />
+        ) : null
+      }
+      <LivingBottomBlock.Audience
+        showLiveMsg={!(isShow && isAndroid())}
+        textValue={textInput}
+        setTextValue={setTextInput}
+        onPressShopBag={() => shopCardAnim(true)}
+        style={StyleSheet.flatten([styles.livingBottomBlock])}
+      />
       {!!noticeBubbleText ? <NoticeBubble text={noticeBubbleText} /> : null}
       <LiveIntro
         showFollowButton
@@ -356,13 +356,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: pad * 1.5,
   },
-  imgBg: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-  },
+  // imgBg: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 0,
+  //   width: "100%",
+  //   height: "100%",
+  // },
   video: {
     flex: 1,
     position: 'absolute',
@@ -370,6 +370,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    minHeight: Layout.window.height
     // height: vh(100),
     // width: vw(100)
     // minHeight: vh(100),

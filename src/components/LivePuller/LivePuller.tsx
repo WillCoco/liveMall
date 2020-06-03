@@ -9,10 +9,12 @@ import {
   StyleProp,
   Image
 } from 'react-native';
-import { RtmpView } from 'react-native-rtmpview';
+import Video from 'react-native-video';
 import {PrimaryText} from 'react-native-normalization-text'
 import {vw, vh} from '../../utils/metric';
 import images from '../../assets/images';
+import { Toast } from '../Toast';
+import { isAndroid } from '../../constants/DeviceInfo';
 
 interface LiveWindowProps {
   inputUrl: string,
@@ -22,25 +24,19 @@ interface LiveWindowProps {
 }
 
 enum PlayStatus {
-  Stopped = 'Stopped',
   Playing = 'Playing',
-  Buffering = 'Buffering',
-  Paused = 'Paused',
   Error = 'Error',
-  Discontinuity = 'Discontinuity',
-  SeekingForward = 'SeekingForward',
-  SeekingBackward = 'SeekingBackward',
 }
+
 
 const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any =>  {
   /**
    * 播放器状态
    */
-  const [status, setStatus]: [number | string | undefined, any] = React.useState()
-  const onStatus = (status: number) => {
-    setStatus(status);
-    props.onStatus && props.onStatus(status);
-  }
+  // 状态
+  const [status, setStatus]: [PlayStatus | undefined, any] = React.useState();
+  
+  const [isBuffering, setIsBuffering]: [PlayStatus | undefined, any] = React.useState();
 
   /**
    * 播放器实例
@@ -49,82 +45,100 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   console.log(status, 'status');
 
   React.useEffect(() => {
-    player.current.initialize();
+    return () => {
+      try {
+        player.current.sttop();
+      } catch (err) {}
+    }
   }, [])
 
-  React.useEffect(() => {
-    // if (player.current) {
-    //   player.current.play();
-    // }
+  /**
+   * 开始
+  */
+  const onLoadStart = () => {
 
-    // return () => {
-    //   try {
-    //     player.current.stop();
-    //   } catch(err) {
-    //     console.log(err, 'err')
-    //   }
-    // }
-  }, [props.inputUrl]);
-
-  // 播放器状态
-  const onPlaybackState = (e: any, data: any) => {
-    console.log('拉流组件-状态更改:', e.nativeEvent)
-    const state = e.nativeEvent?.state;
-    // // 停止
-    if (state === PlayStatus.Stopped) {
-      setStatus(PlayStatus.Stopped)
-    } else if (state === PlayStatus.Playing) {
-      setStatus(PlayStatus.Playing)
-      player.current.play();
-    }
   }
+
+  /**
+   * 错误
+  */
+  const onVideoError = () => {
+    // setIsReady(false);
+    setStatus(PlayStatus.Error);
+  }
+
+  /**
+   * 缓冲中
+  */
+  const onBuffer = (data: any) => {
+    setIsBuffering(data?.isBuffering);
+  }
+
+  /**
+   * 准备好展示
+  */
+  const onReadyForDisplay = () => {
+    setStatus(PlayStatus.Playing);
+  }
+
+  // 视频源
+  const source = props.inputUrl ? {uri: props.inputUrl} : null;
+
+  // 显示背景图
+  const showBg = !source && status !== PlayStatus.Playing;
+  
+  // 显示加载中
+  const showLoading = !source || status !== PlayStatus.Playing;
+
+  const Loading = React.useMemo(() => {
+    if (isAndroid()) {
+      return <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText>;
+    };
+
+    return (
+      <View style={styles.loadingWrapper}>
+        <Image
+          source={images.loadingBlock}
+          resizeMode="cover"
+          style={styles.loadingBlock}
+        />
+      </View>
+    )
+  }, [])
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-        <RtmpView
-          style={{flex: 1, height: '100%', width: '100%'}}
-          ref={(r: any) => {
-            if (ref) {
-              ref(r);
-            }
-            player.current = r;
-          }}
-          shouldMute={false}
-          url={props.inputUrl}
-          // scaleMode="ScaleAspectFill" // 'ScaleToFill', 'ScaleAspectFit', 'ScaleAspectFill'
-          // bufferTime={300}
-          // maxBufferTime={1000}
-          // autoplay={true}
-          // renderType="SURFACEVIEW" //'SURFACEVIEW', 'TEXTUREVIEW'
-          // onStatus={onStatus}
-          onPlaybackState={onPlaybackState}
-          onFirstVideoFrameRendered={(data) => {
-            console.log(data.nativeEvent, 'dddddddddd')
-          }}
-          onLoadState={(data) => {
-            console.log(data.nativeEvent, 'dddddddddd111')
-          }}
-          onBitrateRecalculated={(data) => {
-            console.log(data.nativeEvent, 'dddddddddd2222')
-          }}
-        />
-        {
-          // status !== PlayStatus.Playing ? (
-          //   <View style={styles.loadingWrapper}>
-          //     <Image
-          //       source={props.cover}
-          //       resizeMode="cover"
-          //       style={styles.imgBg}
-          //     />
-          //     {/* <Image
-          //       source={images.loadingBlock}
-          //       resizeMode="cover"
-          //       style={styles.loadingBlock}
-          //     /> */}
-          //     <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText>
-          //   </View>
-          // ) : null
-        }
+      {
+        source ? (
+          <Video
+            ref={(video: any) => {
+              if (ref) {
+                ref(video);
+              }
+              player.current = video;
+            }}
+            resizeMode="cover"
+            source={source}
+            onLoadStart={onLoadStart}
+            onReadyForDisplay={onReadyForDisplay}
+            onError={onVideoError} 
+            onBuffer={onBuffer}
+            style={styles.video}
+          />
+        ) : null
+      }
+      {
+        showBg ? (
+          <Image
+            source={props.cover}
+            resizeMode="cover"
+            style={styles.imgBg}
+          />
+        ) : null
+      }
+      {
+        showLoading ? Loading : null
+      }
     </View>
   )
 })
@@ -135,14 +149,24 @@ const styles = StyleSheet.create({
     // borderWidth: 1,
     // borderColor: 'red'
   },
+  video: {
+    flex: 1,
+    // position: 'absolute',
+    // top: 0,
+    // bottom: 0,
+    // left: 0,
+    // right: 0,
+  },
   loadingWrapper: {
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
+    right: 0,
+    bottom: 0,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  loadingBlock: {
   },
   scrollerWrapper: {
   },
@@ -159,9 +183,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  loadingBlock: {
-    position: 'absolute',
-  }
 })
 
 export default LiveWindow;

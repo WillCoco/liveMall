@@ -150,7 +150,9 @@ function Logion(props: any) {
           props.dispatch(setUserInfo(res))
 
           // 如果当前用户是主播，获取主播信息
-          if (res?.userRole?.indexOf('2')) {
+          console.log(res.userRole)
+          console.log(res.userRole.indexOf('2'), '53215632163643267347');
+          if (res?.userRole?.indexOf('2') > -1) {
             const userId = res?.userId
             apiAnchorHomePage({userId})
               .then((res: any) => {
@@ -211,7 +213,7 @@ function Logion(props: any) {
           props.dispatch(setUserInfo(res))
 
           // 如果当前用户是主播，获取主播信息
-          if (res?.userRole?.indexOf('2')) {
+          if (res?.userRole?.indexOf('2') > -1) {
             const userId = res?.userId
             apiAnchorHomePage({userId})
               .then((res: any) => {

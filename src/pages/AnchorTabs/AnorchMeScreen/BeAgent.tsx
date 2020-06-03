@@ -132,11 +132,11 @@ const BeAgent = (props: any) => {
     return (
       <View style={{flexDirection: 'column'}} key={item.title}>
         <View style={styles.requireRow}>
-          <Text style={{color: Colors.brownColor, fontWeight: 'bold'}}>{item.title}</Text>
+          <Text style={{color: Colors.lightRed, fontWeight: 'bold'}}>{item.title}</Text>
           { item.needButton && <ButtonOutLine
             text='去缴费'
             style={styles.toPayButton}
-            textStyle={{color: Colors.brownColor}}
+            textStyle={{color: Colors.lightRed}}
             onPress={toPay}
           />}
         </View>
@@ -163,12 +163,12 @@ const BeAgent = (props: any) => {
           <NavBar 
             title={'成为经纪人'}
             style={styles.nav}
-            titleStyle={{color: Colors.lightBrown}}
+            titleStyle={{color: Colors.whiteColor}}
             left={
-              () => <AntDesign name="left" size={20} color={Colors.lightBrown} onPress={goBack}/>
+              () => <AntDesign name="left" size={20} color={Colors.whiteColor} onPress={goBack}/>
             }
           />
-          <Image source={images.agent} style={styles.agentTitle}/>
+          <Image source={images.agent} style={styles.agentTitle} resizeMode="stretch"/>
           <PrimaryText style={styles.agentText}>
             经纪人是指通过与平台签订劳务合同，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
           </PrimaryText>
@@ -179,7 +179,7 @@ const BeAgent = (props: any) => {
           >
             <View style={styles.serviceLeft}>
               <Image source={images.wxIcon} style={styles.wxIcon} />
-              <SmallText style={{color: Colors.brownColor}}>客服微信</SmallText>
+              <SmallText style={{color: Colors.whiteColor}}>客服微信</SmallText>
             </View>
             <View style={styles.serviceRight}>
               <SmallText style={styles.colorLightBrown}>{agentRequire?.wxCSStaff}</SmallText>
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   agentTitle: {
-    width: pxToDp(254), 
+    width: pxToDp(280), 
     height: pxToDp(44),
     marginTop: pad,
   },
@@ -283,7 +283,7 @@ const styles = StyleSheet.create({
     marginBottom: pad * 2,
     width: '80%',
     textAlign: 'center',
-    color: Colors.lightBrown,
+    color: Colors.whiteColor,
     lineHeight: 20,
   },
   service: {
@@ -319,18 +319,18 @@ const styles = StyleSheet.create({
     height: pxToDp(400),
   },
   colorLightBrown: {
-    color: Colors.lightBrown
+    color: Colors.lightRed,
   },
   // 经纪人等级Tab
   tabItem: {
-    height: pxToDp(96), 
+    height: pxToDp(98), 
     flexDirection: 'column', 
     justifyContent: 'center', 
   },
   tabText: {
     height: '100%',
     lineHeight: pxToDp(100),
-    color: Colors.lightBrown,
+    color: Colors.whiteColor,
   },
   activeTabText: {
     fontWeight: 'bold',
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
   tabUnderLine: {
     width: pxToDp(70),  
     height: pxToDp(4),
-    backgroundColor: Colors.lightBrown, 
+    backgroundColor: Colors.whiteColor, 
     marginLeft: pxToDp(30),
     borderRadius: pxToDp(4),
   },
@@ -359,8 +359,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginLeft: 20,
     fontSize: 10,
-    borderColor: Colors.brownColor,
-    color: Colors.brownColor
+    borderColor: Colors.lightRed,
+    color: Colors.lightRed
   },
   // 进度条
   progressBottom: {
@@ -370,13 +370,13 @@ const styles = StyleSheet.create({
   },
   progressUp: {
     height: 4, 
-    backgroundColor: Colors.brownColor, 
+    backgroundColor: Colors.lightRed, 
   },
   beAgentTip: {
     position: 'absolute',
     bottom: pad,
     right: pad,
-    color: Colors.brownColor,
+    color: Colors.darkBlack,
   },
   checkLine: {
     flexDirection: 'row',

@@ -8,6 +8,9 @@ const HOST_JAVA = 'https://app.quanpinlive.com'
 // const HOST_JAVA = 'http://212.129.140.50:2333'
 // const HOST_JAVA = 'http://192.168.8.117:2333'
 
+export const wxUserName = 'gh_fc399d40a762'  // 测试
+// export const wxUserName = ''  // 正式
+
 // 212.129.140.50:2333
 
 // const HOST_PHP = __DEV__ ? 'https://mobile.quanpinlive.com' : 'https://mobile.yunshanbo.cn'

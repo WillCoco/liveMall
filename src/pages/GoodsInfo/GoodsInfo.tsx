@@ -462,7 +462,7 @@ function GoodsInfo(props: Props) {
         {/* 分享弹窗 */}
         <ActionSheet isShow={showShareBar}>
           <ShareBar
-            goodsId={goodsId}
+            goodsInfo={goodsInfo}
             userId={props.userInfo.userId}
             hideShareBar={() => setShowShareBar(false)}
             setPosterPath={(img: string, type: number) => showPoster(img, type)}

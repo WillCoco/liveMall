@@ -4,8 +4,8 @@ import { useNavigation } from '@react-navigation/native'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import formatSinglePrice from '../../../utils/formatGoodsPrice'
-import isIphoneX from '../../../utils/isIphoneX'
 import { Toast } from '../../../components/Toast'
+import { isNotchScreen } from '../../../constants/DeviceInfo'
 const starIcon = require('../../../assets/goods-image/icon_star.png')
 const unstarIcon = require('../../../assets/goods-image/icon_unstar.png')
 
@@ -67,7 +67,7 @@ export default function FooterBar(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: pxToDp(isIphoneX() ? 128 : 100),
+    height: pxToDp(isNotchScreen() ? 128 : 100),
     backgroundColor: Colors.whiteColor,
     flexDirection: 'row',
     alignItems: 'center'
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1 / PixelRatio.get(),
     borderRightColor: Colors.borderColor,
     height: '100%',
-    paddingBottom: isIphoneX() ? pxToDp(28) : 0
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0
   },
   icon: {
     width: pxToDp(38),
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   addCart: {
     backgroundColor: Colors.blackColor,
     height: '100%',
-    paddingBottom: isIphoneX() ? pxToDp(28) : 0,
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     justifyContent: 'center',
     alignItems: 'center',
     width: pxToDp(190)
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   buyBtn: {
     flex: 1,
     backgroundColor: Colors.basicColor,
-    paddingBottom: isIphoneX() ? pxToDp(28) : 0,
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center'

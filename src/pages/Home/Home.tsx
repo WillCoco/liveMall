@@ -8,6 +8,7 @@ import {
   PixelRatio,
   RefreshControl,
   ImageBackground,
+  TouchableOpacity,
   TouchableWithoutFeedback
 } from 'react-native'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -359,14 +360,14 @@ function Home(props: HomeProps) {
                               <Image source={require('../../assets/home-image/seckill_text.png')} style={styles.seckillTextImg} resizeMode='contain' />
                               <SeckillCountDown />
                             </View>
-                            <View style={styles.seckillSubTitle}>
-                              <Text style={styles.seckillSubTitleText} onPress={toSeckillPage}>更多</Text>
+                            <TouchableOpacity style={styles.seckillSubTitle} onPress={toSeckillPage}>
+                              <Text style={styles.seckillSubTitleText}>更多</Text>
                               <Ionicons
                                 size={20}
                                 name='ios-arrow-forward'
                                 color={Colors.whiteColor}
                               />
-                            </View>
+                            </TouchableOpacity>
                           </ImageBackground>
                           <View style={styles.countDonwList}>
                             {

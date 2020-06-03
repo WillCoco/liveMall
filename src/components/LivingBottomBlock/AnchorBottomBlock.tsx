@@ -44,6 +44,10 @@ const LivingRoomScreen = (props: any) : any =>  {
     console.log(info, 'sdkadjalkas')
 
     // 未禁言中
+    if (!info || !info.muteUntil) {
+      return false;
+    }
+
     if (info && (info.muteUntil * 1000 <= Date.now())) {
       return false;
     }
@@ -93,7 +97,7 @@ const LivingRoomScreen = (props: any) : any =>  {
           // 查询是否禁言
           const isSilent = await getUserSilent(userId);
 
-          const title = isSilent ? '是否取消禁言' : '是否禁言'
+          const title = isSilent ? '是否取消禁言' : '是否禁言';
 
           maskDispatch({
             type: Mask.Actions.PUSH,

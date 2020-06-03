@@ -12,6 +12,8 @@ import {
 import {PrimaryText} from 'react-native-normalization-text'
 import {NodePlayerView} from 'react-native-nodemediaclient';
 import {vw, vh} from '../../utils/metric';
+import images from '../../assets/images';
+import { isAndroid, isIOS } from '../../constants/DeviceInfo';
 
 interface LiveWindowProps {
   inputUrl: string,
@@ -23,11 +25,18 @@ interface LiveWindowProps {
 const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any =>  {
   /**
    * 播放器状态
+   * ios没有
    */
-  const [status, setStatus]: [number | undefined, any] = React.useState()
+  const [status, setStatus]: [number | undefined, any] = React.useState();
+  const [showLoading, setShowLoading]: any = React.useState(true);
+
   const onStatus = (status: number) => {
     setStatus(status);
     props.onStatus && props.onStatus(status);
+    // android
+    if (isAndroid()) {
+      setShowLoading(!status || status < 1100);
+    }
   }
 
   /**
@@ -35,6 +44,21 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
    */
   const player: {current: any} = React.useRef();
   console.log(status, 'status')
+
+  // ios延迟
+  React.useEffect(() => {
+    if (!isIOS()) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowLoading(false);
+    }, 2000)
+    
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [])
 
   React.useEffect(() => {
     return () => {
@@ -45,8 +69,6 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
       }
     }
   }, [])
-
-  const showLoading = !status || status < 1100; 
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
@@ -67,15 +89,31 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
           onStatus={onStatus}
         />
         {
-          (showLoading && props.cover) ? (
-            <Image
-              source={props.cover}
-              resizeMode="cover"
-              style={styles.imgBg}
-            />
-          ) : null
+          showLoading ? (
+            <View style={styles.loadingWrapper}>
+              {
+                props.cover ? (
+                  <Image
+                    source={props.cover}
+                    resizeMode="cover"
+                    style={styles.imgBg}
+                  />
+                ) : null
+              }
+              {
+                isAndroid() ? (
+                  <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText>
+                ) : (
+                  <Image
+                    source={images.loadingBlock}
+                    resizeMode="cover"
+                    style={styles.loadingBlock}
+                  />
+                )
+              }
+            </View>
+          ): null
         }
-      {showLoading && <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText>}
     </View>
   )
 })
@@ -101,6 +139,18 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  loadingWrapper: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loadingBlock: {
+    position: 'absolute',
+  }
 })
 
 export default LiveWindow;

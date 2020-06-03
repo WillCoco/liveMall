@@ -35,6 +35,9 @@ target 'championApp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
+  pod 'pili-react-native', :path => '../node_modules/pili-streaming-react-native/ios/pili-react-native'
+  pod "PLPlayerKit", :podspec => 'https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec'
+
   target 'championAppTests' do
     inherit! :search_paths
     # Pods for testing
@@ -53,7 +56,5 @@ target 'championApp-tvOS' do
   end
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
-  pod 'pili-react-native', :path => '../node_modules/pili-streaming-react-native/ios/pili-react-native'
-  pod "PLPlayerKit", :podspec => 'https://raw.githubusercontent.com/pili-engineering/PLPlayerKit/master/PLPlayerKit-Universal.podspec'
 
 end

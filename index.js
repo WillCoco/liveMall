@@ -4,7 +4,7 @@ import * as WeChat from 'react-native-wechat-lib'
 // console.log(registerRootComponent, 'registerRootComponent')
 import { CommonActions } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
-import { getNavigation } from './src/navigation/RootNavgation'
+import { getNavigation } from './src/navigation/RootNavgation';
 
 // 导航颜色丢失
 enableScreens();

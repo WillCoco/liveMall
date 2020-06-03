@@ -129,7 +129,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
       goBack();
       return
     }
-    console.log(groupID, 'groupID1111')
+    // console.log(groupID, 'groupID1111')
 
     dispatch(quitGroup(groupID)); // 退im群
 
@@ -271,7 +271,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
   }
 
   console.log(livingInfo,'smallPic');
-  const h = window.window.height + props.safeTop;
+  const h = window.window.height;
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, {minHeight: h}, props.style])}>
@@ -336,8 +336,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    minHeight: vh(100),
-    minWidth: vw(100),
+    // minHeight: vh(100),
+    // minWidth: vw(100),
   },
   livingBottomBlock: {
     flex: 1,

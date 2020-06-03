@@ -7,6 +7,7 @@ import Stepper from '../../../components/Stepper/Stepper'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import formatSinglePrice from '../../../utils/formatGoodsPrice'
+import { isIphone11, isNotchScreen } from '../../../constants/DeviceInfo'
 
 interface Props {
   curSku: string;
@@ -100,8 +101,8 @@ export default function GoodsSKu(props: Props) {
 
 const styles = StyleSheet.create({
   addToCart: {
-    height: Platform.OS === 'ios' ? pxToDp(128) : pxToDp(98),
-    paddingBottom: Platform.OS === 'ios' ? pxToDp(28) : 0,
+    height: isNotchScreen() ? pxToDp(128) : pxToDp(98),
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     backgroundColor: Colors.basicColor,
     justifyContent: 'center',
     alignItems: 'center'

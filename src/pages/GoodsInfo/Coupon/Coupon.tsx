@@ -6,6 +6,7 @@ import formatSinglePrice from '../../../utils/formatGoodsPrice'
 import moment from 'moment'
 
 import { apiGetCoupon } from '../../../service/api'
+import { isNotchScreen } from '../../../constants/DeviceInfo'
 
 const couponHasBgi = require('../../../assets/goods-image/coupon_has.png')
 const couponNotHaveBgi = require('../../../assets/goods-image/coupon_not_have.png')
@@ -90,8 +91,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteColor
   },
   closeBtn: {
-    height: Platform.OS === 'ios' ? pxToDp(128) : pxToDp(98),
-    paddingBottom: Platform.OS === 'ios' ? pxToDp(28) : 0,
+    height: isNotchScreen() ? pxToDp(128) : pxToDp(98),
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     backgroundColor: Colors.basicColor,
     justifyContent: 'center',
     alignItems: 'center'

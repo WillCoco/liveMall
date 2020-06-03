@@ -24,6 +24,11 @@
     react-native-swipeout "^2.3.6"
     utility-types "^2.1.0"
 
+"@appandflow/masonry-list@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@appandflow/masonry-list/-/masonry-list-0.4.0.tgz#26a723dd26a4ce9e1fef05bed0969b5b18d3f1a6"
+  integrity sha1-Jqcj3Sakzp4f7wW+0JabWxjT8aY=
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.0.0-beta.44", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.npm.taobao.org/@babel/code-frame/download/@babel/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
@@ -5280,7 +5285,11 @@ pify@^4.0.1:
 "pili-streaming-react-native@file:./pili-streaming-react-native":
   version "2.0.0"
   dependencies:
+<<<<<<< HEAD
+    pili-streaming-react-native "file:../../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-346ab655-3c6a-42f8-af3b-685f90a2635c-1591168840742/node_modules/pili-streaming-react-native"
+=======
     pili-streaming-react-native "file:../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-14906648-ae0d-438c-860f-0b04df525891-1591158939350/node_modules/pili-streaming-react-native"
+>>>>>>> 3ff97ce34ab8b736e142b8ae896dbb2419a4f206
 
 pinkie-promise@^2.0.0:
   version "2.0.1"

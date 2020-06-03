@@ -23,11 +23,12 @@ export default function WorkCard(props: { workInfo: any }) {
   return (
     <View style={{
       width: workInfo.width,
-      height: workInfo.height,
-      position: 'absolute',
-      top: workInfo.top,
-      left: workInfo.left,
-      overflow: 'hidden'
+      marginBottom: pxToDp(10)
+      // height: workInfo.height,
+      // position: 'absolute',
+      // top: workInfo.top,
+      // left: workInfo.left,
+      // overflow: 'hidden'
     }}>
       <TouchableWithoutFeedback onPress={toFoundInfo}>
         <ImageBackground

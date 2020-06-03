@@ -4,11 +4,11 @@ import { get1, post1, get2, post2, liveUpload, uploadWorkMedia } from './fetch/i
 import { UpdateParams } from './fetch/fetchOrigin';
 
 // 测试
-// const HOST_PHP = 'https://mobile.quanpinlive.com'
-// const HOST_JAVA = 'https://app.quanpinlive.com'
+const HOST_PHP = 'https://mobile.quanpinlive.com'
+const HOST_JAVA = 'https://app.quanpinlive.com'
 // 正式
-const HOST_PHP = 'https://mobile.yunshanbo.cn'
-const HOST_JAVA = 'https://app.yunshanbo.cn'
+// const HOST_PHP = 'https://mobile.yunshanbo.cn'
+// const HOST_JAVA = 'https://app.yunshanbo.cn'
 
 // const HOST_JAVA = 'http://212.129.140.50:2333'
 // const HOST_JAVA = 'http://192.168.8.117:2333'

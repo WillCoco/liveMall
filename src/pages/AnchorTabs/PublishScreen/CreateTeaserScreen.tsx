@@ -138,6 +138,7 @@ const CreateTraserScreen = (props: {
       return false;
     }
 
+    console.log(video.duration, 'video.duration')
     if (video.duration && video.duration > 20 * 1000) {
       Toast.show('所选视频太长');
       return false;

@@ -42,7 +42,6 @@ import { PrimaryText } from 'react-native-normalization-text';
 import { isAndroid } from '../../constants/DeviceInfo';
 import Layout from '../../constants/Layout';
 
-
 interface LiveWindowProps {
   style?: StyleProp<any>;
   liveData?: any;
@@ -94,15 +93,15 @@ const LiveWindow = (props: LiveWindowProps): any => {
   /**
    * 播放器状态
    */
-  const [playerStatus, setPlayerStatus]: [
-    undefined | boolean,
-    any
-  ] = React.useState(undefined);
+  // const [playerStatus, setPlayerStatus]: [
+  //   undefined | boolean,
+  //   any
+  // ] = React.useState(undefined);
 
-  const onPlayerStatus = (status: number | string) => {
-    console.log(status, "status");
-    setPlayerStatus(status);
-  };
+  // const onPlayerStatus = (status: number | string) => {
+  //   console.log(status, "status");
+  //   setPlayerStatus(status);
+  // };
 
   /**
    * im加群状态
@@ -287,7 +286,7 @@ const LiveWindow = (props: LiveWindowProps): any => {
           }
         }}
         inputUrl={pullUrl}
-        onStatus={onPlayerStatus}
+        // onStatus={onPlayerStatus}
         style={styles.video}
         cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
         safeTop={props.safeTop}

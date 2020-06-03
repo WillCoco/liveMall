@@ -8,12 +8,10 @@ import moment from 'moment'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 import formatSinglePrice from '../../utils/formatGoodsPrice'
-import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 
 export default function Coupon() {
   const navigation: any = useNavigation()
 
-  const [netWorkErr, setNetWorkErr] = useState(false)
   const [couponList, setCouponList]: Array<any> = useState([])
 
   navigation.setOptions({
@@ -33,20 +31,17 @@ export default function Coupon() {
 
   const getCouponList = () => {
     apiGetCouponList().then((res: Array<any>) => {
-      setNetWorkErr(false)
       console.log('已领取的优惠券', res)
       setCouponList(res)
     }).catch((err: any) => {
       console.log('已领取的优惠券', err)
-      setNetWorkErr(true)
+      // setNetWorkErr(true)
     })
   }
 
   const toUseCoupon = () => {
     navigation.navigate('首页')
   }
-
-  if (netWorkErr) return <NetWorkErr reload={getCouponList} />
 
   if (!couponList.length) {
     return (

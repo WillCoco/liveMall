@@ -55,7 +55,7 @@ function ShareBar(props: Props) {
         title: goodsInfo.goods_name,
         webpageUrl: 'https://www.quanpinlive.com',
         thumbImageUrl: goodsInfo.goods_images_list[0].image_url,
-        path: `pages/goods-info/index?${inviteCode}&${goodsId}&${userId}`
+        path: `pages/goods-info/index?invicode=${inviteCode}&id={goodsId}&shareUserId=${userId}`
       }).then(res => {
         console.log(res)
       }).catch(err => {

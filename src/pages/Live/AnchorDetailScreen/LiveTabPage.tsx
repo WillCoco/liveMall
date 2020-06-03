@@ -137,6 +137,13 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
+      // 增加精彩回放标题
+      result?.data?.liveList?.records.some((item: any, index: number) => {
+        if(item.liveStatus === '3') {
+          result?.data?.liveList?.records.splice(index, 0, {liveStatus: '4'})
+          return true
+        }
+      })
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
@@ -157,16 +164,17 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
-      return Promise.resolve({result: EMPTY_ARR})
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
     return Promise.resolve({result: EMPTY_ARR})
   };
 
-  const toLiveingRoom = (item: any) => {
+  /**
+   * 点击直播中
+   */
+  const goLive = (item: any) => {
     const lastRouteName = routes[routes.length - 2].name;
-
     if (item?.anchorId === selfAnchorId) {
       // 如果主播查看自己直播间 则返回
       goBack();
@@ -189,16 +197,30 @@ const LiveTabPage = (props: {
   }
 
   /**
+   * 点击预告和回放
+   */
+  const toLiveingRoom = (item: any) => {
+    const lastRouteName = routes[routes.length - 2].name;
+
+    // 从其他详情页面
+    dispatch(clearLiveRoom());
+    navigate('LivingRoomScreen', {
+      liveId: item?.liveId,
+      groupID: item?.groupId || `live${item?.liveId}`,
+      anchorId: item?.anchorId,
+      mediaType: item?.liveStatus
+    })
+  }
+
+  /**
    * 渲染行
    */
-  let notRecordCount = 0 // 不是回放的数量
-
   const renderRow = (item: any) => {
     let index
     index = item.index
     item = item.item
-    if (item.liveStatus == 2) {
-      notRecordCount ++
+    console.log(item, '主播详情项目')
+    if (item.liveStatus === '2') {
       return (
         <Row
           key={`_${index}`}
@@ -206,11 +228,10 @@ const LiveTabPage = (props: {
           typeText="直播中"
           subText={shortNum(item.watchNum) + '观看'}
           showDivider
-          onPress={() => toLiveingRoom(item)}
+          onPress={() => goLive(item)}
         />
       )
-    } else if (item.liveStatus == 1) {
-      notRecordCount ++
+    } else if (item.liveStatus === '1') {
       return <Row
         key={`item_${index}`}
         title={item?.liveTitle}
@@ -220,23 +241,7 @@ const LiveTabPage = (props: {
         showDivider
         onPress={() => toLiveingRoom(item)}
       />
-    } else if (item.liveStatus == 3) {
-      if (notRecordCount == index) {
-        return (
-          <View>
-            <T4>精彩回放</T4>
-            <LiveRecord
-              img={item?.smallPic}
-              title={item?.liveTitle}
-              time={(new Date(item?.liveTime)).toLocaleString()}
-              viewTimes={shortNum(item?.watchNum) || 0}
-              goodsQuantity={item?.liveProductnum || 0}
-              key={`item_${index}`}
-              onPress={() => toLiveingRoom(item)}
-            />
-          </View>
-        )
-      } else {
+    } else if (item.liveStatus === '3') {
         return (
           <LiveRecord
             img={item?.smallPic}
@@ -248,15 +253,20 @@ const LiveTabPage = (props: {
             onPress={() => toLiveingRoom(item)}
           />
         )
+      } else if (item.liveStatus === '4') {
+        return (
+          <View>
+            <T4>精彩回放</T4>
+          </View>
+        )
       }
     }
-  }
 
 
   return (
     <View style={styles.style}>
       <PagingList
-        data={props?.liveRecords}
+        // data={props?.liveRecords}
         size={PAGE_SIZE}
         renderItem={(item: any) => renderRow(item)}
         onRefresh={onRefresh}

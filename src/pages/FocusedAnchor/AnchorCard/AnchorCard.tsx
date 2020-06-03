@@ -12,8 +12,6 @@ export default function AnchorCard(props: any) {
    * 直播状态
    */
 
-  console.log(props, 3142532153125346);
-
   const {item} = props
 
   let text;

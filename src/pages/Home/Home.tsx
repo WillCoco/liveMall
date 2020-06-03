@@ -94,7 +94,7 @@ function Home(props: HomeProps) {
       setNetWorkErr(false)
       console.log('首页初始化数据', res)
       const selectedGoodsInfo = {
-        subTitle: res.jxhtSubCategory.name,
+        subTitle: res.jxhtSubCategory?.name || '',
         goodsList: res.jxht
       }
 
@@ -212,20 +212,6 @@ function Home(props: HomeProps) {
   }
 
   /**
-   * 前往商品详情
-   */
-  const toGoodsInfo = (id: number) => {
-    navigation.navigate('GoodsInfo', { id })
-  }
-
-  /**
-   * 前往活动页面
-   */
-  const toActivityWebView = (url: string) => {
-    navigation.navigate('ActivityWebView', { url })
-  }
-
-  /**
    * 前往精选好物详情
    */
   const toSelectedGoodsInfo = (id: number) => {
@@ -235,10 +221,10 @@ function Home(props: HomeProps) {
   /**
    * 网络错误 重新加载
    */
-  const reload = () => {
-    initData()
-    getRecommendGoodsList(false)
-  }
+  // const reload = () => {
+  //   initData()
+  //   getRecommendGoodsList(false)
+  // }
 
   // if (netWorkErr) return <NetWorkErr reload={reload} />
 
@@ -325,7 +311,6 @@ function Home(props: HomeProps) {
                         <HomeSwiper
                           swiperList={swiperList}
                           swiperStyle={styles.swiper}
-                          tapSwiper={(id: number) => toGoodsInfo(id)}
                         />
                       </ImageBackground>
                       {/* 导航栏 */}
@@ -336,7 +321,6 @@ function Home(props: HomeProps) {
                           showDots={false}
                           swiperList={activityList}
                           swiperStyle={styles.activity}
-                          tapSwiper={(url: string) => toActivityWebView(url)}
                         />
                       </View>
                       {/* 精选话题 */}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 import Swiper from 'react-native-swiper'
 
 import { Colors } from '../../../constants/Theme'
@@ -14,20 +15,25 @@ interface Props {
 
 function HomeSwiper(props: Props) {
   const { swiperList } = props
+  const navigation = useNavigation()
 
   const tapSwiper = (item: any) => {
-    if (item.goods_id) {
-      props.tapSwiper(item.goods_id)
+    if (item.ctype === 2) {
+      navigation.navigate('GoodsInfo', { id: ~~item.extend })
+    } if (item.ctype === 7) {
+      // navigation.navigate('LiveRoomScreen', { liveId: ~~item.extend })
+    } if (item.ctype === 9) {
+      navigation.navigate('ActivityWebView', { url: item.extend })
     } else {
-      props.tapSwiper(item.activity_url)
+      navigation.navigate('ActivityWebView', { url: item.activity_url })
     }
   }
 
   return (
     <Swiper
+      autoplay
       style={props.swiperStyle}
       activeDotColor={Colors.whiteColor}
-      autoplay
     >
       {
         swiperList && swiperList.map((item: { original_img: any }, index: any) => {

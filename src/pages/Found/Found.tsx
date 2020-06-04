@@ -64,7 +64,7 @@ function Found(props: { isLogin: boolean }) {
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
       setLoading(false)
-      
+
       if (!res.worksInfoList) {
         setEmpty(true)
         return
@@ -106,8 +106,6 @@ function Found(props: { isLogin: boolean }) {
     }
   }
 
-  if (empty) return <LoadMore hasMore={false} />
-
   return (
     <>
       <ScrollView
@@ -137,7 +135,7 @@ function Found(props: { isLogin: boolean }) {
           getHeightForItem={({ item }) => item.height}
         />
 
-        <LoadMore hasMore={hasMoreRef.current} />
+        <LoadMore hasMore={empty ? false : hasMoreRef.current} />
       </ScrollView>
 
       <View style={styles.addContainer}>

@@ -64,14 +64,19 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
             />
             <SmallText color="white">美颜</SmallText>
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.onPressBubble} style={styles.cell}>
-          <Image
-            source={images.editBubbleIcon}
-            style={styles.img}
-            resizeMode="contain"
-          />
-          <SmallText color="white">气泡</SmallText>
-        </TouchableOpacity>
+        {
+          props.showLogin ? (
+            <TouchableOpacity onPress={props.onPressBubble} style={styles.cell}>
+              <Image
+                source={images.editBubbleIcon}
+                style={styles.img}
+                resizeMode="contain"
+              />
+              <SmallText color="white">气泡</SmallText>
+            </TouchableOpacity>
+          ) : null
+        }
+        
         <TouchableOpacity onPress={props.onPressShare} style={styles.cell}>
           <Image
             source={images.anchorShareIcon}

@@ -29,6 +29,14 @@ interface LivePusherProps {
   resume: boolean
 }
 
+enum VideoFps {
+  NORMAL = 'NORMAL',
+  LOW = 'LOW',
+  STOPED = 'STOPED',
+}
+
+const VIDEO_LOW_FPS_THRESHOLD = 15; // 临界
+
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
 
@@ -70,13 +78,18 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
    * 播放器状态
    */
   const [status, setStatus]: [number | undefined, any] = React.useState();
+  
+  /**
+   * 视频传输状态
+   */
+  const [videoFps, setVideoFps]: [VideoFps | undefined, any] = React.useState();
 
   /**
    * 加载推流的条件
    */
   const showPusher = !!(isPermissionGranted && pushUrl && !props.resume);
 
-  const showLoading = status !== 2 && !props.resume;
+  const showLoading = status !== 2 && status !== 4 && !props.resume;
 
   console.log(isPermissionGranted, 'b01_isPermissionGranted');
   console.log(pusherConfig, 'b01_pusherConfig');
@@ -91,7 +104,23 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   };
 
   const onStreamInfoChange = (v: any) => {
-    console.log(v, 'onStreamInfoChange');
+    let videoStatus;
+    if (v.videoFPS >= VIDEO_LOW_FPS_THRESHOLD) {
+      // 视频fps正常
+      videoStatus = VideoFps.NORMAL;
+    } else if (v.videoFPS === 0) {
+      // 视频fps为0
+      videoStatus = VideoFps.STOPED;
+    } else if (v.videoFPS < VIDEO_LOW_FPS_THRESHOLD) {
+      // 视频fps偏低
+      videoStatus = VideoFps.LOW;
+    }
+
+    console.log(videoStatus, 'videoStatus', status)
+    if (videoStatus !== VideoFps.NORMAL) {
+      setVideoFps(videoStatus);
+    }
+
   };
 
   return (

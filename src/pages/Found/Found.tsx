@@ -43,10 +43,10 @@ function Found(props: { isLogin: boolean }) {
   const [workList, setWorkList]: Array<any> = useState([])
 
   useEffect(() => {
-    getFoundList(false)
-  }, [])
+    if (isFocused && !workList.length) {
+      getFoundList(false)
+    }
 
-  useEffect(() => {
     if (!isFocused) setShowMask(false)
   }, [isFocused])
 

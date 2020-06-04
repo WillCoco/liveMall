@@ -7,7 +7,6 @@ import { Colors } from '../../constants/Theme'
 let timer: any
 
 export default function SeckillCountDown() {
-  const route = useRoute()
   const isStart = useRef(false)
   const isFocused = useIsFocused()
   const [countDownInfo, setCountDownInfo] = useState({
@@ -25,11 +24,11 @@ export default function SeckillCountDown() {
   }, [])
 
   useEffect(() => {
-    isFocused && setCountDown()
+    isFocused ? setCountDown() : clearTimer()
   }, [isFocused])
 
   const handleAppStateChange = (nextAppState: any) => {
-    if (nextAppState === 'active' && !isStart.current) {
+    if (nextAppState === 'active') {
       setCountDown()
     } else if (nextAppState === 'background') {
       clearTimer()
@@ -93,6 +92,11 @@ export default function SeckillCountDown() {
   const clearTimer = () => {
     clearInterval(timer)
     isStart.current = false
+    setCountDownInfo({
+      hours: 0,
+      min: 0,
+      sec: 0
+    })
   }
 
   return (

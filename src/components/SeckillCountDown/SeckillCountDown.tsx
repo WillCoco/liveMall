@@ -32,7 +32,14 @@ export default function SeckillCountDown() {
     if (nextAppState === 'active' && !isStart.current) {
       setCountDown()
     } else if (nextAppState === 'background') {
-      clearTimer()
+      clearInterval(timer)
+      isStart.current = false
+      setCountDownInfo({
+        hours: 0,
+        min: 0,
+        sec: 0
+      })
+      // clearTimer()
     }
   }
 

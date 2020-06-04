@@ -15,6 +15,8 @@ import {vw, vh} from '../../utils/metric';
 import images from '../../assets/images';
 import { Toast } from '../Toast';
 import { isAndroid } from '../../constants/DeviceInfo';
+import { Colors } from '../../constants/Theme';
+import { pad, radio } from '../../constants/Layout';
 
 interface LiveWindowProps {
   inputUrl: string,
@@ -64,6 +66,7 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   */
   const onVideoError = () => {
     // setIsReady(false);
+    console.log('onVideoError')
     setStatus(PlayStatus.Error);
   }
 
@@ -71,6 +74,7 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
    * 缓冲中
   */
   const onBuffer = (data: any) => {
+    console.log('onBuffer')
     setIsBuffering(data?.isBuffering);
   }
 
@@ -87,23 +91,39 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   // 显示背景图
   const showBg = !source && status !== PlayStatus.Playing;
   
+  // 显示错误
+  const showError = status === PlayStatus.Error;
+
   // 显示加载中
-  const showLoading = !source || status !== PlayStatus.Playing;
+  const showLoading = 
+    !showError && 
+    (!source || status !== PlayStatus.Playing);
 
   const Loading = React.useMemo(() => {
     if (isAndroid()) {
-      return <PrimaryText color="white" style={styles.loading}>连接中</PrimaryText>;
+      return (
+        <View style={styles.textWrapper}>
+          <PrimaryText color="white">连接中</PrimaryText>
+        </View>
+      );
     };
 
     return (
-      <View style={styles.loadingWrapper}>
-        <Image
-          source={images.loadingBlock}
-          resizeMode="cover"
-          style={styles.loadingBlock}
-        />
-      </View>
+      <Image
+        source={images.loadingBlock}
+        resizeMode="cover"
+        style={styles.loadingBlock}
+      />
     )
+  }, [])
+
+  const ERROR = React.useMemo(() => {
+    return (
+      <View style={styles.textWrapper}>
+        <PrimaryText color="white">连接失败</PrimaryText>
+        <PrimaryText color="white">请稍后再试</PrimaryText>
+      </View>
+    );
   }, [])
 
   return (
@@ -123,22 +143,25 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
             onReadyForDisplay={onReadyForDisplay}
             onError={onVideoError} 
             onBuffer={onBuffer}
+            // onProgress={v => console.log(v, 'onProgress')}
+            // onSeek={v => console.log(v, 'onSeek')}
             style={styles.video}
           />
         ) : null
       }
-      {
-        showBg ? (
-          <Image
-            source={props.cover}
-            resizeMode="cover"
-            style={styles.imgBg}
-          />
-        ) : null
-      }
-      {
-        showLoading ? Loading : null
-      }
+      <View style={styles.loadingWrapper}>
+        {
+          showBg ? (
+            <Image
+              source={props.cover}
+              resizeMode="cover"
+              style={styles.imgBg}
+            />
+          ) : null
+        }
+        {showLoading ? Loading : null}
+        {showError ? ERROR : null}
+      </View>
     </View>
   )
 })
@@ -146,16 +169,14 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    // borderWidth: 1,
-    // borderColor: 'red'
   },
   video: {
     flex: 1,
-    // position: 'absolute',
-    // top: 0,
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   loadingWrapper: {
     position: "absolute",
@@ -183,6 +204,12 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  textWrapper: {
+    alignItems: 'center',
+    backgroundColor: Colors.opacityDarkBg1,
+    padding: pad,
+    borderRadius: radio,
+  }
 })
 
 export default LiveWindow;

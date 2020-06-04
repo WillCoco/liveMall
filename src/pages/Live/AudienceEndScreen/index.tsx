@@ -31,15 +31,17 @@ const LivingEnd = (props: any) : any =>  {
   const livingInfo = useSelector((state: any) => state?.live?.livingInfo || EMPTY_OBJ);
 
   React.useEffect(() => {
-    // 清除该场直播数据
-    dispatch(clearLiveRoom('AUDIENCE'));
-
     // 清除结束状态
     dispatch(updateLivingStatus());
+
+    return () => {
+      // 清除该场直播数据
+      dispatch(clearLiveRoom('AUDIENCE'));
+    }
   }, [])
 
   const livingBg = livingInfo.smallPic ? {uri: livingInfo.smallPic} : defaultImages.livingBg
-  console.log(livingBg, 'livingInfo')
+  console.log(livingBg, '观看结束')
   return (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
       <Image

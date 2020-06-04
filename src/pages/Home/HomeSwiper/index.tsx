@@ -20,9 +20,9 @@ function HomeSwiper(props: Props) {
   const tapSwiper = (item: any) => {
     if (item.ctype === 2) {
       navigation.navigate('GoodsInfo', { id: ~~item.extend })
-    } if (item.ctype === 7) {
+    } else if (item.ctype === 7) {
       navigation.navigate('LivingRoomScreen', { liveId: ~~item.extend })
-    } if (item.ctype === 9) {
+    } else if (item.ctype === 9) {
       navigation.navigate('ActivityWebView', { url: item.extend })
     } else {
       navigation.navigate('ActivityWebView', { url: item.activity_url })

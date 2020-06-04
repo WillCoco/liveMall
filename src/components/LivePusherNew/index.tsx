@@ -94,13 +94,12 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
   const showLoading = status !== 2 && status !== 4 && !props.resume;
 
-  // 低传输率提示
-  const showLowFPS = VideoFps.LOW === videoFps;
-  
   // 中断提示
   const showStoped = status === 4 && !!videoFps;
 
-
+  // 低传输率提示
+  const showLowFPS = VideoFps.LOW === videoFps && !showStoped;
+  
   console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
 
   console.log(isPermissionGranted, 'b01_isPermissionGranted');

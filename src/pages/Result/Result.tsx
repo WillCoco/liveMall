@@ -7,6 +7,7 @@ import { apiQueryOrderPayStatus } from '../../service/api'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 import formatSinglePrice from '../../utils/formatGoodsPrice'
+import retry from '../../service/fetch/retry';
 
 const successIcon = require('../../assets/order-image/pay_success.png')
 const failedIcon = require('../../assets/order-image/pay_failed.png')
@@ -48,17 +49,39 @@ export default function Result() {
       payType
     }
 
-    apiQueryOrderPayStatus(params).then((res: any) => {
-      setCompleted(true)
-      setPaySuccess(true)
-      setOrderPrice(res.totalAmount)
-      setResultType(res.orderStatus)
-      console.log('订单支付成功', res)
-    }).catch((err: any) => {
-      setCompleted(true)
-      setPaySuccess(false)
-      console.log('订单支付失败', err)
+    // apiQueryOrderPayStatus(params).then((res: any) => {
+    //   setCompleted(true)
+    //   setPaySuccess(true)
+    //   setOrderPrice(res.totalAmount)
+    //   setResultType(res.orderStatus)
+    //   console.log('订单支付成功', res)
+    // }).catch((err: any) => {
+    //   setCompleted(true)
+    //   setPaySuccess(false)
+    //   console.log('订单支付失败', err)
+    // })
+
+
+    // 重试
+    const queryOrderStautsWithRetry = retry(apiQueryOrderPayStatus, {
+      getShouldRetry: (res: any) => {
+        return res?.orderStatus === '01'
+      },
     })
+    
+    queryOrderStautsWithRetry(params)
+      .then(res => {
+        setCompleted(true)
+        setPaySuccess(true)
+        setOrderPrice(res.totalAmount)
+        setResultType(res.orderStatus)
+        console.log('订单支付成功', res)
+      })
+      .catch(err => {
+        setCompleted(true)
+        setPaySuccess(false)
+        console.log('订单支付失败', err)
+      })
   }
 
   /**
@@ -78,7 +101,16 @@ export default function Result() {
     <View style={styles.container}>
       <View style={styles.content}>
         <Image source={paySuccess ? successIcon : failedIcon} style={styles.icon} />
-        <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text>
+        {/* <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text> */}
+        <Text style={styles.statusText}>
+          {
+            resultType === '00' 
+              ? '支付成功' 
+              : resultType === '01'
+                ? '订单处理中' 
+                : '支付失败'
+          }
+        </Text>
         {paySuccess && <Text style={styles.price}>¥{formatSinglePrice(orderPrice)}</Text>}
       </View>
       <TouchableOpacity style={styles.completeBtn} onPress={goBack}>

@@ -10,11 +10,11 @@ function FansContent(props: { userInfo?: {} | any; isLogin?: boolean }) {
   const { userInfo = {}, isLogin } = props
 
   const toPublishedWork = () => {
-    isLogin ? navigation.push('PublishedWork') : navigation.push('Login')
+    isLogin ? navigation.navigate('PublishedWork') : navigation.navigate('Login')
   }
 
   const toFocusedAnchor = () => {
-    isLogin ? navigation.push('FocusedAnchor') : navigation.push('Login')
+    isLogin ? navigation.navigate('FocusedAnchor') : navigation.navigate('Login')
   }
 
   return (

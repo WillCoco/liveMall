@@ -8,6 +8,7 @@ import {
   PixelRatio,
   RefreshControl,
   ImageBackground,
+  TouchableOpacity,
   TouchableWithoutFeedback
 } from 'react-native'
 import { useNavigation, useIsFocused } from '@react-navigation/native'
@@ -93,7 +94,7 @@ function Home(props: HomeProps) {
       setNetWorkErr(false)
       console.log('首页初始化数据', res)
       const selectedGoodsInfo = {
-        subTitle: res.jxhtSubCategory.name,
+        subTitle: res.jxhtSubCategory?.name || '',
         goodsList: res.jxht
       }
 
@@ -139,6 +140,7 @@ function Home(props: HomeProps) {
   const onPullDownRefresh = () => {
     pageNoRef.current = 1
     setLoading(true)
+    getRecommendGoodsList(true)
     initData()
   }
 
@@ -156,7 +158,7 @@ function Home(props: HomeProps) {
    * 前往精选话题详情
    */
   const toSelectedGoods = () => {
-    navigation.push('SelectGoods')
+    navigation.navigate('SelectGoods')
   }
 
   /**
@@ -200,44 +202,30 @@ function Home(props: HomeProps) {
    * 前往品牌店铺
    */
   const toBrandShop = (id: number) => {
-    navigation.push('BrandShop', { id })
+    navigation.navigate('BrandShop', { id })
   }
 
   /**
    * 前往秒杀页
    */
   const toSeckillPage = () => {
-    navigation.push('Sale', { type: 'seckill' })
-  }
-
-  /**
-   * 前往商品详情
-   */
-  const toGoodsInfo = (id: number) => {
-    navigation.push('GoodsInfo', { id })
-  }
-
-  /**
-   * 前往活动页面
-   */
-  const toActivityWebView = (url: string) => {
-    navigation.push('ActivityWebView', { url })
+    navigation.navigate('Sale', { type: 'seckill' })
   }
 
   /**
    * 前往精选好物详情
    */
   const toSelectedGoodsInfo = (id: number) => {
-    navigation.push('SelectGoodsInfo', { id })
+    navigation.navigate('SelectGoodsInfo', { id })
   }
 
   /**
    * 网络错误 重新加载
    */
-  const reload = () => {
-    initData()
-    getRecommendGoodsList(false)
-  }
+  // const reload = () => {
+  //   initData()
+  //   getRecommendGoodsList(false)
+  // }
 
   // if (netWorkErr) return <NetWorkErr reload={reload} />
 
@@ -249,7 +237,7 @@ function Home(props: HomeProps) {
         <SearchBar
           hasSearchKey={true}
           isPlaceHolder={true}
-          toSearchPage={() => navigation.push('HomeSearch')}
+          toSearchPage={() => navigation.navigate('HomeSearch')}
         />
       </View>
       <ScrollableTabView
@@ -324,7 +312,6 @@ function Home(props: HomeProps) {
                         <HomeSwiper
                           swiperList={swiperList}
                           swiperStyle={styles.swiper}
-                          tapSwiper={(id: number) => toGoodsInfo(id)}
                         />
                       </ImageBackground>
                       {/* 导航栏 */}
@@ -335,7 +322,6 @@ function Home(props: HomeProps) {
                           showDots={false}
                           swiperList={activityList}
                           swiperStyle={styles.activity}
-                          tapSwiper={(url: string) => toActivityWebView(url)}
                         />
                       </View>
                       {/* 精选话题 */}
@@ -359,14 +345,14 @@ function Home(props: HomeProps) {
                               <Image source={require('../../assets/home-image/seckill_text.png')} style={styles.seckillTextImg} resizeMode='contain' />
                               <SeckillCountDown />
                             </View>
-                            <View style={styles.seckillSubTitle}>
-                              <Text style={styles.seckillSubTitleText} onPress={toSeckillPage}>更多</Text>
+                            <TouchableOpacity style={styles.seckillSubTitle} onPress={toSeckillPage}>
+                              <Text style={styles.seckillSubTitleText}>更多</Text>
                               <Ionicons
                                 size={20}
                                 name='ios-arrow-forward'
                                 color={Colors.whiteColor}
                               />
-                            </View>
+                            </TouchableOpacity>
                           </ImageBackground>
                           <View style={styles.countDonwList}>
                             {

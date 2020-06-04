@@ -23,6 +23,7 @@ export const Colors = {
   lightBrown: '#F5E6B9',
   darkBg: '#282324',
   pink: '#ffd6d1',
+  lightRed: '#BA2E1E'
 }
 
 export const TextSize = {

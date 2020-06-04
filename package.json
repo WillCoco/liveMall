@@ -12,10 +12,12 @@
     "postinstall": "yarn textManager --update",
     "bundleAndroid": "react-native bundle --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.jsbundle --platform android --assets-dest ./android/app/src/main/res/ --dev false",
     "jetify": "npx jetify",
-    "release": "cd android && ./gradlew assembleRelease"
+    "release": "cd android && ./gradlew assembleRelease",
+    "reverse": "adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
     "@ant-design/react-native": "^3.3.0",
+    "@appandflow/masonry-list": "^0.4.0",
     "@expo/vector-icons": "^10.0.6",
     "@react-native-community/async-storage": "^1.11.0",
     "@react-native-community/cameraroll": "1.4.0",
@@ -41,8 +43,8 @@
     "expo-permissions": "^8.1.0",
     "expo-updates": "~0.1.0",
     "moment": "^2.24.0",
-    "native-echarts": "git+ssh://git@47.114.76.40/frontend/react-native-echarts.git",
-    "pili-streaming-react-native": "file:/Users/1hash/Desktop/pili-streaming-react-native",
+    "native-echarts": "git+http://47.114.76.40/frontend/react-native-echarts.git",
+    "pili-streaming-react-native": "file:./pili-streaming-react-native",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "~0.61.5",

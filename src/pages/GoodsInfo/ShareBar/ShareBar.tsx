@@ -12,76 +12,90 @@ import { connect } from 'react-redux'
 import pxToDp from '../../../utils/px2dp'
 import { AntDesign } from '@expo/vector-icons'
 import { Colors } from '../../../constants/Theme'
-// import * as WeChat from 'react-native-wechat-lib'
+import * as WeChat from 'react-native-wechat-lib'
 import { apiCreatePoster, apiGetUserData } from '../../../service/api'
 import { setUserInfo } from '../../../actions/user'
 import { Portal, Toast as AntToast } from '@ant-design/react-native'
+import { wxUserName } from '../../../service/api'
 
 interface Props {
   dispatch: any;
-  userId: number;
-  goodsId: number;
+  userId: string;
+  goodsInfo: any;
   userData: any;
+  inviteCode: string;
   hideShareBar(): void;
   setPosterPath(img: string, type: number): any;
 }
 
 function ShareBar(props: Props) {
-  const { goodsId, userId, userData } = props
+  const { goodsInfo, userId, inviteCode } = props
 
-  /**
-   * 分享到微信
-   */
-  // const shareToWeChat = () => {
-  // WeChat.shareMiniProgram({
-  //   title: 'Mini program.',
-  //   userName: 'gh_d39d10000000',
-  //   webpageUrl: 'https://google.com/show.html',
-  //   thumbImageUrl: 'https://google.com/1.jpg',
-  //   scene: 0
-  // }).then(res => {
-  //   Toast.show('已保存至相册')
-  //   props.hideShareBar()
-  // }).catch(err => {
-  //   console.log(err)
-  // })
-  // }
+  const { goods_id: goodsId } = goodsInfo
 
   /**
    * 立即分享
    */
   const share = async () => {
-    try {
-      let userInfo: any = {} = props.userData.userInfo || {}
+    let userInfo: any = {} = props.userData.userInfo || {}
 
-      if (!userId) {
-        userInfo = await apiGetUserData()
-        props.dispatch(setUserInfo(userInfo))
-      }
+    if (!userId) {
+      userInfo = await apiGetUserData()
+      props.dispatch(setUserInfo(userInfo))
+    }
 
-      const result = await Share.share({
-        message: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
-购物更划算！
---------------
-下载链接：www.quanpinlive.com
---------------
-注册填写邀请口令：${userInfo.inviteCode}`
-      });
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
 
-      if (result.action === Share.sharedAction) {
-        console.log(result)
-        if (result.activityType) {
-          // shared with activity type of result.activityType
+    if (wxIsInstalled) {
+      // 测试 gh_fc399d40a762
 
-        } else {
-          // shared
-          props.hideShareBar()
+      WeChat.shareMiniProgram({
+        scene: 0,
+        userName: wxUserName,
+        title: goodsInfo.goods_name,
+        webpageUrl: 'https://www.quanpinlive.com',
+        thumbImageUrl: goodsInfo.goods_images_list[0].image_url,
+        path: `pages/goods-info/index?invicode=${inviteCode}&id={goodsId}&shareUserId=${userId}`
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+
+      // WeChat.shareText({
+      //   text: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
+      //     购物更划算！
+      //     --------------
+      //     下载链接：www.quanpinlive.com
+      //     --------------
+      //     注册填写邀请口令：${userInfo.inviteCode}`,
+      //   scene: 0
+      // })
+    } else {
+      try {
+        const result = await Share.share({
+          message: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
+            购物更划算！
+            --------------
+            下载链接：www.quanpinlive.com
+            --------------
+            注册填写邀请口令：${userInfo.inviteCode}`
+        });
+
+        if (result.action === Share.sharedAction) {
+          console.log(result)
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+            props.hideShareBar()
+          }
+        } else if (result.action === Share.dismissedAction) {  // iOS Only
+          // dismissed
         }
-      } else if (result.action === Share.dismissedAction) {  // iOS Only
-        // dismissed
+      } catch (error) {
+        alert(error.message);
       }
-    } catch (error) {
-      alert(error.message);
     }
   }
 

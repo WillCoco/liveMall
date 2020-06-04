@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useRoute, useNavigationState } from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import LiveRecord from './LiveRecord';
 import {Colors} from '../../../constants/Theme';
@@ -28,6 +28,7 @@ import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
 import { clearLiveRoom } from '../../../actions/im';
 import { shortNum } from '../../../utils/numeric';
+import { useSelector } from 'react-redux';
 
 const Row = (props: {
   title: string,
@@ -115,14 +116,17 @@ const LiveTabPage = (props: {
   userId: string | number,
   anchorId: string | number
 }) =>  {
-  const {navigate} = useNavigation();
+  const navigation = useNavigation();
+  const {navigate, goBack} = navigation;
   const dispatch = useDispatch();
+  const selfAnchorId = useSelector((state: any) => state?.anchorData?.anchorInfo?.anchorId) || '';
+
+  const routes = useNavigationState(state => state.routes);
 
   /**
    * 下拉刷新
    */
   const onRefresh = async () => {
-
     const params = {
       anchorId: props?.anchorId,
       userId: props?.userId,
@@ -133,6 +137,13 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
+      // 增加精彩回放标题
+      result?.data?.liveList?.records.some((item: any, index: number) => {
+        if(item.liveStatus === '3') {
+          result?.data?.liveList?.records.splice(index, 0, {liveStatus: '4'})
+          return true
+        }
+      })
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
@@ -153,17 +164,46 @@ const LiveTabPage = (props: {
     const result = await apiAnchorParticular(params).catch(console.warn);
 
     if (isSucceed(result)) {
-      return Promise.resolve({result: EMPTY_ARR})
       return Promise.resolve({result: result?.data?.liveList?.records || EMPTY_ARR});
     }
 
     return Promise.resolve({result: EMPTY_ARR})
   };
 
+  /**
+   * 点击直播中
+   */
+  const goLive = (item: any) => {
+    const lastRouteName = routes[routes.length - 2].name;
+    if (item?.anchorId === selfAnchorId) {
+      // 如果主播查看自己直播间 则返回
+      goBack();
+    } else if (lastRouteName === 'AnorchLivingRoomScreen') {
+      // 如果从主播直播进入
+      goBack();
+    } else if (lastRouteName === 'LivingRoomScreen') {
+      // 如果从观看直播进入
+      goBack();
+    } else {
+      // 从其他详情页面
+      dispatch(clearLiveRoom());
+      navigate('LivingRoomScreen', {
+        liveId: item?.liveId,
+        groupID: item?.groupId || `live${item?.liveId}`,
+        anchorId: item?.anchorId,
+        mediaType: item?.liveStatus
+      })
+    }
+  }
 
+  /**
+   * 点击预告和回放
+   */
   const toLiveingRoom = (item: any) => {
-    dispatch(clearLiveRoom());
+    const lastRouteName = routes[routes.length - 2].name;
 
+    // 从其他详情页面
+    dispatch(clearLiveRoom());
     navigate('LivingRoomScreen', {
       liveId: item?.liveId,
       groupID: item?.groupId || `live${item?.liveId}`,
@@ -175,14 +215,12 @@ const LiveTabPage = (props: {
   /**
    * 渲染行
    */
-  let notRecordCount = 0 // 不是回放的数量
-
   const renderRow = (item: any) => {
     let index
     index = item.index
     item = item.item
-    if (item.liveStatus == 2) {
-      notRecordCount ++
+    console.log(item, '主播详情项目')
+    if (item.liveStatus === '2') {
       return (
         <Row
           key={`_${index}`}
@@ -190,11 +228,10 @@ const LiveTabPage = (props: {
           typeText="直播中"
           subText={shortNum(item.watchNum) + '观看'}
           showDivider
-          onPress={() => toLiveingRoom(item)}
+          onPress={() => goLive(item)}
         />
       )
-    } else if (item.liveStatus == 1) {
-      notRecordCount ++
+    } else if (item.liveStatus === '1') {
       return <Row
         key={`item_${index}`}
         title={item?.liveTitle}
@@ -204,23 +241,7 @@ const LiveTabPage = (props: {
         showDivider
         onPress={() => toLiveingRoom(item)}
       />
-    } else if (item.liveStatus == 3) {
-      if (notRecordCount == index) {
-        return (
-          <View>
-            <T4>精彩回放</T4>
-            <LiveRecord
-              img={item?.smallPic}
-              title={item?.liveTitle}
-              time={(new Date(item?.liveTime)).toLocaleString()}
-              viewTimes={shortNum(item?.watchNum) || 0}
-              goodsQuantity={item?.liveProductnum || 0}
-              key={`item_${index}`}
-              onPress={() => toLiveingRoom(item)}
-            />
-          </View>
-        )
-      } else {
+    } else if (item.liveStatus === '3') {
         return (
           <LiveRecord
             img={item?.smallPic}
@@ -232,15 +253,20 @@ const LiveTabPage = (props: {
             onPress={() => toLiveingRoom(item)}
           />
         )
+      } else if (item.liveStatus === '4') {
+        return (
+          <View>
+            <T4>精彩回放</T4>
+          </View>
+        )
       }
-    } 
-  }
+    }
 
 
   return (
     <View style={styles.style}>
       <PagingList
-        data={props?.liveRecords}
+        // data={props?.liveRecords}
         size={PAGE_SIZE}
         renderItem={(item: any) => renderRow(item)}
         onRefresh={onRefresh}

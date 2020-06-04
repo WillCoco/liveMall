@@ -14,7 +14,7 @@ import withPage from '../../../components/HOCs/withPage';
 // import NavBar from '../../../../components/NavBar'
 // import LiveWindow from '../../../../components/LiveWindow'
 import LiveReadyCard from '../../../components/LiveReadyCard';
-import LivePusher from '../../../components/LivePusherNew';
+import LivePerview from '../../../components/LivePusherNew/Perview';
 import {vw} from '../../../utils/metric';
 import {Colors} from '../../../constants/Theme';
 import images from '../../../assets/images/index';
@@ -135,7 +135,7 @@ const CreateLiveScreen = (props: any) =>  {
 
   return (
     <View style={StyleSheet.flatten([styles.style, {paddingBottom: props.safeBottom}])}>
-      {/* <LivePusher /> */}
+      {/* <LivePerview /> */}
       <View style={styles.contentWrapper}>
         <View style={StyleSheet.flatten([styles.liveReadyCardWrapper, {marginTop: props.safeTop + 80}])}>
           <LiveReadyCard
@@ -162,10 +162,10 @@ const CreateLiveScreen = (props: any) =>  {
           </SmallText>
         </SmallText>
         <LivingFaceCard
-            visible={!!faceCardVisible}
-            setVisible={setFaceCardVisible}
-            onPressClose={() => faceCardAnim(false)}
-            onAfterChangeSetting={onAfterChangeSetting}
+          visible={!!faceCardVisible}
+          setVisible={setFaceCardVisible}
+          onPressClose={() => faceCardAnim(false)}
+          onAfterChangeSetting={onAfterChangeSetting}
         />
       </View>
     </View>

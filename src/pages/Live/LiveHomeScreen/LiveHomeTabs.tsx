@@ -39,22 +39,6 @@ const LiveBanner = (props: LiveBannerProps) : any =>  {
   const [selectList, setSelectlist]: [Array<any>, any] = React.useState([]) // 精选列表
   const isLogin = useSelector(state => state?.userData?.isLogin) || false // 未登录不显示关注列表
 
-  const mockList = [
-    {
-      anchorId: 123,
-      anchorLogo: '',
-      anchorName: '1234',
-      isAdvance: '1', // string 是否有预告（1：有；2：没有）
-      isBack: '1', // string 是否有回放（1：有；2：没有）
-      likeSum: 200,	// string 点赞数量
-      liveId: 234213,	// integer($int64)直播间id
-      livePic: 'https://goss.veer.com/creative/vcg/veer/800water/veer-302989341.jpg', // string 直播封面
-      liveStatus: '1',	// string 直播状态（1：预告；2：直播中；3：回放）
-      liveTitle: '1234',	// string 直播标题
-      viewsNum: '999', // 	string观看人数
-    }
-  ]
-
   const renderItem = (d: any) => {
     return (
       <LiveSummaryBlock

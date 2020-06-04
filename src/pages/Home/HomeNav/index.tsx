@@ -30,11 +30,11 @@ export default function HomeNav() {
 
   const nextAction = (path: any) => {
     if (path === 'Brand') {
-      navigation.push('Brand', { type: 'default' })
+      navigation.navigate('Brand', { type: 'default' })
     } else if (path === 'Sale') {
-      navigation.push('Sale', { type: 'sale' })
+      navigation.navigate('Sale', { type: 'sale' })
     } else {
-      navigation.push(path)
+      navigation.navigate(path)
     }
   }
 

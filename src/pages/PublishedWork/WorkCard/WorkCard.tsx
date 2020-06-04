@@ -19,7 +19,7 @@ export default function WorkCard(props: { workAction?: any; workInfo?: any }) {
       height: workInfo.worksMoreInfo.imageHeight
     }
 
-    navigation.push('FoundInfo', params)
+    navigation.navigate('FoundInfo', params)
   }
 
   return (

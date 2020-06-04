@@ -20,7 +20,7 @@ export default function ShopCard(props: Props) {
   const { shop_info, selectedGoods } = props.shopInfo
 
   const toBrandShop = () => {
-    navigation.push('BrandShop', { id: shop_info.brand_id })
+    navigation.navigate('BrandShop', { id: shop_info.brand_id })
   }
 
   return (
@@ -73,6 +73,16 @@ export default function ShopCard(props: Props) {
             <Text style={styles.valueText}>快递</Text>
             <View style={styles.memo}>
               <Text style={styles.memoText}>{shop_info.carriage ? formatSinglePrice(shop_info.carriage) : '包邮'}</Text>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.orderInfoItem}>
+          <Text style={styles.label}>会员返现</Text>
+          <View style={styles.value}>
+            <Text style={styles.valueText}>{shop_info.discountDesc || ''}</Text>
+            <View style={styles.memo}>
+              <Text style={[styles.memoText, { color: Colors.basicColor }]}>+{formatSinglePrice(shop_info.saleDiscount || 0)}</Text>
             </View>
           </View>
         </View>

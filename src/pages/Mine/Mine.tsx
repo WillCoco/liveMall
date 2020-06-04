@@ -79,7 +79,7 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
     }).catch((err: any) => {
       console.log('获取用户信息', err)
       // if (err.code === '203' || err.code === '204') {
-      //   navigation.push('Login')
+      //   navigation.navigate('Login')
       // }
       // setNetWorkErr(true)
     })
@@ -128,6 +128,7 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
   return (
     <>
       <ScrollView
+        bounces={false}
         style={styles.container}
         showsVerticalScrollIndicator={false}
         onMomentumScrollEnd={(e) => onReachBottom(e)}

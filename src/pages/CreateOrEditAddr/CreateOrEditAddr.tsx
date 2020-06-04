@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, PixelRatio } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, PixelRatio, ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Picker, Provider } from '@ant-design/react-native'
 import { connect } from 'react-redux'
@@ -144,7 +144,7 @@ function CreateOrEditAddr(props: Props) {
 
   return (
     <Provider>
-      <View style={{ height: '100%' }}>
+      <ScrollView contentContainerStyle={{ height: '100%' }}>
         <View style={styles.container}>
           <View style={styles.formItem}>
             <Text style={styles.formItemTitle}>收件人</Text>
@@ -209,7 +209,7 @@ function CreateOrEditAddr(props: Props) {
           <Text style={styles.submitBtnText}>保存</Text>
         </TouchableOpacity>
 
-      </View>
+      </ScrollView>
     </Provider>
   )
 }

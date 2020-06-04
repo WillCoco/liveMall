@@ -23,11 +23,11 @@ export default function AddressBar(props: Props) {
     console.log(isEmpty)
 
     if (isEmpty) {
-      navigation.push('CreateOrEditAddr', { type: 'add' })
+      navigation.navigate('CreateOrEditAddr', { type: 'add' })
       return
     }
 
-    navigation.push('AddressList')
+    navigation.navigate('AddressList')
   }
 
   const Address = () => {

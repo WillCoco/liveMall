@@ -40,7 +40,7 @@ import useKeyboard from '../../hooks/useKeyboard';
 import Modal from 'react-native-modal';
 import { PrimaryText } from 'react-native-normalization-text';
 import { isAndroid } from '../../constants/DeviceInfo';
-
+import Layout from '../../constants/Layout';
 
 interface LiveWindowProps {
   style?: StyleProp<any>;
@@ -64,6 +64,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
     groupID,
     anchorId,
   } : LiveWindowParams = (route.params || EMPTY_OBJ) as LiveWindowParams;
+
+  console.log(groupID, 'groupIDgroupIDgroupIDgroupID')
 
   // 房间信息
   const room = useSelector((state: any) => state?.im?.room);
@@ -91,15 +93,15 @@ const LiveWindow = (props: LiveWindowProps): any => {
   /**
    * 播放器状态
    */
-  const [playerStatus, setPlayerStatus]: [
-    undefined | boolean,
-    any
-  ] = React.useState(undefined);
+  // const [playerStatus, setPlayerStatus]: [
+  //   undefined | boolean,
+  //   any
+  // ] = React.useState(undefined);
 
-  const onPlayerStatus = (status: number | string) => {
-    console.log(status, "status");
-    setPlayerStatus(status);
-  };
+  // const onPlayerStatus = (status: number | string) => {
+  //   console.log(status, "status");
+  //   setPlayerStatus(status);
+  // };
 
   /**
    * im加群状态
@@ -120,11 +122,13 @@ const LiveWindow = (props: LiveWindowProps): any => {
   const closeLive = () => {
     // player.current?.stop(); // 停止播放器实例
     // 我不是这场直播的主播
+    console.log(myAnchorId, 'myAnchorId')
+    console.log(anchorId, 'myAnchorId_anchorId')
     if (myAnchorId === anchorId) {
       goBack();
       return
     }
-    console.log(groupID, 'groupID')
+    // console.log(groupID, 'groupID1111')
 
     dispatch(quitGroup(groupID)); // 退im群
 
@@ -266,43 +270,44 @@ const LiveWindow = (props: LiveWindowProps): any => {
   }
 
   console.log(livingInfo,'smallPic');
+  const minHeight = isAndroid() ? {minHeight: Layout.window.height} : {};
 
   return (
-    <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-        {/* <Image
-          source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-          resizeMode="cover"
-          style={styles.imgBg}
-        /> */}
-        <LivePuller
-          ref={v => {
-            if (v) {
-              player.current = v;
-            }
-          }}
-          inputUrl={pullUrl}
-          onStatus={onPlayerStatus}
-          style={styles.video}
-          cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
-        />
-      {/* <KeyboardAvoidingView style={styles.livingBottomBlock} behavior="height"> */}
-        {
-          (isShow && isAndroid()) ? (
-            <LivingBottomBlock.Audience
-              textValue={textInput}
-              setTextValue={setTextInput}
-              onPressShopBag={() => shopCardAnim(true)}
-              style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
-            />
-          ) : null
-        }
-        <LivingBottomBlock.Audience
-          textValue={textInput}
-          setTextValue={setTextInput}
-          onPressShopBag={() => shopCardAnim(true)}
-          style={StyleSheet.flatten([styles.livingBottomBlock])}
-        />
-      {/* </KeyboardAvoidingView> */}
+    <View style={StyleSheet.flatten([styles.wrapper, minHeight, props.style])}>
+      {/* <Image
+        source={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+        resizeMode="cover"
+        style={styles.imgBg}
+      /> */}
+      <LivePuller
+        ref={v => {
+          if (v) {
+            player.current = v;
+          }
+        }}
+        inputUrl={pullUrl}
+        // onStatus={onPlayerStatus}
+        style={styles.video}
+        cover={smallPic ? {uri: smallPic} : defaultImages.livingBg}
+        safeTop={props.safeTop}
+      />
+      {
+        (isShow && isAndroid()) ? (
+          <LivingBottomBlock.Audience
+            textValue={textInput}
+            setTextValue={setTextInput}
+            onPressShopBag={() => shopCardAnim(true)}
+            style={StyleSheet.flatten([styles.livingBottomBlock, {bottom: keyboardHeight}])}
+          />
+        ) : null
+      }
+      <LivingBottomBlock.Audience
+        showLiveMsg={!(isShow && isAndroid())}
+        textValue={textInput}
+        setTextValue={setTextInput}
+        onPressShopBag={() => shopCardAnim(true)}
+        style={StyleSheet.flatten([styles.livingBottomBlock])}
+      />
       {!!noticeBubbleText ? <NoticeBubble text={noticeBubbleText} /> : null}
       <LiveIntro
         showFollowButton
@@ -330,8 +335,8 @@ const LiveWindow = (props: LiveWindowProps): any => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    minHeight: vh(100),
-    minWidth: vw(100)
+    // minHeight: vh(100),
+    // minWidth: vw(100),
   },
   livingBottomBlock: {
     flex: 1,
@@ -350,13 +355,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: pad * 1.5,
   },
-  imgBg: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-  },
+  // imgBg: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 0,
+  //   width: "100%",
+  //   height: "100%",
+  // },
   video: {
     flex: 1,
     position: 'absolute',
@@ -364,6 +369,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    minHeight: Layout.window.height
     // height: vh(100),
     // width: vw(100)
     // minHeight: vh(100),

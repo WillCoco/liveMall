@@ -15,7 +15,7 @@ export default function CardTitle(props: Props) {
     <View style={styles.container}>
       <Text style={styles.title}>{props.title}</Text>
       {
-        props.subTitle && <TouchableOpacity style={styles.subTitle} onPress={props.nextAction}>
+        !!props.subTitle && <TouchableOpacity style={styles.subTitle} onPress={props.nextAction}>
           <Text style={styles.subTitleText}>{props.subTitle}</Text>
           <Ionicons
             size={20}

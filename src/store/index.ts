@@ -60,16 +60,18 @@ const rootReducer = combineReducers({
   userData: persistReducer(userDataPersistConfig, reducers.userData),
 });
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const middleware = [thunk, logger]
+
+const enhancer = composeEnhancers(applyMiddleware(...middleware));
 
 export const store = createStore(rootReducer, undefined, enhancer);
 
 export const persistor = persistStore(store)
 
-function configureStore(initialState?: any) {
-  const store = createStore(rootReducer, initialState, enhancer);
-  return {store, persistor: persistStore(store)};
-}
+// function configureStore(initialState?: any) {
+//   const store = createStore(rootReducer, initialState, enhancer);
+//   return {store, persistor: persistStore(store)};
+// }
 
 export default () => {
   return {

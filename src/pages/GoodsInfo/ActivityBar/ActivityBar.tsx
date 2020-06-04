@@ -26,9 +26,9 @@ export default function ActivityBar(props: {
       <View style={styles.saleInfo}>
         <Image source={saleText} style={styles.saleText} />
         <View style={{ marginLeft: pxToDp(24) }}>
-          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+          <Text style={{ flexDirection: 'row', alignItems: 'baseline' }}>
             <Text style={styles.rmbIcon}>¥</Text><Text style={styles.salePrice}>{formatSinglePrice(goodsInfo.shop_price)}</Text>
-          </View>
+          </Text>
           <Text style={styles.originalPrice}>¥{formatSinglePrice(goodsInfo.market_price)}</Text>
         </View>
       </View>
@@ -74,7 +74,8 @@ const styles = StyleSheet.create({
   },
   originalPrice: {
     fontSize: pxToDp(24),
-    color: Colors.whiteColor
+    color: Colors.whiteColor,
+    textDecorationLine: 'line-through',
   },
   saleSlogan: {
     width: pxToDp(140),
@@ -83,14 +84,14 @@ const styles = StyleSheet.create({
   hasSold: {
     height: pxToDp(24),
     lineHeight: pxToDp(24),
-    backgroundColor: Colors.whiteColor,
+    backgroundColor: Colors.basicColor,
     borderRadius: pxToDp(12),
     overflow: 'hidden',
     paddingLeft: pxToDp(13),
     paddingRight: pxToDp(13),
     marginTop: pxToDp(13),
     fontSize: pxToDp(20),
-    color: Colors.basicColor,
+    color: Colors.whiteColor,
     textAlign: 'center'
   },
   seckillText: {

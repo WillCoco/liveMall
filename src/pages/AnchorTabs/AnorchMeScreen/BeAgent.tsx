@@ -130,13 +130,13 @@ const BeAgent = (props: any) => {
    */
   const renderAgentRequireRow = (item: any ) => {
     return (
-      <View style={{flexDirection: 'column', marginTop: pad * 2}} key={item.title}>
+      <View style={{flexDirection: 'column'}} key={item.title}>
         <View style={styles.requireRow}>
-          <Text style={{color: Colors.brownColor}}>{item.title}</Text>
+          <Text style={{color: Colors.lightRed, fontWeight: 'bold'}}>{item.title}</Text>
           { item.needButton && <ButtonOutLine
             text='去缴费'
             style={styles.toPayButton}
-            textStyle={{color: Colors.brownColor}}
+            textStyle={{color: Colors.lightRed}}
             onPress={toPay}
           />}
         </View>
@@ -149,28 +149,28 @@ const BeAgent = (props: any) => {
   }
 
   return (
-    <ScrollView style={{flex: 1}}>
+    <ScrollView contentContainerStyle={{flex: 1}}>
       <ImageBackground 
         source={images.agentBg} 
         style={styles.style}
-        resizeMode='cover'
+        // resizeMode='stretch'
       >
         <ImageBackground 
           source={images.agentBgTop} 
           style={styles.topCard}
-          resizeMode='cover'
+          resizeMode='stretch'
         >
           <NavBar 
             title={'成为经纪人'}
             style={styles.nav}
-            titleStyle={{color: Colors.lightBrown}}
+            titleStyle={{color: Colors.whiteColor}}
             left={
-              () => <AntDesign name="left" size={20} color={Colors.lightBrown} onPress={goBack}/>
+              () => <AntDesign name="left" size={20} color={Colors.whiteColor} onPress={goBack}/>
             }
           />
-          <Image source={images.agent} style={{width: 127, height: 22}}/>
+          <Image source={images.agent} style={styles.agentTitle} resizeMode="stretch"/>
           <PrimaryText style={styles.agentText}>
-            经纪人是指通过与平台签订劳务合同，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
+            经纪人是指达成平台指定的要求，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
           </PrimaryText>
           <ImageBackground 
             source={images.wxBg} 
@@ -179,7 +179,7 @@ const BeAgent = (props: any) => {
           >
             <View style={styles.serviceLeft}>
               <Image source={images.wxIcon} style={styles.wxIcon} />
-              <SmallText style={{color: Colors.brownColor}}>客服微信</SmallText>
+              <SmallText style={{color: Colors.whiteColor}}>客服微信</SmallText>
             </View>
             <View style={styles.serviceRight}>
               <SmallText style={styles.colorLightBrown}>{agentRequire?.wxCSStaff}</SmallText>
@@ -216,12 +216,12 @@ const BeAgent = (props: any) => {
             }
             <TinyText style={styles.beAgentTip}>
               {
-                agentRequire?.currentLevel === 2 ? '达成任一条件达成即可成为经纪人' : '达成所有条件升级经纪人'
+                agentRequire?.currentLevel === 2 ? '达成所有条件升级经纪人' : '任意一条件达成即可成为经纪人'
               }
             </TinyText>
           </View>
         </ImageBackground>
-        <View style={styles.checkLine}>
+        {/* <View style={styles.checkLine}>
           <TouchableOpacity onPress={() => setAgree(!agree)}>
             <Image 
               style={styles.checkIcon} 
@@ -232,8 +232,8 @@ const BeAgent = (props: any) => {
             升级即表示观看且同意
             <Text style={{color: '#34C0FF'}} onPress={() => navigate('BeAgentAgreement')}>《经纪人劳务电子合同》</Text>
           </Text>
-        </View>
-        <TouchableOpacity>
+        </View> */}
+        {/* <TouchableOpacity>
           <LinearGradient
             colors={[Colors.lightBrown, '#FFCA98']}
             start={[0, 0]}
@@ -245,7 +245,7 @@ const BeAgent = (props: any) => {
               }
             </T4>
           </LinearGradient>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </ImageBackground>
     </ScrollView>
   )
@@ -262,14 +262,18 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    borderWidth: 2,
   },
   nav: {
     backgroundColor: 'transparent',
     borderBottomWidth: 0,
   },
+  agentTitle: {
+    width: pxToDp(280), 
+    height: pxToDp(44),
+    marginTop: pad,
+  },
   topCard: {
-    height: pxToDp(520),
+    height: pxToDp(600),
     width: vw(100),
     flexDirection: 'column',
     alignItems: 'center',
@@ -279,7 +283,7 @@ const styles = StyleSheet.create({
     marginBottom: pad * 2,
     width: '80%',
     textAlign: 'center',
-    color: Colors.lightBrown,
+    color: Colors.whiteColor,
     lineHeight: 20,
   },
   service: {
@@ -307,43 +311,44 @@ const styles = StyleSheet.create({
   angetTitle: {
     width: pxToDp(608),
     height: pxToDp(44),
-    marginVertical: pad * 2
+    marginTop: pad * 3,
+    marginBottom: pad * 2,
   },
   agentRules: {
     width: vw(100) - pad * 2,
-    height: pxToDp(640),
+    height: pxToDp(400),
   },
   colorLightBrown: {
-    color: Colors.lightBrown
+    color: Colors.lightRed,
   },
   // 经纪人等级Tab
   tabItem: {
-    height: pxToDp(96), 
+    height: pxToDp(98), 
     flexDirection: 'column', 
     justifyContent: 'center', 
   },
   tabText: {
     height: '100%',
     lineHeight: pxToDp(100),
-    color: Colors.lightBrown,
+    color: Colors.whiteColor,
   },
   activeTabText: {
     fontWeight: 'bold',
   },
   tabWrapper: {
     flex: 1,
-    paddingBottom: pad,
+    paddingTop: pad,
     paddingHorizontal: pad / 2,
   },
   requireRow: {
     flexDirection: 'row', 
     alignItems: 'center', 
-    marginVertical: pad * 2,
+    marginVertical: pad,
   },
   tabUnderLine: {
     width: pxToDp(70),  
     height: pxToDp(4),
-    backgroundColor: Colors.lightBrown, 
+    backgroundColor: Colors.whiteColor, 
     marginLeft: pxToDp(30),
     borderRadius: pxToDp(4),
   },
@@ -354,8 +359,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     marginLeft: 20,
     fontSize: 10,
-    borderColor: Colors.brownColor,
-    color: Colors.brownColor
+    borderColor: Colors.lightRed,
+    color: Colors.lightRed
   },
   // 进度条
   progressBottom: {
@@ -365,13 +370,13 @@ const styles = StyleSheet.create({
   },
   progressUp: {
     height: 4, 
-    backgroundColor: Colors.brownColor, 
+    backgroundColor: Colors.lightRed, 
   },
   beAgentTip: {
     position: 'absolute',
     bottom: pad,
     right: pad,
-    color: Colors.brownColor,
+    color: Colors.darkBlack,
   },
   checkLine: {
     flexDirection: 'row',

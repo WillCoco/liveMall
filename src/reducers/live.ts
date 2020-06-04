@@ -104,7 +104,7 @@ const INIT_STREAMING_CONFIG: any = {
   playbackEnable: false,
   profile: {
     videoStreamingSetting: {
-      fps: 24,
+      fps: 15,
       bps: 1000 * 1024,
       maxFrameInterval: 60,
       encodeOrientation: consts.videoEncodeOrientations.portrait,
@@ -118,16 +118,18 @@ const INIT_STREAMING_CONFIG: any = {
     },
     audioStreamingSetting: {
       rate: 44100,
-      bitrate: 96 * 1024,
+      // bitrate: 96 * 1024,
+      bitrate: 48 * 1024,
     },
     encodingSize: consts.videoEncodings.e480,
     avCodecType: isAndroid
-      ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
+      // ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
+      ? consts.avCodecTypes_android.HW_VIDEO_SURFACE_AS_INPUT_WITH_HW_AUDIO_CODEC // 花屏
       : consts.avCodecTypes_iOS.PLH264EncoderType_AVFoundation,
     cameraStreamingSetting: {
       resolution: isAndroid
-        // ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
         ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
+        // ? consts.cameraResolutions_android.LARGE_RATIO_16_9
         : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
       focusMode: consts.cameraFocusModes.continuousVideo,
       videoOrientation: consts.cameraVideoOrientations.portrait,
@@ -141,8 +143,8 @@ const INIT_STREAMING_CONFIG: any = {
     quicEnable: false,
     bitrateAdjustMode: consts.bitrateAdjustModes.auto,
     adaptiveBitrateRange: {
-      minBitrate: 1024,
-      maxBitrate: 1024 * 1024,
+      minBitrate: 500 * 1024,
+      maxBitrate: 2048 * 1024,
     },
     encoderRCMode: consts.encoderRCModes.bitratePriority,
     streamInfoUpdateInterval: 5,

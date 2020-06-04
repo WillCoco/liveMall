@@ -164,6 +164,19 @@ const LiveVideo = (props: LiveVideoProps): any => {
   // bigPic返回不对
   const bgUri = smallPic ? {uri: smallPic} : defaultImages.livingBg
 
+  // video实例
+  const video: any = React.useRef();
+
+  React.useEffect(() => {
+
+    return () => {
+      try {
+        video.current.stop();
+      } catch(err) {}
+    }
+  }, [])
+
+
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
       <Image
@@ -174,13 +187,14 @@ const LiveVideo = (props: LiveVideoProps): any => {
       {
         backUrl ? (
           <VideoPlayer
+            ref={r => video.current = r}
             source={{uri: backUrl}} // Can be a URL or a local file.
             repeat
-            fullscreen
+            // fullscreen
             disableBack
             disableVolume
-            disableFullscreen
             // disableSeekbar
+            disableFullscreen
             resizeMode="cover"
             style={styles.video}
             // controlsWrapper={{marginBottom: 50}}
@@ -243,6 +257,8 @@ const styles = StyleSheet.create({
   },
   video: {
     flex: 1,
+    width: '100%',
+    height: '100%',
     minHeight: vh(100),
     minWidth: vw(100),
   },

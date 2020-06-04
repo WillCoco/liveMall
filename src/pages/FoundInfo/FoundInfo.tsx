@@ -157,7 +157,7 @@ function FoundInfo(props: { userData: { userInfo?: any; isLogin?: boolean } }) {
     }
 
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
@@ -267,7 +267,7 @@ function FoundInfo(props: { userData: { userInfo?: any; isLogin?: boolean } }) {
    */
   const showGoodsActionSheet = () => {
     if (!isLogin) {
-      navigation.push('Login')
+      navigation.navigate('Login')
       return
     }
 
@@ -333,6 +333,7 @@ function FoundInfo(props: { userData: { userInfo?: any; isLogin?: boolean } }) {
       <Header opacity={navOpacity} />
 
       <ScrollView
+        bounces={false}
         onScroll={(e) => scrollPage(e)}
         scrollEventThrottle={200}
         style={styles.container}

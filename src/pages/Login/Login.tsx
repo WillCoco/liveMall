@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { PrimaryText } from 'react-native-normalization-text';
 import { connect } from 'react-redux'
 import { toggleLoginState, setToke, setUserInfo } from '../../actions/user'
+import {setAnchorInfo} from '../../actions/anchor';
 import {Toast} from '../../components/Toast'
 import * as WeChat from 'react-native-wechat-lib'
 
@@ -13,7 +14,7 @@ import { Colors } from '../../constants/Theme'
 import pxToDp from '../../utils/px2dp'
 import {pad} from '../../constants/Layout'
 
-import { apiSendVerCode, apiLogin, apiGetUserData, apiWeChatLogin } from '../../service/api'
+import { apiSendVerCode, apiLogin, apiGetUserData, apiWeChatLogin, apiAnchorHomePage } from '../../service/api'
 import CheckBox from '../../components/CheckBox'
 
 const phonePattern = /^1[3456789]\d{9}$/
@@ -147,6 +148,18 @@ function Logion(props: any) {
 
         apiGetUserData().then((res: any) => {
           props.dispatch(setUserInfo(res))
+
+          // 如果当前用户是主播，获取主播信息
+          console.log(res.userRole)
+          console.log(res.userRole.indexOf('2'), '53215632163643267347');
+          if (res?.userRole?.indexOf('2') > -1) {
+            const userId = res?.userId
+            apiAnchorHomePage({userId})
+              .then((res: any) => {
+                props.dispatch(setAnchorInfo(res))
+              })
+              .catch(console.warn)
+          } 
         }).catch((err: any) => {
           console.log(err)
         })
@@ -198,6 +211,16 @@ function Logion(props: any) {
 
         apiGetUserData().then((res: any) => {
           props.dispatch(setUserInfo(res))
+
+          // 如果当前用户是主播，获取主播信息
+          if (res?.userRole?.indexOf('2') > -1) {
+            const userId = res?.userId
+            apiAnchorHomePage({userId})
+              .then((res: any) => {
+                props.dispatch(setAnchorInfo(res))
+              })
+              .catch(console.warn)
+          } 
         }).catch((err: any) => {
           console.log(err)
         })
@@ -206,7 +229,7 @@ function Logion(props: any) {
           navigation.goBack()
         }, 1500)
       } else {
-        navigation.push('BindPhoneNumber', res.unionId)
+        navigation.navigate('BindPhoneNumber', res.unionId)
       }
     }).catch((err: any) => {
       console.log(err)
@@ -240,7 +263,7 @@ function Logion(props: any) {
           style={{paddingHorizontal: pad}}
         />
         <PrimaryText>已阅读并同意</PrimaryText>
-        <PrimaryText style={styles.link} onPress={() => navigation.push('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>《云闪播用户协议与隐私政策》</PrimaryText>
+        <PrimaryText style={styles.link} onPress={() => navigation.navigate('AgreementWebView', {url: 'userAgreement', title: '云闪播用户协议与隐私政策'})}>《云闪播用户协议与隐私政策》</PrimaryText>
       </View>
       
 

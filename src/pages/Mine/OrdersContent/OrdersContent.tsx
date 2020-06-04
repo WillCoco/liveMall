@@ -17,9 +17,9 @@ export default function OrdersContent(props: Props) {
 
   const toOrderList = (index: number) => {
     if (isLogin) {
-      navigation.push('OrderList', { index })
+      navigation.navigate('OrderList', { index })
     } else {
-      navigation.push('Login')
+      navigation.navigate('Login')
     }
   }
 

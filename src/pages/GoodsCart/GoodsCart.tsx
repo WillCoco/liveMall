@@ -120,7 +120,7 @@ function Cart(props: Props) {
    * 去登录
    */
   const toLogin = () => {
-    navigation.push('Login')
+    navigation.navigate('Login')
   }
 
   /**
@@ -306,7 +306,7 @@ function Cart(props: Props) {
 
     let tempOrderList = cartList.shop.filter((item: { selectedGoods: string | any[] }) => item.selectedGoods.length)
 
-    navigation.push('CreateOrder', { tempOrderList })
+    navigation.navigate('CreateOrder', { tempOrderList })
   }
 
   /**

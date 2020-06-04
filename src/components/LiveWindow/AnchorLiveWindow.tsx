@@ -75,10 +75,17 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
    * 推流状态
    */
   const [pusherStatus, setPusherStatus] = React.useState();
+  const [resume, setResume] : any = React.useState();
 
   const onStateChange = (status: any) => {
-    setPusherStatus(status)
-    console.log(status, 'status')
+    console.log(status, 'statusstatusstatusstatusstatusstatusstatus')
+    // setPusherStatus(status)
+    // 断开网络等
+    if (pusherStatus !== 4 && status === 4) {
+      Toast.show('连接断开');
+      // goBack(); // todo 直接重连resume
+    }
+    console.log(status, 'statusssss')
   }
 
   /**
@@ -192,17 +199,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
     }
   }, []);
 
-  // React.useEffect(() => {
-  //   if (camera.current) {
-  //     camera.current.start()
-  //   }
-  //   // 获取主播推流地址
-  //
-  //   return () => {
-  //     camera.current.stop()
-  //   }
-  // }, [camera.current])
-
   /**
    * 公告气泡
    */
@@ -225,7 +221,10 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
             }
           }
         }});
+      return;
     }
+
+    Toast.show('请稍后再试')
   }
 
   /**
@@ -321,6 +320,9 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
       <LivePusher
+        ref={r => camera.current = r}
+        resume={resume}
+        setResume={setResume}
         onStateChange={onStateChange}
       />
       {/*  backgroundColor: 'rgba(0,0,0,0.01)' 修复摄像上层气泡边缘显示问题 */}

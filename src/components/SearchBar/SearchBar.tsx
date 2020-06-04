@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 
+import { pad } from '../../constants/Layout'
+
 interface Props {
   iconColor: string
   searchKey: string
@@ -29,6 +31,7 @@ function SearchBar(props: Props) {
           size={20}
           name='ios-search'
           color={props.iconColor || Colors.lightGrey}
+          style={{marginRight: pad}}
         />
         <Text
           numberOfLines={1}
@@ -70,10 +73,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: pxToDp(28),
     paddingLeft: pxToDp(26),
-    paddingRight: pxToDp(26)
+    paddingRight: pxToDp(26),
+    marginLeft: pxToDp(40)
   },
   searchBar:{
-    width: pxToDp(620)
+    width: pxToDp(600)
   },
   searchKey: {
     flex: 1,

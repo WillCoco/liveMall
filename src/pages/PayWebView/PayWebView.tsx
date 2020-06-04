@@ -45,7 +45,7 @@ export default function PayWebview() {
           key: route.params.key && route.params.key || ''
         }
 
-        navigation.push('Result', params)
+        navigation.navigate('Result', params)
       }
     }
   }

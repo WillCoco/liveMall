@@ -79,7 +79,7 @@ export default function Footer(props: Props) {
           />
           : <TouchableOpacity
             style={[styles.input, { justifyContent: 'center', alignItems: 'center' }]}
-            onPress={() => navigation.push('Login')}
+            onPress={() => navigation.navigate('Login')}
           >
             <Text>登录后发表评论</Text>
           </TouchableOpacity>

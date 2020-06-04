@@ -122,7 +122,7 @@ function BrandShop(props: { isLogin: boolean }) {
         console.log('关注/取消关注店铺', err)
       })
     } else {
-      navigation.push('Login')
+      navigation.navigate('Login')
     }
   }
 
@@ -150,6 +150,7 @@ function BrandShop(props: { isLogin: boolean }) {
 
   return (
     <ScrollView
+      bounces={false}
       onScroll={(e) => scrollPage(e)}
       scrollEventThrottle={200}
       showsVerticalScrollIndicator={false}

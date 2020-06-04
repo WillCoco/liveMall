@@ -23,7 +23,7 @@ function AnchorEntryAgreement(props: any) {
   })
 
   return (
-    <ScrollView style={StyleSheet.flatten([styles.container, {marginBottom: props.safeBottom}])}>
+    <ScrollView style={StyleSheet.flatten([styles.container, {marginBottom: props.safeBottom}])} bounces={false}>
       <View style={styles.section}>
         <Text style={styles.text}>甲方:云闪播平台服务提供商，即宁波名世网络科技有限公司(以下简称为“甲方”或“云闪播”)</Text>
         <Text style={styles.text}>乙方：经过云闪播平台审核，在云闪播平台开展直播服务的个人或机构。</Text>

@@ -5,6 +5,7 @@ import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import formatSinglePrice from '../../../utils/formatGoodsPrice'
 import { Toast } from '../../../components/Toast'
+import { isNotchScreen } from '../../../constants/DeviceInfo'
 const starIcon = require('../../../assets/goods-image/icon_star.png')
 const unstarIcon = require('../../../assets/goods-image/icon_unstar.png')
 
@@ -25,7 +26,7 @@ export default function FooterBar(props: Props) {
       Toast.fail('未开通客服功能')
       return
     }
-    navigation.push('Service', servicePath)
+    navigation.navigate('Service', servicePath)
   }
 
   return (
@@ -41,7 +42,7 @@ export default function FooterBar(props: Props) {
         <Text style={{ color: Colors.lightBlack }}>{goodsInfo.is_collect ? '已收藏' : '收藏'}</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.push('GoodsCart')}>
+      <TouchableOpacity style={styles.iconContainer} onPress={() => navigation.navigate('GoodsCart')}>
         <Image source={require('../../../assets/goods-image/icon_cart.png')} style={styles.icon} />
         <Text style={{ color: Colors.lightBlack }}>购物车</Text>
       </TouchableOpacity>
@@ -66,7 +67,7 @@ export default function FooterBar(props: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    height: pxToDp(Platform.OS === 'ios' ? 128 : 100),
+    height: pxToDp(isNotchScreen() ? 128 : 100),
     backgroundColor: Colors.whiteColor,
     flexDirection: 'row',
     alignItems: 'center'
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1 / PixelRatio.get(),
     borderRightColor: Colors.borderColor,
     height: '100%',
-    paddingBottom: Platform.OS === 'ios' ? pxToDp(28) : 0
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0
   },
   icon: {
     width: pxToDp(38),
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   addCart: {
     backgroundColor: Colors.blackColor,
     height: '100%',
-    paddingBottom: Platform.OS === 'ios' ? pxToDp(28) : 0,
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     justifyContent: 'center',
     alignItems: 'center',
     width: pxToDp(190)
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
   buyBtn: {
     flex: 1,
     backgroundColor: Colors.basicColor,
-    paddingBottom: Platform.OS === 'ios' ? pxToDp(28) : 0,
+    paddingBottom: isNotchScreen() ? pxToDp(28) : 0,
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center'

@@ -13,6 +13,8 @@ import { useNavigation, useIsFocused } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { apiGetWorks } from '../../service/api'
 
+import MasonryList from '@appandflow/masonry-list'
+
 import pxToDp from '../../utils/px2dp'
 import waterFall from '../../utils/waterFall'
 import { Ionicons } from '@expo/vector-icons'
@@ -24,9 +26,6 @@ import LoadMore from '../../components/LoadMore/LoadMore'
 
 const pageSize = 20
 const deviceHeight = Dimensions.get('window').height
-const deviceWidthDp = Dimensions.get('window').width
-
-let wrapperOffsetY = 0
 
 function Found(props: { isLogin: boolean }) {
   const { isLogin } = props
@@ -40,6 +39,7 @@ function Found(props: { isLogin: boolean }) {
   const [maxHeight, setMaxHeight] = useState(0)
   const [loading, setLoading] = useState(false)
   const [showMask, setShowMask] = useState(false)
+  const [empty, setEmpty] = useState(false)
   const [workList, setWorkList]: Array<any> = useState([])
 
   useEffect(() => {
@@ -64,6 +64,7 @@ function Found(props: { isLogin: boolean }) {
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
       setLoading(false)
+      setEmpty(true)
       if (!res.worksInfoList) return
 
       res.worksInfoList.forEach((item: any) => {
@@ -80,7 +81,6 @@ function Found(props: { isLogin: boolean }) {
       setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
     }).catch((err: any) => {
       console.log('发现数据', err)
-      // setNetWorkErr(true)
     })
   }
   /**
@@ -101,6 +101,8 @@ function Found(props: { isLogin: boolean }) {
     }
   }
 
+  if (empty) return <LoadMore hasMore={false} />
+
   return (
     <>
       <ScrollView
@@ -112,9 +114,9 @@ function Found(props: { isLogin: boolean }) {
             onRefresh={onPullDownRefresh}
           />
         }
-        style={{ height: deviceHeight }}
+        style={{ height: deviceHeight, padding: pxToDp(10), paddingRight: 0 }}
       >
-        <View style={{ height: maxHeight }}>
+        {/* <View style={{ height: maxHeight }}>
           {
             workList && workList.map((item: any, index: number) => {
               return (
@@ -122,7 +124,13 @@ function Found(props: { isLogin: boolean }) {
               )
             })
           }
-        </View>
+        </View> */}
+        <MasonryList
+          numColumns={2}
+          data={workList}
+          renderItem={({ item }) => <WorkCard workInfo={item} />}
+          getHeightForItem={({ item }) => item.height}
+        />
 
         <LoadMore hasMore={hasMoreRef.current} />
       </ScrollView>
@@ -130,7 +138,7 @@ function Found(props: { isLogin: boolean }) {
       <View style={styles.addContainer}>
         {
           showMask && <TouchableWithoutFeedback
-            onPress={() => navigation.push('PublishWork', { type: 'video' })}
+            onPress={() => navigation.navigate('PublishWork', { type: 'video' })}
           >
             <Image source={require('../../assets/works-image/video.png')} style={styles.mediaIcon} />
           </TouchableWithoutFeedback>
@@ -138,7 +146,7 @@ function Found(props: { isLogin: boolean }) {
 
         {
           showMask && <TouchableWithoutFeedback
-            onPress={() => navigation.push('PublishWork', { type: 'photo' })}
+            onPress={() => navigation.navigate('PublishWork', { type: 'photo' })}
           >
             <Image source={require('../../assets/works-image/photo.png')} style={styles.mediaIcon} />
           </TouchableWithoutFeedback>
@@ -194,8 +202,5 @@ const styles = StyleSheet.create({
   },
   flatList: {
     padding: pxToDp(10)
-  },
-  waterFallContainer: {
-
   }
 })

@@ -4,7 +4,7 @@
 import React, { useState, useEffect } from 'react'
 import {SmallText, PrimaryText} from 'react-native-normalization-text';
 import Toast from 'react-native-tiny-toast'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, PixelRatio } from 'react-native'
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, PixelRatio, ScrollView } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Picker, Provider } from '@ant-design/react-native'
 import ButtonRadius from '../../../components/Buttons/ButtonRadius';
@@ -133,7 +133,7 @@ function AddNewAddress(props) {
 
   return (
     <Provider>
-      <View style={{ height: '100%' }}>
+      <ScrollView contentContainerStyle={{ height: '100%' }}>
         <NavBar
           title={route?.params?.type === 'edit' ? '编辑收货地址' : '添加新地址'}
           leftTheme="light"
@@ -205,7 +205,7 @@ function AddNewAddress(props) {
         >
           <PrimaryText color="white">保存</PrimaryText>
         </ButtonRadius>
-      </View>
+      </ScrollView>
     </Provider>
   )
 }

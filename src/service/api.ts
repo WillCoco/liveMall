@@ -3,10 +3,18 @@
 import { get1, post1, get2, post2, liveUpload, uploadWorkMedia } from './fetch/index'
 import { UpdateParams } from './fetch/fetchOrigin';
 
+// 测试
 const HOST_PHP = 'https://mobile.quanpinlive.com'
-// const HOST_JAVA = 'http://212.129.140.50:2333'
 const HOST_JAVA = 'https://app.quanpinlive.com'
+// 正式
+// const HOST_PHP = 'https://mobile.yunshanbo.cn'
+// const HOST_JAVA = 'https://app.yunshanbo.cn'
+
+// const HOST_JAVA = 'http://212.129.140.50:2333'
 // const HOST_JAVA = 'http://192.168.8.117:2333'
+
+export const wxUserName = 'gh_fc399d40a762'  // 测试
+// export const wxUserName = ''  // 正式
 
 // 212.129.140.50:2333
 
@@ -14,7 +22,7 @@ const HOST_JAVA = 'https://app.quanpinlive.com'
 // const HOST_JAVA = __DEV__ ? 'https://app.quanpinlive.com' : 'https://app.yunshanbo.cn'
 
 export const SANDPAY_PRE = 'https://cashier.sandpay.com.cn/gw/web/order/create?charset=UTF-8&signType=01' // 杉德支付前缀
-export const AGREEMENT_ADD = __DEV__ ? 'https://static.yunshanbo.cn/merchantEntry/#/agreement/' : '' // 协议页面路径，正式链接待更换
+export const AGREEMENT_ADD = 'https://static.yunshanbo.cn/merchantEntry/#/agreement/' // 协议页面路径
 
 /**
  * PHP 接口 ==================================================================

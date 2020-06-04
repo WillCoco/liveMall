@@ -17,6 +17,8 @@ function BrandCard(props: Props) {
   const navigation: any = useNavigation()
   const { brandInfo, isLogin } = props
 
+  const { goods: goodsList } = brandInfo
+
   const toGoodsInfo = (id: number) => {
     navigation.navigate('GoodsInfo', { id })
   }
@@ -35,9 +37,7 @@ function BrandCard(props: Props) {
     props.focusBrandShop(brandInfo)
   }
 
-  /**
-   * TODO: 品牌收藏
-   */
+  if (!goodsList) return <></>
 
   return (
     <View style={styles.container}>
@@ -57,7 +57,7 @@ function BrandCard(props: Props) {
       {/* 商品列表 */}
       <View style={styles.goodsList}>
         {
-          brandInfo.goods && brandInfo.goods.map((item: any, index: number) => {
+          goodsList && goodsList.map((item: any, index: number) => {
             return (
               <TouchableWithoutFeedback onPress={() => toGoodsInfo(item.goods_id)} key={`goods-${index}`}>
                 <View style={styles.goodsItem}>

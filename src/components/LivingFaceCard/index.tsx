@@ -6,6 +6,7 @@ import images from '../../assets/images';
 import { Colors } from '../../constants/Theme';
 import { Slider } from '@ant-design/react-native';
 import { repeatFaceSetting } from '../../actions/live';
+import { pad } from '../../constants/Layout';
 
 const LivingFaceCard = (props: {
     singleFaceNumber: number,
@@ -79,7 +80,7 @@ const LivingFaceCard = (props: {
                            style={styles.img}
                            resizeMode="contain"
                        />
-                       <SmallText color="white">美白</SmallText>
+                       <SmallText>美白</SmallText>
                    </TouchableOpacity>
                    <TouchableOpacity style={styles.cell} onPress={() => updateFaceType(FaceType.whiten)}>
                        <Image
@@ -87,7 +88,7 @@ const LivingFaceCard = (props: {
                            style={styles.img}
                            resizeMode="contain"
                        />
-                       <SmallText color="white">磨皮</SmallText>
+                       <SmallText>磨皮</SmallText>
                    </TouchableOpacity>
                    <TouchableOpacity style={styles.cell} onPress={() => updateFaceType(FaceType.redden)}>
                        <Image
@@ -95,7 +96,7 @@ const LivingFaceCard = (props: {
                            style={styles.img}
                            resizeMode="contain"
                        />
-                       <SmallText color="white">红润</SmallText>
+                       <SmallText>红润</SmallText>
                    </TouchableOpacity>
                </View>
                 <View style={styles.cardBottom}>
@@ -105,7 +106,7 @@ const LivingFaceCard = (props: {
                             style={styles.imgSm}
                             resizeMode="contain"
                         />
-                        <SmallText style={{color: '#000'}}>重置</SmallText>
+                        <SmallText style={{color: '#000', marginLeft: 4}}>重置</SmallText>
                     </TouchableOpacity>
                     <View style={{flex:1}}>
                         <Slider

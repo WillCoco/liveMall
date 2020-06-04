@@ -19,9 +19,9 @@ export default function BrandCard(props: { goodsInfo: any }) {
       <View style={styles.container}>
         <View style={styles.brandInfo}>
           <Image source={{ uri: goodsInfo.shop_logo }} style={styles.logo} />
-          <View>
+          <View style={{ flex: 1 }}>
             <Text style={styles.brandName}>{goodsInfo.shop_name}</Text>
-            {!!goodsInfo.desc && <Text style={styles.slogan}>{goodsInfo.desc}</Text>}
+            {!!goodsInfo.desc && <Text style={styles.slogan} numberOfLines={1}>{goodsInfo.desc}</Text>}
           </View>
         </View>
         <Ionicons
@@ -45,8 +45,10 @@ const styles = StyleSheet.create({
     paddingRight: pxToDp(20)
   },
   brandInfo: {
+    flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingRight: pxToDp(20)
   },
   logo: {
     width: pxToDp(80),

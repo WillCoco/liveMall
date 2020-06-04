@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { useIsFocused } from '@react-navigation/native'
+import React, { useState, useEffect, useRef } from 'react'
+import { View, Text, AppState, StyleSheet } from 'react-native'
+import { useIsFocused, useRoute } from '@react-navigation/native'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 
 let timer: any
 
 export default function SeckillCountDown() {
+  const isStart = useRef(false)
   const isFocused = useIsFocused()
   const [countDownInfo, setCountDownInfo] = useState({
     hours: 0,
@@ -15,8 +16,24 @@ export default function SeckillCountDown() {
   })
 
   useEffect(() => {
-    isFocused ? setCountDown() : clearInterval(timer)
+    AppState.addEventListener('change', handleAppStateChange)
+
+    return () => {
+      AppState.removeEventListener('change', handleAppStateChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    isFocused ? setCountDown() : clearTimer()
   }, [isFocused])
+
+  const handleAppStateChange = (nextAppState: any) => {
+    if (nextAppState === 'active') {
+      setCountDown()
+    } else if (nextAppState === 'background') {
+      clearTimer()
+    }
+  }
 
   /**
    * 设置秒杀倒计时
@@ -38,6 +55,8 @@ export default function SeckillCountDown() {
       seckillCountdown -= 1000
       countDown(seckillCountdown)
     }, 1000)
+
+    isStart.current = true
   }
 
   const countDown = (seckillCountdown: number) => {
@@ -65,6 +84,19 @@ export default function SeckillCountDown() {
     time.sec = diff
 
     setCountDownInfo(time)
+  }
+
+  /**
+   * 清楚定时器
+   */
+  const clearTimer = () => {
+    clearInterval(timer)
+    isStart.current = false
+    setCountDownInfo({
+      hours: 0,
+      min: 0,
+      sec: 0
+    })
   }
 
   return (

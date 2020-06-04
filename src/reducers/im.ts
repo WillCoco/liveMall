@@ -43,7 +43,7 @@ interface InitStateTypes {
 }
 
 const INITIAL_STATE: InitStateTypes = {
-  isIMSDKReady: false, // sdk准备完成
+  isIMSDKReady: false, // sdk准备完成(发消息等操作的前置条件)
   isOnLine: false, // 是否在线
   userSig: undefined, // 登录签名(自动登录?)
   room: undefined, // 所在房间的信息(im group + 观看等数据)
@@ -58,7 +58,11 @@ export default function homeData(state = INITIAL_STATE, action: any) {
     case imActionTypes.UPDATE_IM_SDK_READY_STATUS:
       return {...state, isIMSDKReady: action.payload.isReady};
     case imActionTypes.UPDATE_USER_IM_STATUS:
-      return {...state, isOnLine: action.payload.isReady, userSig: action.payload.userSig};
+      return {
+        ...state,
+        isOnLine: action.payload.isOnLine || state.isOnLine,
+        userSig: action.payload.userSig || state.userSig,
+      };
     case imActionTypes.UPDATE_ROOM_INFO:
       return {...state, room: action.payload.room};
     case imActionTypes.UPDATE_ROOMS:

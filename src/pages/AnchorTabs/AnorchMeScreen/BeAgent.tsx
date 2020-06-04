@@ -216,7 +216,7 @@ const BeAgent = (props: any) => {
             }
             <TinyText style={styles.beAgentTip}>
               {
-                agentRequire?.currentLevel === 2 ? '达成所有条件升级经纪人' : '任意一条件达成即可成为经纪人'
+                agentRequire?.currentLevel === 2 ? '任意一条件达成即可成为经纪人' : '达成所有条件升级经纪人'
               }
             </TinyText>
           </View>

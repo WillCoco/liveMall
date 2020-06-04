@@ -16,11 +16,14 @@ import {useSelector, useDispatch} from 'react-redux';
 // import {NodePlayerView, NodeCameraView} from 'react-native-nodemediaclient';
 import {PrimaryText} from 'react-native-normalization-text';
 import {vw, vh} from '../../utils/metric';
-// import { isAndroid, safeTop } from '../../constants/DeviceInfo';
+import { isAndroid } from '../../constants/DeviceInfo';
 // import {updateStarted} from '../../actions/live';
 import usePermissions from '../../hooks/usePermissions';
 import defaultImages from '../../assets/default-image';
+import images from '../../assets/images';
 import {consts, Streaming} from 'pili-streaming-react-native';
+import { Colors } from '../../constants/Theme';
+import { pad, radio } from '../../constants/Layout';
 
 interface LivePusherProps {
   style?: StyleProp<any>,
@@ -28,6 +31,14 @@ interface LivePusherProps {
   setResume: (v: boolean) => any
   resume: boolean
 }
+
+enum VideoFps {
+  NORMAL = 'NORMAL',
+  LOW = 'LOW',
+  STOPED = 'STOPED',
+}
+
+const VIDEO_LOW_FPS_THRESHOLD = 6; // 临界
 
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
@@ -70,13 +81,26 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
    * 播放器状态
    */
   const [status, setStatus]: [number | undefined, any] = React.useState();
+  
+  /**
+   * 视频传输状态
+   */
+  const [videoFps, setVideoFps]: [VideoFps | undefined, any] = React.useState();
 
   /**
    * 加载推流的条件
    */
   const showPusher = !!(isPermissionGranted && pushUrl && !props.resume);
 
-  const showLoading = status !== 2 && !props.resume;
+  const showLoading = status !== 2 && status !== 4 && !props.resume;
+
+  // 中断提示
+  const showStoped = status === 4 && !!videoFps;
+
+  // 低传输率提示
+  const showLowFPS = VideoFps.LOW === videoFps && !showStoped;
+  
+  console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
 
   console.log(isPermissionGranted, 'b01_isPermissionGranted');
   console.log(pusherConfig, 'b01_pusherConfig');
@@ -91,8 +115,69 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   };
 
   const onStreamInfoChange = (v: any) => {
-    console.log(v, 'onStreamInfoChange');
+    let videoStatus;
+    if (v.videoFPS >= VIDEO_LOW_FPS_THRESHOLD) {
+      // 视频fps正常
+      videoStatus = VideoFps.NORMAL;
+    } else if (v.videoFPS === 0) {
+      // 视频fps为0
+      videoStatus = VideoFps.STOPED;
+    } else if (v.videoFPS < VIDEO_LOW_FPS_THRESHOLD) {
+      // 视频fps偏低
+      videoStatus = VideoFps.LOW;
+    }
+
+    console.log(v, 'vvv')
+    console.log(videoStatus, 'videoStatus', status)
+    if (videoStatus !== videoFps) {
+      setVideoFps(videoStatus);
+    }
   };
+
+  /**
+   * 连接中组件
+   */
+  const Loading = React.useMemo(() => {
+    if (isAndroid()) {
+      return (
+        <View style={styles.textWrapper}>
+          <PrimaryText color="white">连接中</PrimaryText>
+        </View>
+      )
+    };
+
+    return (
+      <Image
+        source={images.loadingBlock}
+        resizeMode="cover"
+        style={styles.loadingBlock}
+      />
+    )
+  }, [])
+  
+  /**
+   * 低fps提示组件
+   */
+  const LOWFPS = React.useMemo(() => {
+    return (
+      <View style={styles.textWrapper}>
+        <PrimaryText color="white">您的视频传输质量较差</PrimaryText>
+        <PrimaryText color="white">请检查网络</PrimaryText>
+      </View>
+    )
+  }, [])
+  
+  /**
+   * 中断
+   */
+  const LIVESTOPED = React.useMemo(() => {
+    return (
+      <View style={styles.textWrapper}>
+        <PrimaryText color="white">您的直播推流已中断</PrimaryText>
+        <PrimaryText color="white">请检查网络后重新打开云闪播</PrimaryText>
+      </View>
+    )
+  }, [])
 
   return (
     <View ref={ref} style={StyleSheet.flatten([styles.wrapper, props.style])}>
@@ -104,23 +189,16 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
           // onSwitchCameraResult={onSwitchCameraResult}
         />
       ) : null}
-      {/* {showLoading ? (
-        <Image
-            source={cover}
-            resizeMode="cover"
-            style={styles.imgBg}
-        />
-      ) : null} */}
-      {showLoading ? (
-        <PrimaryText color="white" style={styles.loading}>
-          连接中
-        </PrimaryText>
-      ) : null}
-      {props.resume ? (
-        <PrimaryText color="white" style={styles.loading}>
-          恢复中
-        </PrimaryText>
-      ) : null}
+      <View style={styles.loadingWrapper}>
+        {showLoading ? Loading : null}
+        {showLowFPS ? LOWFPS : null}
+        {showStoped ? LIVESTOPED : null}
+        {props.resume ? (
+          <PrimaryText color="white" style={styles.loading}>
+            恢复中
+          </PrimaryText>
+        ) : null}
+      </View>
     </View>
   );
 });
@@ -146,6 +224,23 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  loadingWrapper: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  loadingBlock: {
+  },
+  textWrapper: {
+    alignItems: 'center',
+    backgroundColor: Colors.opacityDarkBg1,
+    padding: pad,
+    borderRadius: radio
+  }
 });
 
 export default LivePusher;

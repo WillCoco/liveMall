@@ -92,7 +92,7 @@ export default function Belt() {
             )
           })
         }
-        <LoadMore hasMore={hasMoreRef.current} />
+        <LoadMore hasMore={goodsList.length ? hasMoreRef.current : false} />
       </ScrollView>
     </>
   )

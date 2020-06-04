@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
+import { connect } from 'react-redux'
 
 import HomeNav from '../HomeNav'
 import HomeSwiper from '../HomeSwiper'
@@ -26,28 +27,28 @@ import { Colors } from '../../../constants/Theme'
 interface Props {
   hasMore: boolean
   timeQuantum: string
-  swiperList: Array<any>
-  seckillList: Array<any>
-  activityList: Array<any>
   countDownList: Array<any>
   recommendGoodsList: Array<any>
-  selectedGoodsInfo: {
-    subTitle: string
-    goodsList: Array<any>
+  homeData: {
+    selectedGoodsInfo: {
+      subTitle: string
+      goodsList: Array<any>
+    }
+    swiperList: Array<any>
+    seckillList: Array<any>
+    activityList: Array<any>
   }
 }
 
-export default function IndexTab(props: Props) {
+function IndexTab(props: Props) {
   const {
     hasMore,
-    swiperList,
-    seckillList,
     timeQuantum,
-    activityList,
     countDownList,
-    selectedGoodsInfo,
     recommendGoodsList
   } = props
+
+  const { swiperList, activityList, selectedGoodsInfo, seckillList } = props.homeData
 
   const navigation = useNavigation()
 
@@ -166,6 +167,10 @@ export default function IndexTab(props: Props) {
       </View></>
   )
 }
+
+export default connect(
+  (state: any) => state
+)(IndexTab)
 
 const styles = StyleSheet.create({
   tabContainer: {

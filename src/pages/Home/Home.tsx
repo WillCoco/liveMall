@@ -140,6 +140,7 @@ function Home(props: HomeProps) {
   const onPullDownRefresh = () => {
     pageNoRef.current = 1
     setLoading(true)
+    getRecommendGoodsList(true)
     initData()
   }
 

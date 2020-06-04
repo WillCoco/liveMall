@@ -8,7 +8,8 @@ import {
 import {
   Modal, Toast,
 } from '@ant-design/react-native';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector, useDispatch,} from 'react-redux';
+import {useRoute} from '@react-navigation/native';
 import LiveMsg from '../LiveMsg';
 import {Anchor as AnchorLiveToolBar} from '../LiveToolBar';
 import MsgSlowOut from '../LiveMsg/MsgSlowOut';
@@ -20,12 +21,19 @@ import {setGroupMemberMuteTime, getGroupMemberProfile} from '../../actions/im';
 import Iconcartlight from '../../components/Iconfont/Iconcartlight';
 import Iconguanzhu from '../../components/Iconfont/Iconguanzhu';
 import { Colors } from '../../constants/Theme';
+import { login, joinGroup } from '../../actions/im';
+import { EMPTY_OBJ } from '../../constants/freeze';
 
 const emptyList: [] = [];
 
 const LivingRoomScreen = (props: any) : any =>  {
   const dispatch = useDispatch();
   const [maskList, maskDispatch] = React.useContext(Mask.context);
+  const route = useRoute() || EMPTY_OBJ;
+
+  const {
+    groupID,
+  } = (route.params || EMPTY_OBJ) as any;
 
   // 房间消息
   const roomMessages = useSelector((state: any) => state?.im?.roomMessages);
@@ -53,6 +61,27 @@ const LivingRoomScreen = (props: any) : any =>  {
     }
 
     return true;
+  }
+
+   /**
+   * sdk准备好了吗
+   */
+  const isIMSDKReady = useSelector((state: any) => state?.im?.isIMSDKReady);
+
+  /**
+   * 重新登录聊天 
+   */
+  const onPressLoginIm = async() => {
+    const isLoginSuccsee = await dispatch(login());
+    console.log(isLoginSuccsee, 'isLoginSuccsee');
+    if (!isLoginSuccsee) {
+      Toast.show('登录失败');
+      return
+    }
+    const joinGroupRes = await dispatch(joinGroup({groupID}));
+    if (joinGroupRes) {
+      Toast.show('登录成功');
+    }
   }
 
   // 观众
@@ -131,6 +160,8 @@ const LivingRoomScreen = (props: any) : any =>  {
         // onPressRedden={props.onPressRedden}
         // onPressFilter={props.onPressFilter}
         onPressFace={props.onPressFace}
+        showLogin={!isIMSDKReady}
+        onPressLoginIm={onPressLoginIm}
       />
     </View>
 

@@ -18,9 +18,21 @@ import { isSucceed } from '../utils/fetchTools';
 
 const {tim, TIM,/*  getUserSig: getUserSigLocal */} = timModlue;
 
-// console.log(userSig, 'userss2')
-// console.log(store, 'store')
+/**
+ * IM SDK ready
+ * ready后接入侧才可以调用 sendMessage 等需要鉴权的接口，否则会提示失败！
+ * event.name - TIM.EVENT.SDK_READY
+ */
+tim.on(TIM.EVENT.SDK_READY, onReadyHandler);
 
+function onReadyHandler(event: any) {
+  store.dispatch(updateIMSdkStatus(true));
+  // console.log(event, 'onReadyHandler');
+}
+
+/**
+ * im收到消息
+ */
 tim.on(TIM.EVENT.MESSAGE_RECEIVED, onMessageReceived);
 
 function onMessageReceived(event: any) {
@@ -82,11 +94,6 @@ function handleCustomMsg(message: any) {
       extension
     }
 
-    // 更新观看次数
-    // if (type === MessageType.enter) {
-      // dispatch(addLivingWatchNum());
-    // }
-
     dispatch(updateMessage2Store(newRoomMessage))
   }
 }
@@ -105,8 +112,6 @@ function handleRoomInfoMsg(message: any) {
     if (groupID !== getState().im?.room?.groupID) {
       return;
     }
-
-    console.log(message?.payload, '1292282828');
 
     if (operationType === TIM.TYPES.GRP_TIP_GRP_PROFILE_UPDATED) {
       // 群信息修改
@@ -176,14 +181,6 @@ function handleSysMsg(message: any) {
   }
 }
 
-const onReadyHandler = function (event: any) {
-  // SDK ready 后接入侧才可以调用 sendMessage 等需要鉴权的接口，否则会提示失败！
-  // event.name - TIM.EVENT.SDK_READY
-  console.log(event, 'onReadyHandler');
-}
-
-tim.on(TIM.EVENT.SDK_READY, onReadyHandler);
-
 /**
  * 获取im userSig
  */
@@ -208,7 +205,7 @@ export const getUserSig = (userId: string) => {
 /**
  * 登录im
  */
-export function login() {
+export function login(): any {
   return async function(dispatch: Dispatch<any>, getState: any) {
     const userId = getState()?.im?.userId || getUniqueId();
     const userSig = await dispatch(getUserSig(userId));
@@ -227,13 +224,13 @@ export function login() {
       },
     })
 
-    loginWithRetry({userID: userId, userSig})
+    return loginWithRetry({userID: userId, userSig})
       .then(function(imResponse: any) {
         console.log(imResponse?.data?.actionStatus, 'loginIm'); // 登录成功
         if (imResponse?.data?.actionStatus === 'OK') {
           dispatch(updateUserStatus({isOnLine: true})); // tinyID
           console.log(imResponse?.data?.actionStatus, 'loginIm1111'); // 登录成功
-          return;
+          return Promise.resolve(true);
         }
         dispatch(updateUserStatus({isOnLine: false})); // tinyID
         console.log(imResponse?.data?.actionStatus, 'loginIm222'); // 登录成功

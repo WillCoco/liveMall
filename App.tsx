@@ -114,7 +114,15 @@ export default function App(props: { skipLoadingScreen: any; }) {
     loadResourcesAndDataAsync();
 
     // 登录im
-    store.dispatch(login());
+    let timer = setTimeout(() => {
+      store.dispatch(login());
+    }, 2000);
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
   }, [])
 
   const checkUrl = () => {

@@ -12,10 +12,10 @@ import {
   TouchableOpacity,
   Animated
 } from 'react-native';
-import { scale, PrimaryText, TinyText } from 'react-native-normalization-text';
+import { scale, PrimaryText, TinyText, Prim } from 'react-native-normalization-text';
 import {vw} from '../../utils/metric'
 import {Colors} from '../../constants/Theme';
-import {pad} from '../../constants/Layout';
+import { pad, radio } from '../../constants/Layout';
 import images from '../../assets/images';
 import {shortNum} from '../../utils/numeric';
 // import {useSelector} from 'react-redux';
@@ -36,6 +36,8 @@ interface LiveToolBarProps {
   onPressLike: (v?: any) => any,
   value?: string,
   setValue?: (v: string) => any,
+  onPressLoginIm?: (v: any) => any,
+  showLogin: boolean, // 是否显示登录
 }
 
 const LiveToolBar = (props: LiveToolBarProps) : any =>  {
@@ -86,16 +88,27 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
         />
         <PrimaryText color="white" style={styles.goodQuantity}>{goodsQuantity}</PrimaryText>
       </TouchableOpacity>
-      <TextInput
-        value={valueInput}
-        onChangeText={setValueInput}
-        placeholder={props.inputPlaceholder}
-        placeholderTextColor="#fff"
-        style={StyleSheet.flatten([styles.input, props.inputStyle])}
-        returnKeyLabel="发送"
-        returnKeyType="send"
-        onSubmitEditing={onSubmitEditing}
-      />
+      {
+        props.showLogin ? (
+          <View style={styles.loginWrapper}>
+            <TouchableOpacity onPress={props.onPressLoginIm} style={styles.login}>
+              <PrimaryText color="white">登录聊天</PrimaryText>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <TextInput
+            value={valueInput}
+            onChangeText={setValueInput}
+            placeholder={props.inputPlaceholder}
+            placeholderTextColor="#fff"
+            style={StyleSheet.flatten([styles.input, props.inputStyle])}
+            returnKeyLabel="发送"
+            returnKeyType="send"
+            onSubmitEditing={onSubmitEditing}
+          />
+        )
+      }
+      
       <TouchableOpacity onPress={props.onPressForward}>
         <Image
           source={images.forwardIcon}
@@ -148,6 +161,17 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: scale(14),
   },
+  loginWrapper: {
+    width: vw(50),
+    height: scale(35),
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  login: {
+    paddingHorizontal: pad,
+    backgroundColor: Colors.opacityDarkBg,
+    borderRadius: radio
+  },
   img: {
     width: scale(35),
     height: scale(35),
@@ -171,6 +195,6 @@ const styles = StyleSheet.create({
   goodQuantity: {
     position: 'absolute',
     bottom: scale(4)
-  }
+  },
 })
 export default LiveToolBar;

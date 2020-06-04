@@ -93,10 +93,7 @@ export default function SeckillCountDown() {
    * 清楚定时器
    */
   const clearTimer = () => {
-    if (route.name === 'GoodsInfo') {
-      console.log('-----------------------------------')
-      return 
-    }
+    if (route.name === 'GoodsInfo') return
     clearInterval(timer)
     isStart.current = false
     setCountDownInfo({

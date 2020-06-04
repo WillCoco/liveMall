@@ -8,7 +8,7 @@ import {
   Keyboard
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
 import LiveMsg from '../LiveMsg';
 import {Audience as AudienceLiveToolBar} from '../LiveToolBar';
 import {pad} from '../../constants/Layout';
@@ -22,12 +22,23 @@ import share from '../../utils/share';
 import { ShareType } from '../../utils/share';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../constants/freeze';
 import { updateLivingInfo } from '../../actions/live';
+import { joinGroup, login } from '../../actions/im';
+import { Toast } from '../Toast';
 
 const POLLER_INTERVAL = 1000 * 15;
 
 const BottomBlock = (props: any) : any =>  {
   const dispatch = useDispatch();
   const {navigate} = useNavigation();
+  const route = useRoute() || EMPTY_OBJ;
+
+  const {
+    groupID,
+  } = (route.params || EMPTY_OBJ) as any;
+
+  /**
+   * 是否登录
+   */
   const isLogin = useSelector((state: any) => state?.userData?.isLogin);
 
   // 是否有数据未提交
@@ -50,6 +61,11 @@ const BottomBlock = (props: any) : any =>  {
    * 邀请码
    */
   const inviteCode = useSelector((state: any) => state?.userData?.userInfo?.inviteCode);
+
+  /**
+   * sdk准备好了吗
+   */
+  const isIMSDKReady = useSelector((state: any) => state?.im?.isIMSDKReady);
 
   // 直播房间信息 (退出会现执行外层useEffect, 清除liveID, 用memo保存)
   const liveId = useSelector((state: any) => state?.live?.livingInfo?.liveId);
@@ -162,6 +178,22 @@ const BottomBlock = (props: any) : any =>  {
 
   const view: any = React.useRef();
 
+  /**
+   * 重新登录聊天 
+   */
+  const onPressLoginIm = async() => {
+    const isLoginSuccsee = await dispatch(login());
+    console.log(isLoginSuccsee, 'isLoginSuccsee');
+    if (!isLoginSuccsee) {
+      Toast.show('登录失败');
+      return
+    }
+    const joinGroupRes = await dispatch(joinGroup({groupID}));
+    if (joinGroupRes) {
+      Toast.show('登录成功');
+    }
+  }
+
   // 观众
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}
@@ -195,6 +227,8 @@ const BottomBlock = (props: any) : any =>  {
         value={props.textValue}
         setValue={props.setTextValue}
         style={{marginTop: 28}}
+        showLogin={!isIMSDKReady}
+        onPressLoginIm={onPressLoginIm}
       />
     </View>
   )

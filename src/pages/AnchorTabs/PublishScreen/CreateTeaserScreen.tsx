@@ -25,6 +25,7 @@ import * as api from '../../../service/api';
 import {Toast} from '../../../components/Toast';
 import { vh } from '../../../utils/metric';
 import moment from 'moment';
+import { sleep } from '../../../utils/tools';
 // alert(moment(['2015', '5', '4']))
 
 const CreateTraserScreen = (props: {
@@ -200,6 +201,9 @@ const CreateTraserScreen = (props: {
       unit: 'M',
       file: cover1,
     });
+
+    // 两个上传太近导致操作频繁
+    await sleep(1000);
 
     // 上传视频
     let videoUpload;

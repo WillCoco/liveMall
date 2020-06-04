@@ -113,7 +113,7 @@ const Withdraw = (props: any) => {
     }
 
     const params = {
-      "amount": withdrawNum,
+      "amount": +withdrawNum * 100,
       "code": verifyCode,
       "userBankCardId": curBankCard.id
     };

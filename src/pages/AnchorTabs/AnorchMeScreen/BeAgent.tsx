@@ -170,7 +170,7 @@ const BeAgent = (props: any) => {
           />
           <Image source={images.agent} style={styles.agentTitle} resizeMode="stretch"/>
           <PrimaryText style={styles.agentText}>
-            经纪人是指通过与平台签订劳务合同，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
+            经纪人是指达成平台指定的要求，获取更高比例返佣与权限的人员，经纪人将获得平台专业的培训，帮助经纪人获取更高的报酬。
           </PrimaryText>
           <ImageBackground 
             source={images.wxBg} 
@@ -216,7 +216,7 @@ const BeAgent = (props: any) => {
             }
             <TinyText style={styles.beAgentTip}>
               {
-                agentRequire?.currentLevel === 2 ? '任意一条件达成即可成为经纪人' : '达成所有条件升级经纪人'
+                agentRequire?.currentLevel === 2 ? '达成所有条件升级经纪人' : '任意一条件达成即可成为经纪人'
               }
             </TinyText>
           </View>

@@ -39,9 +39,9 @@ export default function BrandTab(props: Props) {
             brandList && brandList.map((item: any, index: number) => {
               return (
                 <TouchableWithoutFeedback key={`brand-${index}`} onPress={() => toBrandShop(item.brand_id)}>
-                  <View style={[styles.brandItem, !!((index + 1) % 4) && { marginRight: pxToDp(60) }]}>
+                  <View style={[styles.brandItem]}>
                     <Image source={{ uri: item.logo }} style={styles.brandLogo} />
-                    <Text style={styles.brandName}>{item.name}</Text>
+                    <Text style={styles.brandName} numberOfLines={1}>{item.name}</Text>
                   </View>
                 </TouchableWithoutFeedback>
               )
@@ -64,7 +64,6 @@ export default function BrandTab(props: Props) {
                   tapGoodsCard={(id: number) => navigation.navigate('GoodsInfo', { id })}
                 />
               )
-
             })
           }
         </View>
@@ -82,9 +81,10 @@ const styles = StyleSheet.create({
   brandsContainer: {
     marginTop: pxToDp(20),
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
   brandItem: {
+    width: '33.333%',
     alignItems: 'center',
     marginBottom: pxToDp(30),
   },

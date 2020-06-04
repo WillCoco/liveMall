@@ -39,6 +39,7 @@ function Found(props: { isLogin: boolean }) {
   const [maxHeight, setMaxHeight] = useState(0)
   const [loading, setLoading] = useState(false)
   const [showMask, setShowMask] = useState(false)
+  const [empty, setEmpty] = useState(false)
   const [workList, setWorkList]: Array<any> = useState([])
 
   useEffect(() => {
@@ -63,6 +64,7 @@ function Found(props: { isLogin: boolean }) {
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
       setLoading(false)
+      setEmpty(true)
       if (!res.worksInfoList) return
 
       res.worksInfoList.forEach((item: any) => {
@@ -98,6 +100,8 @@ function Found(props: { isLogin: boolean }) {
       getFoundList(false)
     }
   }
+
+  if (empty) return <LoadMore hasMore={false} />
 
   return (
     <>

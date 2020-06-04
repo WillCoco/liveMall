@@ -40,10 +40,10 @@ export default function ToolBar(props: { showShareBar(): any }) {
           <Image source={require('../../../assets/mine-image/icon_share.png')} style={styles.icon} />
           <Text style={styles.text}>分享好友</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.item}>
+        {/* <TouchableOpacity style={styles.item}>
           <Image source={require('../../../assets/mine-image/icon_about.png')} style={styles.icon} />
           <Text style={styles.text}>云闪播APP</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         {/* <TouchableOpacity style={styles.item}>
           <Image source={require('../../../assets/mine-image/icon_xieyi.png')} style={styles.icon} />
           <Text style={styles.text}>云闪播协议</Text>

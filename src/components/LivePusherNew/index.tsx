@@ -129,7 +129,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
     console.log(v, 'vvv')
     console.log(videoStatus, 'videoStatus', status)
-    if (videoStatus !== VideoFps.NORMAL) {
+    if (videoStatus !== videoFps) {
       setVideoFps(videoStatus);
     }
   };

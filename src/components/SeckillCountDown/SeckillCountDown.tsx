@@ -7,6 +7,7 @@ import { Colors } from '../../constants/Theme'
 let timer: any
 
 export default function SeckillCountDown() {
+  const route = useRoute()
   const isStart = useRef(false)
   const isFocused = useIsFocused()
   const [countDownInfo, setCountDownInfo] = useState({
@@ -28,7 +29,7 @@ export default function SeckillCountDown() {
   }, [isFocused])
 
   const handleAppStateChange = (nextAppState: any) => {
-    if (nextAppState === 'active') {
+    if (nextAppState === 'active' && !isStart.current) {
       setCountDown()
     } else if (nextAppState === 'background') {
       clearTimer()
@@ -39,6 +40,8 @@ export default function SeckillCountDown() {
    * 设置秒杀倒计时
    */
   const setCountDown = () => {
+    if (isStart.current) return
+
     const curHour = new Date().getHours()
 
     let seckillCountdown: number
@@ -90,6 +93,10 @@ export default function SeckillCountDown() {
    * 清楚定时器
    */
   const clearTimer = () => {
+    if (route.name === 'GoodsInfo') {
+      console.log('-----------------------------------')
+      return 
+    }
     clearInterval(timer)
     isStart.current = false
     setCountDownInfo({

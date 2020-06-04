@@ -1,4 +1,4 @@
-import { UIManager, AppRegistry } from 'react-native';
+import { UIManager, AppRegistry, Platform } from 'react-native';
 import App from './App';
 import * as WeChat from 'react-native-wechat-lib'
 // console.log(registerRootComponent, 'registerRootComponent')
@@ -14,6 +14,7 @@ WeChat.registerApp('wx2044e26389662025', 'https://www.championlive.com/apple-app
 }).catch(err => {
   console.log('微信插件注册失败', err)
 })
+
 // 错误捕获
 global.ErrorUtils.setGlobalHandler(function (err) {
   const navigation = getNavigation();
@@ -26,7 +27,19 @@ global.ErrorUtils.setGlobalHandler(function (err) {
   }
 });
 
-UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+// 去除console
+// if (!__DEV__) {
+//   global.console.log = () => undefined;
+//   global.console.warn = () => undefined;
+//   global.console.info = () => undefined;
+//   global.console.error = () => undefined;
+//   global.console.table = () => undefined;
+// }
+
+// 开启动画
+if (Platform.OS === 'android') {
+  UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);
 // It also ensures that whether you load the app in the Expo client or in a native build,

@@ -78,6 +78,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   const [resume, setResume] : any = React.useState();
 
   const onStateChange = (status: any) => {
+    console.log(status, 'statusstatusstatusstatusstatusstatusstatus')
     // setPusherStatus(status)
     // 断开网络等
     if (pusherStatus !== 4 && status === 4) {

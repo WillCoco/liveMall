@@ -86,6 +86,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
   const onStateChange = (v: any) => {
     setStatus(v);
+    alert(v)
     props.onStateChange && props.onStateChange(v);
     console.log(v, 'onStateChange');
   };

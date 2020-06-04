@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Image } from 'react-native'
+import { Carousel } from '@ant-design/react-native'
 import Swiper from 'react-native-swiper'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
@@ -10,9 +11,12 @@ export default function BrandSwiper(props: { swiperList: Array<any> }) {
 
   return (
     <View style={styles.swiperContainer}>
-      <Swiper
+      <Carousel
+        dots
         autoplay
-        activeDotColor={Colors.whiteColor}
+        infinite
+        dotStyle={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+        dotActiveStyle={{ backgroundColor: Colors.whiteColor }}
       >
         {
           swiperList && swiperList.map((item: any, index: number) => {
@@ -21,7 +25,7 @@ export default function BrandSwiper(props: { swiperList: Array<any> }) {
             )
           })
         }
-      </Swiper>
+      </Carousel>
     </View>
   )
 }

@@ -21,7 +21,7 @@ function HomeSwiper(props: Props) {
     if (item.ctype === 2) {
       navigation.navigate('GoodsInfo', { id: ~~item.extend })
     } if (item.ctype === 7) {
-      // navigation.navigate('LiveRoomScreen', { liveId: ~~item.extend })
+      navigation.navigate('LivingRoomScreen', { liveId: ~~item.extend })
     } if (item.ctype === 9) {
       navigation.navigate('ActivityWebView', { url: item.extend })
     } else {

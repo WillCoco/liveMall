@@ -43,10 +43,10 @@ function Found(props: { isLogin: boolean }) {
   const [workList, setWorkList]: Array<any> = useState([])
 
   useEffect(() => {
-    getFoundList(false)
-  }, [])
+    if (isFocused && !workList.length) {
+      getFoundList(false)
+    }
 
-  useEffect(() => {
     if (!isFocused) setShowMask(false)
   }, [isFocused])
 
@@ -78,12 +78,12 @@ function Found(props: { isLogin: boolean }) {
       })
 
       let tempList = [...workList, ...waterFall(res.worksInfoList).items]
-      let maxH = waterFall(tempList).maxHeight
+      // let maxH = waterFall(tempList).maxHeight
 
       const totalPage = Math.ceil(res.totalCount / pageSize)
       hasMoreRef.current = pageNoRef.current < totalPage
       setWorkList(isPullDown ? waterFall(res.worksInfoList).items : tempList)
-      setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
+      // setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
     }).catch((err: any) => {
       console.log('发现数据', err)
     })

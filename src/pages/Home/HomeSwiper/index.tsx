@@ -19,12 +19,16 @@ function HomeSwiper(props: Props) {
   const [swiperIndex, setIndex] = useState(0)
 
   const tapSwiper = (item: any) => {
-    if (item.ctype === 2) {
-      navigation.navigate('GoodsInfo', { id: ~~item.extend })
-    } else if (item.ctype === 7) {
-      navigation.navigate('LivingRoomScreen', { liveId: ~~item.extend })
-    } else if (item.ctype === 9) {
-      navigation.navigate('ActivityWebView', { url: item.extend })
+    if (item.ctype && item.extend) {
+      if (item.ctype === 2) {
+        navigation.navigate('GoodsInfo', { id: ~~item.extend })
+      } else if (item.ctype === 7) {
+        navigation.navigate('LivingRoomScreen', { liveId: ~~item.extend })
+      } else if (item.ctype === 9) {
+        navigation.navigate('ActivityWebView', { url: item.extend })
+      }
+    } else if (item.ctype && !item.extends) {
+      return
     } else {
       navigation.navigate('ActivityWebView', { url: item.activity_url })
     }

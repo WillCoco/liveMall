@@ -121,7 +121,7 @@ const Withdraw = (props: any) => {
     const t = Toast.loading('提现中', true)
     apiWithdraw(params)
       .then((res: any) => {
-        if (res?.message?.indexOf('手机验证码不正确')) {
+        if (res?.message?.indexOf('手机验证码不正确') > -1) {
           maskDispatch({
             type: Mask.Actions.PUSH,
             payload: {

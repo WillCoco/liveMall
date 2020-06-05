@@ -9,6 +9,8 @@ import { Colors } from '../../constants/Theme'
 import { apiSearchWork } from '../../service/api'
 import checkIsBottom from '../../utils/checkIsBottom'
 
+import MasonryList from '@appandflow/masonry-list'
+
 import SearchBar from './SearchBar/SearchBar'
 import WorkCard from '../../components/WorkCard/WorkCard'
 import LoadMore from '../../components/LoadMore/LoadMore'
@@ -36,12 +38,12 @@ export default function FoundSearch() {
     headerBackTitleVisible: false
   })
 
-  const [maxHeight, setMaxHeight] = useState(0)
+  // const [maxHeight, setMaxHeight] = useState(0)
   const [isEmpty, setIsEmpty] = useState(false)
   const [searchKey, setSearchKey] = useState('')
   const [netWorkErr, setNetWorkErr] = useState(false)
   const [worksList, setWorksList]: Array<any> = useState([])
-  
+
   const toSearch = () => {
     if (!searchKey) {
       Toast.show('搜索关键字不能为空', { position: 0 })
@@ -66,12 +68,12 @@ export default function FoundSearch() {
       })
 
       let tempList = [...worksList, ...waterFall(res.worksInfoList).items]
-      let maxH = waterFall(tempList).maxHeight
+      // let maxH = waterFall(tempList).maxHeight
 
       const totalPage = Math.ceil(res.totalCount / pageSize)
       hasMoreRef.current = pageNoRef.current < totalPage
       setWorksList(tempList)
-      setMaxHeight(maxH)
+      // setMaxHeight(maxH)
     }).catch((err: any) => {
       console.log('发现搜索', err)
       setNetWorkErr(true)
@@ -104,16 +106,14 @@ export default function FoundSearch() {
     <ScrollView
       showsVerticalScrollIndicator={false}
       onMomentumScrollEnd={(e) => onReachBottom(e)}
+      style={{ padding: pxToDp(10), paddingRight: 0 }}
     >
-      <View style={{ height: maxHeight }}>
-        {
-          worksList && worksList.map((item: any, index: number) => {
-            return (
-              <WorkCard key={`work-${index}`} workInfo={item} />
-            )
-          })
-        }
-      </View>
+      <MasonryList
+        numColumns={2}
+        data={worksList}
+        renderItem={({ item }) => <WorkCard workInfo={item} />}
+        getHeightForItem={({ item }) => item.height}
+      />
       {!!worksList.length && <LoadMore hasMore={hasMoreRef.current} />}
     </ScrollView>
   )

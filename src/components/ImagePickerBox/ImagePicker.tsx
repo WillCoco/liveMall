@@ -59,7 +59,7 @@ const ImagePickerBox = (props: ImagePickerBoxProps) =>  {
     ImagePicker.openPicker({
       mediaType: "photo",
     }).then((image) => {
-      console.log(image, 'picked_img_rrrrrrrrrr');
+      console.log(image, '  ');
       if (image) {
         const info = getImgInfo(image);
         console.log(info, 'picked_img_infoooooooo');

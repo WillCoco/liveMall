@@ -112,11 +112,7 @@ const INIT_STREAMING_CONFIG: any = {
           ? consts.videoH264Profiles_android.baseline
           : consts.videoH264Profiles_iOS.baseline31,
       // android 设置会拉伸, ios不设置推不了画面
-      customVideoEncodeSize: isAndroid ? undefined :
-      {
-        width: window.window.width,
-        height: window.window.height,
-      },
+
     },
     audioStreamingSetting: {
       rate: 44100,
@@ -125,13 +121,13 @@ const INIT_STREAMING_CONFIG: any = {
     },
     encodingSize: consts.videoEncodings.e480,
     avCodecType: isAndroid
-      // ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
-      ? consts.avCodecTypes_android.HW_VIDEO_SURFACE_AS_INPUT_WITH_HW_AUDIO_CODEC // 花屏
+      ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
+      // ? consts.avCodecTypes_android.HW_VIDEO_SURFACE_AS_INPUT_WITH_HW_AUDIO_CODEC // 花屏
       : consts.avCodecTypes_iOS.PLH264EncoderType_AVFoundation,
     cameraStreamingSetting: {
       resolution: isAndroid
-        ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
-        // ? consts.cameraResolutions_android.LARGE_RATIO_16_9
+        // ? consts.cameraResolutions_android.MEDIUM_RATIO_16_9
+        ? consts.cameraResolutions_android.LARGE_RATIO_16_9
         : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
       focusMode: consts.cameraFocusModes.continuousVideo,
       videoOrientation: consts.cameraVideoOrientations.portrait,

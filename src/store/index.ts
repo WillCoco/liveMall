@@ -56,7 +56,7 @@ const userDataPersistConfig = {
 
 const rootReducer = combineReducers({
   ...reducers,
-  live: persistReducer(livePersistConfig, reducers.live),
+  // live: persistReducer(livePersistConfig, reducers.live),
   userData: persistReducer(userDataPersistConfig, reducers.userData),
 });
 

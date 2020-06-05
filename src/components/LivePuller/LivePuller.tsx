@@ -7,10 +7,11 @@ import {
   ScrollView,
   StyleSheet,
   StyleProp,
-  Image
+  Image,
+  ActivityIndicator,
 } from 'react-native';
 import Video from 'react-native-video';
-import {PrimaryText} from 'react-native-normalization-text'
+import {PrimaryText, SmallText, tinyText} from 'react-native-normalization-text'
 import {vw, vh} from '../../utils/metric';
 import images from '../../assets/images';
 import { Toast } from '../Toast';
@@ -40,19 +41,19 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   
   const [isBuffering, setIsBuffering]: [PlayStatus | undefined, any] = React.useState();
 
+  const [resume, setResume]: [boolean | undefined, any] = React.useState(false);
+
+  /**
+   * 启动阶段
+   * 启动阶段显示错误
+   */
+  const isStarting: any = React.useRef(true);
+
   /**
    * 播放器实例
    */
   const player: {current: any} = React.useRef();
   console.log(status, 'status');
-
-  React.useEffect(() => {
-    return () => {
-      try {
-        player.current.sttop();
-      } catch (err) {}
-    }
-  }, [])
 
   /**
    * 开始
@@ -62,12 +63,33 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   }
 
   /**
-   * 错误
+   * 重连定时器
+   */
+  const resumeTimer : {current: any} = React.useRef();
+
+  /**
+   * 发生错误
   */
   const onVideoError = () => {
     // setIsReady(false);
     console.log('onVideoError')
     setStatus(PlayStatus.Error);
+
+    // 启动重连
+    if (!isStarting) {
+      // 刚启动时忽略
+      return;
+    }
+
+    // 执行重连
+    if (!resumeTimer.current) {
+      setResume(true);
+      resumeTimer.current = setTimeout(() => {
+        console.log('resume_设置重连')
+        setResume(false);
+        resumeTimer.current = null;
+      }, 3000)
+    }
   }
 
   /**
@@ -91,8 +113,25 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
   // 显示背景图
   const showBg = !source && status !== PlayStatus.Playing;
   
-  // 显示错误
-  const showError = status === PlayStatus.Error;
+  // 显示错误: video报错、不在启动阶段
+  const showError = status === PlayStatus.Error && !isStarting.current;
+
+  // 启动取消启动阶段, 退出关闭实例
+  React.useEffect(() => {
+    // 取消启动阶段
+    setTimeout(() => {
+      isStarting.current = false;
+    }, 2000);
+
+    return () => {
+      if (resumeTimer.current) {
+        clearTimeout(resumeTimer.current);
+      }
+      try {
+        player.current.stop();
+      } catch (err) {}
+    }
+  }, [])
 
   // 显示加载中
   const showLoading = 
@@ -103,7 +142,8 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
     if (isAndroid()) {
       return (
         <View style={styles.textWrapper}>
-          <PrimaryText color="white">连接中</PrimaryText>
+          <ActivityIndicator color="white" style={{paddingVertical: 6}} />
+          <SmallText color="white">连接中</SmallText>
         </View>
       );
     };
@@ -117,11 +157,13 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
     )
   }, [])
 
+  console.log(resume, 'resumeeeee')
+
   const ERROR = React.useMemo(() => {
     return (
       <View style={styles.textWrapper}>
-        <PrimaryText color="white">连接失败</PrimaryText>
-        <PrimaryText color="white">请稍后再试</PrimaryText>
+        <ActivityIndicator color="white" style={{paddingVertical: 6}} />
+        <SmallText color="white" style={{}}>连接失败,尝试重连</SmallText>
       </View>
     );
   }, [])
@@ -137,6 +179,7 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
               }
               player.current = video;
             }}
+            paused={resume}
             resizeMode="cover"
             source={source}
             onLoadStart={onLoadStart}
@@ -169,6 +212,7 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
+    backgroundColor: '#333'
   },
   video: {
     flex: 1,
@@ -185,7 +229,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+
   },
   loadingBlock: {
   },

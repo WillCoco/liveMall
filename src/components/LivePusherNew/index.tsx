@@ -10,11 +10,12 @@ import {
   StyleProp,
   InteractionManager,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 // import {Streaming} from 'pili-streaming-react-native';
 // import {NodePlayerView, NodeCameraView} from 'react-native-nodemediaclient';
-import {PrimaryText} from 'react-native-normalization-text';
+import {PrimaryText, SmallText} from 'react-native-normalization-text';
 import {vw, vh} from '../../utils/metric';
 import { isAndroid } from '../../constants/DeviceInfo';
 // import {updateStarted} from '../../actions/live';
@@ -141,7 +142,8 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
     if (isAndroid()) {
       return (
         <View style={styles.textWrapper}>
-          <PrimaryText color="white">连接中</PrimaryText>
+          <ActivityIndicator color="white" style={{paddingVertical: 6}} />
+          <SmallText color="white">连接中</SmallText>
         </View>
       )
     };
@@ -161,8 +163,8 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const LOWFPS = React.useMemo(() => {
     return (
       <View style={styles.textWrapper}>
-        <PrimaryText color="white">您的视频传输质量较差</PrimaryText>
-        <PrimaryText color="white">请检查网络</PrimaryText>
+        <SmallText color="white">您的视频传输质量较差</SmallText>
+        <SmallText color="white">请检查网络</SmallText>
       </View>
     )
   }, [])
@@ -173,8 +175,8 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const LIVESTOPED = React.useMemo(() => {
     return (
       <View style={styles.textWrapper}>
-        <PrimaryText color="white">您的直播推流已中断</PrimaryText>
-        <PrimaryText color="white">请检查网络后重新打开云闪播</PrimaryText>
+        <SmallText color="white">您的直播推流已中断</SmallText>
+        <SmallText color="white">请检查网络后重新打开云闪播</SmallText>
       </View>
     )
   }, [])
@@ -194,9 +196,9 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
         {showLowFPS ? LOWFPS : null}
         {showStoped ? LIVESTOPED : null}
         {props.resume ? (
-          <PrimaryText color="white" style={styles.loading}>
+          <SmallText color="white" style={styles.loading}>
             恢复中
-          </PrimaryText>
+          </SmallText>
         ) : null}
       </View>
     </View>

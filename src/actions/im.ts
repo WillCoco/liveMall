@@ -380,6 +380,10 @@ export const quitGroup = (groupId: string) => {
   return function(dispatch: Dispatch<any>, getState: any) {
     const groupID = groupId || getState().im?.room?.groupID;
 
+    if (!groupID) {
+      return;
+    }
+
     tim.quitGroup(groupID)
       .then(function(imResponse: any) {
         console.log(imResponse.data, 'quitGroup'); // 登出成功
@@ -413,6 +417,11 @@ export const sendRoomMessage = (msgInfo: SendMessageParams) => {
     );
 
     const groupID = getState()?.im?.room?.groupID;
+
+    const to = msgInfo.to || groupID;
+    if (!to || !payload) {
+      return;
+    }
     let message = tim.createCustomMessage({
       to: msgInfo.to || groupID,
       conversationType: TIM.TYPES.CONV_GROUP,

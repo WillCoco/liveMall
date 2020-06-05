@@ -112,7 +112,11 @@ const INIT_STREAMING_CONFIG: any = {
           ? consts.videoH264Profiles_android.baseline
           : consts.videoH264Profiles_iOS.baseline31,
       // android 设置会拉伸, ios不设置推不了画面
-
+      customVideoEncodeSize: isAndroid ? undefined :
+      {
+        width: window.window.width,
+        height: window.window.height,
+      },
     },
     audioStreamingSetting: {
       rate: 44100,

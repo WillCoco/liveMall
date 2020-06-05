@@ -163,7 +163,7 @@ const LiveWindow = React.forwardRef((props: LiveWindowProps, ref: any) : any => 
     return (
       <View style={styles.textWrapper}>
         <ActivityIndicator color="white" style={{paddingVertical: 6}} />
-        <SmallText color="white" style={{}}>连接失败,尝试重连</SmallText>
+        <SmallText color="white" style={{}}>连接失败</SmallText>
       </View>
     );
   }, [])

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, ImageBackground, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, ImageBackground, TouchableOpacity, PermissionsAndroid } from 'react-native'
 import pxToDp from '../../../utils/px2dp'
 import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
@@ -8,6 +8,7 @@ import { Ionicons } from '@expo/vector-icons'
 import { Toast } from '../../../components/Toast'
 import { apiWorkUpload } from '../../../service/api'
 import { setMediaList } from '../../../actions/works'
+import usePermissions from '../../../hooks/usePermissions'
 
 interface Props {
   dispatch?: any;
@@ -19,6 +20,9 @@ interface Props {
 }
 
 function ImgPicker(props: Props) {
+  usePermissions([
+    PermissionsAndroid.PERMISSIONS.CAMERA,
+  ])
   const { pageType, mediaList, fullPathImageList } = props
 
   const chooseImage = async (index: number) => {

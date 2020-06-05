@@ -5285,7 +5285,7 @@ pify@^4.0.1:
 "pili-streaming-react-native@file:./pili-streaming-react-native":
   version "2.0.0"
   dependencies:
-    pili-streaming-react-native "file:../../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-4d766176-eba0-4039-8af7-808acf284f41-1591255165259/node_modules/pili-streaming-react-native"
+    pili-streaming-react-native "file:../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-09e8e609-47e8-4b14-b32e-be1d6bd3c3b6-1591328377308/node_modules/pili-streaming-react-native"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"
@@ -5556,6 +5556,16 @@ react-native-iconfont-cli@^2.0.0:
     minimist "^1.2.5"
     mkdirp "^0.5.1"
     tslib "^1.10.0"
+
+react-native-image-crop-picker@^0.31.1:
+  version "0.31.1"
+  resolved "https://registry.npm.taobao.org/react-native-image-crop-picker/download/react-native-image-crop-picker-0.31.1.tgz#b56248a9e31d62f1c6e7c2f85d296869c32af4cd"
+  integrity sha1-tWJIqeMdYvHG58L4XSloacMq9M0=
+
+react-native-image-picker@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npm.taobao.org/react-native-image-picker/download/react-native-image-picker-2.3.1.tgz#1977b65e07793d2c0b2d1976fb675c5f75ad7f11"
+  integrity sha1-GXe2Xgd5PSwLLRl2+2dcX3WtfxE=
 
 react-native-iphone-x-helper@1.2.1, react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"

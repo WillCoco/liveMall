@@ -4,7 +4,8 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
-  BackHandler
+  BackHandler,
+  PermissionsAndroid
 } from 'react-native';
 import {T1, SmallText} from 'react-native-normalization-text';
 import {useNavigation, useFocusEffect} from '@react-navigation/native';
@@ -20,6 +21,7 @@ import {setAnchorInfo} from '../../../actions/anchor';
 import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
+import usePermissions from '../../../hooks/usePermissions';
 import { shortNum } from '../../../utils/numeric';
 import { EMPTY_OBJ } from '../../../constants/freeze';
 import { isSucceed } from '../../../utils/fetchTools';
@@ -30,6 +32,15 @@ const PublishScreen = (props: any) =>  {
   const dispatch = useDispatch();
   const anchorInfo = useSelector((state: any) => state?.anchorData?.anchorInfo) || EMPTY_OBJ;
   const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
+
+  // 提前获取权限
+  const isPermissionGranted = usePermissions([
+    PermissionsAndroid.PERMISSIONS.CAMERA,
+    PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+    PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+    PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+    PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+  ]);
 
   // 操作空闲
   const isIdle = React.useRef(true);

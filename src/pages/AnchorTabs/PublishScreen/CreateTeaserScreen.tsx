@@ -28,6 +28,8 @@ import moment from 'moment';
 import { sleep } from '../../../utils/tools';
 // alert(moment(['2015', '5', '4']))
 
+const MAX_VIDEO_DURATIONS = 20;
+
 const CreateTraserScreen = (props: {
   safeTop: number,
   safeBottom: number,
@@ -140,8 +142,8 @@ const CreateTraserScreen = (props: {
     }
 
     console.log(video.duration, 'video.duration')
-    console.log(video.duration > 20 * 1000, 'video.duration')
-    if (video.duration && video.duration > 20 * 1000) {
+    console.log(video.duration > MAX_VIDEO_DURATIONS, 'video.duration')
+    if (video.duration && video.duration > MAX_VIDEO_DURATIONS) {
       Toast.show('所选视频太长');
       return false;
     }
@@ -166,7 +168,7 @@ const CreateTraserScreen = (props: {
 
     // 20s
     if (video) {
-      if (video.duration > (20 * 1000)) {
+      if (video.duration > MAX_VIDEO_DURATIONS) {
         Toast.show('所选视频太长');
         return false;
       }

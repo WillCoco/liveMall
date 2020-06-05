@@ -9,12 +9,13 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons'
 import { navigationRef } from './src/navigation/RootNavgation';
 import { isAndroid } from './src/constants/DeviceInfo';
+import appjson from './app.json'
 
 import { Provider as AntdProvider } from '@ant-design/react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import configStore from './src/store'
-import { getStatusBarHeight } from './src/actions/public'
+import { getStatusBarHeight, setLiveTabStatus } from './src/actions/public'
 import { login } from './src/actions/im'
 
 import Root from './src/navigation/BottomTabNavigator'
@@ -102,10 +103,12 @@ import LiveGoodsPickerScreen from './src/pages/AnchorTabs/PublishScreen/LiveGood
 import ErrorPage from './src/pages/ErrorPage';
 import AgreementWebView from './src/pages/AgreementWebView/AgreementWebView';
 import usePermissions from './src/hooks/usePermissions';
+import { apiCheckUpdate } from './src/service/api';
 
 const { StatusBarManager } = NativeModules
 const { store, persistor } = configStore()
 const Stack = createStackNavigator()
+const currentVersion = appjson.expo.version
 
 export default function App(props: { skipLoadingScreen: any; }) {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
@@ -121,6 +124,7 @@ export default function App(props: { skipLoadingScreen: any; }) {
 
   useEffect(() => {
     checkUrl();
+    checkVersion();
     loadResourcesAndDataAsync();
 
     // 登录im
@@ -134,6 +138,21 @@ export default function App(props: { skipLoadingScreen: any; }) {
       }
     }
   }, [])
+
+  /**
+   * 检查更新
+   */
+  const checkVersion = () => {
+    apiCheckUpdate({
+      ver: currentVersion,
+      appType: Platform.OS === 'ios' ? 2 : 1
+    }).then((res: any) => {
+      console.log('检查更新', res)
+      store.dispatch(setLiveTabStatus(res.liveStatus))
+    }).catch((err: any) => {
+      console.log(err)
+    })
+  }
 
   const checkUrl = () => {
     Linking.getInitialURL().then((url: any) => {

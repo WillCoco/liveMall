@@ -28,7 +28,7 @@ export default function SelectGoods() {
   const [goodsList, setGoodsList]: Array<any> = useState([])
 
   navigation.setOptions({
-    headerTitle: '精选好物',
+    headerTitle: '人气推荐',
     headerStyle: {
       backgroundColor: Colors.basicColor,
       elevation: 0,  // 去除安卓状态栏底部阴影

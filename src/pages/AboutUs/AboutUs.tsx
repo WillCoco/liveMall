@@ -41,7 +41,7 @@ export default function AboutUs() {
     }).then((res: any) => {
       console.log('检查更新', res)
       const hasNewVer = +res.isNeedUpdate
-      setHasNewVer(0)
+      setHasNewVer(hasNewVer)
 
       if (hasNewVer) {
         setVersion(res.appVersion)

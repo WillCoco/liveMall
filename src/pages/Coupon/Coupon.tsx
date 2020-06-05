@@ -10,7 +10,7 @@ import { Colors } from '../../constants/Theme'
 import formatSinglePrice from '../../utils/formatGoodsPrice'
 
 export default function Coupon() {
-  const navigation: any = useNavigation()
+  const navigation = useNavigation()
 
   const [couponList, setCouponList]: Array<any> = useState([])
 
@@ -39,8 +39,16 @@ export default function Coupon() {
     })
   }
 
-  const toUseCoupon = () => {
-    navigation.navigate('首页')
+  const toUseCoupon = (item: any) => {
+    const { scope, brandId, goodsId } = item
+    
+    if (scope === 2) {
+      navigation.navigate('BrandShop', { id: brandId })
+    } else if (scope === 3) {
+      navigation.navigate('GoodsInfo', { id: goodsId })
+    } else {
+      navigation.navigate('首页')
+    }
   }
 
   if (!couponList.length) {
@@ -79,7 +87,7 @@ export default function Coupon() {
                   <Text style={[styles.text, styles.couponDate]}>{moment(item.usefulTimeStart).format('YYYY.MM.DD')}-{moment(item.usefulTimeEnd).format('YYYY.MM.DD')}</Text>
                 </View>
               </View>
-              <TouchableWithoutFeedback onPress={toUseCoupon}>
+              <TouchableWithoutFeedback onPress={() => toUseCoupon(item)}>
                 <View style={styles.toUse}>
                   <View style={styles.useBtn}>
                     <Text style={styles.useBtnText}>去使用</Text>

@@ -75,10 +75,10 @@ function IndexTab(props: Props) {
           swiperStyle={styles.activity}
         />
       </View>
-      {/* 精选话题 */}
+      {/* 人气推荐 */}
       <View style={styles.selectedGoods}>
         <CardTitle
-          title='精选话题'
+          title='人气推荐'
           subTitle={selectedGoodsInfo.subTitle}
           nextAction={() => navigation.navigate('SelectGoods')}
         />

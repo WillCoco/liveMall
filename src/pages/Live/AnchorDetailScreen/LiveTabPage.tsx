@@ -28,6 +28,7 @@ import { isSucceed } from '../../../utils/fetchTools';
 import { EMPTY_OBJ, EMPTY_ARR } from '../../../constants/freeze';
 import { clearLiveRoom } from '../../../actions/im';
 import { shortNum } from '../../../utils/numeric';
+import easyNavigate from '../../../utils/easyNavigate';
 import { useSelector } from 'react-redux';
 
 const Row = (props: {
@@ -201,15 +202,31 @@ const LiveTabPage = (props: {
    */
   const toLiveingRoom = (item: any) => {
     const lastRouteName = routes[routes.length - 2].name;
+    console.log(lastRouteName, 'lastRouteNamelastRouteNamelastRouteName')
 
-    // 从其他详情页面
-    dispatch(clearLiveRoom());
-    navigate('LivingRoomScreen', {
-      liveId: item?.liveId,
-      groupID: item?.groupId || `live${item?.liveId}`,
-      anchorId: item?.anchorId,
-      mediaType: item?.liveStatus
-    })
+    if (lastRouteName === 'AnorchLivingRoomScreen') {
+      Toast.show('您正在直播');
+      // dispatch(clearLiveRoom());
+      // 如果从主播直播进入: 干掉主播页面, 并跳转到预告、回放页面
+      // easyNavigate('LivingRoomScreen', {
+      //   excludeRouteNames: ['AnorchLivingRoomScreen'],
+      //   params: {
+      //     liveId: item?.liveId,
+      //     groupID: item?.groupId || `live${item?.liveId}`,
+      //     anchorId: item?.anchorId,
+      //     mediaType: item?.liveStatus
+      //   }
+      // })
+    } else {
+      // 从其他详情页面
+      dispatch(clearLiveRoom());
+      navigate('LivingRoomScreen', {
+        liveId: item?.liveId,
+        groupID: item?.groupId || `live${item?.liveId}`,
+        anchorId: item?.anchorId,
+        mediaType: item?.liveStatus
+      })
+    }
   }
 
   /**
@@ -219,7 +236,7 @@ const LiveTabPage = (props: {
     let index
     index = item.index
     item = item.item
-    console.log(item, '主播详情项目')
+    // console.log(item, '主播详情项目')
     if (item.liveStatus === '2') {
       return (
         <Row

@@ -101,13 +101,13 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   // 低传输率提示
   const showLowFPS = VideoFps.LOW === videoFps && !showStoped;
   
-  console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
-
-  console.log(isPermissionGranted, 'b01_isPermissionGranted');
-  console.log(pusherConfig, 'b01_pusherConfig');
-  console.log(pushUrl, 'b01_pushUrl');
-  console.log(showPusher, 'b01_showPusher');
-  console.log(props.resume, 'b01_props.resume');
+  // console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
+  // console.log(isPermissionGranted, 'b01_isPermissionGranted');
+  // console.log(pusherConfig, 'b01_pusherConfig');
+  // console.log(pushUrl, 'b01_pushUrl');
+  // console.log(showPusher, 'b01_showPusher');
+  // console.log(props.resume, 'b01_props.resume');
+  // console.log(status, 'b01_status');
 
   const onStateChange = (v: any) => {
     setStatus(v);

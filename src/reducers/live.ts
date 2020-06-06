@@ -120,13 +120,13 @@ const INIT_STREAMING_CONFIG: any = {
     },
     audioStreamingSetting: {
       rate: 44100,
-      // bitrate: 96 * 1024,
-      bitrate: 48 * 1024,
+      bitrate: 96 * 1024,
+      // bitrate: 48 * 1024, --
     },
     encodingSize: consts.videoEncodings.e480,
     avCodecType: isAndroid
-      ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
-      // ? consts.avCodecTypes_android.HW_VIDEO_SURFACE_AS_INPUT_WITH_HW_AUDIO_CODEC // 花屏
+      // ? consts.avCodecTypes_android.SW_VIDEO_WITH_SW_AUDIO_CODEC
+      ? consts.avCodecTypes_android.HW_VIDEO_SURFACE_AS_INPUT_WITH_HW_AUDIO_CODEC // 花屏
       : consts.avCodecTypes_iOS.PLH264EncoderType_AVFoundation,
     cameraStreamingSetting: {
       resolution: isAndroid
@@ -159,15 +159,7 @@ const INIT_STREAMING_CONFIG: any = {
     // borderBottomWidth: 1,
   },
 }
-const DEFAULT_OPTIONS: any = /* INIT_STREAMING_CONFIG ||  */{
-  // outputUrl: "rtmp://pili-publish.qnsdk.com/sdk-live/111",
-  // outputUrl: "rtmp://77154.livepush.myqcloud.com/live/test003?txSecret=e6aaf45458ce4f0626c0dafca4b6bf5a&txTime=5EB581FF",
-  // outputUrl: "rtmp.youzfx.cn",
-
-  // camera: {cameraId: 1, cameraFrontMirror: false},
-  // audio: {bitrate: 32000, profile: 1, samplerate: 44100},
-  // video: {preset: 12, bitrate: 400000, profile: 1, fps: 15, videoFrontMirror: false},
-  // autopreview: true,
+const DEFAULT_OPTIONS: any = INIT_STREAMING_CONFIG || {
     ...INIT_STREAMING_CONFIG,
     profile: {
         ...INIT_STREAMING_CONFIG.profile,

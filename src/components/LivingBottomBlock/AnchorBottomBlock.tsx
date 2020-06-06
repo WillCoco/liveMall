@@ -49,6 +49,7 @@ const LivingRoomScreen = (props: any) : any =>  {
   const getUserSilent = async (userID: string) => {
     const info: any = await dispatch(getGroupMemberProfile({userID})) || {};
 
+    console.log(userID, 'sdkadjalkas')
     console.log(info, 'sdkadjalkas')
 
     // 未禁言中

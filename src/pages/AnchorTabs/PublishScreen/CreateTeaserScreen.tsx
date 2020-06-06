@@ -141,7 +141,7 @@ const CreateTraserScreen = (props: {
       return false;
     }
 
-    console.log(video.duration, 'video.duration')
+    console.log(video, 'video.duration')
     console.log(video.duration > MAX_VIDEO_DURATIONS, 'video.duration')
     if (video.duration && video.duration > MAX_VIDEO_DURATIONS) {
       Toast.show('所选视频太长');
@@ -221,7 +221,7 @@ const CreateTraserScreen = (props: {
     const {data: coverResult, message: coverMessage} = (await coverUpload) || {};
     const {data: videoResult, message: videoMessage} = (await videoUpload) || {};
 
-    // console.log(coverResult,  'videoResultvideoResult');
+    console.log(coverResult,  'videoResultvideoResult');
 
     if (!coverResult) {
       Toast.remove(loading);

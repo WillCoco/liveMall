@@ -87,7 +87,7 @@ function ImgPicker(props: Props) {
         props.setFullPathImageList([...fullPathImageList, ...[res.data.worksUrl]])
         pageType === 'video' && props.setGifUrl(res.data.worksGifUrl)
       } else {
-        Toast.fail(res.data)
+        Toast.fail(res.message)
       }
     }).catch((err: any) => {
       Toast.remove(loading)

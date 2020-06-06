@@ -64,7 +64,7 @@ buck-out/
 
 # .vscode
 .vscode/
-
+.history
 android/app/release/
 
 android/*.hprof

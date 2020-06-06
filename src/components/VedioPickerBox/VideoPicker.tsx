@@ -19,6 +19,7 @@ import {Colors} from '../../constants/Theme';
 import { radio, pad } from '../../constants/Layout';
 import Iconclosebg from '../../components/Iconfont/Iconclosebg';
 import { Toast } from '../Toast';
+import { isAndroid } from '../../constants/DeviceInfo';
 
 interface VideoPickerBoxProps {
   style?: StyleProp<any>,
@@ -39,9 +40,18 @@ const VideoPickerBox = React.forwardRef((props: VideoPickerBoxProps, ref: any) =
    * 
    */
   const getVideoInfo = (video: any) => {
+    let filename;
+    if (isAndroid()) {
+      const nameArr = video.path.split('/');
+      console.log(nameArr, 'nameArr')
+      filename = nameArr[nameArr.length - 1];
+    } else {
+      filename = video.filename
+    }
+    console.log(filename, 'filenameeeee')
     return {
       uri: video.path,
-      name: video.fileName,
+      name: filename,
       type: video.mime,
     }
   }

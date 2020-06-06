@@ -14,7 +14,6 @@ export default function ActivityWebView() {
   const webviewEl: { current: any } = React.useRef(null);
 
   const userId = useSelector((state: any) => state?.userData?.userInfo?.userId) || '';
-  const token = useSelector((state: any) => state?.userData?.token) || '';
 
   // const injectedJavascript = `(function() {
   //   window.postMessage = function(data) {
@@ -37,14 +36,14 @@ export default function ActivityWebView() {
     <WebView
       ref={ref => webviewEl.current = ref}
       style={{ opacity: 0.99 }}
-      source={{ uri: route.params.url }}
+      source={{ uri: route.params.url+ '?userId='+ userId + '&platform="app"' }}
       // injectedJavaScript={injectedJavascript}
       // onMessage={(event) => { console.log(event.nativeEvent.data); }}
-      onLoadEnd={() => {
-        webviewEl.current.postMessage(
-          JSON.stringify({ userId, token, platform: 'app' })
-        )
-      }}
+      // onLoadEnd={() => {
+      //   webviewEl.current.postMessage(
+      //     JSON.stringify({ userId, token, platform: 'app' })
+      //   )
+      // }}
     />
   )
 }

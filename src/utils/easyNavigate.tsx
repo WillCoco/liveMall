@@ -15,14 +15,19 @@ interface EasyNavigateOptions {
 const easyNavigate = (routeName: string, options: EasyNavigateOptions) => {
   const navigation: any = getNavigation();
 
-  if (navigation) {
+  // console.log(navigation, 'navigationnavigationnavigation')
+
+  if (!navigation) {
     return;
   }
 
   // 跳转并缩短路由
   navigation.dispatch((state: any) => {
     // 排除历史路由
-    const routes = excludeRoutes(state.routes, options)
+    // console.log(state.routes, 'routesroutesroute1s')
+    const routes = excludeRoutes(state.routes, options);
+
+    // console.log(routes, 'routesroutesroutes2')
 
     routes.push({
       key: `${routeName}-${nanoid()}`,
@@ -40,6 +45,8 @@ const easyNavigate = (routeName: string, options: EasyNavigateOptions) => {
 
 export function excludeRoutes(routes: Array<any>, options: EasyNavigateOptions): Array<any> {
   // 优先排除方法
+  console.log(options.exclude, 'exclude')
+
   if (!!options.exclude) {
     let newRoutes = options.exclude(routes);
     return newRoutes;
@@ -51,8 +58,11 @@ export function excludeRoutes(routes: Array<any>, options: EasyNavigateOptions):
     let routeNames = routes.map(r => r.name);
     
     routeNames.forEach((name: any, index: number) => {
-      if (routes.indexOf(name) !== -1) {
-        newRoutes.splice(index, 1);
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].name === name) {
+          newRoutes.splice(index, 1);
+          continue;
+        }
       }
     });
     return newRoutes;

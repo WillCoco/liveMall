@@ -261,7 +261,7 @@ function GoodsInfo(props: Props) {
       navigation.navigate('Login')
       return
     }
-
+    
     if (buttonType === 'add') {
       addToCart()
     } else {

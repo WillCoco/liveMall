@@ -25,7 +25,10 @@ import * as api from '../../../service/api';
 import {Toast} from '../../../components/Toast';
 import { vh } from '../../../utils/metric';
 import moment from 'moment';
+import { sleep } from '../../../utils/tools';
 // alert(moment(['2015', '5', '4']))
+
+const MAX_VIDEO_DURATIONS = 20;
 
 const CreateTraserScreen = (props: {
   safeTop: number,
@@ -138,9 +141,9 @@ const CreateTraserScreen = (props: {
       return false;
     }
 
-    console.log(video.duration, 'video.duration')
-    console.log(video.duration > 20 * 1000, 'video.duration')
-    if (video.duration && video.duration > 20 * 1000) {
+    console.log(video, 'video.duration')
+    console.log(video.duration > MAX_VIDEO_DURATIONS, 'video.duration')
+    if (video.duration && video.duration > MAX_VIDEO_DURATIONS) {
       Toast.show('所选视频太长');
       return false;
     }
@@ -165,7 +168,7 @@ const CreateTraserScreen = (props: {
 
     // 20s
     if (video) {
-      if (video.duration > (20 * 1000)) {
+      if (video.duration > MAX_VIDEO_DURATIONS) {
         Toast.show('所选视频太长');
         return false;
       }
@@ -201,6 +204,9 @@ const CreateTraserScreen = (props: {
       file: cover1,
     });
 
+    // 两个上传太近导致操作频繁
+    await sleep(1000);
+
     // 上传视频
     let videoUpload;
     if (video) {
@@ -215,7 +221,7 @@ const CreateTraserScreen = (props: {
     const {data: coverResult, message: coverMessage} = (await coverUpload) || {};
     const {data: videoResult, message: videoMessage} = (await videoUpload) || {};
 
-    // console.log(coverResult,  'videoResultvideoResult');
+    console.log(coverResult,  'videoResultvideoResult');
 
     if (!coverResult) {
       Toast.remove(loading);

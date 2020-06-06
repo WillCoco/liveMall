@@ -254,11 +254,6 @@ const LiveWindow = (props: LiveWindowProps): any => {
     }
   }
 
-  // 直播结束
-  if (isLiveOver) {
-    replace('AudienceLivingEnd');
-  }
-  
   /**
    * input
    */

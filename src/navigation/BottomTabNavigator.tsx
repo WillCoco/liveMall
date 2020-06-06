@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import pxToDp from '../utils/px2dp'
 import { Colors } from '../constants/Theme'
+import { useSelector } from 'react-redux'
 
 import HomeScreen from '../pages/Home/Home'
 import FoundScreen from '../pages/Found/Found'
@@ -38,6 +39,8 @@ function BottomTabNavigator({ navigation, route }: any) {
     return true
   }
 
+  const liveStatus = useSelector((state: any) => state?.publicData?.showLiveTab)
+
   navigation.setOptions({
     headerShown: showHeader(),
     headerTitle: () => getTabItemComponent(getHeaderTitle(route), navigation),
@@ -66,14 +69,16 @@ function BottomTabNavigator({ navigation, route }: any) {
           tabBarIcon: ({ focused }) => <Image style={styles.tabBarImage} source={focused ? homeActiveIcon : homeIcon} />
         }}
       />
-      <BottomTab.Screen
-        name="直播"
-        component={LiveHomeScreen}
-        options={{
-          title: '直播',
-          tabBarIcon: ({ focused }) => <Image style={styles.tabBarImage} source={focused ? liveActiveIcon : liveIcon} />,
-        }}
-      />
+      {
+        !!liveStatus && <BottomTab.Screen
+          name="直播"
+          component={LiveHomeScreen}
+          options={{
+            title: '直播',
+            tabBarIcon: ({ focused }) => <Image style={styles.tabBarImage} source={focused ? liveActiveIcon : liveIcon} />,
+          }}
+        />
+      }
       <BottomTab.Screen
         name="发现"
         component={FoundScreen}

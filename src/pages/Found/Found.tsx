@@ -43,10 +43,10 @@ function Found(props: { isLogin: boolean }) {
   const [workList, setWorkList]: Array<any> = useState([])
 
   useEffect(() => {
-    getFoundList(false)
-  }, [])
+    if (isFocused && !workList.length) {
+      getFoundList(false)
+    }
 
-  useEffect(() => {
     if (!isFocused) setShowMask(false)
   }, [isFocused])
 
@@ -64,8 +64,13 @@ function Found(props: { isLogin: boolean }) {
     apiGetWorks(params).then((res: any) => {
       console.log('发现数据', res)
       setLoading(false)
-      setEmpty(true)
-      if (!res.worksInfoList) return
+
+      if (!res.worksInfoList) {
+        setEmpty(true)
+        return
+      }
+
+      setEmpty(false)
 
       res.worksInfoList.forEach((item: any) => {
         item.imageWidth = item.worksMoreInfo.imageWidth
@@ -73,12 +78,12 @@ function Found(props: { isLogin: boolean }) {
       })
 
       let tempList = [...workList, ...waterFall(res.worksInfoList).items]
-      let maxH = waterFall(tempList).maxHeight
+      // let maxH = waterFall(tempList).maxHeight
 
       const totalPage = Math.ceil(res.totalCount / pageSize)
       hasMoreRef.current = pageNoRef.current < totalPage
       setWorkList(isPullDown ? waterFall(res.worksInfoList).items : tempList)
-      setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
+      // setMaxHeight(isPullDown ? waterFall(res.worksInfoList).maxHeight : maxH)
     }).catch((err: any) => {
       console.log('发现数据', err)
     })
@@ -100,8 +105,6 @@ function Found(props: { isLogin: boolean }) {
       getFoundList(false)
     }
   }
-
-  if (empty) return <LoadMore hasMore={false} />
 
   return (
     <>
@@ -132,7 +135,7 @@ function Found(props: { isLogin: boolean }) {
           getHeightForItem={({ item }) => item.height}
         />
 
-        <LoadMore hasMore={hasMoreRef.current} />
+        <LoadMore hasMore={empty ? false : hasMoreRef.current} />
       </ScrollView>
 
       <View style={styles.addContainer}>

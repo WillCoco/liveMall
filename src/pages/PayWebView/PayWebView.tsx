@@ -6,7 +6,7 @@ import { Colors } from '../../constants/Theme'
 
 export default function PayWebview() {
   const route: any = useRoute()
-  const navigation: any = useNavigation()
+  const navigation = useNavigation()
   const hasLeaveRef: any = useRef(false)
 
   const { orderSn, payType, nextBtnText, nextRoute } = route.params

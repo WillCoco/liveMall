@@ -20,15 +20,16 @@ export default function WorkCard(props: { workInfo: any }) {
     navigation.navigate('FoundInfo', params)
   }
 
-  return (
-    <View style={{
-      width: workInfo.width,
-      marginBottom: pxToDp(10)
-      // height: workInfo.height,
+  // height: workInfo.height,
       // position: 'absolute',
       // top: workInfo.top,
       // left: workInfo.left,
       // overflow: 'hidden'
+
+  return (
+    <View style={{
+      width: workInfo.width,
+      marginBottom: pxToDp(10)
     }}>
       <TouchableWithoutFeedback onPress={toFoundInfo}>
         <ImageBackground

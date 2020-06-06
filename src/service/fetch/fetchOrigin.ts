@@ -1,5 +1,5 @@
 import configStore from "../../store";
-// import Toast from "react-native-tiny-toast";
+import Toast from "react-native-tiny-toast";
 // import { toggleLoginState, setToke, setUserInfo } from "../../actions/user";
 const { store } = configStore();
 import { sleep } from "../../utils/tools";
@@ -132,7 +132,16 @@ export const uploadWorkMedia = (
     headers,
     body: formData,
   })
-    .then((response: { json: () => any }) => response.json());
+    .then((response: { json: () => any, status: number }) => {
+      console.log('上传文件', response)
+      if (response.status === 413) {
+        Toast.show('文件太大，请压缩至20M以内', { position: 0, duration: 2000 })
+      } else if (response.status === 200) {
+        return response.json()
+      } else {
+        Toast.show('上传失败')
+      }
+    });
 
   const raceTimeout = Promise.race([fn, timeout(options.timeout || DEFAULT_UPLOAD_TIMEOUT, path)]);
 

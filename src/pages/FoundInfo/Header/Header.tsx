@@ -20,8 +20,7 @@ function Header(props: { statusBarHeight: number; opacity: number }) {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Ionicons name='ios-arrow-back' size={28} color={Colors.whiteColor} />
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={() => {}} style={{ marginLeft: pxToDp(60) }}>
+      <TouchableOpacity onPress={() => {}}>
         <AntDesign name='sharealt' size={20} color={Colors.whiteColor} />
       </TouchableOpacity>
     </View>
@@ -39,7 +38,9 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 999,
     paddingLeft: pxToDp(30),
+    paddingRight: pxToDp(30),
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 })

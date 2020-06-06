@@ -14,7 +14,7 @@ import {
 import {scale, PrimaryText, SmallText} from 'react-native-normalization-text';
 import {vw} from '../../utils/metric'
 import {Colors} from '../../constants/Theme';
-import {pad} from '../../constants/Layout';
+import { pad, radio } from '../../constants/Layout';
 import images from '../../assets/images';
 
 export type msgList = any[] | undefined;
@@ -31,6 +31,8 @@ interface LiveToolBarProps {
   // onPressRedden: () => any,
   onPressFace: () => any,
   onPressFilter: () => any,
+  onPressLoginIm?: (v: any) => any,
+  showLogin: boolean, // 是否显示登录
 }
 
 const LiveToolBar = (props: LiveToolBarProps) : any =>  {
@@ -44,6 +46,15 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
           resizeMode="contain"
         />
       </TouchableOpacity>
+      {
+        props.showLogin ? (
+          <View style={styles.loginWrapper}>
+            <TouchableOpacity onPress={props.onPressLoginIm} style={styles.login}>
+              <PrimaryText color="white">登录聊天</PrimaryText>
+            </TouchableOpacity>
+          </View>
+        ) : null
+      }
       <View style={styles.cellsWrapper}>
         <TouchableOpacity style={styles.cell} onPress={props.onPressFace}>
             <Image
@@ -53,14 +64,16 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
             />
             <SmallText color="white">美颜</SmallText>
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.onPressBubble} style={styles.cell}>
-          <Image
-            source={images.editBubbleIcon}
-            style={styles.img}
-            resizeMode="contain"
-          />
-          <SmallText color="white">气泡</SmallText>
-        </TouchableOpacity>
+        {
+          <TouchableOpacity onPress={props.showLogin ? undefined : props.onPressBubble} style={styles.cell}>
+            <Image
+              source={images.editBubbleIcon}
+              style={styles.img}
+              resizeMode="contain"
+            />
+            <SmallText color="white">气泡</SmallText>
+          </TouchableOpacity>
+        }
         <TouchableOpacity onPress={props.onPressShare} style={styles.cell}>
           <Image
             source={images.anchorShareIcon}
@@ -103,6 +116,16 @@ const styles = StyleSheet.create({
   img: {
     width: 32,
     height: 35,
-  }
+  },
+  loginWrapper: {
+    height: scale(35),
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  login: {
+    paddingHorizontal: pad,
+    backgroundColor: Colors.opacityDarkBg,
+    borderRadius: radio
+  },
 })
 export default LiveToolBar;

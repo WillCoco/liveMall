@@ -9,6 +9,8 @@ import waterFall from '../../utils/waterFall'
 import { Colors } from '../../constants/Theme'
 import checkIsBottom from '../../utils/checkIsBottom'
 
+import MasonryList from '@appandflow/masonry-list'
+
 import WorkCard from '../../components/WorkCard/WorkCard'
 import LoadMore from '../../components/LoadMore/LoadMore'
 import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
@@ -21,7 +23,7 @@ export default function LikeContent() {
 
   const navigation: any = useNavigation()
   
-  const [maxHeight, setMaxHeight] = useState(0)
+  // const [maxHeight, setMaxHeight] = useState(0)
   const [isEmpty, setIsEmpty] = useState(false)
   const [netWorkErr, setNetWorkErr] = useState(false)
   const [worksList, setWorksList]: Array<any> = useState([])
@@ -57,14 +59,14 @@ export default function LikeContent() {
       })
 
       let tempList = [...worksList, ...waterFall(res.worksInfoList).items]
-      let maxH = waterFall(tempList).maxHeight
+      // let maxH = waterFall(tempList).maxHeight
 
       const totalPage = Math.ceil(res.totalCount / pageSize)
 
       hasMoreRef.current = pageNoRef.current < totalPage
 
       setWorksList(tempList)
-      setMaxHeight(maxH)
+      // setMaxHeight(maxH)
     }).catch((err: any) => {
       console.log('我喜欢的内容', err)
       setNetWorkErr(true)
@@ -97,16 +99,14 @@ export default function LikeContent() {
     <ScrollView
       showsVerticalScrollIndicator={false}
       onMomentumScrollEnd={(e) => onReachBottom(e)}
+      style={{ padding: pxToDp(10), paddingRight: 0 }}
     >
-      <View style={{ height: maxHeight }}>
-        {
-          worksList && worksList.map((item: any, index: number) => {
-            return (
-              <WorkCard key={`work-${index}`} workInfo={item} />
-            )
-          })
-        }
-      </View>
+      <MasonryList
+        numColumns={2}
+        data={worksList}
+        renderItem={({ item }) => <WorkCard workInfo={item} />}
+        getHeightForItem={({ item }) => item.height}
+      />
       <LoadMore hasMore={hasMoreRef.current} />
     </ScrollView>
   )

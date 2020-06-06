@@ -30,12 +30,12 @@ export default function GoodsSKu(props: Props) {
       <View>
         {/* 商品信息 */}
         <View style={styles.goodsInfo}>
-          <Image source={{ uri: curSkuInfo.img_url }} style={styles.goodsImg} />
+          <Image source={{ uri: curSkuInfo?.img_url || '' }} style={styles.goodsImg} />
           <View style={styles.goodsDetail}>
             <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
-              <Text style={styles.rmbIcon}>¥</Text><Text style={styles.goodsPrice}>{formatSinglePrice(curSkuInfo.shop_price)}</Text>
+              <Text style={styles.rmbIcon}>¥</Text><Text style={styles.goodsPrice}>{formatSinglePrice(curSkuInfo?.shop_price || 0)}</Text>
             </View>
-            <Text style={{ fontSize: pxToDp(28), lineHeight: pxToDp(40) }}>库存{curSkuInfo.goods_count}件</Text>
+            <Text style={{ fontSize: pxToDp(28), lineHeight: pxToDp(40) }}>库存{curSkuInfo?.goods_count || 0}件</Text>
             <Text style={{ fontSize: pxToDp(28), lineHeight: pxToDp(40) }}>已选：{curSku.split('_').join(',')}</Text>
             <Text style={{ fontSize: pxToDp(24), lineHeight: pxToDp(40) }}>此商品可及时发货（预计3天内发货）</Text>
           </View>

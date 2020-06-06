@@ -7,6 +7,7 @@ import { apiQueryOrderPayStatus } from '../../service/api'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 import formatSinglePrice from '../../utils/formatGoodsPrice'
+import retry from '../../service/fetch/retry';
 
 const successIcon = require('../../assets/order-image/pay_success.png')
 const failedIcon = require('../../assets/order-image/pay_failed.png')
@@ -19,6 +20,7 @@ export default function Result() {
   const [completed, setCompleted] = useState(false)
   const [paySuccess, setPaySuccess] = useState(false)
   const [resultType, setResultType] = useState('')
+  const [systemBusy, setSystemBusy] = useState(false)
 
   const { orderSn, payType, nextBtnText, nextRoute } = route.params
 
@@ -48,17 +50,48 @@ export default function Result() {
       payType
     }
 
-    apiQueryOrderPayStatus(params).then((res: any) => {
-      setCompleted(true)
-      setPaySuccess(true)
-      setOrderPrice(res.totalAmount)
-      setResultType(res.orderStatus)
-      console.log('订单支付成功', res)
-    }).catch((err: any) => {
-      setCompleted(true)
-      setPaySuccess(false)
-      console.log('订单支付失败', err)
+    // apiQueryOrderPayStatus(params).then((res: any) => {
+    //   setCompleted(true)
+    //   setPaySuccess(true)
+    //   setOrderPrice(res.totalAmount)
+    //   setResultType(res.orderStatus)
+    //   console.log('订单支付成功', res)
+    // }).catch((err: any) => {
+    //   setCompleted(true)
+    //   setPaySuccess(false)
+    //   console.log('订单支付失败', err)
+    // })
+
+
+    // 重试
+    const queryOrderStautsWithRetry = retry(apiQueryOrderPayStatus, {
+      getShouldRetry: (res: any) => {
+        return res?.orderStatus === '01'
+      },
     })
+    
+    queryOrderStautsWithRetry(params)
+      .then(res => {
+
+
+        setCompleted(true)
+        // setPaySuccess(true)
+        setOrderPrice(res.totalAmount)
+        setResultType(res.orderStatus)
+        console.log('订单查询到结果', res)
+
+        
+      })
+      .catch(err => {
+
+        // 杉德次数超限 显示系统繁忙
+        setSystemBusy(true)
+        setResultType('99999')
+
+        // setCompleted(true)
+        // setPaySuccess(false)
+        console.log('系统繁忙', err)
+      })
   }
 
   /**
@@ -77,8 +110,21 @@ export default function Result() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={paySuccess ? successIcon : failedIcon} style={styles.icon} />
-        <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text>
+        <Image source={
+          resultType === '00' ? successIcon : failedIcon
+        } style={styles.icon} />
+        {/* <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text> */}
+        <Text style={styles.statusText}>
+          {
+            systemBusy 
+              ? '系统繁忙'
+              : resultType === '00' 
+              ? '支付成功' 
+              : resultType === '01'
+                ? '订单处理中' 
+                : '支付失败'
+          }
+        </Text>
         {paySuccess && <Text style={styles.price}>¥{formatSinglePrice(orderPrice)}</Text>}
       </View>
       <TouchableOpacity style={styles.completeBtn} onPress={goBack}>

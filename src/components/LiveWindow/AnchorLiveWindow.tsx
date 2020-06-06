@@ -82,7 +82,7 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
     // setPusherStatus(status)
     // 断开网络等
     if (pusherStatus !== 4 && status === 4) {
-      Toast.show('连接断开');
+      // Toast.show('连接断开');
       // goBack(); // todo 直接重连resume
     }
     console.log(status, 'statusssss')

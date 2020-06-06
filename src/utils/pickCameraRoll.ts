@@ -30,6 +30,7 @@ const pick = async (options: ImagePicker.ImagePickerOptions = {
   
   try {
     let result = await ImagePicker.launchImageLibraryAsync(ops);
+    console.log(result, 'resultresultresultresult')
     if (!result?.cancelled) {
       return result
     }

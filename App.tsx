@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, StatusBar, View, NativeModules, Linking } from 'react-native';
+import { Platform, StatusBar, View, NativeModules, Linking, PermissionsAndroid } from 'react-native';
 // import { AppLoading } from 'expo'
 // import * as SplashScreen from 'expo-splash-screen'
 import SplashScreen from 'react-native-splash-screen'
@@ -9,12 +9,13 @@ import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons'
 import { navigationRef } from './src/navigation/RootNavgation';
 import { isAndroid } from './src/constants/DeviceInfo';
+import appjson from './app.json'
 
 import { Provider as AntdProvider } from '@ant-design/react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import configStore from './src/store'
-import { getStatusBarHeight } from './src/actions/public'
+import { getStatusBarHeight, setLiveTabStatus } from './src/actions/public'
 import { login } from './src/actions/im'
 
 import Root from './src/navigation/BottomTabNavigator'
@@ -101,21 +102,57 @@ import PrivacyPolicy from './src/pages/Agreements/PrivacyPolicy'
 import LiveGoodsPickerScreen from './src/pages/AnchorTabs/PublishScreen/LiveGoodsPickerScreen';
 import ErrorPage from './src/pages/ErrorPage';
 import AgreementWebView from './src/pages/AgreementWebView/AgreementWebView';
+import usePermissions from './src/hooks/usePermissions';
+import { apiCheckUpdate } from './src/service/api';
 
 const { StatusBarManager } = NativeModules
 const { store, persistor } = configStore()
 const Stack = createStackNavigator()
+const currentVersion = appjson.expo.version
 
 export default function App(props: { skipLoadingScreen: any; }) {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
+   // 获取权限
+  // const isPermissionGranted = usePermissions([
+  //   // PermissionsAndroid.PERMISSIONS.CAMERA,
+  //   // PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+  //   // PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+  //   // PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
+  //   // PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+  // ]);
+
   useEffect(() => {
     checkUrl();
+    checkVersion();
     loadResourcesAndDataAsync();
 
     // 登录im
-    store.dispatch(login());
+    let timer = setTimeout(() => {
+      store.dispatch(login());
+    }, 2000);
+
+    return () => {
+      if (timer) {
+        clearTimeout(timer)
+      }
+    }
   }, [])
+
+  /**
+   * 检查更新
+   */
+  const checkVersion = () => {
+    apiCheckUpdate({
+      ver: currentVersion,
+      appType: Platform.OS === 'ios' ? 2 : 1
+    }).then((res: any) => {
+      console.log('检查更新', res)
+      store.dispatch(setLiveTabStatus(res.liveStatus))
+    }).catch((err: any) => {
+      console.log(err)
+    })
+  }
 
   const checkUrl = () => {
     Linking.getInitialURL().then((url: any) => {

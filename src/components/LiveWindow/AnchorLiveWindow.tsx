@@ -37,6 +37,9 @@ import share, { ShareType } from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
 
+import * as WeChat from 'react-native-wechat-lib'
+import { wxUserName } from '../../service/api';
+
 interface LiveWindowProps {
   style?: StyleProp<any>,
   liveData?: any,
@@ -303,17 +306,39 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   /**
    * 分享
   */
-  const onPressShare = () => {
-    share({
-      liveId,
-      groupId: groupID,
-      inviteCode
-    }, {
-      title: '分享',
-      failOnCancel: false,
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { err && console.log(err); });
+  const onPressShare = async () => {
+    // share({
+    //   liveId,
+    //   groupId: groupID,
+    //   inviteCode
+    // }, {
+    //   title: '分享',
+    //   failOnCancel: false,
+    // })
+    //   .then((res) => { console.log(res) })
+    //   .catch((err) => { err && console.log(err); });
+
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
+
+    const userAvatar = useSelector((state: any) => state?.userData?.userInfo?.userAvatar);
+    const nickName = useSelector((state: any) => state?.userData?.userInfo?.nickName);
+    const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
+
+    if (wxIsInstalled) {
+      // 测试 gh_fc399d40a762
+      WeChat.shareMiniProgram({
+        scene: 0,
+        userName: wxUserName,
+        title: `${nickName}正在直播，快来围观`,
+        webpageUrl: 'https://www.quanpinlive.com',
+        thumbImageUrl: userAvatar,
+        path: `pages/watch-live/index?invicode=${inviteCode}&liveId=${liveId}&shareUserId=${userId}`
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 
 

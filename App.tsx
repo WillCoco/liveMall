@@ -323,6 +323,7 @@ export default function App(props: { skipLoadingScreen: any; }) {
                 version={version}
                 updateContent={updateContent}
                 forceUpdate={forceUpdate}
+                updatePath={updatePath}
               />
             </PersistGate>
           </Provider>

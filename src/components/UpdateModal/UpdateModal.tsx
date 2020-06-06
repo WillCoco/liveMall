@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Modal, ImageBackground, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio, Linking } from 'react-native'
+import { View, Modal, ImageBackground, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio, Linking, Platform } from 'react-native'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 
@@ -9,6 +9,7 @@ interface Props {
   version: string,
   updateContent: string,
   forceUpdate: number,
+  updatePath: string,
   hideUpdateModal(): void
 }
 
@@ -18,11 +19,16 @@ export default function UpdateModal(props: Props) {
     version,
     updateContent,
     forceUpdate,
+    updatePath,
     hideUpdateModal
   } = props
 
   const downloadNewVersion = () => {
-    Linking.openURL('https://baidu.com')
+    if (Platform.OS === 'ios') {
+      Linking.openURL('itms-apps://')
+    } else {
+      Linking.openURL(updatePath)
+    }
   }
 
   return (

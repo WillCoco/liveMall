@@ -21,6 +21,8 @@ import {clearLiveRoom} from '../../../actions/im';
 import {useNavigation, useIsFocused} from '@react-navigation/native';
 import { MediaType } from '../../../liveTypes';
 import { EMPTY_OBJ } from '../../../constants/freeze';
+import { Carousel } from '@ant-design/react-native';
+import { Colors } from '../../../constants/Theme';
 
 interface LiveBannerProps {
   // bannerList?: any[],
@@ -55,8 +57,12 @@ const LiveBanner = (props: LiveBannerProps) : React.ReactElement =>  {
     <View
       style={StyleSheet.flatten([styles.wrapper, props.style])}
     >
-      <Swiper
-        autoplay={true}
+       <Carousel
+        autoplay
+        infinite
+        dots={true}
+        dotStyle={{ backgroundColor: 'rgba(255,255,255,0.5)' }}
+        dotActiveStyle={{ backgroundColor: Colors.whiteColor }}
       >
         {
           bannerList.map((banner: any, i) => {
@@ -96,7 +102,7 @@ const LiveBanner = (props: LiveBannerProps) : React.ReactElement =>  {
             )
           })
         }
-      </Swiper>
+      </Carousel>
     </View>
   )
 };

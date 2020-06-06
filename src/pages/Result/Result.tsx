@@ -20,6 +20,7 @@ export default function Result() {
   const [completed, setCompleted] = useState(false)
   const [paySuccess, setPaySuccess] = useState(false)
   const [resultType, setResultType] = useState('')
+  const [systemBusy, setSystemBusy] = useState(false)
 
   const { orderSn, payType, nextBtnText, nextRoute } = route.params
 
@@ -71,16 +72,25 @@ export default function Result() {
     
     queryOrderStautsWithRetry(params)
       .then(res => {
+
+
         setCompleted(true)
-        setPaySuccess(true)
+        // setPaySuccess(true)
         setOrderPrice(res.totalAmount)
         setResultType(res.orderStatus)
-        console.log('订单支付成功', res)
+        console.log('订单查询到结果', res)
+
+        
       })
       .catch(err => {
-        setCompleted(true)
-        setPaySuccess(false)
-        console.log('订单支付失败', err)
+
+        // 杉德次数超限 显示系统繁忙
+        setSystemBusy(true)
+        setResultType('99999')
+
+        // setCompleted(true)
+        // setPaySuccess(false)
+        console.log('系统繁忙', err)
       })
   }
 
@@ -100,11 +110,15 @@ export default function Result() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={paySuccess ? successIcon : failedIcon} style={styles.icon} />
+        <Image source={
+          resultType === '00' ? successIcon : failedIcon
+        } style={styles.icon} />
         {/* <Text style={styles.statusText}>{paySuccess ? resultType === '00' ? '支付成功' : '订单处理中' : '支付失败'}</Text> */}
         <Text style={styles.statusText}>
           {
-            resultType === '00' 
+            systemBusy 
+              ? '系统繁忙'
+              : resultType === '00' 
               ? '支付成功' 
               : resultType === '01'
                 ? '订单处理中' 

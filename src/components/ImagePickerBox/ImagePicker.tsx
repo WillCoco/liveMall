@@ -70,7 +70,8 @@ const ImagePickerBox = (props: ImagePickerBoxProps) =>  {
         return;
       }
       Toast.show('选择失败');
-    });
+    })
+    .catch(r => console.log('取消选择', r));
   };
 
   /**

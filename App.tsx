@@ -18,6 +18,8 @@ import configStore from './src/store'
 import { getStatusBarHeight, setLiveTabStatus } from './src/actions/public'
 import { login } from './src/actions/im'
 
+import UpdateModal from './src/components/UpdateModal/UpdateModal'
+
 import Root from './src/navigation/BottomTabNavigator'
 import HomeSearch from './src/pages/HomeSearch/HomeSearch'
 import FoundSearch from './src/pages/FoundSearch/FoundSearch'
@@ -113,6 +115,12 @@ const currentVersion = appjson.expo.version
 export default function App(props: { skipLoadingScreen: any; }) {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
 
+  const [version, setVersion] = useState('')
+  const [forceUpdate, setForceUpdate] = useState(0)
+  const [updateContent, setUpdateContent] = useState('')
+  const [updatePath, setUpdatePath] = useState('')
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+
    // 获取权限
   // const isPermissionGranted = usePermissions([
   //   // PermissionsAndroid.PERMISSIONS.CAMERA,
@@ -149,6 +157,16 @@ export default function App(props: { skipLoadingScreen: any; }) {
     }).then((res: any) => {
       console.log('检查更新', res)
       store.dispatch(setLiveTabStatus(res.liveStatus))
+
+      const hasNewVer = +res.isNeedUpdate
+
+      if (hasNewVer) {
+        setShowUpdateModal(true)
+        setVersion(res.appVersion)
+        setForceUpdate(+res.isMustUpdate)
+        setUpdateContent(res.updateContent)
+        setUpdatePath(res.srvPackageUrl || '')
+      }
     }).catch((err: any) => {
       console.log(err)
     })
@@ -298,6 +316,14 @@ export default function App(props: { skipLoadingScreen: any; }) {
                   </Stack.Navigator>
                 </NavigationContainer>
               </View>
+
+              <UpdateModal
+                hideUpdateModal={() => setShowUpdateModal(false)}
+                showUpdateModal={showUpdateModal}
+                version={version}
+                updateContent={updateContent}
+                forceUpdate={forceUpdate}
+              />
             </PersistGate>
           </Provider>
         </AntdProvider>

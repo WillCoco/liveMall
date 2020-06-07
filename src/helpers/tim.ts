@@ -3,7 +3,8 @@ import genSig from '../helpers/genSig';
 
 let options = {
   // SDKAppID: 1400313779 // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
-  SDKAppID: 1400312574 // 接入时需要将0替换为您的即时通信 IM 应用的 SDKAppID
+  // SDKAppID: 1400312574 // 生产
+  SDKAppID: 1400382455 // 测试
 };
 
 // 创建 SDK 实例，`TIM.create()`方法对于同一个 `SDKAppID` 只会返回同一份实例

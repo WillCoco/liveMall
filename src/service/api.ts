@@ -6,6 +6,7 @@ import { UpdateParams } from './fetch/fetchOrigin';
 // 测试
 const HOST_PHP = 'https://mobile.quanpinlive.com'
 const HOST_JAVA = 'https://app.quanpinlive.com'
+// const HOST_JAVA = 'http://192.168.8.112:2333'
 
 // 正式
 // const HOST_PHP = 'https://mobile.yunshanbo.cn'
@@ -87,13 +88,13 @@ export const apiRealName = (data: any) => post1(`${HOST_PHP}/user/authentication
  * JAVA 接口 ==================================================================
  */
 // 获取 token
-export const apiGetToken = (data: any) => post1(`${HOST_JAVA}/miniApp/login`, data)
+export const apiGetToken = (data: any) => post1(`${HOST_JAVA}/miniApp/login`, data, { encrypt: true })
 // 发送验证码
 export const apiSendVerCode = (data: any) => get1(`${HOST_JAVA}/user/sendAppMessage`, data)
 // 更新用户信息
-export const apiUpdateUserInfo = (data: any) => post1(`${HOST_JAVA}/miniApp/updateUserInfo`, data)
+export const apiUpdateUserInfo = (data: any) => post1(`${HOST_JAVA}/miniApp/updateUserInfo`, data, { encrypt: true })
 // 注册 & 登录
-export const apiLogin = (data: any) => post1(`${HOST_JAVA}/user/appRegisterOrLogin`, data, {encrypt: true})
+export const apiLogin = (data: any) => post1(`${HOST_JAVA}/user/appRegisterOrLogin`, data, { encrypt: true })
 // 我的页面
 export const apiGetUserData = () => get1(`${HOST_JAVA}/user/getUserInfo`)
 // 发现模块 获取作品
@@ -103,13 +104,13 @@ export const apiGetWorksDetailInfo = async (data: any) => post1(`${HOST_JAVA}/fi
 // 查询优惠金额 （预生成订单）
 export const apiGetSellerDiscount = (data: any) => post1(`${HOST_JAVA}/order/getSellerDiscount`, data)
 // 发布作品
-export const apiPublishWorks = (data: any) => post1(`${HOST_JAVA}/find/publishWorks`, data)
+export const apiPublishWorks = (data: any) => post1(`${HOST_JAVA}/find/publishWorks`, data, { encrypt: true })
 // 关注/取消关注作品
-export const apiFollowWorks = (data: any) => post1(`${HOST_JAVA}/find/followWorks`, data)
+export const apiFollowWorks = (data: any) => post1(`${HOST_JAVA}/find/followWorks`, data, { encrypt: true })
 // 发布作品评论
-export const apiPublishWorksComment = (data: any) => post1(`${HOST_JAVA}/find/publishWorksComment`, data)
+export const apiPublishWorksComment = (data: any) => post1(`${HOST_JAVA}/find/publishWorksComment`, data, { encrypt: true })
 // 发布作品评论回复
-export const apiPublishWorksReply = (data: any) => post1(`${HOST_JAVA}/find/publishWorksReply`, data)
+export const apiPublishWorksReply = (data: any) => post1(`${HOST_JAVA}/find/publishWorksReply`, data, { encrypt: true })
 // 获取作品评论更多回复
 export const apiGetMoreReply = (data: any) => post1(`${HOST_JAVA}/find/getMoreReply`, data)
 // 获取作品更多评论
@@ -117,7 +118,7 @@ export const  apiGetMoreComment = (data: any) => post1(`${HOST_JAVA}/find/getMor
 // 发现模块搜索
 export const apiSearchWork = (data: any) => post1(`${HOST_JAVA}/find/searchWorks`, data)
 // 创建订单
-export const apiCreateOrder = (data: any) => post2(`${HOST_JAVA}/order/create`, data)
+export const apiCreateOrder = (data: any) => post2(`${HOST_JAVA}/order/create`, data, { encrypt: true })
 // 获取订单列表
 export const apiGetOrderList = (data: any) => get1(`${HOST_JAVA}/order/getOrderList`, data)
 // 获取订单数量
@@ -147,15 +148,15 @@ export const apiGetCoupon = (data: any) => get1(`${HOST_JAVA}/coupons/getCoupins
 // 获取我喜欢的内容
 export const apiGetUserFavorite = (data: any) => post1(`${HOST_JAVA}/user/getUserFavorite`, data)
 // 发现详情 点赞
-export const apiGiveLaud = (data: any) => post1(`${HOST_JAVA}/find/giveLaud`, data)
+export const apiGiveLaud = (data: any) => post1(`${HOST_JAVA}/find/giveLaud`, data, { encrypt: true })
 // 我的作品
 export const apiGetUserWorks = (data: any) => post1(`${HOST_JAVA}/user/getUserWorksInfo`, data)
 // 管理我的作品
-export const apiWorksManage = (data: any) => post1(`${HOST_JAVA}/user/userWorksManage`, data)
+export const apiWorksManage = (data: any) => post1(`${HOST_JAVA}/user/userWorksManage`, data, { encrypt: true })
 // 查询商品的优惠相关信息
 export const apiGetOrderDiscountDetail = (data: any) => post1(`${HOST_JAVA}/order/getOrderDiscountDetail`, data)
 // 提交售后申请
-export const apiCreateReturnOrder = (data: any) => post1(`${HOST_JAVA}/order/createReturnGoods`, data)
+export const apiCreateReturnOrder = (data: any) => post1(`${HOST_JAVA}/order/createReturnGoods`, data, { encrypt: true })
 // 售后订单详情
 export const apiReturnOrderDetail = (data: any) => get1(`${HOST_JAVA}/order/getAfterSalesDetail`, data)
 // 售后订单列表
@@ -179,14 +180,14 @@ export const apiQueryOrderPayStatus = (data: any) => get1(`${HOST_JAVA}/order/qu
 // 检查更新
 export const apiCheckUpdate = (data: { ver: string, appType: number }) => get1(`${HOST_JAVA}/version/versionCheck`, data)
 // 微信登录
-export const apiWeChatLogin = (data: { code: string }) => post1(`${HOST_JAVA}/user/appWecharLogin`, data)
+export const apiWeChatLogin = (data: { code: string }) => post1(`${HOST_JAVA}/user/appWecharLogin`, data, {encrypt: true })
 // 微信注册
 export const apiWeChatRegister = (data: {
   userTel: string,
   unionId: string,
   inviteCode: string,
   code: string
-}) => post1(`${HOST_JAVA}/user/appWecharRegister`, data)
+}) => post1(`${HOST_JAVA}/user/appWecharRegister`, data, { encrypt: true })
 
 /*
  * 主播相关接口 ==========================================================================================
@@ -198,17 +199,17 @@ export const apiBuyBroker = (data: any) => post2(`${HOST_JAVA}/order/buyBroker`,
 // 获取经纪人信息
 export const apiGetAgentInfo = () => get2(`${HOST_JAVA}/user/getAgentInfo`)
 // 主播添加商品到主播店铺
-export const apiAddAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/addAnchorGoods`, data)
+export const apiAddAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/addAnchorGoods`, data, { encrypt: true })
 // 主播添加商品到主播预组货
-export const apiAddGroupGoods = (data: any) => post2(`${HOST_JAVA}/anchor/addGroupGoods`, data)
+export const apiAddGroupGoods = (data: any) => post2(`${HOST_JAVA}/anchor/addGroupGoods`, data, { encrypt: true })
 // 开播后确认是否存在直播封面
 export const apiAffirmCover = (data: any) => post2(`${HOST_JAVA}/anchor/affirmCover`, data)
 // 直播重新组货
-export const apiAnewAddLiveGoods = (data: any) => post2(`${HOST_JAVA}/anchor/anewAddLiveGoods`, data)
+export const apiAnewAddLiveGoods = (data: any) => post2(`${HOST_JAVA}/anchor/anewAddLiveGoods`, data, { encrypt: true })
 // 新增或修改寄回地址
 export const apiAuReturnedAddress = (data: any) => post1(`${HOST_JAVA}/anchor/auReturnedAddress`, data)
 // 主播删除预组货商品
-export const apiDelGroupGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delGroupGoods`, data)
+export const apiDelGroupGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delGroupGoods`, data, { encrypt: true })
 // 删除主播直播回放
 export const apiDelLivePlayback = (data: any) => post1(`${HOST_JAVA}/anchor/delLivePlayback`, data)
 // 删除寄回地址
@@ -236,13 +237,13 @@ export const apiAnchorHomePage = (data: any) => get1(`${HOST_JAVA}/anchor/HomePa
 // 直播上传文件
 export const apiLiveUploadFile = (file: UpdateParams) => liveUpload(`${HOST_JAVA}/anchor/liveUploadFile`, file)
 // 直播发布预告
-export const apiReleaseNotice= (data: any) => post2(`${HOST_JAVA}/anchor/releaseNotice`, data)
+export const apiReleaseNotice= (data: any) => post2(`${HOST_JAVA}/anchor/releaseNotice`, data, { encrypt: true })
 // 直播间商品管理数据列表
 export const apiSelLiveGoods= (data: any) => get2(`${HOST_JAVA}/anchor/selLiveGoods`, data)
 // 准时开播页面展示数据
 export const apiSelStartLive= (data: any) => post2(`${HOST_JAVA}/anchor/selStartLive`, data)
 // 选择商品开始直播
-export const apiStartLive= (data: any) => post2(`${HOST_JAVA}/anchor/startLive`, data)
+export const apiStartLive= (data: any) => post2(`${HOST_JAVA}/anchor/startLive`, data, { encrypt: true })
 // 结束直播
 export const apiCloseLive= (data: any) => get2(`${HOST_JAVA}/anchor/closeLive`, data)
 // 继续直播 (只进入)
@@ -250,7 +251,7 @@ export const apiAnchorToLive= (data: any) => get2(`${HOST_JAVA}/anchor/anchorToL
 // 是否在直播
 export const apiIsWorkLiveNow = (data: any) => get2(`${HOST_JAVA}/anchor/isWorkLiveNow`, data)
 // 主播在预组货取消添加店铺商品
-export const apiDelAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delAnchorBrandGoods`, data)
+export const apiDelAnchorGoods = (data: any) => post2(`${HOST_JAVA}/anchor/delAnchorBrandGoods`, data, { encrypt: true })
 // 获取imUserSig
 export const apiGetUserSig = (data: any) => get2(`${HOST_JAVA}/anchor/getUserSig`, data)
 // 更新直播间浏览量
@@ -267,7 +268,7 @@ export const apiAddOrderLiveId = (data: any) => get1(`${HOST_JAVA}/userLive/addO
 // 主播页详情
 export const apiAnchorParticular = (data: any) => get2(`${HOST_JAVA}/userLive/anchorParticular`, data)
 // 关注/取关主播
-export const apiAttentionAnchor = (data: any) => post2(`${HOST_JAVA}/userLive/attentionAnchor`, data)
+export const apiAttentionAnchor = (data: any) => post2(`${HOST_JAVA}/userLive/attentionAnchor`, data, { encrypt: true })
 // 点击进入直播间
 export const apiEnterLive = (data: any) => get2(`${HOST_JAVA}/userLive/enterLive`, data)
 // 获取精选/关注直播列表
@@ -291,7 +292,7 @@ export const apiUploadFile = (data: any) => post1(`${HOST_JAVA}/user/uploadFile`
  * 资产相关的接口 ==============================================================
  */
 // 绑定银行卡
-export const apiBindingBankCard = (data: any) => post2(`${HOST_JAVA}/assets/bindingBankCard`, data)
+export const apiBindingBankCard = (data: any) => post2(`${HOST_JAVA}/assets/bindingBankCard`, data, { encrypt: true })
 // 查询用户账单列表
 export const apiGetUserAssetsRecords = (data: any) => post2(`${HOST_JAVA}/assets/getUserAssetsRecords`, data)
 // 查询用户资产信息
@@ -299,4 +300,4 @@ export const apiGetUserAssetsStatistics = () => get1(`${HOST_JAVA}/assets/getUse
 // 查询用户银行卡列表
 export const apiGetUserBankCards = () => get1(`${HOST_JAVA}/assets/getUserBankCards`)
 // 发起提现申请
-export const apiWithdraw = (data: any) => post2(`${HOST_JAVA}/assets/withdraw`, data)
+export const apiWithdraw = (data: any) => post2(`${HOST_JAVA}/assets/withdraw`, data, { encrypt: true })

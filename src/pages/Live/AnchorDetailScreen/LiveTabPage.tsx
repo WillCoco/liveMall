@@ -256,7 +256,7 @@ const LiveTabPage = (props: {
         countDown={true}
         time={item?.liveTime}
         showDivider
-        onPress={() => toLiveingRoom(item)}
+        onPress={() => goLive(item)}
       />
     } else if (item.liveStatus === '3') {
         return (

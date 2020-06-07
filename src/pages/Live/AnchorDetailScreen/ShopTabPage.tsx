@@ -56,11 +56,12 @@ const AnorchDetailAvatar = (props: {
     })
       .catch((err: any) => {console.log(err, 'getGroupGoods')})
 
-    if (isSucceed(result)) {
+      console.log(result, 'resulttttttttt')
+    // post1已经对result做了处理, isSucceed返回都是false  @hicks
+    // if (isSucceed(result)) {
       return Promise.resolve({result: result?.records || EMPTY_ARR});
-    }
-
-    return Promise.resolve({result: EMPTY_ARR})
+    // }
+    // return Promise.resolve({result: EMPTY_ARR})
   };
 
 

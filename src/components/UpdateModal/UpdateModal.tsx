@@ -1,5 +1,17 @@
 import React from 'react'
-import { View, Modal, ImageBackground, Text, TouchableOpacity, StyleSheet, Dimensions, PixelRatio, Linking, Platform } from 'react-native'
+import {
+  View,
+  Text,
+  Modal,
+  Linking,
+  Platform,
+  Dimensions,
+  PixelRatio,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+  ScrollView
+} from 'react-native'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
 
@@ -41,7 +53,9 @@ export default function UpdateModal(props: Props) {
       <View style={styles.updateModalContainer}>
         <ImageBackground source={require('../../assets/mine-image/update_bgi.png')} style={styles.updateBgi}>
           <Text style={styles.updateTitle}>发现新版本{version}</Text>
+          <ScrollView>
           <Text style={styles.updateContent}>{updateContent}</Text>
+          </ScrollView>
           <View style={styles.updateBtnGroup}>
             {
               !forceUpdate && <TouchableOpacity style={[styles.updateBtn, styles.cancelBtn]} onPress={() => hideUpdateModal()}>
@@ -93,10 +107,12 @@ const styles = StyleSheet.create({
   },
   updateBgi: {
     width: pxToDp(620),
-    height: pxToDp(630),
-    justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingBottom: pxToDp(50)
+    padding: pxToDp(30),
+    paddingBottom: pxToDp(50),
+    paddingTop: pxToDp(380),
+    borderRadius: pxToDp(20),
+    overflow: 'hidden'
   },
   updateTitle: {
     fontSize: pxToDp(36),

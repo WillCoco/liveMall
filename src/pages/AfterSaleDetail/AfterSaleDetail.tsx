@@ -138,19 +138,19 @@ export default function AfterSaleDetail() {
   }
 
   const submit = () => {
-    const { orderId } = orderInfo
-
     if (!deliverNo || !expressName) {
       Toast.fail('请填写完整信息')
       return
     }
+
+    console.log(orderInfo)
 
     const curExp = expressList.filter((item: any) => item.shippingName === expressName)
 
     const params = {
       deliverNo,
       shippingId: curExp[0].shippingId,
-      id: ~~orderId
+      id: route.params.id
     }
 
     apiBuyerDeliverGoods(params).then((res: any) => {
@@ -196,9 +196,9 @@ export default function AfterSaleDetail() {
       <View style={styles.action}>
         <Text style={styles.btn} onPress={cancelApply}>取消申请</Text>
         {
-          (orderInfo.processType !== 2 && orderInfo.processType !== 4 || orderInfo.type === 1)
+          (orderInfo.processType === 2 && orderInfo.processType === 4 || orderInfo.type !== 1)
           && <Text style={[styles.btn, { backgroundColor: Colors.basicColor }]} onPress={() => {
-            showInput ? submit : setShowInput(true)
+            showInput ? submit() : setShowInput(true)
           }}>
             {showInput ? '确认提交' : '填写快递单号'}
           </Text>

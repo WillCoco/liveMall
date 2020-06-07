@@ -43,7 +43,7 @@ function AddressList(props: Props) {
         return
       }
       props.dispatch(setAddressList(res))
-    }).catch((err: any)=> {
+    }).catch((err: any) => {
       console.log('获取收货地址列表', err)
       setNetWorkErr(true)
     })
@@ -102,14 +102,16 @@ function AddressList(props: Props) {
         }
       </ScrollView>
 
-      <TouchableOpacity onPress={createNewAddress} style={styles.addBtn}>
-        <Ionicons
-          size={40}
-          name='ios-add'
-          color={Colors.whiteColor}
-        />
-        <Text style={styles.addBtnText}>添加新地址</Text>
-      </TouchableOpacity>
+      <View style={styles.addBtnContainer}>
+        <TouchableOpacity onPress={createNewAddress} style={styles.addBtn}>
+          <Ionicons
+            size={40}
+            name='ios-add'
+            color={Colors.whiteColor}
+          />
+          <Text style={styles.addBtnText}>添加新地址</Text>
+        </TouchableOpacity>
+      </View>
     </>
   )
 }
@@ -120,14 +122,17 @@ export default connect(
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    flex: 1,
     paddingBottom: pxToDp(120)
   },
+  addBtnContainer: {
+    backgroundColor: Colors.whiteColor,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: pxToDp(30),
+    paddingBottom: pxToDp(30)
+  },
   addBtn: {
-    position: 'absolute',
-    left: '50%',
-    bottom: pxToDp(30),
-    marginLeft: pxToDp(-335),
     width: pxToDp(670),
     height: pxToDp(80),
     backgroundColor: Colors.basicColor,

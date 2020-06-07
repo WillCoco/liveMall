@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
@@ -9,9 +9,11 @@ interface Props  {
 }
 
 export default function ServiceType(props: Props) {
-  const { typeList } = props
+  const { typeList, status } = props
 
   const toggleType = (index: number) => {
+    if (status === 2) return
+
     typeList.forEach((item: any) => {
       item.active = false
       typeList[index].active = true
@@ -27,7 +29,11 @@ export default function ServiceType(props: Props) {
         {
           typeList.map((item: any, index: number) => {
             return (
-              <Text key={`type-${index}`} style={[styles.btn, item.active && styles.btnActive]} onPress={() => toggleType(index)}>{item.value}</Text>
+              <Text
+                key={`type-${index}`}
+                style={[styles.btn, item.active && styles.btnActive]}
+                onPress={() => toggleType(index)}
+              >{item.value}</Text>
             )
           })
         }

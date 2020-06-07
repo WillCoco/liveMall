@@ -330,7 +330,11 @@ function FoundInfo(props: { userData: { userInfo?: any; isLogin?: boolean } }) {
 
   return (
     <View style={styles.container}>
-      <Header opacity={navOpacity} />
+      <Header
+        opacity={navOpacity}
+        worksInfo={worksInfo}
+        thumbImageUrl={worksInfo.worksType === 'PICTURE' ? swiperList[0].worksUrl : videoUrl}
+      />
 
       <ScrollView
         bounces={false}

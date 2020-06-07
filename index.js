@@ -7,7 +7,9 @@ import { CommonActions } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 import { getNavigation } from './src/navigation/RootNavgation';
 import {AESEncrypt, RSAEncrypt} from './src/helpers/crypto'
-
+AESEncrypt('我是待加密数据')
+.then(r => console.log(r, 'adsdasdasddddd'))
+.catch(r => console.log(r, '1111'))
 
 // 导航颜色丢失
 enableScreens();

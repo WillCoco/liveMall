@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
-import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { useIsFocused } from '@react-navigation/native'
 import { connect } from 'react-redux'
 import { setUserInfo } from '../../actions/user'
 import { apiGetUserData, apiGetOrderCount, apiGetIndexGoodsList } from '../../service/api'
@@ -14,9 +14,7 @@ import PosterCard from './PosterCard/PosterCard'
 import FansContent from './FansContent/FansContent'
 import checkIsBottom from '../../utils/checkIsBottom'
 import OrdersContent from './OrdersContent/OrdersContent'
-import NetWorkErr from '../../components/NetWorkErr/NetWorkErr'
 import ActionSheet from '../../components/ActionSheet/ActionSheet'
-// import Banner from './Banner/Banner'
 
 const pageSize = 20
 
@@ -27,9 +25,7 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
   const hasMoreRef = useRef(true)
 
   const focused: boolean = useIsFocused()
-  const navigation: any = useNavigation()
 
-  const [netWorkErr, setNetWorkErr] = useState(false)
   const [orderCount, setOrderCount]: any = useState({})
   const [goodsList, setGoodsList]: Array<any> = useState([])
   const [showShareBar, setShowShareBar] = useState(false)
@@ -55,13 +51,11 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
       pageSize
     }).then((res: any) => {
       console.log('推荐商品', res)
-      setNetWorkErr(false)
       const totalPage = Math.ceil(res.count / pageSize)
       hasMoreRef.current = pageNoRef.current < totalPage
       setGoodsList([...goodsList, ...res.list])
     }).catch((err: any) => {
       console.log('推荐商品', err)
-      setNetWorkErr(true)
     })
   }
 
@@ -73,15 +67,10 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
 
     apiGetUserData().then((res: any) => {
       console.log('获取用户信息', res)
-      setNetWorkErr(false)
       props.dispatch(setUserInfo(res))
       getOrderCount()  // 获取订单数量
     }).catch((err: any) => {
       console.log('获取用户信息', err)
-      // if (err.code === '203' || err.code === '204') {
-      //   navigation.navigate('Login')
-      // }
-      // setNetWorkErr(true)
     })
   }
 
@@ -114,16 +103,6 @@ function Mine(props: { dispatch: any; isLogin: boolean; }) {
     setShowPoster(true)
     setPosterPath(`data:image/png;base64,${img}`)
   }
-
-  /**
-   * 网络异常 重新加载
-   */
-  // const reload = () => {
-  //   getUserInfo()
-  //   getGoodsList()
-  // }
-
-  // if (netWorkErr) return <NetWorkErr reload={reload} />
 
   return (
     <>

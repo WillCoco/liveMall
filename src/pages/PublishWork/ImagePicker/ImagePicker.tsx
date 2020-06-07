@@ -3,12 +3,13 @@ import { View, StyleSheet, ImageBackground, TouchableOpacity, PermissionsAndroid
 import pxToDp from '../../../utils/px2dp'
 import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
-import * as ImagePicker from 'expo-image-picker'
 import { Ionicons } from '@expo/vector-icons'
 import { Toast } from '../../../components/Toast'
 import { apiWorkUpload } from '../../../service/api'
 import { setMediaList } from '../../../actions/works'
 import usePermissions from '../../../hooks/usePermissions'
+
+import ImagePicker from 'react-native-image-crop-picker'
 
 interface Props {
   dispatch?: any;
@@ -38,21 +39,14 @@ function ImgPicker(props: Props) {
       return
     }
 
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: pageType === 'video'
-          ? ImagePicker.MediaTypeOptions.Videos
-          : ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 3],
-        quality: 0.5,
-      })
-
-      if (result.cancelled) return
-
-      upLoadImage(result.uri)
-    } catch (error) {
-      console.log(error)
-    }
+    ImagePicker.openPicker({
+      mediaType: pageType === 'video' ? 'video' : 'photo'
+    }).then((result: any) => {
+      console.log('图片', result);
+      if (result) {
+        upLoadImage(result.path)
+      }
+    }).catch(r => console.log('取消选择', r));
   }
 
   const delImage = (index: number) => {

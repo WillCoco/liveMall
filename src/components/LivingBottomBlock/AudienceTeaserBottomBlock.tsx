@@ -10,10 +10,13 @@ import {useSelector, useDispatch} from 'react-redux';
 import {AudienceTeaserToolBar} from '../LiveToolBar';
 import {pad} from '../../constants/Layout';
 import Poller from '../../utils/poller';
-import {apiLiveLike} from '../../service/api';
+import {apiLiveLike, wxUserName} from '../../service/api';
 import { isSucceed } from '../../utils/fetchTools';
 import share, { ShareType } from '../../utils/share';
 import { useNavigation } from '@react-navigation/native';
+
+import * as WeChat from 'react-native-wechat-lib' 
+import { Toast } from '@ant-design/react-native';
 
 const POLLER_INTERVAL = 1000 * 15;
 
@@ -28,6 +31,11 @@ const BottomBlock = (props: any) : any =>  {
   // 喜欢数量
   const likeSum = useSelector((state: any) => +state?.live?.livingInfo?.likeSum || 0);
   const likeSumRef = React.useRef(likeSum);
+
+  // 分享相关参数
+  const userAvatar = useSelector((state: any) => state?.userData?.userInfo?.userAvatar);
+  const nickName = useSelector((state: any) => state?.userData?.userInfo?.nickName);
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
   // 点击喜欢
   const onPressLike = () => {
@@ -70,21 +78,40 @@ const BottomBlock = (props: any) : any =>  {
   }, [likeQuantity]);
   
   // 转发分享
-  const onPressForward = () => {
+  const onPressForward = async () => {
     if (!isLogin) {
       navigate('Login');
       return;
     }
 
-    share({
-      liveId,
-      inviteCode
-    }, {
-      title: '分享',
-      failOnCancel: false,
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { err && console.log(err); });  
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
+
+    if (wxIsInstalled) {
+      WeChat.shareMiniProgram({
+        scene: 0,
+        userName: wxUserName,
+        title: `${nickName}正在直播，快来围观`,
+        webpageUrl: 'https://www.quanpinlive.com',
+        thumbImageUrl: userAvatar,
+        path: `pages/watch-live/index?invicode=${inviteCode}&liveId=${liveId}&shareUserId=${userId}`
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      Toast.fail('请先下载安装微信')
+    }
+
+    // share({
+    //   liveId,
+    //   inviteCode
+    // }, {
+    //   title: '分享',
+    //   failOnCancel: false,
+    // })
+    //   .then((res) => { console.log(res) })
+    //   .catch((err) => { err && console.log(err); });  
   }
 
   /**

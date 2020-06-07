@@ -4,6 +4,11 @@ import Toast from "react-native-tiny-toast";
 const { store } = configStore();
 import { sleep } from "../../utils/tools";
 import {getParam} from "./getParams";
+import {AESEncrypt} from '../../helpers/crypto';
+
+const pbk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC47SZrn8veaJMTfLYFGOyHS1X5wSXlPkxFssmKciudtewz/uMAlNubW1KUKNJuacUK1D6huZB2IKDM17rEVx00VzTiV9ZlskMNKgDbAX8clz66npwp3a2egmzDCi7N+NYqV27xRifvg3cJ+AsTQlFibt/jRg7eHfE1yM7VTJlhBQIDAQAB";
+
+console.log(JSEncrypt, 'JSEncryptJSEncryptJSEncrypt')
 
 const timeout = async (
   ms: number,
@@ -29,6 +34,7 @@ let headers = {
 
 interface Options {
   timeout?: number, // 超时时间
+  encrypt?: false, // 参数加密
 }
 
 /**
@@ -72,7 +78,7 @@ export const get = (path: any, data?: any, options: Options = {}) => {
  * @param data 
  * @param options 
  */
-export const post = (path: RequestInfo, data: any, options: Options = {}) => {
+export const post = async (path: RequestInfo, data: any, options: Options = {}) => {
   // 加token
   const token = store.getState()?.userData?.token;
   if (token) {
@@ -81,11 +87,29 @@ export const post = (path: RequestInfo, data: any, options: Options = {}) => {
 
   console.log("%cPath:", "color: red; font-size: 20px; ", path);
   console.log("%cParams:", "color: red; font-size: 20px; ", data);
+  // var encrypt = new JSEncrypt();
+  // encrypt.setPublicKey(pbk);
+
+  let body: any;
+
+  console.log(body, 'bodybody')
+  
+  if (options.encrypt) {
+    const res = await AESEncrypt(JSON.stringify(data))
+    body = {
+      params: res?.encrypted,
+      appKey: res?.appKey
+    }
+    body = JSON.stringify(body);
+    console.log(body, 'bodyyyyyyyy')
+  } else {
+    body = JSON.stringify(data);
+  };
 
   const fn = fetch(path, {
     method: "POST",
     headers,
-    body: JSON.stringify(data),
+    body,
   })
     .then(async (response: { text: () => any; status: number }) => {
       const r1 = await response.text();

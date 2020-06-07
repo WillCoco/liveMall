@@ -1,3 +1,4 @@
+import './shim';
 import { UIManager, AppRegistry, Platform } from 'react-native';
 import App from './App';
 import * as WeChat from 'react-native-wechat-lib'
@@ -5,6 +6,8 @@ import * as WeChat from 'react-native-wechat-lib'
 import { CommonActions } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 import { getNavigation } from './src/navigation/RootNavgation';
+import {AESEncrypt, RSAEncrypt} from './src/helpers/crypto'
+
 
 // 导航颜色丢失
 enableScreens();

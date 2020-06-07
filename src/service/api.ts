@@ -5,7 +5,8 @@ import { UpdateParams } from './fetch/fetchOrigin';
 
 // 测试
 const HOST_PHP = 'https://mobile.quanpinlive.com'
-const HOST_JAVA = 'https://app.quanpinlive.com'
+// const HOST_JAVA = 'https://app.quanpinlive.com'
+const HOST_JAVA = 'http://192.168.8.112:2333'
 // 正式
 // const HOST_PHP = 'https://mobile.yunshanbo.cn'
 // const HOST_JAVA = 'https://app.yunshanbo.cn'
@@ -96,7 +97,7 @@ export const apiSendVerCode = (data: any) => get1(`${HOST_JAVA}/user/sendAppMess
 // 更新用户信息
 export const apiUpdateUserInfo = (data: any) => post1(`${HOST_JAVA}/miniApp/updateUserInfo`, data)
 // 注册 & 登录
-export const apiLogin = (data: any) => post1(`${HOST_JAVA}/user/appRegisterOrLogin`, data)
+export const apiLogin = (data: any) => post1(`${HOST_JAVA}/user/appRegisterOrLogin`, data, {encrypt: true})
 // 我的页面
 export const apiGetUserData = () => get1(`${HOST_JAVA}/user/getUserInfo`)
 // 发现模块 获取作品

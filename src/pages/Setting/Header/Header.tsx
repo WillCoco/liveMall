@@ -4,12 +4,12 @@ import pxToDp from '../../../utils/px2dp'
 import { connect } from 'react-redux'
 import { Colors } from '../../../constants/Theme'
 import { Ionicons } from '@expo/vector-icons'
-import * as ImagePicker from 'expo-image-picker'
 import RNFS from 'react-native-fs'
 import { apiUpdateUserInfo, apiGetUserData, apiUploadFile } from '../../../service/api'
 import Toast from 'react-native-tiny-toast'
 import { setUserInfo } from '../../../actions/user'
 import defaultAvatar from '../../../assets/mine-image/default_avatar.png'
+import ImagePicker from 'react-native-image-crop-picker';
 
 function Header(props: { dispatch?: any; userInfo?: any }) {
   const { userInfo } = props
@@ -29,33 +29,25 @@ function Header(props: { dispatch?: any; userInfo?: any }) {
   const changeAvatar = async () => {
     if (!editable) return
 
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 3],
-        quality: 0.6,
-      })
+    ImagePicker.openPicker({
+      mediaType: "photo",
+    }).then((result: any) => {
+      console.log(result, '  ');
+      if (result) {
+        let imgSuffix = ''
 
-      let imgSuffix = ''
+        setAvatarPath(result.path)
 
-      if (result.cancelled) return
+        let suffixIndex = (result.path).lastIndexOf('.')
+        imgSuffix = result.path.substring(suffixIndex + 1)
 
-      setAvatarPath(result.uri)
-
-      let suffixIndex = (result.uri).lastIndexOf('.')
-      imgSuffix = result.uri.substring(suffixIndex + 1)
-
-      RNFS.readFile(result.uri, 'base64').then(res => {
-        const tempImgPath = `data:image/${imgSuffix === 'jpg' ? 'jpeg' : imgSuffix};base64,${res}`
-
-        setAvatarBase64(tempImgPath)
-
-      }).catch(err => {
-        console.log(err)
-      })
-    } catch (error) {
-      console.log(error)
-    }
+        RNFS.readFile(result.path, 'base64').then(res => {
+          const tempImgPath = `data:image/${imgSuffix === 'jpg' ? 'jpeg' : imgSuffix};base64,${res}`
+          setAvatarBase64(tempImgPath)
+          return;
+        })
+      }
+    }).catch(r => console.log('取消选择', r));
   }
 
   /**
@@ -96,7 +88,7 @@ function Header(props: { dispatch?: any; userInfo?: any }) {
     <ImageBackground source={require('../../../assets/mine-image/setting_bgi.png')} style={styles.container}>
       <View style={styles.content}>
         <TouchableOpacity onPress={changeAvatar}>
-          <ImageBackground source={ avatarPath || userInfo.userAvatar ? { uri: avatarPath || userInfo.userAvatar } : defaultAvatar } style={styles.avatar}>
+          <ImageBackground source={avatarPath || userInfo.userAvatar ? { uri: avatarPath || userInfo.userAvatar } : defaultAvatar} style={styles.avatar}>
             {
               editable && <Text style={styles.editAvatar}>更换头像</Text>
             }

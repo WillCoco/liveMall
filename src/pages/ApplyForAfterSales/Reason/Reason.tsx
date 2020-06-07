@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet, TextInput, ImageBackground, TouchableOpacity } from 'react-native'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
-import * as ImagePicker from 'expo-image-picker'
 import { Ionicons } from '@expo/vector-icons'
 import Toast from 'react-native-tiny-toast'
 import { apiLiveUploadFile } from '../../../service/api'
+import ImagePicker from 'react-native-image-crop-picker'
 
 interface Props {
   setImageList: (arg0: any[]) => void;
@@ -25,19 +25,14 @@ export default function Reason(props: Props) {
       return
     }
 
-    try {
-      let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        aspect: [4, 3],
-        quality: 1,
-      })
-
-      if (result.cancelled) return
-
-      upLoadImage(result.uri)
-    } catch (error) {
-      console.log(error)
-    }
+    ImagePicker.openPicker({
+      mediaType: 'photo'
+    }).then((result: any) => {
+      console.log('图片', result);
+      if (result) {
+        upLoadImage(result.path)
+      }
+    }).catch(r => console.log('取消选择', r))
   }
 
   const delImage = (index: number) => {

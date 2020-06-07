@@ -17,6 +17,7 @@ export default function ApplyForAfterSales() {
   const route = useRoute()
   const navigation = useNavigation()
   const [orderInfo]: any = useState(route.params)
+
   const [reason, setReason] = useState('')
   const [tel, setTel] = useState('')
   const [isSubmit, setIsSubmit] = useState(false)
@@ -92,7 +93,11 @@ export default function ApplyForAfterSales() {
       {/* 店铺、商品信息 */}
       <ShopCard orderInfo={orderInfo} />
       {/* 服务类型 */}
-      <ServiceType typeList={typeList} setTypeList={(list: React.SetStateAction<{ type: string; active: boolean }[]>) => setTypeList(JSON.parse(JSON.stringify(list)))} />
+      <ServiceType
+        status={orderInfo.orderStatus}
+        typeList={typeList}
+        setTypeList={(list: React.SetStateAction<{ type: string; active: boolean }[]>) => setTypeList(JSON.parse(JSON.stringify(list)))}
+      />
       {/* 申请原因 */}
       <Reason
         inputReason={(text: string) => setReason(text)}

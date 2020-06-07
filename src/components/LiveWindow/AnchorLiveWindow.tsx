@@ -325,7 +325,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
     const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
     if (wxIsInstalled) {
-      // 测试 gh_fc399d40a762
       WeChat.shareMiniProgram({
         scene: 0,
         userName: wxUserName,
@@ -340,7 +339,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
       })
     }
   }
-
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>

@@ -91,7 +91,7 @@ export default function Reason(props: Props) {
       />
       <View style={styles.imagePicker}>
         {
-          imageList.map((item: any, index: number) => {
+          imageList && imageList.map((item: any, index: number) => {
             return (
               <View key={`image-${index}`}>
                 <TouchableOpacity onPress={() => chooseImage(index)} key={`imag-${index}`}>

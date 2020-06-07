@@ -14,7 +14,7 @@ import {Audience as AudienceLiveToolBar} from '../LiveToolBar';
 import {pad} from '../../constants/Layout';
 import {sendRoomMessage} from '../../actions/im';
 import {RoomMessageType, MessageType} from '../../reducers/im';
-import {apiLiveLike} from '../../service/api';
+import {apiLiveLike, wxUserName} from '../../service/api';
 import Poller from '../../utils/poller';
 import { isSucceed } from '../../utils/fetchTools';
 import { Attention } from '../../liveTypes';
@@ -24,6 +24,8 @@ import { EMPTY_OBJ, EMPTY_ARR } from '../../constants/freeze';
 import { updateLivingInfo } from '../../actions/live';
 import { joinGroup, login } from '../../actions/im';
 import { Toast } from '../Toast';
+
+import * as WeChat from 'react-native-wechat-lib'
 
 const POLLER_INTERVAL = 1000 * 15;
 
@@ -56,6 +58,11 @@ const BottomBlock = (props: any) : any =>  {
 
   // im房间信息
   const room = useSelector((state: any) => state?.im?.room || EMPTY_OBJ);
+
+  // 分享相关参数
+  const userAvatar = useSelector((state: any) => state?.userData?.userInfo?.userAvatar);
+  const nickName = useSelector((state: any) => state?.userData?.userInfo?.nickName);
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
   /**
    * 邀请码
@@ -147,22 +154,41 @@ const BottomBlock = (props: any) : any =>  {
   /**
    * 分享
    */
-  const onPressForward = () => {
+  const onPressForward = async () => {
     if (!isLogin) {
       navigate('Login');
       return;
     }
 
-    share({
-      liveId,
-      groupId: room.groupId,
-      inviteCode
-    }, {
-      title: '分享',
-      failOnCancel: false,
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { err && console.log(err); });
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
+
+    if (wxIsInstalled) {
+      WeChat.shareMiniProgram({
+        scene: 0,
+        userName: wxUserName,
+        title: `${nickName}正在直播，快来围观`,
+        webpageUrl: 'https://www.quanpinlive.com',
+        thumbImageUrl: userAvatar,
+        path: `pages/watch-live/index?invicode=${inviteCode}&liveId=${liveId}&shareUserId=${userId}`
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      Toast.fail('请先下载安装微信')
+    }
+
+    // share({
+    //   liveId,
+    //   groupId: room.groupId,
+    //   inviteCode
+    // }, {
+    //   title: '分享',
+    //   failOnCancel: false,
+    // })
+    //   .then((res) => { console.log(res) })
+    //   .catch((err) => { err && console.log(err); });
   }
 
   /**

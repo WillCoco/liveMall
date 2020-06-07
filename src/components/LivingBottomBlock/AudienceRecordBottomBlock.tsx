@@ -17,6 +17,10 @@ import share from '../../utils/share';
 import { useNavigation } from '@react-navigation/native';
 import { updateLivingInfo } from '../../actions/live';
 
+import * as WeChat from 'react-native-wechat-lib'
+import { wxUserName } from '../../service/api';
+import { Toast } from '@ant-design/react-native';
+
 const POLLER_INTERVAL = 1000 * 15;
 
 const BottomBlock = (props: any) : any =>  {
@@ -30,6 +34,11 @@ const BottomBlock = (props: any) : any =>  {
   // 喜欢数量
   const likeSum = useSelector((state: any) => +state?.live?.livingInfo?.likeSum || 0);
   const likeSumRef = React.useRef(likeSum);
+
+  // 分享相关参数
+  const userAvatar = useSelector((state: any) => state?.userData?.userInfo?.userAvatar);
+  const nickName = useSelector((state: any) => state?.userData?.userInfo?.nickName);
+  const userId = useSelector((state: any) => state?.userData?.userInfo?.userId);
 
 
   // 点击喜欢
@@ -78,21 +87,30 @@ const BottomBlock = (props: any) : any =>  {
   }, [likeQuantity, liveId]);
   
   // 转发分享
-  const onPressForward = () => {
+  const onPressForward = async () => {
     if (!isLogin) {
       navigate('Login');
       return;
     }
 
-    share({
-      liveId,
-      inviteCode
-    }, {
-      title: '分享',
-      failOnCancel: false,
-    })
-      .then((res) => { console.log(res) })
-      .catch((err) => { err && console.log(err); });
+    const wxIsInstalled = await WeChat.isWXAppInstalled()
+
+    if (wxIsInstalled) {
+      WeChat.shareMiniProgram({
+        scene: 0,
+        userName: wxUserName,
+        title: `${nickName}正在直播，快来围观`,
+        webpageUrl: 'https://www.quanpinlive.com',
+        thumbImageUrl: userAvatar,
+        path: `pages/watch-live/index?invicode=${inviteCode}&liveId=${liveId}&shareUserId=${userId}`
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
+    } else {
+      Toast.fail('请先下载安装微信')
+    }
   }
 
   /**

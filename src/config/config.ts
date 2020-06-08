@@ -2,7 +2,7 @@
  * 一些环境相关配置，打包注意修改
  */
 
-const isDevelop = false; // true 开发环境 false 生产环境
+const isDevelop = true; // true 开发环境 false 生产环境
 
 /** ----------------- 请求接口 ----------------- */
 export const HOST_PHP = isDevelop

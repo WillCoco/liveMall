@@ -6,10 +6,7 @@ import * as WeChat from 'react-native-wechat-lib'
 import { CommonActions } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 import { getNavigation } from './src/navigation/RootNavgation';
-import {AESEncrypt, RSAEncrypt} from './src/helpers/crypto'
-AESEncrypt('我是待加密数据')
-.then(r => console.log(r, 'adsdasdasddddd'))
-.catch(r => console.log(r, '1111'))
+
 
 // 导航颜色丢失
 enableScreens();
@@ -33,13 +30,13 @@ global.ErrorUtils.setGlobalHandler(function (err) {
 });
 
 // 去除console
-// if (!__DEV__) {
-//   global.console.log = () => undefined;
-//   global.console.warn = () => undefined;
-//   global.console.info = () => undefined;
-//   global.console.error = () => undefined;
-//   global.console.table = () => undefined;
-// }
+if (!__DEV__) {
+  global.console.log = () => undefined;
+  global.console.warn = () => undefined;
+  global.console.info = () => undefined;
+  global.console.error = () => undefined;
+  global.console.table = () => undefined;
+}
 
 // 开启动画
 if (Platform.OS === 'android') {

@@ -13,6 +13,10 @@ const Step = Steps.Step
 export default function ExpressStepper(props: Props) {
   const { expressList } = props
 
+  console.log(expressList)
+
+  return <></>
+
   return (
     <ScrollView
       style={styles.container}
@@ -20,7 +24,7 @@ export default function ExpressStepper(props: Props) {
     >
       <Steps current={1}>
         {
-          expressList.map((item: any, index: number) => {
+          expressList && expressList.map((item: any, index: number) => {
             return (
               <Step
                 key={`step-${index}`}

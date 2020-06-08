@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
 import { Toast } from '../../../components/Toast'
+import UpdateModal from '../../../components/UpdateModal/UpdateModal'
 
 interface Props {
   version: string;
@@ -95,29 +96,14 @@ export default function Form(props: Props) {
         </View>
       </TouchableWithoutFeedback>
 
-      <Modal
-        visible={showUpdateModal}
-        transparent={true}
-        animationType='fade'
-        onRequestClose={() => setShowUpdateModal(false)}
-      >
-        <View style={styles.updateModalContainer}>
-          <ImageBackground source={require('../../../assets/mine-image/update_bgi.png')} style={styles.updateBgi}>
-            <Text style={styles.updateTitle}>发现新版本{version}</Text>
-            <Text style={styles.updateContent}>{updateContent}</Text>
-            <View style={styles.updateBtnGroup}>
-              {
-                !forceUpdate && <TouchableOpacity style={[styles.updateBtn, styles.cancelBtn]} onPress={() => setShowUpdateModal(false)}>
-                  <Text style={[styles.btnText, styles.cancelBtnText]}>取消</Text>
-                </TouchableOpacity>
-              }
-              <TouchableOpacity style={styles.updateBtn} onPress={downloadNewVersion}>
-                <Text style={styles.btnText}>立即更新</Text>
-              </TouchableOpacity>
-            </View>
-          </ImageBackground>
-        </View>
-      </Modal>
+      <UpdateModal
+        showUpdateModal={showUpdateModal}
+        version={version}
+        updateContent={updateContent}
+        forceUpdate={forceUpdate}
+        updatePath={updatePath}
+        hideUpdateModal={() => setShowUpdateModal(false)}
+      />
     </View>
   )
 }

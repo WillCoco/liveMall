@@ -1,11 +1,49 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
+import { useRoute, useNavigation } from '@react-navigation/native'
+import { connect } from 'react-redux'
 
 import ExpressStepper from '../../components/ExpressStepper/ExpressStepper'
 import pxToDp from '../../utils/px2dp'
 import { Colors } from '../../constants/Theme'
+import { apiQueryExpress } from '../../service/api'
 
-export default function ExpressInfo() {
+function ExpressInfo(props: { userTel: string }) {
+  const { userTel } = props
+
+  const route: any = useRoute()
+  const navigation = useNavigation()
+  const { invoiceNo, shippingCode } = route.params
+  const [expressList, setExpressList]: any[] = useState()
+
+  navigation.setOptions({
+    headerTitle: '查看物流',
+    headerStyle: {
+      backgroundColor: Colors.basicColor,
+      elevation: 0,  // 去除安卓状态栏底部阴影
+    },
+    headerTitleAlign: 'center',
+    headerTintColor: Colors.whiteColor,
+    headerBackTitleVisible: false
+  })
+
+  useEffect(() => {
+    queryExpress()
+  }, [])
+
+  const queryExpress = () => {
+    const params = {
+      shippingCode,
+      invoiceNo,
+      customerName: userTel.substr(7)
+    }
+  
+    apiQueryExpress(params).then((res: any) => {
+      setExpressList(res.data.reverse())
+    }).catch((err: any) => {
+      console.log(err)
+    })
+  }
 
   return (
     <>
@@ -17,10 +55,14 @@ export default function ExpressInfo() {
           <Text style={styles.expressTel}>客服电话：321412</Text>
         </View>
       </View>
-      <ExpressStepper />
+      <ExpressStepper expressList={expressList} />
     </>
   )
 }
+
+export default connect(
+  (state: any) => state.userData.userInfo
+)(ExpressInfo)
 
 const styles = StyleSheet.create({
   container: {

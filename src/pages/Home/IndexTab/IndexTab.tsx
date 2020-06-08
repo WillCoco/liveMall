@@ -68,11 +68,11 @@ function IndexTab(props: Props) {
       {/* 导航栏 */}
       <HomeNav />
       {/* 活动轮播 */}
-      <View style={styles.activityContainer}>
+      <View style={styles.swiperContainer}>
         <HomeSwiper
           showDots={false}
           swiperList={activityList}
-          swiperStyle={styles.activity}
+          swiperStyle={styles.swiper}
         />
       </View>
       {/* 人气推荐 */}
@@ -198,13 +198,16 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   activityContainer: {
+    width: '100%',
+    paddingLeft: pxToDp(20),
+    paddingRight: pxToDp(20),
     height: pxToDp(220),
-    backgroundColor: Colors.whiteColor,
+    backgroundColor: Colors.darkBlack,
     alignItems: 'center',
     paddingBottom: pxToDp(20)
   },
   activity: {
-    width: pxToDp(710),
+    // width: '100%',
     borderRadius: pxToDp(16)
   },
   selectedGoods: {

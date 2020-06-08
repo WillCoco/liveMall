@@ -74,7 +74,7 @@ function HomeSwiper(props: Props) {
 
 const swiperStyle = StyleSheet.create({
   swiperImage: {
-    width: '100%',
+    // width: '100%',
     height: '100%',
     borderRadius: pxToDp(16)
   },

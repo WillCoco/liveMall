@@ -55,6 +55,16 @@ const CountDown = (props: CountDownProps) =>  {
     callback: countDown
   }))
 
+  /**
+   * 更新定时器
+  */
+  React.useEffect(() => {
+    timer.current = new Poller({
+      interval: props.interval,
+      callback: countDown
+    })
+  }, [props.deadline])
+
   React.useEffect(() => {
     timer.current.start();
     console.log(props.deadline, 'props.deadline')

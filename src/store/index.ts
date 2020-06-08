@@ -39,6 +39,21 @@ const livePersistConfig = {
   whitelist: ['pusherConfig'],
   timeout: null,
   migrate: (state: any) => {
+    const version = state?._persist?.version;
+
+    // 更新cameraId
+    if (version === 1 && version !== localStorageVersion) {
+      const camera = state?.pusherConfig?.profile?.cameraStreamingSetting?.camera;
+      if (camera) {
+        try {
+          state.pusherConfig.profile.cameraStreamingSetting.cameraId = camera;
+          delete state.pusherConfig.profile.cameraStreamingSetting.camera;
+        } catch (err) {
+          console.log('pusherConfig本地数据升级', err)
+        }
+      }
+      return Promise.resolve(state);
+    }
     return Promise.resolve(state);
   },
 };

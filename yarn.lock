@@ -1221,6 +1221,11 @@
   version "0.1.10"
   resolved "https://registry.npm.taobao.org/@react-native-community/masked-view/download/@react-native-community/masked-view-0.1.10.tgz#5dda643e19e587793bc2034dd9bf7398ad43d401"
 
+"@react-native-community/netinfo@^5.9.2":
+  version "5.9.2"
+  resolved "https://registry.npm.taobao.org/@react-native-community/netinfo/download/@react-native-community/netinfo-5.9.2.tgz#0e9df9717f292cd54fa9de322205b6263a1cb8e2"
+  integrity sha1-Dp35cX8pLNVPqd4yIgW2JjocuOI=
+
 "@react-native-community/viewpager@^1.1.7", "@react-native-community/viewpager@^2.0.1":
   version "2.0.2"
   resolved "https://registry.npm.taobao.org/@react-native-community/viewpager/download/@react-native-community/viewpager-2.0.2.tgz#622b190294b1310c4825c98daeaee1c8443f7124"
@@ -5831,9 +5836,7 @@ pify@^4.0.1:
   resolved "https://registry.npm.taobao.org/pify/download/pify-4.0.1.tgz#4b2cd25c50d598735c50292224fd8c6df41e3231"
 
 "pili-streaming-react-native@file:./pili-streaming-react-native":
-  version "2.0.0"
-  dependencies:
-    pili-streaming-react-native "file:../../Library/Caches/Yarn/v6/npm-pili-streaming-react-native-2.0.0-e5e4871b-156f-4c12-bb97-3e95b659bafd-1591518890147/node_modules/pili-streaming-react-native"
+  version "2.0.1-beta.0"
 
 pinkie-promise@^2.0.0:
   version "2.0.1"

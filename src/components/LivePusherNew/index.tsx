@@ -25,6 +25,7 @@ import images from '../../assets/images';
 import {consts, Streaming} from 'pili-streaming-react-native';
 import { Colors } from '../../constants/Theme';
 import { pad, radio } from '../../constants/Layout';
+import { updateStarted } from '../../actions/live';
 
 interface LivePusherProps {
   style?: StyleProp<any>,
@@ -40,6 +41,8 @@ enum VideoFps {
 }
 
 const VIDEO_LOW_FPS_THRESHOLD = 6; // 临界
+
+const RESUME_INTERVAL = 20000;
 
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
@@ -100,6 +103,9 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
   // 低传输率提示
   const showLowFPS = VideoFps.LOW === videoFps && !showStoped;
+
+  // 重试定时
+  const resumeTimer: any = React.useRef();
   
   // console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
   // console.log(isPermissionGranted, 'b01_isPermissionGranted');
@@ -113,6 +119,25 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
     setStatus(v);
     props.onStateChange && props.onStateChange(v);
     console.log(v, 'onStateChange');
+
+    // 断流重连
+    if (v === 4 && !!videoFps && !resumeTimer.current) {
+      // 置为停止
+      dispatch(updateStarted(false));
+      // 检测网络
+
+      // 网络可以-重连
+
+      // 网络错误-监听网络-有网后重连
+      resumeTimer.current = setTimeout(() => {
+        dispatch(updateStarted(true))
+      }, RESUME_INTERVAL);
+    } else {
+      if (resumeTimer.current) {
+        clearTimeout(resumeTimer.current);
+        resumeTimer.current = null;
+      }
+    }
   };
 
   const onStreamInfoChange = (v: any) => {
@@ -181,10 +206,17 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
     )
   }, [])
 
+
   return (
     <View ref={ref} style={StyleSheet.flatten([styles.wrapper, props.style])}>
       {showPusher ? (
         <Streaming
+          ref={(streaming: any) => {
+            if (ref) {
+              ref(streaming)
+            }
+            pusher.current = streaming;
+          }}
           {...pusherConfig}
           onStateChange={onStateChange}
           onStreamInfoChange={onStreamInfoChange}

@@ -171,6 +171,8 @@ const AnchorTrailers = () =>  {
             anchorId,
             anchorLogo
           } = item || EMPTY_OBJ;
+
+          console.log(liveTime, 'liveTimeliveTimeliveTimeliveTime')
           return (
             <TrailersCard
               key={`_${index}`}

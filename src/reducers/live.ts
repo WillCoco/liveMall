@@ -135,7 +135,7 @@ const INIT_STREAMING_CONFIG: any = {
         : consts.cameraResolutions_iOS.AVCaptureSessionPresetMedium,
       focusMode: consts.cameraFocusModes.continuousVideo,
       videoOrientation: consts.cameraVideoOrientations.portrait,
-      camera: CameraType.front,
+      cameraId: CameraType.front,
     },
     microphoneSteamingSetting: {
       sampleRate: consts.microphoneSampleRates.r44100,

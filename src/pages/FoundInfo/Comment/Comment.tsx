@@ -196,6 +196,6 @@ const styles = StyleSheet.create({
     color: Colors.darkGrey,
     fontSize: pxToDp(22),
     marginLeft: pxToDp(20),
-    lineHeight: pxToDp(30)
+    lineHeight: pxToDp(32)
   }
 })

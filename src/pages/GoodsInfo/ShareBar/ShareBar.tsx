@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -16,7 +16,7 @@ import * as WeChat from 'react-native-wechat-lib'
 import { apiCreatePoster, apiGetUserData } from '../../../service/api'
 import { setUserInfo } from '../../../actions/user'
 import { Portal, Toast as AntToast } from '@ant-design/react-native'
-import { wxUserName } from '../../../service/api'
+import { wxUserName } from '../../../config/config'
 
 interface Props {
   dispatch: any;

@@ -20,15 +20,13 @@ function BindPhoneNumber(props: any) {
   const navigation = useNavigation()
   const route: any = useRoute()
 
-  const { unionId, userTel } = route.params
+  const unionId = route.params
 
   const [telNum, setTelNum] = useState('')
   const [verCode, setVerCode] = useState('')
   const [invCode, setInvCode] = useState('')
   const [disabled, setDisabled] = useState(false)
   let [countDown, setCountDown] = useState(60)
-
-  console.log(route.params)
 
   navigation.setOptions({
     headerTitle: '',
@@ -101,7 +99,7 @@ function BindPhoneNumber(props: any) {
    * 登录操作
    */
   const toLogin = () => {
-    if (!userTel && !phonePattern.test(telNum)) {
+    if (!phonePattern.test(telNum)) {
       Toast.fail('请输入正确的手机号')
       return
     }
@@ -121,7 +119,7 @@ function BindPhoneNumber(props: any) {
     }
 
     const params = {
-      userTel: userTel || telNum,
+      userTel: telNum,
       code: verCode,
       inviteCode: invCode,
       unionId
@@ -165,7 +163,7 @@ function BindPhoneNumber(props: any) {
         countDown={countDown}
         disabledSendBtn={disabled}
         sendMsg={sendMsg}
-        userTel={userTel}
+        // userTel={telNum}
         changeTelNum={(value: string) => changeTelNum(value)}
         changeVerCode={(value: string) => changeVerCode(value)}
         changeInvCode={(value: string) => changeInvCode(value)}

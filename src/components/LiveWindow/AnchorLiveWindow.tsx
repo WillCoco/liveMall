@@ -38,7 +38,7 @@ import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
 
 import * as WeChat from 'react-native-wechat-lib'
-import { wxUserName } from '../../service/api';
+import { wxUserName } from '../../config/config';
 
 interface LiveWindowProps {
   style?: StyleProp<any>,

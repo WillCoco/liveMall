@@ -73,8 +73,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: pxToDp(28),
     paddingLeft: pxToDp(26),
-    paddingRight: pxToDp(26),
-    marginLeft: pxToDp(40)
+    paddingRight: pxToDp(26)
   },
   searchBar:{
     width: pxToDp(600)

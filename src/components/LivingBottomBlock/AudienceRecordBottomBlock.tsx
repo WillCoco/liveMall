@@ -18,8 +18,8 @@ import { useNavigation } from '@react-navigation/native';
 import { updateLivingInfo } from '../../actions/live';
 
 import * as WeChat from 'react-native-wechat-lib'
-import { wxUserName } from '../../service/api';
 import { Toast } from '@ant-design/react-native';
+import { wxUserName } from '../../config/config';
 
 const POLLER_INTERVAL = 1000 * 15;
 

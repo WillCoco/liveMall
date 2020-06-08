@@ -23,6 +23,7 @@ import { MediaType } from '../../../liveTypes';
 import { EMPTY_OBJ } from '../../../constants/freeze';
 import { Carousel } from '@ant-design/react-native';
 import { Colors } from '../../../constants/Theme';
+import pxToDp from '../../../utils/px2dp';
 
 interface LiveBannerProps {
   // bannerList?: any[],
@@ -112,11 +113,11 @@ LiveBanner.defaultProps = {
 
 const styles = StyleSheet.create({
   wrapper: {
-    height: 200,
+    height: pxToDp(254),
   },
   image: {
     width: '100%',
-    height: 200,
+    height: pxToDp(254),
   }
 });
 

@@ -20,7 +20,7 @@ export default function ExpressStepper(props: Props) {
     >
       <Steps current={1}>
         {
-          expressList.map((item: any, index: number) => {
+          expressList && expressList.map((item: any, index: number) => {
             return (
               <Step
                 key={`step-${index}`}

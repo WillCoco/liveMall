@@ -163,7 +163,7 @@ function BindPhoneNumber(props: any) {
         countDown={countDown}
         disabledSendBtn={disabled}
         sendMsg={sendMsg}
-        userTel={telNum}
+        // userTel={telNum}
         changeTelNum={(value: string) => changeTelNum(value)}
         changeVerCode={(value: string) => changeVerCode(value)}
         changeInvCode={(value: string) => changeInvCode(value)}

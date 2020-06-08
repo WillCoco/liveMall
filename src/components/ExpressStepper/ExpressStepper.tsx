@@ -13,10 +13,6 @@ const Step = Steps.Step
 export default function ExpressStepper(props: Props) {
   const { expressList } = props
 
-  console.log(expressList)
-
-  return <></>
-
   return (
     <ScrollView
       style={styles.container}

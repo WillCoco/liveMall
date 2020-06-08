@@ -34,8 +34,7 @@ function ExpressInfo(props: { userTel: string }) {
   }, [])
 
   const queryExpressList = () => {
-    apiGetShippingList().then(res => {
-      console.log(res)
+    apiGetShippingList().then((res: any[]) => {
       res.forEach((item: any) => {
         if (item.shippingCode === shippingCode) {
           setExpressName(item.shippingName)

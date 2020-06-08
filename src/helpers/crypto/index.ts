@@ -40,7 +40,7 @@ const AESEncrypt = async (text: string) => {
   } catch (err) {
     console.log('AES_Encrypt error:', err)
   }
-  const appKey = RSAEncrypt(randomWord)
+  const appKey = encodeURI(RSAEncrypt(randomWord)).replace(/\+/g, '%2B')
   // console.log(encrypted, 'encrypted');
   // console.log(appKey, 'appKey');
 

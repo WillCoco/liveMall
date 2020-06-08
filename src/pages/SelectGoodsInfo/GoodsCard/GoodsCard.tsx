@@ -1,27 +1,31 @@
 import React from 'react'
-import { View, Text, StyleSheet, PixelRatio, Image } from 'react-native'
+import { View, Text, StyleSheet, PixelRatio, Image, TouchableOpacity } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 import pxToDp from '../../../utils/px2dp'
 import { Colors } from '../../../constants/Theme'
+import { useNavigation } from '@react-navigation/native'
 
 export default function GoodsCard(props: { style?: any; goodsInfo?: any }) {
   const { goodsInfo } = props
+  const navigation = useNavigation()
 
   return (
-    <View style={[styles.container, props.style]}>
-      <Image source={goodsInfo.original_img} style={styles.goodsImg} />
-      <View style={styles.goodsInfo}>
-        <Text numberOfLines={2} style={styles.goodsName}>{goodsInfo.goods_name}</Text>
-        <View style={styles.likes}>
-          <Ionicons
-            size={20}
-            name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
-            color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
-          />
-          <Text style={styles.likesCount}>{goodsInfo.people_like}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate('GoodsInfo', { id: goodsInfo.goods_id })}>
+      <View style={[styles.container, props.style]}>
+        <Image source={{ uri: goodsInfo.original_img }} style={styles.goodsImg} />
+        <View style={styles.goodsInfo}>
+          <Text numberOfLines={2} style={styles.goodsName}>{goodsInfo.goods_name}</Text>
+          <View style={styles.likes}>
+            <Ionicons
+              size={20}
+              name={goodsInfo.is_like ? 'ios-heart' : 'ios-heart-empty'}
+              color={goodsInfo.is_like ? Colors.basicColor : Colors.lightGrey}
+            />
+            <Text style={styles.likesCount}>{goodsInfo.people_like}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -36,7 +40,6 @@ const styles = StyleSheet.create({
   goodsImg: {
     width: '100%',
     height: pxToDp(350),
-    backgroundColor: '#0f0',
     borderTopLeftRadius: pxToDp(16),
     borderTopRightRadius: pxToDp(16),
     overflow: 'hidden'

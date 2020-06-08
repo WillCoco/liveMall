@@ -197,19 +197,6 @@ const styles = StyleSheet.create({
     borderRadius: pxToDp(16),
     overflow: 'hidden'
   },
-  activityContainer: {
-    width: '100%',
-    paddingLeft: pxToDp(20),
-    paddingRight: pxToDp(20),
-    height: pxToDp(220),
-    backgroundColor: Colors.darkBlack,
-    alignItems: 'center',
-    paddingBottom: pxToDp(20)
-  },
-  activity: {
-    // width: '100%',
-    borderRadius: pxToDp(16)
-  },
   selectedGoods: {
     backgroundColor: Colors.whiteColor,
     marginTop: pxToDp(20),

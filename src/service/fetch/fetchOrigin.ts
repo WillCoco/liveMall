@@ -6,10 +6,6 @@ import { sleep } from "../../utils/tools";
 import {getParam} from "./getParams";
 import {AESEncrypt} from '../../helpers/crypto';
 
-const pbk = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC47SZrn8veaJMTfLYFGOyHS1X5wSXlPkxFssmKciudtewz/uMAlNubW1KUKNJuacUK1D6huZB2IKDM17rEVx00VzTiV9ZlskMNKgDbAX8clz66npwp3a2egmzDCi7N+NYqV27xRifvg3cJ+AsTQlFibt/jRg7eHfE1yM7VTJlhBQIDAQAB";
-
-console.log(JSEncrypt, 'JSEncryptJSEncryptJSEncrypt')
-
 const timeout = async (
   ms: number,
   path: string | RequestInfo

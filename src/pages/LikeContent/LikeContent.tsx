@@ -104,6 +104,7 @@ export default function LikeContent() {
       <MasonryList
         numColumns={2}
         data={worksList}
+        keyExtractor={(item: any, index: number) => `goods-${index}` }
         renderItem={({ item }) => <WorkCard workInfo={item} />}
         getHeightForItem={({ item }) => item.height}
       />

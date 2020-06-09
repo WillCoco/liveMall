@@ -131,6 +131,7 @@ function Found(props: { isLogin: boolean }) {
         <MasonryList
           numColumns={2}
           data={workList}
+          keyExtractor={(item: any, index: number) => `goods-${index}` }
           renderItem={({ item }) => <WorkCard workInfo={item} />}
           getHeightForItem={({ item }) => item.height}
         />

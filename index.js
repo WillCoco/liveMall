@@ -1,5 +1,5 @@
 import './shim';
-import { UIManager, AppRegistry, Platform } from 'react-native';
+import { UIManager, AppRegistry, Platform, YellowBox } from 'react-native';
 import App from './App';
 import * as WeChat from 'react-native-wechat-lib'
 // console.log(registerRootComponent, 'registerRootComponent')
@@ -37,6 +37,15 @@ if (!__DEV__) {
   global.console.error = () => undefined;
   global.console.table = () => undefined;
 }
+
+// 忽略警告
+YellowBox.ignoreWarnings([
+  'Setting a timer',
+  'rn-fetch-blob',
+   // tim
+   'on 接口的 handler 参数推荐使用具名函数',
+   'UploadController._init 没有检测到上传插件'
+])
 
 // 开启动画
 if (Platform.OS === 'android') {

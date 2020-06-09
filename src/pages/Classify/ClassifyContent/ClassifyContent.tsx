@@ -40,7 +40,8 @@ const styles = StyleSheet.create({
   goodsList: {
     flex: 1,
     flexDirection: 'row',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    paddingBottom: pxToDp(200)
   },
   goodsItem: {
     width: pxToDp(110),

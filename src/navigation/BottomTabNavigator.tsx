@@ -79,14 +79,14 @@ function BottomTabNavigator({ navigation, route }: any) {
           }}
         />
       }
-      <BottomTab.Screen
+      {!!liveStatus && <BottomTab.Screen
         name="发现"
         component={FoundScreen}
         options={{
           title: '发现',
           tabBarIcon: ({ focused }) => <Image style={styles.tabBarImage} source={focused ? foundActiveIcon : foundIcon} />,
         }}
-      />
+      />}
       <BottomTab.Screen
         name="购物车"
         component={CartScreen}

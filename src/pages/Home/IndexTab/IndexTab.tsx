@@ -7,7 +7,8 @@ import {
   PixelRatio,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
@@ -150,7 +151,7 @@ function IndexTab(props: Props) {
       <View style={styles.recommendGoodsList}>
         <CardTitle title='圈重点' />
         <View style={styles.recommendGoodsListContainer}>
-          {
+          {/* {
             recommendGoodsList.map((item: any, index: any) => {
               return (
                 <GoodsCard
@@ -161,7 +162,19 @@ function IndexTab(props: Props) {
                 />
               )
             })
-          }
+          } */}
+          <FlatList
+            numColumns={2}
+            data={recommendGoodsList}
+            keyExtractor={(item, index) => `goods-${index}`}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            getItemLayout={(item, index) => ({length: pxToDp(570), offset: pxToDp(570) * index, index})}
+            renderItem={({ item }) => <GoodsCard
+              style={{ marginBottom: pxToDp(20) }}
+              goodsInfo={item}
+              tapGoodsCard={(id: number) => navigation.navigate('GoodsInfo', { id })}
+            />}
+          />
         </View>
         <LoadMore hasMore={hasMore} />
       </View></>
@@ -211,6 +224,7 @@ const styles = StyleSheet.create({
   recommendGoodsList: {
     marginTop: pxToDp(20),
     padding: pxToDp(20),
+    // paddingRight: pxToDp(10),
     backgroundColor: Colors.whiteColor
   },
   recommendGoodsListContainer: {

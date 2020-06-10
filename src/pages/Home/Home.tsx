@@ -47,6 +47,9 @@ function Home(props: HomeProps) {
   const [timeQuantum, setTimeQuantum] = useState('')
   const [categoryData, setCategoryData]: any = useState({})
   const [recommendGoodsList, setRecommendGoodsList]: Array<any> = useState([])
+
+  const recommendGoodsListRef: any = useRef([])
+
   const [categoryList, setCategoryList] = useState([{ name: '首页' }])
   const [countDownList, setCountDownList] = useState([
     { timeQuantum: '10:00', state: '' },
@@ -55,7 +58,7 @@ function Home(props: HomeProps) {
   ])
 
   useEffect(() => {
-    getRecommendGoodsList(false)
+    getRecommendGoodsList()
   }, [])
 
   useEffect(() => {
@@ -93,7 +96,7 @@ function Home(props: HomeProps) {
   /**
    * 加载圈重点数据
    */
-  const getRecommendGoodsList = (isPullDown: boolean) => {
+  const getRecommendGoodsList = () => {
     apiGetIndexGoodsList({
       pageNo: pageNoRef.current,
       pageSize
@@ -101,7 +104,8 @@ function Home(props: HomeProps) {
       console.log('首页圈重点数据', res)
       const totalPage = Math.ceil(res.count / pageSize)
       hasMoreRef.current = pageNoRef.current < totalPage
-      setRecommendGoodsList(isPullDown ? res.list : [...recommendGoodsList, ...res.list])
+      recommendGoodsListRef.current = [...recommendGoodsListRef.current, ...res.list]
+      setRecommendGoodsList(recommendGoodsListRef.current)
     }).catch((err: any) => {
       console.log('首页圈重点数据', err)
     })
@@ -112,8 +116,9 @@ function Home(props: HomeProps) {
    */
   const onPullDownRefresh = () => {
     pageNoRef.current = 1
+    recommendGoodsListRef.current = []
     setLoading(true)
-    getRecommendGoodsList(true)
+    getRecommendGoodsList()
     initData()
   }
 
@@ -123,7 +128,7 @@ function Home(props: HomeProps) {
   const onReachBottom = (e: any) => {
     if (hasMoreRef.current && checkIsBottom(e)) {
       pageNoRef.current += 1
-      getRecommendGoodsList(false)
+      getRecommendGoodsList()
     }
   }
 

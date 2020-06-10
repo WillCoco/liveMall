@@ -2,7 +2,6 @@ import './shim';
 import { UIManager, AppRegistry, Platform, YellowBox } from 'react-native';
 import App from './App';
 import * as WeChat from 'react-native-wechat-lib'
-// console.log(registerRootComponent, 'registerRootComponent')
 import { CommonActions } from '@react-navigation/native';
 import { enableScreens } from 'react-native-screens';
 import { getNavigation } from './src/navigation/RootNavgation';
@@ -22,9 +21,9 @@ global.ErrorUtils.setGlobalHandler(function (err) {
   const navigation = getNavigation();
   try {
     navigation.dispatch(
-      CommonActions.navigate('ErrorPage', {errorInfo: err.toString()})
+      CommonActions.navigate('ErrorPage', { errorInfo: err.toString() })
     );
-  } catch(err) {
+  } catch (err) {
     console.log('global ignore err:', err)
   }
 });
@@ -42,9 +41,9 @@ if (!__DEV__) {
 YellowBox.ignoreWarnings([
   'Setting a timer',
   'rn-fetch-blob',
-   // tim
-   'on 接口的 handler 参数推荐使用具名函数',
-   'UploadController._init 没有检测到上传插件'
+  // tim
+  'on 接口的 handler 参数推荐使用具名函数',
+  'UploadController._init 没有检测到上传插件'
 ])
 
 // 开启动画

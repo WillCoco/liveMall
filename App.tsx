@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, StatusBar, View, NativeModules, Linking, PermissionsAndroid } from 'react-native';
-// import { AppLoading } from 'expo'
-// import * as SplashScreen from 'expo-splash-screen'
+import { Platform, StatusBar, View, NativeModules, Linking } from 'react-native';
 import SplashScreen from 'react-native-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons'
 import { navigationRef } from './src/navigation/RootNavgation';
-import { isAndroid } from './src/constants/DeviceInfo';
 import appjson from './app.json'
 
 import { Provider as AntdProvider } from '@ant-design/react-native'

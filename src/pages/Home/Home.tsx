@@ -26,8 +26,6 @@ import BrandTab from './BrandTab/BrandTab'
 import withPage from '../../components/HOCs/withPage'
 import SearchBar from '../../components/SearchBar/SearchBar'
 
-// import { encrypt } from '../../utils/encrypt'
-
 const pageSize = 20
 
 interface HomeProps {
@@ -57,10 +55,6 @@ function Home(props: HomeProps) {
   ])
 
   useEffect(() => {
-    // const aaa = async () => {
-    //   const a = await encrypt(JSON.stringify({ name: 'hhh' }))
-    //   console.log('-------------', a)
-    // }
     getRecommendGoodsList(false)
   }, [])
 
@@ -244,8 +238,6 @@ function Home(props: HomeProps) {
               recommendGoodsList={recommendGoodsList}
             />
           </ScrollView>
-
-
       }
     </>
   )

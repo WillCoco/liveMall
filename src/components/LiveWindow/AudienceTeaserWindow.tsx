@@ -73,7 +73,9 @@ const LiveVideo = (props: LiveVideoProps): any => {
   // const isAttention = useSelector((state: any) => state?.live?.livingInfo?.isAttention);
 
   // 直播时间
-  // const liveTime = useSelector((state: any) => state?.live?.livingInfo?.liveTime);
+  const liveTimeStore = useSelector((state: any) => state?.live?.livingInfo?.liveTime);
+
+  console.log(liveTimeStore, 'liveTimeStoreliveTimeStore')
 
   // 预告视频
   const advance = useSelector((state: any) => state?.live?.livingInfo?.advance);
@@ -217,10 +219,15 @@ const LiveVideo = (props: LiveVideoProps): any => {
           />
         )
       }
-      <TrailerCountDown
-        deadline={liveTime}
-        style={styles.countDown}
-      />
+      {
+        (liveTimeStore || liveTime) ? (
+          <TrailerCountDown
+            deadline={liveTimeStore || liveTime}
+            style={styles.countDown}
+          />
+        ) : null
+      }
+      
       <View style={styles.livingBottomBlock}>
         <LivingBottomBlock.AudienceTraser
         />

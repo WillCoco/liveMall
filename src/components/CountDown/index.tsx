@@ -48,19 +48,32 @@ const CountDown = (props: CountDownProps) =>  {
 
   /**
    * 轮询器 
+   * 这里不接受改变props.deadline
    */
   const timer = React.useRef(new Poller({
     interval: props.interval,
     callback: countDown
   }))
 
+  /**
+   * 更新定时器
+  */
+  React.useEffect(() => {
+    timer.current = new Poller({
+      interval: props.interval,
+      callback: countDown
+    })
+  }, [props.deadline])
+
   React.useEffect(() => {
     timer.current.start();
+    console.log(props.deadline, 'props.deadline')
 
     return () => {
+      console.log(props.deadline, 'props.deadline')
       timer.current.stop();
     }
-  }, []);
+  }, [props.deadline]);
 
   return props.renderTime(remainTime < 0 ? 0 : remainTime);
 };

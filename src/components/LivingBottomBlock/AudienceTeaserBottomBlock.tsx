@@ -10,13 +10,14 @@ import {useSelector, useDispatch} from 'react-redux';
 import {AudienceTeaserToolBar} from '../LiveToolBar';
 import {pad} from '../../constants/Layout';
 import Poller from '../../utils/poller';
-import {apiLiveLike, wxUserName} from '../../service/api';
+import {apiLiveLike} from '../../service/api';
 import { isSucceed } from '../../utils/fetchTools';
 import share, { ShareType } from '../../utils/share';
 import { useNavigation } from '@react-navigation/native';
 
 import * as WeChat from 'react-native-wechat-lib' 
 import { Toast } from '@ant-design/react-native';
+import { wxUserName } from '../../config/config';
 
 const POLLER_INTERVAL = 1000 * 15;
 

@@ -14,6 +14,7 @@ import { Colors } from '../../constants/Theme';
 import { radio, pad } from '../../constants/Layout';
 import Icontv from '../../components/Iconfont/Icontv';
 import { Toast } from '../../components/Toast';
+import pxToDp from '../../utils/px2dp';
 
 const Trailer = (props: {
   deadline: number,
@@ -81,6 +82,9 @@ const styles = StyleSheet.create({
   style: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: pxToDp(20),
+    borderRadius: pxToDp(16)
   },
   cellWrapper: {
     flexDirection: 'row',

@@ -14,7 +14,7 @@ import {Audience as AudienceLiveToolBar} from '../LiveToolBar';
 import {pad} from '../../constants/Layout';
 import {sendRoomMessage} from '../../actions/im';
 import {RoomMessageType, MessageType} from '../../reducers/im';
-import {apiLiveLike, wxUserName} from '../../service/api';
+import {apiLiveLike} from '../../service/api';
 import Poller from '../../utils/poller';
 import { isSucceed } from '../../utils/fetchTools';
 import { Attention } from '../../liveTypes';
@@ -26,6 +26,7 @@ import { joinGroup, login } from '../../actions/im';
 import { Toast } from '../Toast';
 
 import * as WeChat from 'react-native-wechat-lib'
+import { wxUserName } from '../../config/config';
 
 const POLLER_INTERVAL = 1000 * 15;
 

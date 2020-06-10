@@ -34,23 +34,27 @@ function ShareBar(props: Props) {
 
     if (wxIsInstalled) {
       WeChat.shareText({
-        text: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
-          购物更划算！
-          --------------
-          下载链接：www.quanpinlive.com
-          --------------
-          注册填写邀请口令：${userInfo.inviteCode}`,
+        text: `
+        邀请您加入云闪播，主播团队带货，正品大牌折上折！
+        购物更划算！
+        --------------
+        下载链接：www.quanpinlive.com
+        --------------
+        注册填写邀请口令：${userInfo.inviteCode}
+        `,
         scene: 0
       })
     } else {
       try {
         const result = await Share.share({
-          message: `邀请您加入云闪播，主播团队带货，正品大牌折上折！
-            购物更划算！
-            --------------
-            下载链接：www.quanpinlive.com
-            --------------
-            注册填写邀请口令：${userInfo.inviteCode}`
+          message: `
+          邀请您加入云闪播，主播团队带货，正品大牌折上折！
+          购物更划算！
+          --------------
+          下载链接：www.quanpinlive.com
+          --------------
+          注册填写邀请口令：${userInfo.inviteCode}
+          `
         });
 
         if (result.action === Share.sharedAction) {

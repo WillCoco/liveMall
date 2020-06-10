@@ -36,7 +36,7 @@ export default function ActivityWebView() {
     <WebView
       ref={ref => webviewEl.current = ref}
       style={{ opacity: 0.99 }}
-      source={{ uri: route.params.url+ '?userId='+ userId + '&platform="app"' }}
+      source={{ uri: route.params.url+ '?userId='+ userId + '&platform=app' }}
       // injectedJavaScript={injectedJavascript}
       // onMessage={(event) => { console.log(event.nativeEvent.data); }}
       // onLoadEnd={() => {

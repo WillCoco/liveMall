@@ -109,7 +109,8 @@ const LiveSummaryBlock = (props: LiveSummaryBlockProps) : any =>  {
             liveId: props.liveInfo?.liveId,
             groupID: props.liveInfo?.groupId || `live${props.liveInfo?.liveId}`,
             anchorId: props.liveInfo?.anchorId,
-            mediaType: type
+            mediaType: type,
+            liveTime: props.liveInfo?.liveTime
           })
           timer = null
           }, 500)

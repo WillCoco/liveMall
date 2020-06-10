@@ -9,8 +9,8 @@ import { useSelector } from 'react-redux'
 
 import * as WeChat from 'react-native-wechat-lib'
 // import share from '../../../utils/share'
-import { wxUserName } from '../../../service/api'
 import { Toast } from '@ant-design/react-native'
+import { wxUserName } from '../../../config/config'
 
 interface Props {
   statusBarHeight: number

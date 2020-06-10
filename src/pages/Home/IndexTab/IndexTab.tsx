@@ -76,33 +76,6 @@ function IndexTab(props: Props) {
           swiperStyle={[styles.swiper, { height: pxToDp(200) }]}
         />
       </View>
-      {/* 人气推荐 */}
-      <View style={styles.selectedGoods}>
-        <CardTitle
-          title='人气推荐'
-          subTitle={selectedGoodsInfo.subTitle}
-          nextAction={() => navigation.navigate('SelectGoods')}
-        />
-        <ScrollView
-          horizontal={true}
-          style={styles.selectedGoodsList}
-          showsHorizontalScrollIndicator={false}
-        >
-          {
-            selectedGoodsInfo.goodsList
-            && selectedGoodsInfo.goodsList.map((item: any, index: any) => {
-              return (
-                <GoodsCard
-                  goodsInfo={item}
-                  key={`selected-${index}`}
-                  style={{ marginRight: pxToDp(10) }}
-                  tapGoodsCard={(id: number) => navigation.navigate('SelectGoodsInfo', { id })}
-                />
-              )
-            })
-          }
-        </ScrollView>
-      </View>
       {/* 限时秒杀 */}
       {!!seckillList.length &&
         <View style={styles.seckill}>
@@ -147,9 +120,36 @@ function IndexTab(props: Props) {
           </View>
         </View>
       }
-      {/* 圈重点 */}
+      {/* 人气推荐 */}
+      <View style={styles.selectedGoods}>
+        <CardTitle
+          title='人气推荐'
+          subTitle={selectedGoodsInfo.subTitle}
+          nextAction={() => navigation.navigate('SelectGoods')}
+        />
+        <ScrollView
+          horizontal={true}
+          style={styles.selectedGoodsList}
+          showsHorizontalScrollIndicator={false}
+        >
+          {
+            selectedGoodsInfo.goodsList
+            && selectedGoodsInfo.goodsList.map((item: any, index: any) => {
+              return (
+                <GoodsCard
+                  goodsInfo={item}
+                  key={`selected-${index}`}
+                  style={{ marginRight: pxToDp(10) }}
+                  tapGoodsCard={(id: number) => navigation.navigate('SelectGoodsInfo', { id })}
+                />
+              )
+            })
+          }
+        </ScrollView>
+      </View>
+      {/* 云好物 */}
       <View style={styles.recommendGoodsList}>
-        <CardTitle title='圈重点' />
+        <CardTitle title='云好物' />
         <View style={styles.recommendGoodsListContainer}>
           {/* {
             recommendGoodsList.map((item: any, index: any) => {
@@ -168,7 +168,7 @@ function IndexTab(props: Props) {
             data={recommendGoodsList}
             keyExtractor={(item, index) => `goods-${index}`}
             columnWrapperStyle={{ justifyContent: 'space-between' }}
-            getItemLayout={(item, index) => ({length: pxToDp(570), offset: pxToDp(570) * index, index})}
+            getItemLayout={(item, index) => ({ length: pxToDp(570), offset: pxToDp(570) * index, index })}
             renderItem={({ item }) => <GoodsCard
               style={{ marginBottom: pxToDp(20) }}
               goodsInfo={item}

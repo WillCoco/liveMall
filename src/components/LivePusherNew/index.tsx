@@ -26,7 +26,8 @@ import {consts, Streaming} from 'pili-streaming-react-native';
 import { Colors } from '../../constants/Theme';
 import { pad, radio } from '../../constants/Layout';
 import { updateStarted } from '../../actions/live';
-import useNetInfo from '../../hooks/useNetInfo';
+// import useNetInfo from '../../hooks/useNetInfo';
+import {useNetInfo} from "@react-native-community/netinfo";
 
 interface LivePusherProps {
   style?: StyleProp<any>,
@@ -43,7 +44,7 @@ enum VideoFps {
 
 const VIDEO_LOW_FPS_THRESHOLD = 6; // 临界
 
-const RESUME_SELEEP = 2000;
+const RESUME_INTERVAL = 20000;
 
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
@@ -68,6 +69,8 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
    * 推流配置
    */
   const pusherConfig = useSelector((state: any) => state?.live?.pusherConfig);
+
+  const netInfo = useNetInfo();
 
   /**
    * 直播间信息
@@ -95,11 +98,15 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   /**
    * 加载推流的条件
    */
-  const showPusher = !!(isPermissionGranted && pushUrl && !props.resume);
+  const showPusher = !!(isPermissionGranted && pushUrl);
 
-  const showLoading = status !== 2 && status !== 4 && !props.resume;
+  const showLoading = (status !== 2 && status !== 4)/*  || videoFps === VideoFps.STOPED */;
 
-  const palying = status === 2 && (videoFps === VideoFps.NORMAL || videoFps === VideoFps.LOW);
+  const palying = React.useRef(status === 2 && (videoFps === VideoFps.NORMAL || videoFps === VideoFps.LOW));
+  React.useEffect(() => {
+    palying.current = status === 2 && (videoFps === VideoFps.NORMAL || videoFps === VideoFps.LOW);
+  }, [status, videoFps])
+
 
   // 中断提示
   const showStoped = status === 4 && !!videoFps;
@@ -113,30 +120,43 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   /**
    * 网络从
    */
-  const resumeTime = (state?: any, forceResume?: boolean) => {
-    const shouldResume = 
-      state?.type || // 从断网到联网状态
-      forceResume; // 有网直接resume
+  const resumeTime = React.useCallback(() => {
+    // console.log(resumeTimer.current, 'resume_TimeresumeTimeresumeTimeresumeTime');
 
-    if (shouldResume) {
-      // 置为停止
-      dispatch(updateStarted(false));
-      dispatch(updateStarted(true));
-
-      resumeTimer.current = setInterval(() => {
-        // 检测是否重连成功
-        if (palying && resumeTimer.current) {
-          clearInterval(resumeTimer.current);
-          resumeTimer.current = null;
-        }
-        // 成功-清除重连定时
-        dispatch(updateStarted(false))
-        dispatch(updateStarted(true))
-      }, RESUME_SELEEP);
+    // 如果已经有定时器了, 不继续生成
+    if (resumeTimer.current) {
+      if (palying.current) {
+        clearInterval(resumeTimer.current);
+        resumeTimer.current = null;
+      }
+      return;
     }
-  }
 
-  const {netInfo, getNetInfo} = useNetInfo(resumeTime);
+    // 没有定时器
+    // 先重连
+    dispatch(updateStarted(false));
+    setTimeout(() => {
+      dispatch(updateStarted(true));
+    }, 10)
+
+    // 生成定时器
+    resumeTimer.current = setInterval(() => {
+      console.log(palying.current, 'palyingpalyingpalying')
+      // 已经连上, 直接返回
+      if (palying.current) {
+        clearInterval(resumeTimer.current);
+        return;
+      };
+
+      // 开始重连
+      dispatch(updateStarted(false));
+      setTimeout(() => {
+        dispatch(updateStarted(true));
+      }, 10)
+    }, RESUME_INTERVAL);
+  }, []);
+
+  // const {netInfo, getNetInfo} = useNetInfo(resumeTime);
 
   
   // console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
@@ -161,25 +181,12 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const onStateChange = (v: any) => {
     setStatus(v);
     props.onStateChange && props.onStateChange(v);
-    console.log(v, 'onStateChange');
+
+    console.log(v, videoFps, !resumeTimer.current, 'onStateChange')
 
     // 断流重连
-    if (v === 4 && !!videoFps && !resumeTimer.current) {
-      // 置为停止
-      dispatch(updateStarted(false));
-      // 检测网络
-
-      // 网络可以-重连
-
-      // 网络错误-监听网络-有网后重连
-      resumeTimer.current = setTimeout(() => {
-        dispatch(updateStarted(true))
-      }, RESUME_INTERVAL);
-    } else {
-      if (resumeTimer.current) {
-        clearTimeout(resumeTimer.current);
-        resumeTimer.current = null;
-      }
+    if ((v === 4 || !!videoFps) && !resumeTimer.current) {
+      resumeTime();
     }
   };
 
@@ -244,11 +251,27 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
     return (
       <View style={styles.textWrapper}>
         <SmallText color="white">您的直播推流已中断</SmallText>
-        <SmallText color="white">请检查网络后重新打开云闪播</SmallText>
+        <SmallText color="white">请确保网络通畅</SmallText>
       </View>
     )
   }, [])
 
+  /**
+   * 最终的提示
+   * 避免显示两个
+  */
+  let finallyShowTip;
+  let FinallyShowComponent;
+  if (showStoped) {
+    finallyShowTip = showStoped;
+    FinallyShowComponent = LIVESTOPED;
+  } else if (showLoading) {
+    finallyShowTip = showLoading;
+    FinallyShowComponent = Loading;
+  } else if (showLowFPS) {
+    finallyShowTip = showLowFPS;
+    FinallyShowComponent = LOWFPS;
+  };
 
   return (
     <View ref={ref} style={StyleSheet.flatten([styles.wrapper, props.style])}>
@@ -267,14 +290,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
         />
       ) : null}
       <View style={styles.loadingWrapper}>
-        {showLoading ? Loading : null}
-        {showLowFPS ? LOWFPS : null}
-        {showStoped ? LIVESTOPED : null}
-        {props.resume ? (
-          <SmallText color="white" style={styles.loading}>
-            恢复中
-          </SmallText>
-        ) : null}
+        {finallyShowTip ? FinallyShowComponent : null}
       </View>
     </View>
   );

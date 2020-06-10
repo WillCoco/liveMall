@@ -72,7 +72,7 @@ function IndexTab(props: Props) {
         <HomeSwiper
           showDots={false}
           swiperList={activityList}
-          swiperStyle={styles.swiper}
+          swiperStyle={[styles.swiper, { height: pxToDp(200) }]}
         />
       </View>
       {/* 人气推荐 */}

@@ -190,7 +190,8 @@ const styles = StyleSheet.create({
     paddingTop: pxToDp(20),
     paddingLeft: pxToDp(20),
     paddingRight: pxToDp(20),
-    minHeight: pxToDp(240)
+    minHeight: pxToDp(240),
+    marginTop: pxToDp(-1)
   },
   swiper: {
     height: pxToDp(240),

@@ -26,6 +26,7 @@ import {consts, Streaming} from 'pili-streaming-react-native';
 import { Colors } from '../../constants/Theme';
 import { pad, radio } from '../../constants/Layout';
 import { updateStarted } from '../../actions/live';
+import useNetInfo from '../../hooks/useNetInfo';
 
 interface LivePusherProps {
   style?: StyleProp<any>,
@@ -42,7 +43,7 @@ enum VideoFps {
 
 const VIDEO_LOW_FPS_THRESHOLD = 6; // 临界
 
-const RESUME_INTERVAL = 20000;
+const RESUME_SELEEP = 2000;
 
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
@@ -98,6 +99,8 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
   const showLoading = status !== 2 && status !== 4 && !props.resume;
 
+  const palying = status === 2 && (videoFps === VideoFps.NORMAL || videoFps === VideoFps.LOW);
+
   // 中断提示
   const showStoped = status === 4 && !!videoFps;
 
@@ -106,6 +109,35 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
 
   // 重试定时
   const resumeTimer: any = React.useRef();
+
+  /**
+   * 网络从
+   */
+  const resumeTime = (state?: any, forceResume?: boolean) => {
+    const shouldResume = 
+      state?.type || // 从断网到联网状态
+      forceResume; // 有网直接resume
+
+    if (shouldResume) {
+      // 置为停止
+      dispatch(updateStarted(false));
+      dispatch(updateStarted(true));
+
+      resumeTimer.current = setInterval(() => {
+        // 检测是否重连成功
+        if (palying && resumeTimer.current) {
+          clearInterval(resumeTimer.current);
+          resumeTimer.current = null;
+        }
+        // 成功-清除重连定时
+        dispatch(updateStarted(false))
+        dispatch(updateStarted(true))
+      }, RESUME_SELEEP);
+    }
+  }
+
+  const {netInfo, getNetInfo} = useNetInfo(resumeTime);
+
   
   // console.log(showStoped, 'showLowFPSshowLowFPSshowLowFPS')
   // console.log(isPermissionGranted, 'b01_isPermissionGranted');
@@ -114,6 +146,17 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   // console.log(showPusher, 'b01_showPusher');
   // console.log(props.resume, 'b01_props.resume');
   // console.log(status, 'b01_status');
+
+  /**
+   * 清除定时器
+   */
+  React.useEffect(() => {
+    return () => {
+      if (resumeTimer.current) {
+        clearTimeout(resumeTimer.current);
+      }
+    }
+  }, []);
 
   const onStateChange = (v: any) => {
     setStatus(v);

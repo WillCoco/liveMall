@@ -377,10 +377,10 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
           safeBottom={props.safeBottom}
         />
         <LivingFaceCard
-            visible={!!faceCardVisible}
-            setVisible={setFaceCardVisible}
-            onPressClose={() => faceCardAnim(false)}
-            onAfterChangeSetting={onAfterChangeSetting}
+          visible={!!faceCardVisible}
+          setVisible={setFaceCardVisible}
+          onPressClose={() => faceCardAnim(false)}
+          onAfterChangeSetting={onAfterChangeSetting}
         />
       </View>
     </View>

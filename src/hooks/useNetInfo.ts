@@ -4,7 +4,7 @@
 import React from 'react';
 import NetInfo from "@react-native-community/netinfo";
 
-export default function useNetInfo(onNetChange?: (state?: any) => any) {
+export default function useNetInfo(onNetChange?: (state?: any, ...p: any) => any) {
   const [netInfo, setNetInfo] = React.useState();
 
   React.useEffect(() => {

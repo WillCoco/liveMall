@@ -7,7 +7,8 @@ import {
   PixelRatio,
   StyleSheet,
   ImageBackground,
-  TouchableOpacity
+  TouchableOpacity,
+  FlatList
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { Ionicons } from '@expo/vector-icons'
@@ -72,35 +73,8 @@ function IndexTab(props: Props) {
         <HomeSwiper
           showDots={false}
           swiperList={activityList}
-          swiperStyle={styles.swiper}
+          swiperStyle={[styles.swiper, { height: pxToDp(200) }]}
         />
-      </View>
-      {/* 人气推荐 */}
-      <View style={styles.selectedGoods}>
-        <CardTitle
-          title='人气推荐'
-          subTitle={selectedGoodsInfo.subTitle}
-          nextAction={() => navigation.navigate('SelectGoods')}
-        />
-        <ScrollView
-          horizontal={true}
-          style={styles.selectedGoodsList}
-          showsHorizontalScrollIndicator={false}
-        >
-          {
-            selectedGoodsInfo.goodsList
-            && selectedGoodsInfo.goodsList.map((item: any, index: any) => {
-              return (
-                <GoodsCard
-                  goodsInfo={item}
-                  key={`selected-${index}`}
-                  style={{ marginRight: pxToDp(10) }}
-                  tapGoodsCard={(id: number) => navigation.navigate('SelectGoodsInfo', { id })}
-                />
-              )
-            })
-          }
-        </ScrollView>
       </View>
       {/* 限时秒杀 */}
       {!!seckillList.length &&
@@ -146,11 +120,38 @@ function IndexTab(props: Props) {
           </View>
         </View>
       }
-      {/* 圈重点 */}
-      <View style={styles.recommendGoodsList}>
-        <CardTitle title='圈重点' />
-        <View style={styles.recommendGoodsListContainer}>
+      {/* 人气推荐 */}
+      <View style={styles.selectedGoods}>
+        <CardTitle
+          title='人气推荐'
+          subTitle={selectedGoodsInfo.subTitle}
+          nextAction={() => navigation.navigate('SelectGoods')}
+        />
+        <ScrollView
+          horizontal={true}
+          style={styles.selectedGoodsList}
+          showsHorizontalScrollIndicator={false}
+        >
           {
+            selectedGoodsInfo.goodsList
+            && selectedGoodsInfo.goodsList.map((item: any, index: any) => {
+              return (
+                <GoodsCard
+                  goodsInfo={item}
+                  key={`selected-${index}`}
+                  style={{ marginRight: pxToDp(10) }}
+                  tapGoodsCard={(id: number) => navigation.navigate('SelectGoodsInfo', { id })}
+                />
+              )
+            })
+          }
+        </ScrollView>
+      </View>
+      {/* 云好物 */}
+      <View style={styles.recommendGoodsList}>
+        <CardTitle title='云好物' />
+        <View style={styles.recommendGoodsListContainer}>
+          {/* {
             recommendGoodsList.map((item: any, index: any) => {
               return (
                 <GoodsCard
@@ -161,7 +162,19 @@ function IndexTab(props: Props) {
                 />
               )
             })
-          }
+          } */}
+          <FlatList
+            numColumns={2}
+            data={recommendGoodsList}
+            keyExtractor={(item, index) => `goods-${index}`}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            getItemLayout={(item, index) => ({ length: pxToDp(570), offset: pxToDp(570) * index, index })}
+            renderItem={({ item }) => <GoodsCard
+              style={{ marginBottom: pxToDp(20) }}
+              goodsInfo={item}
+              tapGoodsCard={(id: number) => navigation.navigate('GoodsInfo', { id })}
+            />}
+          />
         </View>
         <LoadMore hasMore={hasMore} />
       </View></>
@@ -190,7 +203,8 @@ const styles = StyleSheet.create({
     paddingTop: pxToDp(20),
     paddingLeft: pxToDp(20),
     paddingRight: pxToDp(20),
-    minHeight: pxToDp(240)
+    minHeight: pxToDp(240),
+    marginTop: pxToDp(-1)
   },
   swiper: {
     height: pxToDp(240),
@@ -210,6 +224,7 @@ const styles = StyleSheet.create({
   recommendGoodsList: {
     marginTop: pxToDp(20),
     padding: pxToDp(20),
+    // paddingRight: pxToDp(10),
     backgroundColor: Colors.whiteColor
   },
   recommendGoodsListContainer: {

@@ -2,14 +2,11 @@ import React, { useState } from 'react'
 import {
   View,
   Text,
-  Modal,
   Platform,
   StyleSheet,
   PixelRatio,
   Dimensions,
-  TouchableWithoutFeedback,
-  ImageBackground,
-  TouchableOpacity
+  TouchableWithoutFeedback
 } from 'react-native'
 import * as Linking from 'expo-linking'
 import { useNavigation } from '@react-navigation/native'
@@ -54,13 +51,6 @@ export default function Form(props: Props) {
     } else {
       setShowUpdateModal(true)
     }
-  }
-
-  /**
-   * 立即更新
-   */
-  const downloadNewVersion = () => {
-    Linking.openURL('https://baidu.com')
   }
 
   return (

@@ -37,7 +37,8 @@ export default function UpdateModal(props: Props) {
 
   const downloadNewVersion = () => {
     if (Platform.OS === 'ios') {
-      Linking.openURL('itms-apps://')
+      // Linking.openURL('itms-apps://')
+      Linking.openURL('https://download.yunshanbo.cn')
     } else {
       Linking.openURL(updatePath)
     }

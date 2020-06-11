@@ -93,7 +93,7 @@ const CreateLiveScreen = (props: any) =>  {
     dispatch(updateLiveConfig({cover}))
 
     // 跳转
-    navigation.navigate('LiveGoodsManage');
+    // navigation.navigate('LiveGoodsManage');
 
     // 暂停
     // camera.current.stopPreview();
@@ -150,7 +150,7 @@ const CreateLiveScreen = (props: any) =>  {
             </TouchableOpacity>
         </View>
         <TouchableOpacity onPress={onNextPress} style={styles.button}>
-          <PrimaryText style={styles.nextText}>下一步</PrimaryText>
+          <PrimaryText style={styles.nextText}>开播</PrimaryText>
         </TouchableOpacity>
         <SmallText color="white" style={StyleSheet.flatten([styles.agreement, {paddingBottom: props.safeBottom}])}>
           开播默认已阅读

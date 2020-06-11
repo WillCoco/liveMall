@@ -13,23 +13,23 @@ import {useSelector, useDispatch} from 'react-redux';
 import { nanoid } from 'nanoid/non-secure';
 import {PrimaryText, SmallText, T1, scale} from 'react-native-normalization-text';
 import {useNavigation, useRoute, CommonActions, Route} from '@react-navigation/native';
-import withPage from '../../../../components/HOCs/withPage';
-import {vw} from '../../../../utils/metric';
-import {Colors} from '../../../../constants/Theme';
-import {pad} from '../../../../constants/Layout';
-import Empty from '../../../../components/Empty';
+import withPage from '../../../components/HOCs/withPage';
+import {vw} from '../../../utils/metric';
+import {Colors} from '../../../constants/Theme';
+import {pad} from '../../../constants/Layout';
+import Empty from '../../../components/Empty';
 import GoodCheckRow, {ROW_HEIGHT} from './LiveGoodsManageRow';
-import NavBar from '../../../../components/NavBar';
-import ButtonRadius from '../../../../components/Buttons/ButtonRadius';
-import PagingList from '../../../../components/PagingList';
-import CheckBox from '../../../../components/CheckBox';
-import {startLive, updateLiveConfig} from '../../../../actions/live';
-import {getWareHouseGoods, AddGoodsTargetType, goodsCheckedFormat} from '../../../../actions/shop';
-import {Toast} from '../../../../components/Toast';
-import {brandGoodAdapter} from '../../../../utils/dataAdapters';
-import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../../../actions/shop';
-import * as api from '../../../../service/api';
-import { isSucceed } from '../../../../utils/fetchTools';
+import NavBar from '../../../components/NavBar';
+import ButtonRadius from '../../../components/Buttons/ButtonRadius';
+import PagingList from '../../../components/PagingList';
+import CheckBox from '../../../components/CheckBox';
+import {startLive, updateLiveConfig} from '../../../actions/live';
+import {getWareHouseGoods, AddGoodsTargetType, goodsCheckedFormat} from '../../../actions/shop';
+import {Toast} from '../../../components/Toast';
+import {brandGoodAdapter} from '../../../utils/dataAdapters';
+import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../../actions/shop';
+import * as api from '../../../service/api';
+import { isSucceed } from '../../../utils/fetchTools';
 
 const emptyList: [] = [];
 const emptyObj: {} = {};
@@ -291,7 +291,11 @@ const LiveGoodsManage = (props: any) =>  {
   const onPress = async () => {
     // 去直播
     if (isToLive) {
-      onStartLive();
+      if (!isVaildData()) {
+        return;
+      }
+      // onStartLive();
+      navigate('CreateLiveScreen');
       return;
     }
     await changeWarehouse();
@@ -343,7 +347,7 @@ const LiveGoodsManage = (props: any) =>  {
           onPress={onPressCheckAll}
         />
         <ButtonRadius
-          text={`${(btnText || '开播')}(${length})`}
+          text={`${(btnText || '下一步')}(${length})`}
           onPress={onPress}
         />
       </View>

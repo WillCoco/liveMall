@@ -11,15 +11,15 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {PrimaryText, SmallText, T4, scale} from 'react-native-normalization-text';
-import { pad, radio } from '../../../../constants/Layout';
-import ShareProfit from '../../../../components/ShareProfit';
-import DiscountPrice from '../../../../components/DiscountPrice';
-import Iconremove from '../../../../components/Iconfont/Iconremove';
-import ButtonRadius from '../../../../components/Buttons/ButtonRadius';
-import CheckBox from '../../../../components/CheckBox';
-import images from '../../../../assets/images/index';
-import defaultImages from '../../../../assets/default-image';
-import { Colors } from '../../../../constants/Theme';
+import { pad, radio } from '../../../constants/Layout';
+import ShareProfit from '../../../components/ShareProfit';
+import DiscountPrice from '../../../components/DiscountPrice';
+import Iconremove from '../../../components/Iconfont/Iconremove';
+import ButtonRadius from '../../../components/Buttons/ButtonRadius';
+import CheckBox from '../../../components/CheckBox';
+import images from '../../../assets/images/index';
+import defaultImages from '../../../assets/default-image';
+import { Colors } from '../../../constants/Theme';
 
 interface LiveGoodsManageRowProps {
   data: any,

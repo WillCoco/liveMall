@@ -14,24 +14,12 @@ import ImagePickerBox from '../../components/ImagePickerBox';
 const LiveReadyCard = (props: {
   onChangeCover: (cover?: string) => any,
   onChangeTitle: (title?: string) => any,
+  title: string,
 }) =>  {
   // const dispatch = useDispatch();
   
   React.useEffect(() => {
   }, [])
-
-  /**
-   * 标题
-   */
-  const title = useSelector((state: any) => state?.live?.liveConfig?.title)
-
-  /**
-   * 提交直播配置更改
-   */
-  // 标题
-  const onChangeTitle = (title?: string) => {
-    props.onChangeTitle(title)
-  }
 
   // 封面
   const onChangeCover = (cover?: any): any => {
@@ -50,8 +38,8 @@ const LiveReadyCard = (props: {
         <TextInput
           multiline
           blurOnSubmit
-          value={title}
-          onChangeText={onChangeTitle}
+          value={props.title}
+          onChangeText={props.onChangeTitle}
           textAlignVertical="top"
           placeholder="编辑直播标题"
           maxLength={20}

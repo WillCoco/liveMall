@@ -7,29 +7,7 @@ import reducers from '../reducers'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// const persistConfig = {
-//   key: 'store',
-//   storage: AsyncStorage,
-//   blacklist: ['shop', 'im', 'asset', 'live'],
-//   // whiteList: ['userData'],
-//   timeout: null
-// }
-
-// const middleware = [thunkMiddleware, logger]
-// const persistedReducer = persistReducer(persistConfig, rootReducer)
-
-
-// export const store = createStore(persistedReducer, applyMiddleware(...middleware))
-// export let persistor = persistStore(store)
-
-// export default function configStore() {
-//   // const store = createStore(persistedReducer, applyMiddleware(...middleware))
-//   // let persistor = persistStore(store)
-//   return { store, persistor }
-// }
-
-
-const localStorageVersion = 1;
+const localStorageVersion = 2;
 
 // 分级持久化存储配置
 const livePersistConfig = {
@@ -41,8 +19,17 @@ const livePersistConfig = {
   migrate: (state: any) => {
     const version = state?._persist?.version;
 
-    // 更新cameraId
+     // 更新started
+     if (state?.pusherConfig?.started) {
+      try {
+        state.pusherConfig.started = false;
+      } catch (err) {
+        console.log('pusherConfig本地数据升级', err)
+      }
+    }
+
     if (version === 1 && version !== localStorageVersion) {
+      // 更新cameraId
       const camera = state?.pusherConfig?.profile?.cameraStreamingSetting?.camera;
       if (camera) {
         try {
@@ -52,6 +39,7 @@ const livePersistConfig = {
           console.log('pusherConfig本地数据升级', err)
         }
       }
+
       return Promise.resolve(state);
     }
     return Promise.resolve(state);

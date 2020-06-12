@@ -32,8 +32,6 @@ import {useNetInfo} from "@react-native-community/netinfo";
 interface LivePusherProps {
   style?: StyleProp<any>,
   onStateChange?: (v: any) => any,
-  setResume: (v: boolean) => any
-  resume: boolean
 }
 
 enum VideoFps {
@@ -48,7 +46,6 @@ const RESUME_INTERVAL = 20000;
 
 const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   const dispatch = useDispatch();
-
   /**
    * 实例
    */
@@ -70,20 +67,19 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
    */
   const pusherConfig = useSelector((state: any) => state?.live?.pusherConfig);
 
-  const netInfo = useNetInfo();
-
   /**
    * 直播间信息
    */
   const pushUrl = useSelector((state: any) => state?.live?.livingInfo?.pushUrl);
+  const pushStarted = useSelector((state: any) => state?.live?.puserConfig?.started);
 
-  const cover = useSelector((state: any) => {
-    const smallPic = state?.live?.livingInfo?.smallPic;
-    if (smallPic) {
-        return {uri: smallPic}
-    }
-    return defaultImages.livingBg;
-  });
+  // const cover = useSelector((state: any) => {
+  //   const smallPic = state?.live?.livingInfo?.smallPic;
+  //   if (smallPic) {
+  //       return {uri: smallPic}
+  //   }
+  //   return defaultImages.livingBg;
+  // });
 
   /**
    * 播放器状态
@@ -98,7 +94,7 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   /**
    * 加载推流的条件
    */
-  const showPusher = !!(isPermissionGranted && pushUrl);
+  const showPusher = !!(isPermissionGranted /* && pushUrl */);
 
   const showLoading = (status !== 2 && status !== 4)/*  || videoFps === VideoFps.STOPED */;
 
@@ -262,7 +258,10 @@ const LivePusher = React.forwardRef((props: LivePusherProps, ref: any): any => {
   */
   let finallyShowTip;
   let FinallyShowComponent;
-  if (showStoped) {
+  if (!pushStarted) {
+    finallyShowTip = null;
+    FinallyShowComponent = null;
+  } else if (showStoped) {
     finallyShowTip = showStoped;
     FinallyShowComponent = LIVESTOPED;
   } else if (showLoading) {

@@ -159,7 +159,15 @@ const PublishScreen = (props: any) =>  {
       <View style={styles.entranceWrapper}>
         <TouchableOpacity
           style={styles.entranceImgWrapper}
-          onPress={() => navigate('LiveGoodsManage')}
+          onPress={() => navigate('LiveGoodsManage', {
+            btnText: '下一步',
+            onPressSubmit: (goodsIdList: Array<string>) => {
+              // 跳转到直播预览
+              navigate('CreateLiveScreen', {
+                goodsIdList
+              });
+            }
+          })}
         >
           <Image
             style={StyleSheet.flatten([styles.entranceImg])}

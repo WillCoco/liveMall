@@ -15,8 +15,6 @@ import { useNavigation, useFocusEffect, useRoute } from '@react-navigation/nativ
 import {useDispatch, useSelector} from 'react-redux'
 import LiveIntro from '../LiveIntro';
 import LivingBottomBlock from '../LivingBottomBlock';
-import LivePusher from '../LivePusherNew';
-import L from '../../constants/Layout';
 import Iconcloselight from '../../components/Iconfont/Iconcloselight';
 import Iconchangecamera from '../../components/Iconfont/Iconchangecamera';
 import NoticeBubble from '../../components/NoticeBubble';
@@ -24,16 +22,10 @@ import Mask from '../../components/Mask';
 import AnchorShopCard from '../../components/LivingShopCard/AnchorShopCard';
 import withPage from '../../components/HOCs/withPage';
 import {pad} from '../../constants/Layout';
-import { joinGroup, dismissGroup, updateGroupProfile, sendRoomMessage, } from '../../actions/im';
-import { anchorToLive, closeLive, updatecamera, updateFaceSetting, faceBeautyParams } from '../../actions/live';
+import { joinGroup, updateGroupProfile } from '../../actions/im';
+import { anchorToLive, closeLive, updatecamera, updateFaceSetting, updateStarted } from '../../actions/live';
 import { Toast } from '../../components/Toast';
-import { MessageType } from '../../reducers/im';
 import LivingFaceCard from '../../components/LivingFaceCard';
-
-import { clearLoginStatus } from '../../actions/user';
-import { isSucceed } from '../../utils/fetchTools';
-import { EMPTY_OBJ } from '../../constants/freeze';
-import share, { ShareType } from '../../utils/share';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
 
@@ -42,9 +34,10 @@ import { wxUserName } from '../../config/config';
 
 interface LiveWindowProps {
   style?: StyleProp<any>,
-  liveData?: any,
   safeTop: number,
   safeBottom: number,
+  groupID: string,
+  liveId: string,
 }
 
 interface LiveWindowParams {
@@ -54,42 +47,19 @@ interface LiveWindowParams {
 
 const LiveWindow = (props: LiveWindowProps) : any =>  {
   const {goBack, replace, reset} = useNavigation();
-  const route = useRoute();
 
   const {
     groupID,
     liveId,
-  }: LiveWindowParams = (route.params || EMPTY_OBJ) as LiveWindowParams;
+  } = props;
 
-  console.log(useNavigation(), 'useNavigation()useNavigation()useNavigation()')
+  console.log(props, 'useNavigation()useNavigation()useNavigation()')
   const dispatch = useDispatch();
 
   /**
    * 商品卡
    */
-  let [maskList, maskDispatch] = React.useContext(Mask.context);
-
-  /**
-   * 实例
-   */
-  let camera: {current: any} = React.useRef();
-
-  /**
-   * 推流状态
-   */
-  const [pusherStatus, setPusherStatus] = React.useState();
-  const [resume, setResume] : any = React.useState();
-
-  const onStateChange = (status: any) => {
-    console.log(status, 'statusstatusstatusstatusstatusstatusstatus')
-    // setPusherStatus(status)
-    // 断开网络等
-    if (pusherStatus !== 4 && status === 4) {
-      // Toast.show('连接断开');
-      // goBack(); // todo 直接重连resume
-    }
-    console.log(status, 'statusssss')
-  }
+  let [_, maskDispatch] = React.useContext(Mask.context);
 
   /**
    * 切换摄像头
@@ -119,12 +89,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
   const [isIMJoinSecceed, setIsIMJoinSecceed]: [undefined|boolean, any] = React.useState(undefined);
 
   /**
-   * 直播结束
-   */
-  // const isAnchorLiveOver = useSelector((state: any) => state?.live?.isAnchorLiveOver);
-  
-
-  /**
    * 轮询器
    */
   const poller = React.useRef(new Poller({
@@ -137,6 +101,9 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
     dispatch(closeLive({liveId}))
       .then((data: any) => {
         if (data) {
+          // 关闭start
+          dispatch(updateStarted(false));
+          // 重置
           replace('AnchorLivingEnd', data);
           return;
         }
@@ -307,17 +274,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
    * 分享
   */
   const onPressShare = async () => {
-    // share({
-    //   liveId,
-    //   groupId: groupID,
-    //   inviteCode
-    // }, {
-    //   title: '分享',
-    //   failOnCancel: false,
-    // })
-    //   .then((res) => { console.log(res) })
-    //   .catch((err) => { err && console.log(err); });
-
     const wxIsInstalled = await WeChat.isWXAppInstalled()
 
     const userAvatar = useSelector((state: any) => state?.userData?.userInfo?.userAvatar);
@@ -342,12 +298,6 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
 
   return (
     <View style={StyleSheet.flatten([styles.wrapper, props.style])}>
-      <LivePusher
-        ref={r => camera.current = r}
-        resume={resume}
-        setResume={setResume}
-        onStateChange={onStateChange}
-      />
       {/*  backgroundColor: 'rgba(0,0,0,0.01)' 修复摄像上层气泡边缘显示问题 */}
       <View style={{position: 'absolute', top: 0, right: 0, left: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.01)', zIndex: 1}}>
         <LiveIntro />

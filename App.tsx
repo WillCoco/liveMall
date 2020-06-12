@@ -60,11 +60,11 @@ import BeAnchor from './src/pages/AnchorTabs/BeAnchor'
 import LiveSearch from './src/pages/Live/LiveSearchScreen'
 import AnchorDetail from './src/pages/Live/AnchorDetailScreen'
 import LivingRoom from './src/pages/Live/LivingRoomScreen'
-import CreateLive from './src/pages/AnchorTabs/AnchorLivingRoom/CreateLiveScreen'
+import AnchorLivingRoom from './src/pages/AnchorTabs/AnchorLivingRoom'
+// import AnorchLivingRoom from './src/pages/AnchorTabs/PublishScreen/AnorchLivingScreen'
 import CreateTeaser from './src/pages/AnchorTabs/CreateTeaserScreen'
 import LiveGoodsPicker from './src/pages/AnchorTabs/PublishScreen/LiveGoodsPickerScreen'
 import LiveGoodsManage from './src/pages/AnchorTabs/LiveGoodsManageScreen'
-import AnorchLivingRoom from './src/pages/AnchorTabs/PublishScreen/AnorchLivingScreen'
 import AnchorTrailers from './src/pages/AnchorTabs/AnorchMeScreen/AnchorTrailers'
 import AnchorRecords from './src/pages/AnchorTabs/AnorchMeScreen/AnchorRecords'
 import LivesAnalyze from './src/pages/AnchorTabs/AnorchMeScreen/LivesAnalyze'
@@ -259,12 +259,12 @@ export default function App(props: { skipLoadingScreen: any; }) {
                     <Stack.Screen name='LivingRoomScreen' component={LivingRoom} options={{ headerShown: false, gestureEnabled: false }} />
                     <Stack.Screen name='LiveSearchScreen' component={LiveSearch} />
                     <Stack.Screen name='AnchorTabs' component={AnchorTabs} options={{ headerShown: false }} />
-                    <Stack.Screen name='CreateLiveScreen' component={CreateLive} options={{ headerShown: false }} />
+                    <Stack.Screen name='CreateLiveScreen' component={AnchorLivingRoom} options={{ headerShown: false }} />
                     <Stack.Screen name='CreateTeaserScreen' component={CreateTeaser} options={{ headerShown: false }} />
                     <Stack.Screen name='LiveGoodsPicker' component={LiveGoodsPicker} options={{ headerShown: false }} />
                     <Stack.Screen name='LiveGoodsManage' component={LiveGoodsManage} options={{ headerShown: false }} />
                     <Stack.Screen name='LiveGoodsManageAgain' component={LiveGoodsManage} options={{ headerShown: false }} />
-                    <Stack.Screen name='AnorchLivingRoomScreen' component={AnorchLivingRoom} options={{ headerShown: false, gestureEnabled: false }} />
+                    {/* <Stack.Screen name='AnorchLivingRoomScreen' component={AnorchLivingRoom} options={{ headerShown: false, gestureEnabled: false }} /> */}
                     <Stack.Screen name='AnchorTrailers' component={AnchorTrailers} options={{ headerShown: false }} />
                     <Stack.Screen name='AnchorRecords' component={AnchorRecords} options={{ headerShown: false }} />
                     <Stack.Screen name='LivesAnalyze' component={LivesAnalyze} options={{ headerShown: false }} />

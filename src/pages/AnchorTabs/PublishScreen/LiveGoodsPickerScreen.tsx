@@ -22,7 +22,7 @@ import GoodCheckBlock from '../../../components/GoodCheckBlock';
 import Iconcartlight from '../../../components/Iconfont/Iconcartlight';
 
 
-const CreateLiveScreen = (props: any) =>  {
+const CreateLiveScreen = (props: any) => {
   const {navigate, goBack} = useNavigation();
   const dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ const CreateLiveScreen = (props: any) =>  {
     // 跳转
   }
 
-  const liveConfig = useSelector(state => state?.live?.liveConfig);
+  const liveConfig = useSelector((state: any) => state?.live?.liveConfig);
 
   console.log(liveConfig, 'liveConfig')
 
@@ -40,7 +40,6 @@ const CreateLiveScreen = (props: any) =>  {
    * 选择的种类
    */
   const [checkedCategory, setCheckedCategory]: Array<any> = React.useState();
-
 
   /**
    * 提交更改

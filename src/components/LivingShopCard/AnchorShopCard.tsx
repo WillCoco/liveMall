@@ -28,8 +28,8 @@ import { Colors } from '../../constants/Theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { brandGoodAdapter } from '../../utils/dataAdapters';
 import { isSucceed, } from '../../utils/fetchTools';
-import { EMPTY_ARR } from '../../constants/freeze';
-import {apiSelLiveGoods} from '../../service/api';
+import { EMPTY_ARR, EMPTY_OBJ } from '../../constants/freeze';
+import * as api from '../../service/api';
 import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../actions/shop';
 import { Toast } from '../../components/Toast';
 
@@ -46,16 +46,19 @@ const AnchorShopCard = (props: {
   onPressClose: () => any,
   safeBottom: number,
 }) =>  {
-  const {navigate} = useNavigation();
+  const {navigate, goBack} = useNavigation();
   const route = useRoute()
   const dispatch = useDispatch();
 
-  const {liveId} = (route.params) as any;
+  // const {liveId} = (route.params || EMPTY_OBJ) as any;
 
   /**
    * 直播商品
    */
-  const livingGoods = useSelector(state => (state?.live?.livingGoods || EMPTY_ARR));
+  const livingGoods = useSelector((state: any) => (state?.live?.livingGoods || EMPTY_ARR));
+
+  const liveId = useSelector((state: any) => state?.live?.livingInfo?.liveId);
+
 
   const [dataList, setDataList]: any = React.useState(livingGoods);
 
@@ -86,39 +89,6 @@ const AnchorShopCard = (props: {
   const canSubmit = React.useMemo(() => {
     return dataList.find(o => (o.isChecked)) // todo: 标识
   }, [dataList]);
-
-  // /**
-  //  * 加工原数据
-  //  * 加上isChecked字段
-  //  * @params: {Array} dataList - 预组货列表原数据
-  //  * @params: {Array} checkList - 本地操作选择的
-  //  */
-  // const dataFormat = (dataList: Array<any>, checkList?: Array<any>) => {
-  //   // 本地选择过之后刷新, format数据
-  //   if (checkList) {
-  //     const checked = checkedFilter(checkList);
-  //     const result: Array<any> = [];
-
-  //     dataList.forEach(d => {
-  //       const matchedGood = checked.find(o => (o.id === d.id && !!o.id)) // todo: 标识
-  //       if (matchedGood) {
-  //         result.push({...d, isChecked: matchedGood.isChecked})
-  //       } else {
-  //         result.push(d)
-  //       }
-  //     })
-
-  //     return result;
-  //   }
-
-  //   // 本地没有选择过, format数据默认未选中
-  //   return dataList.map((d: any) => {
-  //     return {
-  //       ...d,
-  //       isChecked: false
-  //     }
-  //   });
-  // }
 
    /**
    * 全选/反选
@@ -185,7 +155,7 @@ const AnchorShopCard = (props: {
    * 获取在售直播商品
    */
   const onRefresh = async () => {
-    const result = await apiSelLiveGoods({
+    const result = await api.apiSelLiveGoods({
       liveId,
       pageSize: PAGE_SIZE,
       pageNo: INIT_PAGE_NO,
@@ -208,7 +178,7 @@ const AnchorShopCard = (props: {
    * 获取更多在售直播商品
    */
   const onEndReached = async (pageNo: number, pageSize: number) => {
-    const result = await apiSelLiveGoods({
+    const result = await api.apiSelLiveGoods({
       liveId,
       pageSize,
       pageNo,
@@ -253,7 +223,24 @@ const AnchorShopCard = (props: {
                     nextNav: 'live',
                     liveId,
                     btnText: '提交',
-                    onPressSubmit: async () => {
+                    onPressSubmit: async (goodsIdList: Array<string>) => {
+                      // 提交
+                      const loading = Toast.loading('提交中');
+                      console.log(goodsIdList, '选中要去直播卖的商品');
+                      await api.apiAnewAddLiveGoods({goodsIdList: goodsIdList, liveId})
+                        .then((r: any) => {
+                          Toast.remove(loading);
+                          if (isSucceed(r)) {
+                            Toast.show('提交成功')
+                            goBack();
+                          }
+                        })
+                        .catch((err: any) => {
+                          Toast.remove(loading);
+                          console.log('apiAnewAddLiveGoods err:', err)
+                        })
+
+                      // 刷新列表
                       const res = await onRefresh();
                       setDataList(res?.result || EMPTY_ARR);
                     }

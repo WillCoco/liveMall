@@ -12,7 +12,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 import { nanoid } from 'nanoid/non-secure';
 import {PrimaryText, SmallText, T1, scale} from 'react-native-normalization-text';
-import {useNavigation, useRoute, CommonActions, Route} from '@react-navigation/native';
+import {useNavigation, useRoute, useFocusEffect, Route} from '@react-navigation/native';
 import withPage from '../../../components/HOCs/withPage';
 import {vw} from '../../../utils/metric';
 import {Colors} from '../../../constants/Theme';
@@ -23,11 +23,17 @@ import NavBar from '../../../components/NavBar';
 import ButtonRadius from '../../../components/Buttons/ButtonRadius';
 import PagingList from '../../../components/PagingList';
 import CheckBox from '../../../components/CheckBox';
-import {startLive, updateLiveConfig} from '../../../actions/live';
-import {getWareHouseGoods, AddGoodsTargetType, goodsCheckedFormat} from '../../../actions/shop';
+// import {startLive, updateLiveConfig} from '../../../actions/live';
+import {
+  AddGoodsTargetType,
+  addGoods2WareHouse,
+  getWareHouseGoods,
+  addGroupHouseGoods,
+  delGroupHouseGoods,
+  goodsCheckedFormat
+} from '../../../actions/shop';
 import {Toast} from '../../../components/Toast';
 import {brandGoodAdapter} from '../../../utils/dataAdapters';
-import {addGroupHouseGoods, changeIsExit, delGroupHouseGoods} from '../../../actions/shop';
 import * as api from '../../../service/api';
 import { isSucceed } from '../../../utils/fetchTools';
 
@@ -47,22 +53,20 @@ const LiveGoodsManage = (props: any) =>  {
   const route = useRoute();
   const {
     navTitle = '预组货',
-    nextNav = 'AnorchLivingRoomScreen',
     btnText,
     liveId,
     onPressSubmit,
   } : {
     navTitle?: string, // navTitle
-    nextNav?: string, // 
     btnText?: string, // 
     liveId?: string,
-    onPressSubmit?: () => any,
+    onPressSubmit?: (goodsIdList: Array<string>) => any,
   } = route.params || emptyObj;
 
   React.useEffect(() => {
     // 清空标题等配置
     return () => {
-      dispatch(updateLiveConfig())
+      // dispatch(updateLiveConfig())
     }
   }, [])
 
@@ -180,19 +184,26 @@ const LiveGoodsManage = (props: any) =>  {
   }
 
   /**
+   * 添加商品返回后刷新
+   */
+  useFocusEffect(React.useCallback(() => {
+    onRefresh(true);
+  }, []))
+
+  /**
    * 刷新
    */
-  const onRefresh = async () => {
+  const onRefresh = async (backFresh: boolean = false) => {
     const goods: any = await dispatch(getWareHouseGoods({
       pageNo: INIT_PAGE_NO,
       pageSize: PAGE_SIZE,
       selType: AddGoodsTargetType.warehouseGoods
     })) || [];
 
-    console.log(goods, 'goodsgoodsgoodsgoods')
-    console.log(goodsCheckedFormat(goods, dataList), 2222222)
-    
-    const r = Promise.resolve({result: goodsCheckedFormat(goods, dataList)});
+    const result = goodsCheckedFormat(goods, dataList);
+
+    backFresh && setDataList(result);
+    const r = Promise.resolve({result});
     return r;
   }
 
@@ -213,56 +224,7 @@ const LiveGoodsManage = (props: any) =>  {
   };
 
   /**
-   * 确认开播
-   */
-  const onStartLive = async () => {
-    if (!isVaildData()) {
-      return;
-    }
-
-    const goodsIdList = checkedList.map(d => d.goodsId);
-    console.log(goodsIdList, '选中要去直播卖的商品');
-
-    const loading = Toast.loading('加载中');
-
-    // 提交更改
-    const r = await dispatch(startLive({goodsIdList})) as any;
-
-    console.log(r, '创建直播');
-
-    Toast.remove(loading);
-
-    if (r) {
-      // 重置开播参数
-      dispatch(updateLiveConfig())
-
-      // 跳转并缩短路由
-      navDisPatch((state: any) => {
-      // Remove the home route from the stack
-        const routes = state.routes.filter((r: any) => (
-          !(r.name === 'CreateLiveScreen' || r.name === 'LiveGoodsManage')
-        ));
-        routes.push({
-          key: `${nextNav}-${nanoid()}`,
-          name: nextNav,
-          params: {
-            groupID: r?.groupId,
-            liveId: r?.liveId,
-            roomName: r?.roomName,// 房间名称
-          }
-        })
-
-        return CommonActions.reset({
-            ...state,
-            routes,
-            index: routes.length - 1,
-          });
-        });
-    }
-  }
-
-  /**
-   * 更改预组货
+   * 更改直播间商品
    */
   const changeWarehouse = async () => {
     const loading = Toast.loading('提交中');
@@ -281,33 +243,64 @@ const LiveGoodsManage = (props: any) =>  {
         Toast.remove(loading);
         console.log('apiAnewAddLiveGoods err:', err)
       })
-    
   }
 
-  const isToLive = nextNav === 'AnorchLivingRoomScreen';
   /**
    * 点击
    */
   const onPress = async () => {
-    // 去直播
-    if (isToLive) {
-      if (!isVaildData()) {
-        return;
-      }
-      // onStartLive();
-      navigate('CreateLiveScreen');
+    if (!isVaildData()) {
       return;
     }
-    await changeWarehouse();
-    onPressSubmit && onPressSubmit();
+
+    const goodsIdList = checkedList.map(d => d.goodsId);
+    onPressSubmit && onPressSubmit(goodsIdList);
   }
 
 
   const length = checkedList && checkedList.length || 0
 
+  /**
+   * 平台商品添加到预组货
+   */
+  // console.log(checkedList, 'checkedListcheckedListcheckedList')
+
+  const addGoods = async (brandGoods: Array<any>, data: any) => {
+    const goodNeed2Add = Array.isArray(data) ? data : [data];
+    const goodIdsNeed2Add = goodNeed2Add.map((d: any) => d.goodsId);
+    // console.log(goodIdsNeed2Add, 'goodsIdListgoodsIdListgoodsIdList')
+    if (goodIdsNeed2Add && goodIdsNeed2Add.length > 0) {
+      const addedList = await dispatch(addGoods2WareHouse({
+        brandGoods,
+        goodIdsNeed2Add
+      }));
+
+      // 返回添加完后的
+      return addedList;
+    }
+  }
+
   return (
     <View style={styles.style}>
-      <NavBar title={navTitle} leftTheme="light" titleStyle={{color: '#fff'}} style={{backgroundColor: Colors.basicColor}} />
+      <NavBar
+        title={navTitle}
+        leftTheme="light"
+        titleStyle={{color: '#fff'}}
+        style={{backgroundColor: Colors.basicColor}}
+        right={
+          () => (
+            <TouchableOpacity
+              onPress={() => navigate('GoodsSupply', {
+                type: AddGoodsTargetType.warehouseGoods,
+                onPicked: addGoods,
+              })}
+              style={styles.navRight}
+            >
+              <SmallText color="white" style={{}}>添加商品</SmallText>
+            </TouchableOpacity>
+          )
+        }
+      />
       <PagingList
           data={dataList}
           setData={setDataList}
@@ -347,7 +340,7 @@ const LiveGoodsManage = (props: any) =>  {
           onPress={onPressCheckAll}
         />
         <ButtonRadius
-          text={`${(btnText || '下一步')}(${length})`}
+          text={`${(btnText)}(${length})`}
           onPress={onPress}
         />
       </View>
@@ -401,7 +394,10 @@ const styles = StyleSheet.create({
   rowWrapper: {
     paddingHorizontal: pad,
     backgroundColor: '#fff'
-  }
+  },
+  navRight: {
+    padding: pad,
+  },
 });
 
 export default withPage(LiveGoodsManage, {

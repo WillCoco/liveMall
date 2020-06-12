@@ -17,25 +17,26 @@ interface liveConfigType {
 /**
  * 更新直播配置(标题、封面)
  */
-export const updateLiveConfig = (liveConfig?: LiveConfig) => {
-  return {type: liveActionType.UPDATE_LIVE_CONFIG, payload: {liveConfig}}
-}
+// export const updateLiveConfig = (liveConfig?: LiveConfig) => {
+//   return {type: liveActionType.UPDATE_LIVE_CONFIG, payload: {liveConfig}}
+// }
 
 /**
  * 选择商品开始直播
  */
 interface startLiveParams {
   goodsIdList: Array<any>,
+  cover: string,
+  title: string,
 }
 export const startLive = (params: startLiveParams) => {
   return async function(dispatch: Dispatch, getState: any) {
-    const {cover, title} = getState().live?.liveConfig || {};
     const anchorId = getState()?.anchorData?.anchorInfo?.anchorId; // id
     return api.apiStartLive({
       anchorId,
       goodsIdList: params.goodsIdList,
-      title,
-      smallPic: cover,
+      title: params.title,
+      smallPic: params.cover,
       ownerId: getUniqueId(),
     })
     .then((r: any) => {
@@ -94,7 +95,7 @@ export const updatecamera = () => {
  * 调节 美白 磨皮 红润
  */
 interface faceBeautyParams {
-    repeat: boolean | undefined, // 重置
+    repeat?: boolean | undefined, // 重置
     type: string,
     value: number
 }
@@ -256,7 +257,7 @@ export const anchorToLive = (params: anchorToLiveParams) => {
 
         // 更新初始观看人数、头像、昵称、推流地址等
         if (livingInfo) {
-          dispatch(updateLivingInfo(livingInfo))
+          dispatch(updateLivingInfo({...livingInfo, liveId: params.liveId}))
             console.log('89909')
           dispatch(updatePusherConfig({...pusherConfig,rtmpURL: livingInfo.pushUrl}));
         }

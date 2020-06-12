@@ -62,7 +62,7 @@ const TrailersCard = (props: {
               {/*<T2 style={styles.buttonText} color="grey">{props.remind ? '已提醒' : '开播提醒'}</T2>*/}
             {/*</TouchableOpacity>*/}
           </View>
-          <Text style={styles.punctuality} onPress={() => navigate('CreateLiveScreen')}>准时开播</Text>
+          <Text style={styles.punctuality} onPress={() => navigate('AnchorLivingRoom')}>准时开播</Text>
         </View>
       </View>
     </TouchableOpacity>

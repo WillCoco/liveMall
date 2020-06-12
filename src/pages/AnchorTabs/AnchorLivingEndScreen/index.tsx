@@ -22,6 +22,7 @@ import {vw} from '../../../utils/metric';
 import {pad} from '../../../constants/Layout';
 import {updateLivingStatus} from '../../../actions/live';
 import formatSinglePrice from '../../../utils/formatGoodsPrice';
+import easyNavigate from '../../../utils/easyNavigate';
 
 const dataList = [
   {title: '直播时长', key: 'liveDuration',},
@@ -51,22 +52,9 @@ const AnorchLivingEndScreen = (props: any) : any =>  {
 
   // 直接返回到主播tab
   const onPressClose = () => {
-    goBack()
-
-    // davDispatch((state: any) => {
-    //   const routes = state.routes.filter((r: any) => {
-    //     return !(r.name === 'LiveGoodsManage' || r.name === 'CreateLiveScreen' || r.name === 'AnchorLivingEnd');
-    //   });
-    //   console.log(routes, 111)
-
-    //   console.log(11)
-
-    //   return CommonActions.reset({
-    //     ...state,
-    //     routes,
-    //     index: routes.length - 1,
-    //   });
-    // })
+    easyNavigate('AnchorTabs', {
+      excludeRouteNames: ['AnchorTabs', 'LiveGoodsManage'],
+    })
   }
 
   return (

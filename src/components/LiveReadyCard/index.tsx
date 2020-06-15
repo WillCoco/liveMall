@@ -42,6 +42,7 @@ const LiveReadyCard = (props: {
           onChangeText={props.onChangeTitle}
           textAlignVertical="top"
           placeholder="编辑直播标题"
+          placeholderTextColor="#FFF"
           maxLength={20}
           returnKeyLabel="完成"
           returnKeyType="done"
@@ -59,7 +60,7 @@ LiveReadyCard.defaultProps = {
 const styles = StyleSheet.create({
   style: {
     flexDirection: 'row',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0,0.15)',
     padding: pad,
     borderRadius: radioLarge,
     height: 135,
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     width: 115,
     height: 115,
     marginRight: pad,
+    backgroundColor: 'rgba(0,0,0,0.2)'
   },
   cover: {
     width: '100%',
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
   input: {
     fontWeight: 'bold',
     justifyContent: 'flex-start',
+    color: '#fff'
     // lineHeight: 12
   }
 });

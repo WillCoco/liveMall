@@ -162,7 +162,6 @@ const LiveWindow = (props: LiveWindowProps): any => {
   /**
    * 键盘下降
    */
-
   React.useEffect(() => {
     // 进入直播间，获取拉流地址等房间信息
     const params = {

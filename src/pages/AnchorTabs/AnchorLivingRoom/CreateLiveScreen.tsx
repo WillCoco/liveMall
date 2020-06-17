@@ -29,7 +29,7 @@ const CreateLiveScreen = (props: any) => {
   /**
    * 修改标题
    */
-  const [title, setTitle] = React.useState('')
+  const [title, setTitle]: any = React.useState('')
 
   /**
    * 上传文件

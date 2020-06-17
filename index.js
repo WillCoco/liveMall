@@ -40,7 +40,9 @@ if (!__DEV__) {
 // 忽略警告
 YellowBox.ignoreWarnings([
   'Setting a timer',
+  // node_modules的循环引用
   'rn-fetch-blob',
+  'Require cycle: node_modules/rn-fetch-blob/index.js',
   // tim
   'on 接口的 handler 参数推荐使用具名函数',
   'UploadController._init 没有检测到上传插件'

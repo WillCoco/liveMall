@@ -10,12 +10,15 @@ import {
   TextInput,
   StyleProp,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
-import {scale, PrimaryText, SmallText} from 'react-native-normalization-text';
+import {scale, PrimaryText, SmallText, TinyText} from 'react-native-normalization-text';
 import {vw} from '../../utils/metric'
 import {Colors} from '../../constants/Theme';
 import { pad, radio } from '../../constants/Layout';
 import images from '../../assets/images';
+import { shortNum } from '../../utils/numeric';
+
 
 export type msgList = any[] | undefined;
 
@@ -33,6 +36,7 @@ interface LiveToolBarProps {
   onPressFilter: () => any,
   onPressLoginIm?: (v: any) => any,
   showLogin: boolean, // 是否显示登录
+  likeQuantity?: number, // 喜欢数
 }
 
 const LiveToolBar = (props: LiveToolBarProps) : any =>  {
@@ -50,12 +54,20 @@ const LiveToolBar = (props: LiveToolBarProps) : any =>  {
         props.showLogin ? (
           <View style={styles.loginWrapper}>
             <TouchableOpacity onPress={props.onPressLoginIm} style={styles.login}>
-              <PrimaryText color="white">登录聊天</PrimaryText>
+              <PrimaryText color="white">登录聊天</PrimaryText>··
             </TouchableOpacity>
           </View>
         ) : null
       }
       <View style={styles.cellsWrapper}>
+        <View style={{alignItems: 'center', justifyContent: 'center', paddingTop: 4}}>
+          <TinyText style={styles.likeQty}>{shortNum(props.likeQuantity || 0)}</TinyText>
+          <Animated.Image
+            source={images.liveLikeIcon}
+            style={StyleSheet.flatten([styles.img, {}])}
+            resizeMode="contain"
+          />
+        </View>
         <TouchableOpacity style={styles.cell} onPress={props.onPressFace}>
             <Image
               source={images.filterIcon}
@@ -127,5 +139,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.opacityDarkBg,
     borderRadius: radio
   },
+  likeQty: {
+    height: scale(14),
+    minWidth: scale(30),
+    lineHeight: scale(14),
+    // position: 'absolute',
+    // top: -scale(11),
+    color: '#fff',
+    backgroundColor: Colors.basicColor,
+    textAlign: 'center',
+    borderRadius: scale(7),
+    overflow: 'hidden',
+    marginBottom: -scale(5)
+  }
 })
 export default LiveToolBar;

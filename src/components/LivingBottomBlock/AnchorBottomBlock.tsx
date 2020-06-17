@@ -45,6 +45,9 @@ const LivingRoomScreen = (props: any) : any =>  {
   // const room = useSelector((state: any) => state?.im?.room);
   const livingInfo = useSelector((state: any) => state?.live?.livingInfo);
 
+  // 喜欢数量
+  const likeSum = useSelector((state: any) => +state?.live?.livingInfo?.likeSum || 0);
+
   // 获取成员是否禁言
   const getUserSilent = async (userID: string) => {
     const info: any = await dispatch(getGroupMemberProfile({userID})) || {};
@@ -64,7 +67,7 @@ const LivingRoomScreen = (props: any) : any =>  {
     return true;
   }
 
-   /**
+  /**
    * sdk准备好了吗
    */
   const isIMSDKReady = useSelector((state: any) => state?.im?.isIMSDKReady);
@@ -84,6 +87,7 @@ const LivingRoomScreen = (props: any) : any =>  {
       Toast.show('登录成功');
     }
   }
+
 
   // 观众
   return (
@@ -163,6 +167,7 @@ const LivingRoomScreen = (props: any) : any =>  {
         onPressFace={props.onPressFace}
         showLogin={!isIMSDKReady}
         onPressLoginIm={onPressLoginIm}
+        likeQuantity={likeSum || 0}
       />
     </View>
 

@@ -18,13 +18,14 @@ import {pad} from '../../../constants/Layout';
 import {LinearGradient} from 'expo-linear-gradient';
 import { apiAnchorHomePage } from '../../../service/api';
 import {setAnchorInfo} from '../../../actions/anchor';
-import {isWorkLiveNow, closeLive, anchorToLive} from '../../../actions/live';
+import {isWorkLiveNow, closeLive, anchorToLive, updateStarted} from '../../../actions/live';
 import {useDispatch, useSelector} from 'react-redux';
 import Mask from '../../../components/Mask';
 import usePermissions from '../../../hooks/usePermissions';
 import { shortNum } from '../../../utils/numeric';
 import { EMPTY_OBJ } from '../../../constants/freeze';
 import { isSucceed } from '../../../utils/fetchTools';
+import { Toast } from '../../../components/Toast';
 
 const PublishScreen = (props: any) =>  {
   const [maskList, maskDispatch] = React.useContext(Mask.context);
@@ -96,7 +97,12 @@ const PublishScreen = (props: any) =>  {
               }
               isIdle.current = false;
               const r2 = dispatch(anchorToLive({liveId}));
-              navigate('AnorchLivingRoomScreen', {groupID: groupId, liveId});
+              if (!!r2) {
+                // 开启推流
+                dispatch(updateStarted(true));
+                // 跳转
+                navigate('AnorchLivingRoomScreen', {isRecoverMode: true, groupID: groupId, liveId});
+              }
               return true;
             },
           }
@@ -115,6 +121,7 @@ const PublishScreen = (props: any) =>  {
         checkIsLiveNow();
       })
       .catch(console.warn)
+      
     }, [])
   ), [anchorInfo];
 
@@ -163,7 +170,7 @@ const PublishScreen = (props: any) =>  {
             btnText: '下一步',
             onPressSubmit: (goodsIdList: Array<string>) => {
               // 跳转到直播预览
-              navigate('CreateLiveScreen', {
+              navigate('AnorchLivingRoomScreen', {
                 goodsIdList
               });
             }

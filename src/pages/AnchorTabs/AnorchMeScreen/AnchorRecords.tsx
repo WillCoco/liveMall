@@ -23,7 +23,7 @@ import {
   Platform,
 } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
-import {PrimaryText, SmallText, T1} from 'react-native-normalization-text';
+import { PrimaryText, SmallText, T1, scale } from 'react-native-normalization-text';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import withPage from '../../../components/HOCs/withPage';
@@ -39,10 +39,18 @@ import share, {ShareType} from '../../../utils/share';
 import usePermissions from '../../../hooks/usePermissions';
 import RNFS from 'react-native-fs';
 import {Toast} from '../../../components/Toast';
+import ButtonRadius from '../../../components/Buttons/ButtonRadius';
 import {EMPTY_ARR, EMPTY_OBJ} from '../../../constants/freeze';
 import {isSucceed} from '../../../utils/fetchTools';
 import { updateLivingInfo } from '../../../actions/live';
 import { clearLiveRoom } from '../../../actions/im';
+
+// Linking.openURL('snssdk1128://user/profile/id') // 用户
+// Linking.openURL('snssdk1128://user/profile/6838829058927627008')
+// Linking.openURL('snssdk1128://user/profile/6838829058927627008')
+// Linking.openURL('snssdk1128://aweme/detail/6838525864615988494') // 作品
+Linking.openURL('snssdk1128://live?room_id=6838775517538487043') // 直播
+
 
 const RecordsCard = (props: {
   smallPic: any;
@@ -74,7 +82,7 @@ const RecordsCard = (props: {
         <Image source={images.iconPlay} style={styles.livePlayIcon} />
       </TouchableOpacity>
       <View style={styles.recordsDetail}>
-        <TouchableOpacity onPress={props.onPress} style={styles.detail}>
+        <View style={styles.detail}>
           <PrimaryText
             color="emphasis"
             style={styles.liveTitle}
@@ -94,10 +102,19 @@ const RecordsCard = (props: {
               {props.addFavourite || 0}
             </SmallText>
           </View>
-          <SmallText color="grey" style={styles.liveTime}>
-            {props.startTime}
-          </SmallText>
-        </TouchableOpacity>
+          <View style={styles.row}>
+            <SmallText color="grey" style={styles.liveTime}>
+              {props.startTime}
+            </SmallText>
+            <ButtonRadius
+              text="回放"
+              size={20}
+              onPress={props.onPress}
+              style={{width: 50, backgroundColor: Colors.pinkColor}}
+              textStyle={{fontSize: scale(11), color: Colors.basicColor}}
+            />
+          </View>
+        </View>
         <View
           style={{
             flexDirection: 'row',
@@ -130,9 +147,13 @@ const RecordsCard = (props: {
               下载
             </T1>
           </TouchableOpacity>
-          <SmallText style={styles.status} onPress={props.onPress}>
-            回放
-          </SmallText>
+          <ButtonRadius
+            text="删除"
+            size={20}
+            onPress={props.onPressRemove}
+            style={{width: 50}}
+            textStyle={{fontSize: scale(11)}}
+          />
         </View>
       </View>
     </View>
@@ -369,7 +390,6 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGrey,
   },
   liveTime: {
-    marginTop: pxToDp(pad * 2),
   },
   operationButton: {
     fontSize: pxToDp(24),
@@ -395,6 +415,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,50,27,0.1)',
     // borderWidth: 1 / PixelRatio.get()
   },
+  row: {
+    marginTop: pxToDp(pad * 2),
+    flexDirection: 'row',
+    alignItems: 'center',
+  }
 });
 
 export default connect((state: any) => state.anchorData)(

@@ -28,9 +28,10 @@ import { Toast } from '../../components/Toast';
 import LivingFaceCard from '../../components/LivingFaceCard';
 import Poller from '../../utils/poller';
 import { getLiveViewNum } from '../../actions/live';
-
 import * as WeChat from 'react-native-wechat-lib'
 import { wxUserName } from '../../config/config';
+import useLiveLike from '../../hooks/useLiveLike';
+
 
 interface LiveWindowProps {
   style?: StyleProp<any>,
@@ -55,6 +56,12 @@ const LiveWindow = (props: LiveWindowProps) : any =>  {
 
   console.log(props, 'useNavigation()useNavigation()useNavigation()')
   const dispatch = useDispatch();
+
+  /**
+   * 获取喜欢
+   */
+
+  const {likeSum} = useLiveLike(liveId);
 
   /**
    * 商品卡
